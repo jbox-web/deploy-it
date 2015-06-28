@@ -1,0 +1,19 @@
+- html_title t('label.user.plural'), @user
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    %ul{ class: 'nav nav-tabs', role: 'tablist' }
+      = navigation_tab label_with_icon(t('label.user.settings'), 'fa-gear'), '#user-settings', '#user-settings', active: true
+      = navigation_tab label_with_icon(t('label.user.applications'), 'fa-desktop'), '#user-applications', '#user-applications'
+      = navigation_tab label_with_icon(t('label.user.ssh_keys'), 'octicon octicon-key'), admin_user_public_keys_path(@user), '#user-ssh-keys', remote: true, class: 'buggy'
+
+    %div{ class: 'tab-content' }
+      #user-settings{ class: 'tab-pane active' }= render partial: 'admin/users/edit_tabs/settings', locals: { user: @user }
+      #user-applications{ class: 'tab-pane' }= render partial: 'admin/users/edit_tabs/memberships', locals: { user: @user }
+      #user-ssh-keys{ class: 'tab-pane' }
+
+= javascript_tag do
+  setBootstrapSwitch('#user-settings');

@@ -1,0 +1,40 @@
+%div{ class: 'col-md-6' }
+
+  %h4{ class: 'page-header' }= label_with_icon(t('label.repository.distant'), 'fa-cloud-download', fixed: true)
+
+  %dl{ class: 'dl-horizontal' }
+
+    %dt= t('label.repository.url') + ' :'
+    %dd= link_to_repository repository.url
+
+    %dt= t('label.repository.state') + ' :'
+    %dd
+      - if repository.syncable?
+        - if repository.synced?
+          %span{ class: 'label label-success' }= label_with_icon(t('label.repository.synced'), 'fa-check', fixed: true)
+        - else
+          %span{ class: 'label label-warning' }
+            = link_to label_with_icon(t('label.repository.syncable'), 'fa-refresh', fixed: true),
+                      synchronize_repository_application_path(repository.application),
+                      remote: true,
+                      title:  render_commit_distance(repository.commit_distance)
+      - else
+        %span{ class: 'label label-danger' }= label_with_icon(t('label.repository.not_syncable'), 'fa-exclamation-triangle', fixed: true)
+        %em= repository.rugged_errors.join(' ')
+
+    %dt= t('label.repository.last_commit') + ' :'
+    %dd
+      - if repository.empty?
+        = t('label.repository.empty')
+      - else
+        = t('label.repository.commit_id') + ' : '
+        = repository.last_commit
+        %br
+        = t('label.repository.commit_date') + ' : '
+        = l(repository.last_commit_date)
+        %br
+        = t('label.repository.commit_author') + ' : '
+        = mail_to repository.last_commit_author_mail, repository.last_commit_author_name
+        %br
+        = t('label.repository.commit_message') + ' : '
+        = repository.last_commit_message

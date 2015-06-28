@@ -1,0 +1,13 @@
+$font-family-sans-serif: Ubuntu;
+$navbar-default-bg: #00a2a4;
+$navbar-default-border: lighten($navbar-default-bg,6.5%);
+
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: #000;
+$navbar-default-link-active-color: #fff;
+$navbar-default-brand-hover-color: $navbar-default-link-hover-color;
+
+$link-color: #00a2a4;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";

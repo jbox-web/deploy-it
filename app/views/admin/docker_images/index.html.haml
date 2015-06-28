@@ -1,0 +1,22 @@
+- html_title t('label.docker_image.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_docker_image_path
+
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= DockerImage.human_attribute_name('name')
+          %th= DockerImage.human_attribute_name('description')
+          %th
+
+      %tbody
+        - @docker_images.each do |docker_image|
+          %tr
+            %td= link_to docker_image.name, edit_admin_docker_image_path(docker_image)
+            %td= docker_image.description
+            %td{ class: 'text-right' }= button_delete admin_docker_image_path(docker_image), class: 'btn-sm'

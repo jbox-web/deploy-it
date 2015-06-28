@@ -1,0 +1,16 @@
+= f.text_field :login, required: true, disabled: !@user.new_record?
+
+= f.text_field :firstname, required: true
+= f.text_field :lastname, required: true
+
+= f.email_field :email, required: true
+
+= f.select :language, available_locales
+
+= f.time_zone_select :time_zone, nil, { default: "Paris" }
+
+= f.form_group :admin, label: { text: t('label.user.admin') }, class: 'shifted' do
+  = f.check_box :admin, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
+= f.form_group :enabled, label: { text: t('label.user.enabled') }, class: 'shifted' do
+  = f.check_box :enabled, class: 'bootstrap-switch', data: { size: 'small' }, label: ''

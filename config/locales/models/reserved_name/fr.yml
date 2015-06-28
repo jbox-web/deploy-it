@@ -1,0 +1,29 @@
+fr:
+
+  label:
+    reserved_name:
+      single: Nom réservé
+      plural: Noms réservés
+      new: Nouveau nom réservé
+
+  notice:
+    reserved_name:
+      created: Nom réservé créé avec succès
+      updated: Nom réservé mis à jour avec succès
+      deleted: Nom réservé supprimé avec succès
+
+  activerecord:
+    models:
+      reserved_name: Nom réservé
+
+    attributes:
+      reserved_name:
+        name: Nom
+
+    errors:
+      models:
+        reserved_name:
+          attributes:
+            name:
+              blank: ne peut être nul
+              taken: déjà pris

@@ -1,0 +1,20 @@
+fr:
+
+  activerecord:
+    models:
+      build: déploiement
+
+    attributes:
+      build:
+        state: Etat
+        release_id: Version
+
+    errors:
+      models:
+        build:
+          attributes:
+            base:
+              cannot_get_lock: "Déploiement annulé : impossible d'obtenir le verrou!"
+              invalid: "Déploiement invalide : %{error}"
+            release_id:
+              blank: ne peut être nul

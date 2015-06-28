@@ -1,0 +1,35 @@
+#application{ class: 'settings' }
+
+  .settings-head{ onclick: "showSettings('#settings-application'); return false;" }
+    %h4{ class: 'page-header' }= label_with_icon(t('label.global_settings'), 'fa-sliders', fixed: true)
+
+  #settings-application
+
+    .flash-messages
+
+    = bootstrap_form_for application,
+                         layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-5 col-md-4',
+                         url:    application_path(application),
+                         html:   { method: :patch, remote: true } do |f|
+
+      = f.text_field :name, required: true
+      = f.text_field :identifier,  required: true, disabled: true
+      = f.text_field :domain_name, required: true
+
+      = f.collection_select :application_type_id, ApplicationType.all, :id, :to_s, prompt: true
+      = f.select :instance_number, max_instances_available, required: true
+
+      = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8'
+
+      = f.form_group :use_cron, label: { text: t('label.application.enable_cron') }, class: 'shifted' do
+        = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
+      = f.form_group :use_ssl, label: { text: t('label.application.ssl_mode') }, class: 'shifted' do
+        = f.check_box :use_ssl, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
+      = f.form_group :debug_mode, label: { text: t('label.application.debug_mode') }, class: 'shifted' do
+        = f.check_box :debug_mode, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
+      .form-group
+        %div{ class: 'col-sm-offset-3 col-sm-3' }
+          = button_submit t('button.save')

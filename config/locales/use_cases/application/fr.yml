@@ -1,0 +1,37 @@
+fr:
+
+  use_cases:
+    application:
+      build:
+        start: "Application '%{application}' en cours de construction ..."
+        success: "Construction de l'application '%{application}' réussie !"
+        failed: "Echec de la construction de l'application '%{application}' : %{errors}"
+      start:
+        start: "Application '%{application}' en cours de démarrage ..."
+        success: "Démarrage de l'application '%{application}' réussi !"
+      stop:
+        start: "Application '%{application}' en cours d'arrêt ..."
+        success: "Arrêt de l'application '%{application}' réussi !"
+      restart:
+        start: "Application '%{application}' en cours de redémarrage ..."
+        success: "Redémarrage de l'application '%{application}' réussi !"
+      pause:
+        start: "Application '%{application}' en cours de mise en pause ..."
+        success: "Mise en pause de l'application '%{application}' réussie !"
+      unpause:
+        start: "Application '%{application}' en cours de sortie de pause ..."
+        success: "Sortie de pause de l'application '%{application}' réussie !"
+      export:
+        start: "Application '%{application}' en cours d'export ..."
+        success: "Export de l'application '%{application}' réussi !"
+      destroy:
+        start: "Application '%{application}' en cours de destruction ..."
+        success: "Destruction de l'application '%{application}' réussie !"
+      update_files:
+        start: "Mise à jour des fichiers de l'application '%{application}' en cours..."
+        success: "Mise à jour des fichiers de l'application '%{application}' réussie !"
+        failed: "Echec de la mise à jour des fichiers de l'application '%{application}' : %{errors}"
+      create_physical_database:
+        start: "Création de la base de données de l'application '%{application}' en cours..."
+        success: "Création de la base de données de l'application '%{application}' réussie !"
+        failed: "Echec de la création de la base de données de l'application '%{application}' : %{errors}"

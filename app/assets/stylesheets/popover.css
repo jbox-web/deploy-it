@@ -1,0 +1,16 @@
+.popover {
+  color: #000;
+  width: 250px;
+}
+
+.popover-content {
+  font-size: 12px;
+}
+
+.popover-content > ul {
+  margin-bottom: 0px;
+}
+
+.popover-content > ul > li {
+  line-height: 1.6em;
+}

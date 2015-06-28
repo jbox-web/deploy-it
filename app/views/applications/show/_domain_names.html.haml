@@ -1,0 +1,28 @@
+%div{ class: 'col-md-12' }
+
+%hr
+
+%h4{ class: 'page-header' }= label_with_icon(t('label.domain_name.plural'), 'fa-random', fixed: true)
+
+- if application.domain_names.any?
+  .row
+    %div{ class: 'col-md-6' }
+      - if application.domain_aliases.any?
+        %ul{ class: 'list-group' }
+          %li{ class: 'list-group-item' }= t('label.domain_name.aliases')
+          %ul{ class: 'list-group' }
+            - application.domain_aliases.each do |domain_alias|
+              %li{ class: 'list-group-item' }
+                %span{ class: 'mount-point' }= domain_alias.domain_name
+
+    %div{ class: 'col-md-6' }
+      - if application.domain_redirects.any?
+        %ul{ class: 'list-group' }
+          %li{ class: 'list-group-item' }= t('label.domain_name.redirects')
+          %ul{ class: 'list-group' }
+            - application.domain_redirects.each do |domain_redirect|
+              %li{ class: 'list-group-item' }
+                %span{ class: 'mount-point' }= domain_redirect.domain_name
+
+- else
+  .alert{ class: 'alert-info dont-dismiss' }= t('label.domain_name.none_defined')

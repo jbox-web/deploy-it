@@ -1,0 +1,7 @@
+%hr
+%h4{ class: 'page-header' }= t('label.platform.destroy')
+= link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
+          admin_platform_path(platform),
+          method: :delete,
+          data: { confirm: t('text.are_you_sure') },
+          class: "btn btn-danger"

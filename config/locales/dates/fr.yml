@@ -1,0 +1,102 @@
+fr:
+
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+
+    abbr_day_names:
+    - Dim
+    - Lun
+    - Mar
+    - Mer
+    - Jeu
+    - Ven
+    - Sam
+
+    abbr_month_names:
+    - Jan
+    - Fev
+    - Mar
+    - Avr
+    - Mai
+    - Juin
+    - Juil
+    - Aout
+    - Sept
+    - Oct
+    - Nov
+    - Dec
+
+    day_names:
+    - Dimanche
+    - Lundi
+    - Mardi
+    - Mercredi
+    - Jeudi
+    - Vendredi
+    - Samedi
+
+    month_names:
+    - Janvier
+    - Février
+    - Mars
+    - Avril
+    - Mai
+    - Juin
+    - Juillet
+    - Août
+    - Septembre
+    - Octobre
+    - Novembre
+    - Décembre
+
+    order:
+    - :year
+    - :month
+    - :day
+
+  datetime:
+
+    distance_in_words:
+
+      about_x_hours:
+        one: il y a 1 heure
+        other: il y a %{count} heures
+      about_x_months:
+        one: il y a 1 mois
+        other: il y a %{count} mois
+      about_x_years:
+        one: il y a 1 an
+        other: il y a %{count} ans
+
+      less_than_x_minutes:
+        one: il y a moins d'une minute
+        other: il y a moins de %{count} minutes
+      less_than_x_seconds:
+        one: il y a moins d'une seconde
+        other: il y a moins de %{count} secondes
+
+      almost_x_years:
+        one: environ 1 an
+        other: environ %{count} ans
+
+      over_x_years:
+        one: il y a plus d'un an
+        other: il y a plus de %{count} ans
+
+      x_days: "Il y a %{count} jours"
+      x_minutes: "Il y a %{count} minutes"
+      half_a_minute: il y a moins d'une minute
+
+    prompts:
+      minute: Minute
+      second: Seconde
+      hour: Heure
+      day: Jour
+      week: Semaine
+      month: Mois
+      year: Année

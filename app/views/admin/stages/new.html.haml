@@ -1,0 +1,16 @@
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    = bootstrap_form_for @stage,
+                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-3",
+                         url:    admin_platform_stages_path(@platform),
+                         html:   { method: :post } do |f|
+
+      = render partial: 'form', locals: { f: f, stage: @stage }
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-3' }
+          = button_submit t('button.create')
+          = button_cancel admin_platforms_path

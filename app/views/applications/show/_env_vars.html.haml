@@ -1,0 +1,20 @@
+%div{ class: 'col-md-6' }
+  %hr
+
+  %h4{ class: 'page-header' }= label_with_icon(t('label.env_var.plural'), 'fa-list-ul', fixed: true)
+
+  - if application.env_vars.any?
+    - application.sorted_env_vars.each do |step, env_vars|
+      - if env_vars.any?
+        %ul{ class: 'list-group' }
+          %li{ class: 'list-group-item' }
+            = t('label.env_var.step') + ' :'
+            %span{ class: 'label label-info' }= step
+
+          %ul{ class: 'list-group' }
+            - env_vars.each do |env_var|
+              %li{ class: 'list-group-item' }
+                %span{ class: 'mount-point' }
+                  = render_env_var(env_var)
+  - else
+    .alert{ class: 'alert-info dont-dismiss' }= t('label.env_var.none_defined')

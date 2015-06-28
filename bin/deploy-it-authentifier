@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+STDOUT.sync = true
+STDERR.sync = true
+
+## Include Libs
+require_relative '../lib/deploy_it/utils'
+
+#########
+## MAIN #
+#########
+
+def get_user_authorization(login, fingerprint, repo_name)
+  # Build auth url
+  auth_server = ENV["AUTHENTICATION_SERVER"] || "http://127.0.0.1:3000"
+  auth_path   = '/deploy_it/auth'
+  auth_url    = File.join(auth_server, auth_path)
+  data = { login: login, fingerprint: fingerprint, repo_name: repo_name }
+  failed, message = DeployIt::Utils.post_data(auth_url, data)
+  failed ? { 'auth' => { 'passed' => false, 'messages' => [message] } } : message
+end
+
+## This is the main entry point called from ~/.ssh/authorized_keys
+## It passes 2 args :
+## @argv[0] = user login
+## @argv[1] = ssh key fingerprint
+## SSH_ORIGINAL_COMMAND is available as environment variable
+
+login        = ARGV[0]
+fingerprint  = ARGV[1]
+repo_name    = DeployIt::Utils.parse_repository_from_ssh_command
+
+token = get_user_authorization(login, fingerprint, repo_name)
+
+if token['auth']['passed']
+  # Get original Git command
+  git_command = DeployIt::Utils.parse_git_command_from_ssh_command
+
+  # Get repo path
+  repo_path = token['auth']['repo_path']
+
+  # Get user id
+  user_id   = token['auth']['user_id']
+
+  # Build new command with container's repository path
+  command = "#{git_command} '#{repo_path}'"
+
+  # Switch process and pass the hand to git-shell
+  exec("env", "USER_ID=#{user_id}", "git-shell", "-c", command)
+else
+  $stderr.puts ''
+  token['auth']['messages'].each do |message|
+    $stderr.puts "[ERROR] #{message}"
+  end
+  $stderr.puts ''
+end

@@ -1,0 +1,29 @@
+fr:
+
+  label:
+    platform_credential:
+      plural: "Clés d'accès"
+      single: "Clé d'accès"
+      desc: "Les serveurs doivent donner accès à la clé publique suivante"
+      none_defined: Aucune clé d'accès définie
+
+  activerecord:
+    attributes:
+      platform_credential:
+        public_key: Clé publique
+        private_key: Clé privée
+        fingerprint: Empreinte
+
+    models:
+      platform_credential: "Clés d'accès"
+
+    errors:
+      models:
+        platform_credential:
+          attributes:
+            public_key:
+              blank: ne peut être vide
+            private_key:
+              blank: ne peut être vide
+            fingerprint:
+              blank: ne peut être vide

@@ -1,0 +1,23 @@
+<% html_title t('label.signup') %>
+
+%h3{ class: 'page-header' }= label_with_icon(t('label.signup'), 'fa-edit', fixed: true)
+
+= bootstrap_form_for resource,
+                     layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-3",
+                     url:    user_registration_path,
+                     html:   { method: :post } do |f|
+
+  = f.text_field :login, autofocus: true
+  = f.email_field :email, autofocus: true
+  = f.password_field :password, autocomplete: "off"
+
+  - if @validatable
+    = @minimum_password_length + ' characters minimum'
+
+  %br
+
+  = f.password_field :password_confirmation, autocomplete: "off"
+
+  .form-group
+    %div{ class: 'col-sm-offset-2 col-sm-3' }
+      = f.submit t('button.signup'), class: 'btn btn-success'

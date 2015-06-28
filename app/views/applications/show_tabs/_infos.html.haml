@@ -1,0 +1,16 @@
+.row
+  %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
+    .row
+      = render 'applications/show/infos',   { application: application }
+      = render 'applications/show/members', { application: application }
+
+.row
+  %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
+    .row
+      = render 'applications/show/domain_names', { application: application }
+
+.row
+  %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
+    .row
+      = render 'applications/show/env_vars', { application: application }
+      = render 'applications/show/mount_points', { application: application }

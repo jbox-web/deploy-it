@@ -1,0 +1,20 @@
+fr:
+
+  activemodel:
+    attributes:
+      credential_creation_form:
+        type: Type de clé
+        name: Nom
+        create_options: Options de création
+        login: Login
+        password: Mot de passe
+        public_key: Clé publique
+        private_key: Clé privée
+
+    errors:
+      models:
+        credential_creation_form:
+          attributes:
+            create_options:
+              blank: ne peut être vide
+              inclusion: vous devez choisir

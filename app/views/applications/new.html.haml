@@ -1,0 +1,29 @@
+- html_title t('label.application.new')
+
+#new-application
+  .row
+    %div{ class: 'col-md-12' }
+
+      %h3{ class: 'page-header' }= render_crumbs
+
+      .row
+        %div{ class: 'col-sm-offset-1 col-sm-1O col-md-offset-1 col-md-10' }
+          = bootstrap_form_for @application,
+                               layout: :horizontal, label_col: "col-sm-3 col-md-4 col-lg-3", control_col: "col-sm-7 col-md-7 col-lg-6",
+                               url:    applications_path,
+                               html:   { method: :post, remote: true } do |f|
+
+            = f.errors_on :deploy_url
+            = f.errors_on :db_name
+            = f.errors_on :db_user
+
+            %h4= render_step_counter(@application)
+
+            = render "applications/creation_steps/#{@application.current_step}", { f: f, application: @application }
+
+            .form-group
+              %div{ class: 'col-sm-offset-3 col-sm-7 col-md-offset-4 col-md-7 col-lg-offset-3 col-lg-4' }
+                = button_continue unless @application.last_step?
+                = button_submit t('button.create') if @application.last_step?
+                = button_back unless @application.first_step?
+                = button_cancel applications_path if @application.first_step?

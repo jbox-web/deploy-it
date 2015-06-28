@@ -1,0 +1,72 @@
+# DeployIt - Docker containers management software
+# Copyright (C) 2015 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com)
+#
+# This code is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License, version 3,
+# as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License, version 3,
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+require File.expand_path('../boot', __FILE__)
+
+require 'rails/all'
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module DeployIt
+  class Application < Rails::Application
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration should go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded.
+
+    # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/plugins)
+
+    # ActiveRecord config
+    config.active_record.store_full_sti_class = true
+    config.active_record.raise_in_transactional_callbacks = true
+
+    # ActiveJob config
+    config.active_job.queue_adapter = :sidekiq
+
+    # Configure sensitive parameters which will be filtered from the log file.
+    config.filter_parameters += [:password]
+
+    # Cookie / Session config
+    config.action_dispatch.cookies_serializer = :json
+    config.session_store :cookie_store, key: '_deploy-it_session'
+
+    # Assets
+    config.assets.precompile += %w( )
+    config.assets.version = '1.0'
+
+    # Locales
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+    config.i18n.default_locale = :fr
+    config.i18n.available_locales = [:en, :fr]
+
+    # Log Level
+    config.log_level = :info
+    config.paths['log'] = File.join(ENV['LOG_DIR'], "#{ENV['RAILS_ENV']}.log")
+
+    # Generators
+    config.generators do |g|
+      g.orm :active_record
+    end
+
+    # Timezone
+    config.time_zone = 'Paris'
+  end
+end
+
+# https://github.com/rails/rails/issues/19880
+Figaro.load

@@ -1,0 +1,36 @@
+upstream {{ APPLICATION_NAME }} {
+{% for item in BACKEND_URLS %}
+  server {{ item.strip() }};
+{% endfor %}
+}
+
+server {
+  server_name   {{ DOMAIN_NAME }} {% if DOMAIN_ALIASES != None %}{% for item in DOMAIN_ALIASES -%} {{ item.strip() }} {% endfor %}{% endif %};
+
+{% if USE_SSL == False %}
+  listen        0.0.0.0:80;
+{% else %}
+  listen        0.0.0.0:443;
+
+  ssl on;
+  ssl_certificate           /etc/nginx/ssl-certificates/{{ APPLICATION_NAME }}/server.crt;
+  ssl_certificate_key       /etc/nginx/ssl-certificates/{{ APPLICATION_NAME }}/server.key;
+{% endif %}
+
+  location / {
+    include /etc/nginx/snippets/deploy-it.conf;
+    proxy_pass http://{{ APPLICATION_NAME }};
+  }
+}
+
+{% if DOMAIN_REDIRECTS is defined and DOMAIN_REDIRECTS|length != 0 or USE_SSL == True %}
+server {
+  server_name   {% if USE_SSL == True %}{{ DOMAIN_NAME }}{% endif %} {% if DOMAIN_REDIRECTS is defined and DOMAIN_REDIRECTS|length != 0 %}{% for item in DOMAIN_REDIRECTS -%} {{ item.strip() }} {% endfor %}{% endif %};
+  listen        0.0.0.0:80;
+{% if USE_SSL == True %}
+  return 301 https://{{ DOMAIN_NAME }}$request_uri;
+{% else %}
+  return 301 http://{{ DOMAIN_NAME }}$request_uri;
+{% endif %}
+}
+{% endif %}

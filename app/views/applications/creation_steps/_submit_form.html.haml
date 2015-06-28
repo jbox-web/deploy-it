@@ -1,0 +1,61 @@
+.panel{ class: 'panel-default' }
+  %table{ class: 'table' }
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('platform') + ' :'
+      %td= application.platform
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('stage') + ' :'
+      %td= application.stage
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('identifier') + ' :'
+      %td= application.identifier
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('deploy_url') + ' :'
+      %td= application.deploy_url
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('image_type') + ' :'
+      %td= application.image_type
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('buildpack') + ' :'
+      %td= link_to application.buildpack, application.buildpack
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('domain_name') + ' :'
+      %td= application.domain_name
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('temp_db_type') + ' :'
+      %td= application.temp_db_type
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('temp_db_name') + ' :'
+      %td= application.temp_db_name
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('temp_db_user') + ' :'
+      %td= application.temp_db_user
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('repository_url') + ' :'
+      %td= application.repository_url
+
+    %tr
+      %td{ class: 'col-sm-4 text-right' }
+        %strong= Application.human_attribute_name('repository_branch') + ' :'
+      %td= application.repository_branch

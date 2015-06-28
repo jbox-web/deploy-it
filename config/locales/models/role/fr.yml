@@ -1,0 +1,40 @@
+fr:
+
+  label:
+    role:
+      single: Rôle
+      plural: Rôles
+      new: Nouveau rôle
+      update: Modifier les rôles
+      none_defined: Aucun rôle défini
+      permissions_report: Synthèse des permissions
+      permissions: Permissions
+      non_member: Non membre
+      anonymous: Anonyme
+
+  notice:
+    role:
+      created: Rôle créé avec succès
+      updated: Rôle modifié avec succès
+      deleted: Rôle supprimé avec succès
+
+    roles:
+      updated: Rôles modifiés avec succès
+
+  activerecord:
+    models:
+      role: rôle
+
+    attributes:
+      role:
+        name: Nom
+
+    errors:
+      models:
+        role:
+          attributes:
+            base:
+              undeletable: "Cette rôle est utilisé par les %{object_name}(s): %{list}"
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé

@@ -1,0 +1,12 @@
+= link_to label_with_icon(t('button.edit'), 'fa-edit'),
+          edit_admin_platform_path(platform)
+
+%div{ id: "platform-#{platform.to_id}-key" }= render 'admin/platforms/credential', { credential: platform.credential }
+
+%hr
+
+%div{ id: "platform-#{platform.to_id}-servers" }= render 'admin/servers/index', { platform: platform, servers: platform.servers }
+
+%hr
+
+%div{ id: "platform-#{platform.to_id}-stages" }= render 'admin/stages/index', { platform: platform, stages: platform.stages }

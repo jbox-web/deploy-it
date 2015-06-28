@@ -1,0 +1,21 @@
+fr:
+
+  activemodel:
+    attributes:
+      credential_update_form:
+        name: Nom
+        login: Login
+        password: Mot de passe
+        public_key: Clé publique
+        private_key: Clé privée
+
+    errors:
+      models:
+        credential_update_form:
+          attributes:
+            name:
+              blank: ne peut être vide
+            login:
+              blank: ne peut être vide
+            password:
+              blank: ne peut être vide

@@ -1,0 +1,9 @@
+- html_title @status
+
+%h2= h @status
+
+- if @message.present?
+  %p{ id: 'errorExplanation'}= h @message
+
+%p
+  %a{ href: 'javascript:history.back()' }= t('button.back')

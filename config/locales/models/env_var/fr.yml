@@ -1,0 +1,42 @@
+fr:
+
+  label:
+    env_var:
+      single: Variable d'environnement
+      plural: Variables d'environnement
+      add: Ajouter une variable d'environnement
+      key: Clé
+      value: Valeur
+      step: Etape
+      protected: Protégée
+      none_defined: Aucune variable d'environnement définie
+      restore_defaults: Restaurer les variables d'environnement par défaut
+
+  notice:
+    env_var:
+      updated: Variables d'environnement mises à jour
+      restored: Variables d'environnement par défaut restaurées
+
+  activerecord:
+    models:
+      env_var: variable d'environnement
+
+    attributes:
+      env_var:
+        key: Clé
+        value: Valeur
+        step: Etape
+        protected: Protégée
+
+    errors:
+      models:
+        env_var:
+          attributes:
+            key:
+              blank: ne peut être nulle
+              taken: déjà pris
+            value:
+              blank: ne peut être nulle
+            step:
+              blank: ne peut être nulle
+              inclusion: vous devez choisir

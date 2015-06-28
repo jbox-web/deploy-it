@@ -1,0 +1,21 @@
+.panel{ class: 'panel-default' }
+  .panel-heading= label_with_icon(language, 'fa-language')
+  .panel-body
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= ApplicationType.human_attribute_name('name')
+          %th= ApplicationType.human_attribute_name('version')
+          %th= ApplicationType.human_attribute_name('json_attributes')
+
+          %th{ colspan: '2' }
+
+      %tbody
+        - applications.each do |application_type|
+          %tr
+            %td= link_to application_type.name, edit_admin_application_type_path(application_type)
+            %td= application_type.version
+            %td= bool_to_icon application_type.has_extra_attributes?
+
+            %td= button_clone  clone_admin_application_type_path(application_type), class: 'btn-sm'
+            %td= button_delete admin_application_type_path(application_type), class: 'btn-sm'

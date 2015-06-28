@@ -1,0 +1,16 @@
+= f.text_field :name, required: false
+
+= f.text_field :identifier, required: false
+
+= f.collection_select :application_type_id, ApplicationType.all, :id, :to_s, prompt: true
+
+.form-group
+  %label{ class: 'control-label col-sm-3 col-md-4 col-lg-3', for: 'platform' }= t('label.platform.single')
+  %div{ class: 'col-sm-7 col-md-7 col-lg-6' }
+    = select_tag "platform", options_from_collection_for_select(Platform.all, :id, :name),
+                             prompt:   t('helpers.select.prompt'),
+                             class:    'form-control',
+                             onchange: "getValuesForSelect(this); return false;",
+                             data:     { 'update-url' => stages_admin_platforms_path }
+
+= f.collection_select :stage_id, Stage.by_name, :id, :name, prompt: true

@@ -1,0 +1,51 @@
+li.ssh-key {
+  line-height: 18px;
+  padding: 15px;
+  position: relative;
+}
+
+.ssh-key-details {
+  margin-right: 150px;
+  position: relative;
+}
+
+li.ssh-key .ssh-key-icon {
+  float: left;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 1px;
+  text-align: center;
+  width: 32px;
+}
+
+.ssh-key-title {
+  display: block;
+}
+
+.ssh-key-fingerprint {
+  color: #999;
+  font-weight: normal;
+}
+
+#ssh_key_public_key {
+  height: 100px;
+  font-family: monospace;
+}
+
+#ssh_key_private_key {
+  height: 300px;
+  font-family: monospace;
+}
+
+.minibutton {
+  line-height: 24px;
+  padding: 0 10px;
+}
+
+.public_key {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  width: 100%;
+}

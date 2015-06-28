@@ -1,0 +1,28 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp/*
+
+# Ignore test files
+/coverage
+/junit
+/turbulence
+
+# Ignore Figaro config file
+/config/application.yml
+
+# Ignore generated assets
+/public/assets
+
+# Gems in development
+/vendor/gems
+
+# Dev files
+/sidekiq_dev.sh
+/faye_dev.sh

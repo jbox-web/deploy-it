@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+STDOUT.sync = true
+STDERR.sync = true
+
+## Include Libs
+RAILS_ENV = ENV["RAILS_ENV"] ||= "production"
+require_relative '../config/environment'
+
+#########
+## MAIN #
+#########
+
+## This is the second entry point called from ~/repositories/<my_repo>/hooks/pre-receive
+## It passes 1 arg :
+## @argv[0] = repository
+
+## Set current user for this thread
+User.current = User.find_by_id(ENV['USER_ID'])
+
+## SSH_ORIGINAL_COMMAND is available as environment variable
+repo_name   = DeployIt::Utils.parse_repository_from_ssh_command
+application = Application.find_by_deploy_url(repo_name)
+repository  = application.distant_repo
+
+## Validate pushed data
+valid, build_refs = DeployIt::Utils.build_is_valid?(repository.local_branch)
+
+if valid
+  # First create push
+  push  = application.pushes.create(build_refs.merge(author: User.current))
+
+  # Create build request
+  build = application.create_build_request!(push, User.current)
+
+  # Call the BuildManager
+  task = BuildManager.new(build, async: false, logger: 'console')
+
+  if task.runnable?
+    task.run!
+    if !task.success?
+      DeployIt::Utils.display_errors_on_console(task.errors)
+      exit 1
+    end
+  else
+    DeployIt::Utils.display_errors_on_console(task.errors)
+    exit 1
+  end
+else
+  DeployIt::Utils.display_errors_on_console(["Deploy did not complete, you must push to '#{repository.local_branch}' branch !"])
+  exit 1
+end
+
+exit 0

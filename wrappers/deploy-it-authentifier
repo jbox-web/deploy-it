@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. /etc/container_environment.sh 2> /dev/null
+
+bundle exec $HOME/bin/deploy-it-authentifier "$@"

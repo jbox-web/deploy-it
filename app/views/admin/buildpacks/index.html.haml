@@ -1,0 +1,24 @@
+- html_title t('label.buildpack.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_buildpack_path
+
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= Buildpack.human_attribute_name('name')
+          %th= Buildpack.human_attribute_name('url')
+          %th= Buildpack.human_attribute_name('description')
+          %th
+
+      %tbody
+        - @buildpacks.each do |buildpack|
+          %tr
+            %td= link_to buildpack.name, edit_admin_buildpack_path(buildpack)
+            %td= buildpack.url
+            %td= buildpack.description
+            %td{ class: 'text-right' }= button_delete admin_buildpack_path(buildpack), class: 'btn-sm'

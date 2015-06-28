@@ -1,0 +1,9 @@
+fr:
+
+  activerecord:
+    errors:
+      models:
+        member_role:
+          attributes:
+            role:
+              blank: ne peut être nul

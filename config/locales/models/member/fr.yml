@@ -1,0 +1,17 @@
+fr:
+
+  label:
+    member:
+      single: Membre
+      plural: Membres
+      new: Nouveau membre
+      none_defined: Aucun membre
+
+  activerecord:
+    models:
+      member: membre
+
+    attributes:
+      member:
+        user_ids: Utilisateurs
+        role_ids: Rôles

@@ -1,0 +1,122 @@
+dl {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dl-horizontal dt {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.dl-horizontal dd {
+  padding-top: 5px;
+}
+
+.dl-small dt {
+  width: 100px;
+}
+
+.dl-small dd {
+  margin-left: 110px;
+}
+
+.dl-big dt {
+  width: 240px;
+}
+
+.dl-big dd {
+  margin-left: 250px;
+}
+
+.dl-xl dt {
+  width: 280px;
+}
+
+.dl-xl dd {
+  margin-left: 290px;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+  background-color: #00a2a4;
+  border-color: #00a2a4;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  background-color: #008183;
+}
+
+.nav-tabs.centered > li,
+.nav-pills.centered > li {
+  float: none;
+  display: inline-block;
+  *display: inline; /* ie7 fix */
+  zoom: 1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs.centered {
+  text-align: center;
+}
+
+.nav-tabs > li.buggy {
+  margin-bottom: -4px;
+}
+
+.table tbody > tr > td.vert-align {
+  vertical-align: middle;
+}
+
+.vert-align .form-group {
+  margin-bottom: 0px;
+}
+
+.shifted div.checkbox label {
+  padding-left: 0px;
+}
+
+.pagination-sm {
+  margin: 0 0 10px;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.navmenu-nav {
+  margin-bottom: 0;
+}
+
+.panel-heading > h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 5px;
+}
+
+.label a {
+  color: #fff;
+}
+
+tt, code, pre {
+  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  font-size: 12px;
+}
+
+.contextual {
+  float: right;
+}
+
+.contextual-h3 {
+  margin-top: 25px;
+}
+
+.contextual-h4 {
+  margin-top: 2px;
+}

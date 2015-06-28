@@ -1,0 +1,50 @@
+fr:
+
+  label:
+    container:
+
+      single: Contenaire
+      plural: Contenaires
+
+      state: Etat du contenaire
+      current_server: Serveur actuel
+
+      start: Démarrer le contenaire
+      stop: Arrêter le contenaire
+      pause: Mettre en pause le contenaire
+      restart: Redémarrer le contenaire
+      unpause: Sortir le contenaire de pause
+
+      running: Démarré
+      stopped: Arrêté
+      paused: En pause
+
+      running_containers: Démarrés
+      stopped_containers: Arrêtés
+      paused_containers: En pause
+
+      docker_id: Identifiant Docker
+      docker_infos: Informations Docker
+      destroying: En cours de destruction
+
+      current_revision: Révision déployée
+      backend_url: URL du contenaire
+      uptime: Uptime
+
+  activerecord:
+    models:
+      container: contenaire
+
+    errors:
+      models:
+        container:
+          attributes:
+            application_id:
+              blank: ne peut être nul
+            server_id:
+              blank: ne peut être nul
+            release_id:
+              blank: ne peut être nul
+            type:
+              blank: ne peut être nul
+              inclusion: vous devez choisir

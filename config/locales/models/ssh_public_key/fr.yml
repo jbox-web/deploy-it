@@ -1,0 +1,36 @@
+fr:
+
+  label:
+    ssh_public_key:
+      single: Clé SSH
+      plural: Mes clés SSH
+      add: Ajouter une clé SSH
+      new: Nouvelle clé SSH
+      explanation: Déclarez vos clés SSH pour pouvoir pousser vos données dans les contenaires.
+
+  notice:
+    ssh_public_key:
+      created: Clé publique créée avec succès
+      deleted: Clé publique supprimée avec succès
+
+  activerecord:
+    models:
+      ssh_public_key: clé publique
+
+    attributes:
+      ssh_public_key:
+        title: Titre
+        key: Clé
+
+    errors:
+      models:
+        ssh_public_key:
+          attributes:
+            title:
+              blank: ne peut être nul
+            key:
+              blank: ne peut être nulle
+              corrupted: Clé SSH corrompue
+              in_use_by_you: "Cette clé est déjà utilisée par vous : %{name}"
+              in_use_by_other: "Cette clé (%{name}) est déjà utilisée par %{login}"
+              in_use_by_someone: Cette clé est déjà utilisée par quelqu'un

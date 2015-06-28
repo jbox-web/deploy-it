@@ -1,0 +1,20 @@
+fr:
+
+  activemodel:
+    attributes:
+      user_creation_form:
+        login: Login
+        firstname: Prénom
+        lastname: Nom
+        email: Email
+        language: Langue
+        time_zone: Fuseau horaire
+        create_options: Options du mot de passe
+        send_by_mail: Envoyer les informations à l'utilisateur par mail
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+
+    errors:
+      models:
+        user_creation_form:
+          attributes:

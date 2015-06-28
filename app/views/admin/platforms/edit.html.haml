@@ -1,0 +1,21 @@
+- html_title t('label.platform.plural'), @platform
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    = bootstrap_form_for @platform,
+                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4 col-md-4",
+                         url:    admin_platform_path(@platform),
+                         html:   { method: :patch } do |f|
+
+      = render partial: 'form', locals: { f: f, platform: @platform }
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-4' }
+          = button_submit t('button.update')
+          = button_cancel admin_platforms_path
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }= render partial: 'delete', locals: { platform: @platform }

@@ -1,0 +1,20 @@
+- html_title t('label.reserved_name.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_reserved_name_path
+
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= ReservedName.human_attribute_name('name')
+          %th
+
+      %tbody
+        - @reserved_names.each do |reserved_name|
+          %tr
+            %td= link_to reserved_name.name, edit_admin_reserved_name_path(reserved_name)
+            %td{ class: 'text-right' }= button_delete admin_reserved_name_path(reserved_name), class: 'btn-sm'

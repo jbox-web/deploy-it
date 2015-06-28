@@ -1,0 +1,18 @@
+---
+- hosts: "{{ HOST }}"
+  remote_user: "{{ USER }}"
+  port: "{{ PORT }}"
+  gather_facts: no
+
+  vars_files:
+    - "{{ CONTAINER_VARS }}"
+
+  tasks:
+
+  - name: "Destroy Postgres database : {{ DB_NAME }}"
+    postgresql_db: login_host=localhost name={{ DB_NAME }} state=absent
+    ignore_errors: True
+
+  - name: "Destroy Postgres database user : {{ DB_USER }}"
+    mysql_user: login_host=localhost name={{ DB_USER }} state=absent
+    ignore_errors: True

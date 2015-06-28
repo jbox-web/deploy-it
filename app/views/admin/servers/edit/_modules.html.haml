@@ -1,0 +1,46 @@
+%h4{ class: 'page-header' }= t('label.server_role.configuration')
+
+.flash-messages
+
+- if server.roles.any?
+
+  = bootstrap_nested_form_for server,
+                              layout: :horizontal, label_col: "col-sm-3 col-md-5", control_col: "col-sm-4 col-md-7",
+                              url:    update_roles_admin_platform_server_path(server.platform, server),
+                              html:   { method: :patch, remote: true } do |f|
+
+    - server.roles.by_role.in_groups_of(2, false) do |roles_row|
+
+      .row
+
+        = f.fields_for :roles, roles_row, wrapper: false do |ff|
+
+          %div{ class: 'col-md-6' }
+
+            %h4{ class: 'page-header' }= label_with_icon(ff.object.humanize, ff.object.to_icon, fixed: true)
+
+            - if ff.object.name == 'docker'
+              = ff.text_field :alternative_host, required: false
+              = ff.text_field :port, required: false
+              = ff.text_field :connection_timeout, required: false
+            - elsif ff.object.name == 'lb'
+              = ff.text_field :daemon_path, required: true
+            - elsif ff.object.name == 'log'
+              = ff.text_field :alternative_host, required: false
+              = ff.text_field :port, required: false
+            - else
+              = ff.text_field :daemon_path, required: true
+              = ff.text_field :alternative_host, required: false
+              = ff.text_field :port, required: false
+
+            = ff.form_group :default_server, label: { text: t('label.server_role.default_server') }, class: 'shifted' do
+              = ff.check_box :default_server, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
+    %br
+
+    .form-group
+      %div{ class: 'col-sm-3' }
+        = button_submit t('button.update')
+
+- else
+  .alert{ class: 'alert-info dont-dismiss' }= t('label.server_role.none_defined')

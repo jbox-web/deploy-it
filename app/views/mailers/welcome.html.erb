@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Welcome to Deploy'It, <%= @user.full_name %></h4>
+    <p>You have successfully signed up to Deploy'It !</p>
+    <p>Your username is : <strong><%= @user.login %></strong></p>
+    <p>Your password is : <strong><%= @password %></strong></p>
+    <p>To login to the site, just follow this link : <%= link_to @url, @url %>.</p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

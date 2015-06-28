@@ -1,0 +1,8 @@
+.row
+  %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
+    .row
+      = render 'applications/show/containers', { application: application }
+
+  %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
+    .row
+      = render 'applications/show/console',    { application: application }

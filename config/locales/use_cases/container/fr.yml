@@ -1,0 +1,24 @@
+fr:
+
+  use_cases:
+    container:
+      start:
+        start: "Contenaire '%{container}' en cours de démarrage ..."
+        success: "Démarrage du contenaire '%{container}' réussi !"
+        failed: "Echec du démarrage du contenaire '%{container}' : %{errors}"
+      stop:
+        start: "Contenaire '%{container}' en cours d'arrêt ..."
+        success: "Arrêt du contenaire '%{container}' réussi !"
+        failed: "Echec de l'arrêt du contenaire '%{container}' : %{errors}"
+      restart:
+        start: "Contenaire '%{container}' en cours de redémarrage ..."
+        success: "Redémarrage du contenaire '%{container}' réussi !"
+        failed: "Echec du redémarrage du contenaire '%{container}' : %{errors}"
+      pause:
+        start: "Contenaire '%{container}' en cours de mise en pause ..."
+        success: "Mise en pause du contenaire '%{container}' réussie !"
+        failed: "Echec de la mise en pause du contenaire '%{container}' : %{errors}"
+      unpause:
+        start: "Contenaire '%{container}' en cours de sortie de pause ..."
+        success: "Sortie de pause du contenaire '%{container}' réussie !"
+        failed: "Echec de sortie de pause du contenaire '%{container}' : %{errors}"

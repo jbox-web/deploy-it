@@ -1,0 +1,24 @@
+- html_title t('label.server.plural'), @server
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    .row
+      %div{ class: 'col-md-6' }
+        #server-settings= render partial: 'admin/servers/edit/settings', locals: { server: @server }
+
+      %div{ class: 'col-md-6' }
+        #server-roles= render partial: 'admin/servers/edit/roles', locals: { server: @server }
+
+    .row
+      %div{ class: 'col-md-12' }
+        #server-modules= render partial: 'admin/servers/edit/modules', locals: { server: @server }
+
+    .row
+      %div{ class: 'col-md-12' }
+        #server-delete= render partial: 'admin/servers/edit/delete', locals: { server: @server }
+
+= javascript_tag do
+  setBootstrapSwitch('#server-modules');

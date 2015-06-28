@@ -1,0 +1,34 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %title= h @html_title
+    = csrf_meta_tags
+    = google_webfonts_init({google: ['Ubuntu','Pacifico']})
+    = stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+  %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: get_application_id } }
+
+    #header
+      = nav_bar(fixed: :top, fluid: true, responsive: true, brand: t('the_jbox_deployer')) do
+        = topbar_menu_items
+
+    #main-content{ class: 'container-fluid' }
+      .row-fluid
+
+        - if User.current.logged?
+          = render_page_content(class: "col-md-9 col-sm-9")
+
+        - else
+          = render 'layouts/page'
+
+    - if User.current.logged?
+      #notifications{ style: 'display: none;', data: { url: my_notifications_path } }= render_user_subscribed_channels
+
+    #footer{ class: 'footer' }
+      .container
+        %p{ class: 'text-muted' }
+          &copy;
+          = link_to 'JBox Web', 'http://www.jbox-web.com'
+          2015

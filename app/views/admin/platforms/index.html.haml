@@ -1,0 +1,20 @@
+- html_title t('label.platform.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_platform_path
+
+    %ul{ class: 'nav nav-tabs', role: 'tablist' }
+      - @platforms.each do |platform|
+        - active = @platforms.first == platform ? true : false
+        = navigation_tab label_with_icon(platform.name, 'fa-sitemap'),
+                         "##{platform.to_id}", "##{platform.to_id}", active: active
+
+    %div{ class: 'tab-content' }
+      - @platforms.each do |platform|
+        - active = @platforms.first == platform ? 'active' : ''
+        %div{ class: "tab-pane #{active}", id: platform.to_id }
+          = render template: 'admin/platforms/show', locals: { platform: platform }

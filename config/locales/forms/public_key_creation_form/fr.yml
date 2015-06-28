@@ -1,0 +1,7 @@
+fr:
+
+  activemodel:
+    attributes:
+      public_key_creation_form:
+        title: Titre
+        key: Clé publique

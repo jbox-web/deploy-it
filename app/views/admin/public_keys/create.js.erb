@@ -1,0 +1,3 @@
+<%= js_render_partial('#user-ssh-keys', 'admin/public_keys/ssh_keys', locals: { user: @user, ssh_key_form: @ssh_key_form }) %>
+<%= render_flash_messages_as_js %>
+setUpdateUserForm();

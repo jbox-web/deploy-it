@@ -1,0 +1,94 @@
+.jumbotron h1 {
+  font-family: 'Pacifico';
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 160px;
+  margin-bottom: 60px;
+}
+
+hr {
+  border-color: #dddddd;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f8f8f8;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #e7e7e7;
+  overflow: hidden;
+}
+
+/*
+ * Sidebar
+ */
+#applications-navbar-sm {
+  top: 51px;
+  z-index: 1000;
+}
+
+#features-navbar-sm {
+  top: 102px;
+  z-index: 1000;
+}
+
+.offcanvas-sm.in {
+  top: 51px;
+}
+
+.main {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.navmenu-nav.dropdown-menu {
+  padding-left: 20px;
+}
+
+/* Hide for mobile, show later */
+.navmenu {
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+  .navmenu {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+.page-header {
+  margin-top: 20px;
+}
+
+#main-content {
+  padding-bottom: 30px;
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+}

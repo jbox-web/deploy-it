@@ -1,0 +1,38 @@
+fr:
+
+  label:
+    ssl_certificate:
+      single: Certificat SSL
+      reset: Réinitialiser le certificat SSL
+
+  notice:
+    ssl_certificate:
+      created: Certificat SSL créé avec succès
+      updated: Certificat SSL mis à jour avec succès
+      reseted: Certificat SSL réinitialisé
+
+  error:
+    ssl_certificate:
+      already_exists: Le certificat SSL ne peut être mis à jour
+
+  activerecord:
+    models:
+      ssl_certificate: Certificat SSL
+
+    attributes:
+      ssl_certificate:
+        ssl_crt: Fichier .crt
+        ssl_key: Fichier .key
+
+    errors:
+      models:
+        ssl_certificate:
+          attributes:
+            base:
+              key_match_cert: La clé SSL ne correspond pas au certificat
+            ssl_crt:
+              blank: ne peut être nul
+              corrupted: Certificat SSL corrompu
+            ssl_key:
+              blank: ne peut être nul
+              corrupted: Clé SSL corrompue

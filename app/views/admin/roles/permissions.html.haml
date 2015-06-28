@@ -1,0 +1,43 @@
+- html_title t('label.role.permissions_report')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    = form_tag(permissions_admin_roles_path) do
+      = hidden_field_tag 'permissions[0]', '', id: nil
+
+      %table{ class: 'table table-hover' }
+        %thead
+          %tr
+            %th= t('label.role.permissions')
+            - @roles.each do |role|
+              %th
+                = role.name
+                = button_select_all "toggleCheckboxesBySelector('input.role-#{role.id}'); return false;"
+
+        %tbody
+          - perms_by_module = @permissions.group_by {|p| p.project_module.to_s}
+          - perms_by_module.keys.sort.each do |mod|
+            - unless mod.blank?
+              %tr
+                %td
+                  %strong= l_or_humanize(mod, prefix: 'application.module.')
+
+                - @roles.each do |role|
+                  %td
+                    %strong= role.name
+
+            - perms_by_module[mod].each do |permission|
+              %tr{ class: "permission-#{permission.name}" }
+                %td
+                  = button_select_all "toggleCheckboxesBySelector('.permission-#{permission.name} input'); return false;"
+                  = l_or_humanize(permission.name, prefix: 'permission.')
+                - @roles.each do |role|
+                  %td
+                    - if role.setable_permissions.include? permission
+                      = check_box_tag "permissions[#{role.id}][]", permission.name, (role.permissions.include? permission.name), id: nil, class: "role-#{role.id}"
+
+      = button_submit t('button.save')
+      = button_cancel admin_roles_path

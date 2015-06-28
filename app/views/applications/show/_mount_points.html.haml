@@ -1,0 +1,22 @@
+%div{ class: 'col-md-6' }
+  %hr
+
+  %h4{ class: 'page-header' }= label_with_icon(t('label.mount_point.plural'), 'fa-download', fixed: true)
+
+  - if application.mount_points.any?
+    - application.sorted_mount_points.each do |step, mount_points|
+      - if mount_points.any?
+        %ul{ class: 'list-group' }
+          %li{ class: 'list-group-item' }
+            = t('label.mount_point.step') + ' :'
+            %span{ class: 'label label-info' }= step
+          %ul{ class: 'list-group' }
+            - mount_points.each do |mount_point|
+              - next if mount_point.source == '/run/mysqld/mysqld.sock'
+              - next if mount_point.source == 'log-files'
+              %li{ class: "list-group-item #{bool_to_css mount_point.active}" }
+                %span{ class: 'mount-point' }
+                  = bool_to_icon mount_point.active, title: t('label.mount_point.active')
+                  = mount_point
+  - else
+    .alert{ class: 'alert-info dont-dismiss' }= t('label.mount_point.none_defined')

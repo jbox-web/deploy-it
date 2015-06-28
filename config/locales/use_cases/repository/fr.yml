@@ -1,0 +1,16 @@
+fr:
+
+  use_cases:
+    repository:
+      resync:
+        start: "Synchronisation du dépôt '%{repository}' en cours..."
+        success: "Synchronisation du dépôt '%{repository}' réussie !"
+        failed: "Echec de la synchronisation du dépôt '%{repository}' : %{errors}"
+      clone:
+        start: "Clonage du dépôt '%{repository}' en cours..."
+        success: "Clonage du dépôt '%{repository}' réussie !"
+        failed: "Echec du clonage du dépôt '%{repository}' : %{errors}"
+      create_archive:
+        start: "Création de l'archive du dépôt '%{repository}' en cours..."
+        success: "Création de l'archive du dépôt '%{repository}' réussie !"
+        failed: "Echec de la création de l'archive du dépôt '%{repository}' : %{errors}"

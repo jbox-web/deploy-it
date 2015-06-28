@@ -1,0 +1,6 @@
+$("#console-output").empty();
+<%= render_flash_messages_as_js %>
+<%= subscribe_to("/console-streamer/#{@request_id}", include_js_tag: false) %>
+Danthes.subscribe('/console-streamer/<%= @request_id %>', function(data, channel) {
+  $("#console-output").append("<li>" + data.message + "</li>");
+});

@@ -1,0 +1,6 @@
+%ul{ class: 'list-unstyled list-inline' }
+  - ServerRole.jbox_role_modules.each do |role|
+    %li
+      - present server, ServerModuleActivationPresenter, role do |presenter|
+        %p{ class: 'text-center' }= presenter.module_link
+        %p{ class: 'text-center' }= presenter.module_status

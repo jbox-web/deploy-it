@@ -1,0 +1,5 @@
+base_locale: fr
+data:
+  read:
+    # read from namespaced files, e.g. simple_form.en.yml
+    - 'config/locales/**/*.yml'

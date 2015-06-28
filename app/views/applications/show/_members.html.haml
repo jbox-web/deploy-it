@@ -1,0 +1,11 @@
+%div{ class: 'col-md-6' }
+
+  %h4{ class: 'page-header' }= label_with_icon(t('label.member.plural'), 'fa-users', fixed: true)
+
+  - if application.users_by_role.any?
+    %dl{ class: 'dl-horizontal' }
+      - application.users_by_role.keys.sort.each do |role|
+        %dt= role.to_s + ' :'
+        %dd= application.users_by_role[role].uniq.sort.join(", ")
+  - else
+    .alert{ class: 'alert-warning dont-dismiss' }= t('label.member.none_defined')

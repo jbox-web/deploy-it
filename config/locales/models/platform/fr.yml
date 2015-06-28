@@ -1,0 +1,41 @@
+fr:
+
+  label:
+    platform:
+      single: Plateforme
+      plural: Plateformes
+      new: Nouvelle plateforme
+      status: Etat de la plateforme
+      status_ok: "Etat de la plateforme : OK"
+      status_errors: "Etat de la plateforme : Erreurs"
+      status_not_assigned: "Etat de la plateforme : Non assignée"
+      destroy: Supprimer la plateforme
+
+  notice:
+    platform:
+      created: Platforme créée avec succès
+      updated: Platforme modifiée avec succès
+      deleted: Platforme supprimée avec succès
+
+  activerecord:
+    models:
+      platform: plateforme
+
+    attributes:
+      platform:
+        name: Nom
+        identifier: Identifiant
+        description: Description
+
+    errors:
+      models:
+        platform:
+          attributes:
+            base:
+              undeletable: "Cette platforme est utilisée par les %{object_name}(s): %{list}"
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé
+            identifier:
+              blank: ne peut être nul
+              taken: déjà utilisé

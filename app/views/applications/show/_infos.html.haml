@@ -1,0 +1,25 @@
+%div{ class: 'col-md-6' }
+
+  %h4{ class: 'page-header' }= label_with_icon(t('label.settings'), 'fa-sliders', fixed: true)
+
+  %dl{ class: 'dl-horizontal dl-big' }
+    %dt= t('label.identifier') + ' :'
+    %dd= application.identifier
+
+    %dt= t('label.application_type.single') + ' :'
+    %dd= application.type
+
+    %dt= t('label.application.domain_name') + ' :'
+    %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'
+
+    %dt= t('label.application.use_cron') + ' :'
+    %dd= bool_to_icon application.use_cron?
+
+    %dt= t('label.application.use_ssl') + ' :'
+    %dd= bool_to_icon application.use_ssl?
+
+    %dt= t('label.application.debug_mode') + ' :'
+    %dd= bool_to_icon application.debug_mode?
+
+    %dt= t('label.application.instance_number') + ' :'
+    %dd= label_with_success_tag application.instance_number

@@ -1,0 +1,23 @@
+#servers{ class: 'row' }
+  %div{ class: 'col-md-12' }
+
+    %h4{ class: 'page-header' }
+      = label_with_icon(t('label.server.plural'), 'fa-server', fixed: true)
+      = button_add new_admin_platform_server_path(platform)
+      %small{ class: 'pull-right' }
+        (
+        = button_refresh 'getServerStatus(); return false;'
+        )
+
+    - servers.by_hostname.in_groups_of(3, false).each do |row_server|
+
+      .row
+
+        - row_server.each do |server|
+
+          %div{ class: 'col-md-4', id: "server-#{server.id}" }
+            - present server do |presenter|
+              %h4{ class: 'page-header' }= presenter.edit_link
+              = presenter.server_roles
+
+            .flash-messages

@@ -1,0 +1,27 @@
+---
+- hosts: "{{ HOST }}"
+  remote_user: "{{ USER }}"
+  port: "{{ PORT }}"
+  gather_facts: no
+
+  vars_files:
+    - "{{ CONTAINER_VARS }}"
+
+  vars:
+
+    NGINX_SITES_DIR:    '/etc/nginx/sites-enabled'
+    NGINX_TARGET_FILE:  "{{ NGINX_SITES_DIR }}/{{ APPLICATION_NAME }}.conf"
+
+
+  tasks:
+
+    ## Frontend : standard configuration (80)
+    - name: "Remove Nginx config file : {{ NGINX_TARGET_FILE }}"
+      file: state=absent dest={{ NGINX_TARGET_FILE }}
+      notify:
+        - reload nginx
+
+  handlers:
+
+    - name: reload nginx
+      command: /etc/init.d/nginx reload

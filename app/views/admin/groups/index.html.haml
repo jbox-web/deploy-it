@@ -1,0 +1,26 @@
+- html_title t('label.group.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_group_path
+
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= Group.human_attribute_name('name')
+          %th= Group.human_attribute_name('members')
+          %th
+
+      %tbody
+        - @groups.each do |group|
+          %tr
+            %td= link_to group.name, edit_admin_group_path(group)
+            %td
+              %ul{ class: 'list-unstyled' }
+                - group.members.each do |member|
+                  %li= member.login
+
+            %td{ class: 'text-right' }= button_delete admin_group_path(group), class: 'btn-sm'

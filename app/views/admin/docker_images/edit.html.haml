@@ -1,0 +1,18 @@
+- html_title t('label.docker_image.plural'), @docker_image
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    = bootstrap_form_for @docker_image,
+                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4 col-md-4",
+                         url:    admin_docker_image_path(@docker_image),
+                         html:   { method: :patch } do |f|
+
+      = render partial: 'form', locals: { f: f }
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-4' }
+          = button_submit t('button.update')
+          = button_cancel admin_docker_images_path

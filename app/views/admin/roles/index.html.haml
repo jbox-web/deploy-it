@@ -1,0 +1,26 @@
+- html_title t('label.role.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_role_path
+
+    %table{ id: 'roles', class: 'table table-hover' }
+      %thead
+        %tr
+          %th= t('label.sort')
+          %th= t('label.name')
+          %th{ class: 'text-right' }= button_edit permissions_admin_roles_path, title: t('label.role.permissions_report'), class: 'btn-sm'
+
+      %tbody{ class: 'sortable', data: { 'update-url' => sort_admin_roles_path } }
+        - @roles.each do |role|
+          - css = role.builtin? ? 'ui-state-disabled' : ''
+          = content_tag_for(:tr, role, class: css) do
+            %td= content_tag(:span, '[drag]', class: 'handle') unless role.builtin?
+            %td= link_to role.name, edit_admin_role_path(role)
+            %td{ class: 'text-right' }= button_delete admin_role_path(role), class: 'btn-sm' unless role.builtin?
+
+:javascript
+  setJquerySortable()

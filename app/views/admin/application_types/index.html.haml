@@ -1,0 +1,12 @@
+- html_title t('label.application_type.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      = button_add new_admin_application_type_path
+
+    = render partial: 'admin/application_types/applications', locals: { applications: @application_types.php, language: 'Php' }
+    = render partial: 'admin/application_types/applications', locals: { applications: @application_types.ruby, language: 'Ruby' }
+    = render partial: 'admin/application_types/applications', locals: { applications: @application_types.python, language: 'Python' }

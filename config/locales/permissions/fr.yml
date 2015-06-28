@@ -1,0 +1,15 @@
+fr:
+
+  permission:
+    view_application: Voir les applications
+    create_application: Créer une nouvelle application
+    edit_application: Editer une application
+    delete_application: Supprimer une application
+    build_application: Construire une application
+
+    manage_application: Gérer l'application
+    manage_members: Gérer les membres
+
+    create_credential: Créer une clé d'accès
+    edit_credential: Modifier une clé d'accès
+    delete_credential: Supprimer une clé d'accès

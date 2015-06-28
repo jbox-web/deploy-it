@@ -1,0 +1,18 @@
+- html_title t('label.platform.new')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }= render_crumbs
+
+    = bootstrap_form_for @platform,
+                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4 col-md-4",
+                         url:    admin_platforms_path,
+                         html:   { method: :post } do |f|
+
+      = render partial: 'form', locals: { f: f, platform: @platform }
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-4' }
+          = button_submit t('button.create')
+          = button_cancel admin_platforms_path

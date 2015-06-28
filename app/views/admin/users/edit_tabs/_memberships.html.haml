@@ -1,0 +1,74 @@
+- memberships = user.memberships.includes(:application, :roles, :member_roles)
+
+%div{ class: 'col-md-6' }
+  - if memberships.any?
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= t('label.application.plural')
+          %th= t('label.role.plural')
+          %th
+
+      %tbody
+        - memberships.each do |membership|
+          - next if membership.new_record?
+          %tr{ id: "member-#{membership.id}" }
+            %td= link_to membership.application, application_path(membership.application)
+            %td
+              %span{ id: "member-#{membership.id}-roles" }= membership.roles.sort.collect(&:to_s).join(', ')
+
+              = bootstrap_form_for membership,
+                                   layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10",
+                                   url:    user_membership_admin_user_path(user, membership),
+                                   html:   { method: :patch, remote: true, id: "member-#{membership.id}-roles-form", class: 'hol' } do |f|
+
+                %p
+                  - Role.givable.all.each do |role|
+                    %label
+                      = check_box_tag 'membership[role_ids][]', role.id, membership.roles.include?(role), id: nil, disabled: membership.member_roles.detect { |mr| mr.role_id == role.id && !mr.inherited_from.nil? }
+                      = role
+                    %br
+
+                = hidden_field_tag "membership[role_ids][]", ''
+
+                = button_submit t('button.update'), class: 'btn-sm'
+
+                = button_cancel '#',
+                                class: 'btn-sm',
+                                onclick: "$('#member-#{membership.id}-roles').show(); $('#member-#{membership.id}-roles-form').hide(); return false;"
+
+            %td
+              = button_edit '#',
+                            class: 'btn-sm pull-right',
+                            onclick: "$('#member-#{membership.id}-roles').hide(); $('#member-#{membership.id}-roles-form').show(); return false;"
+
+              = button_delete user_membership_admin_user_path(user, membership),
+                              class: 'btn-sm pull-right',
+                              remote: true,
+                              confirm: false if membership.deletable?
+  - else
+    .alert{ class: 'alert-warning dont-dismiss' }= t('label.application.none_defined')
+
+
+%div{ class: 'col-md-6' }
+  - applications = Application.all
+  - if applications.any?
+    - member = Member.new
+    = bootstrap_form_for member,
+                         as: :membership,
+                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10",
+                         url:    user_memberships_admin_user_path(user),
+                         html:   { method: :post, remote: true } do |f|
+
+      = f.select :application_id, options_for_membership_application_select(user, applications)
+
+      = f.collection_check_boxes(:role_ids, Role.givable.all, :id, :name) do |b|
+        = content_tag :div, class: 'checkbox' do
+          = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-10' }
+          = button_submit t('button.create'), class: 'btn-sm', icon: 'fa-plus'
+
+:javascript
+  setHideOnLoad()

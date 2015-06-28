@@ -1,0 +1,16 @@
+---
+- hosts: "{{ HOST }}"
+  remote_user: "{{ USER }}"
+  port: "{{ PORT }}"
+  gather_facts: no
+
+  vars_files:
+    - "{{ CONTAINER_VARS }}"
+
+  tasks:
+
+  - name: "Create MySQL database : {{ DB_NAME }}"
+    mysql_db: login_host=localhost name={{ DB_NAME }} state=present
+
+  - name: "Create MySQL database user : {{ DB_USER }}"
+    mysql_user: login_host=localhost name={{ DB_USER }} password={{ DB_PASS }} priv={{ DB_NAME }}.*:ALL state=present

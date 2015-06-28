@@ -1,0 +1,34 @@
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/application', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/database', { application: application }
+
+- if can?(:manage_members, application)
+  .row
+    %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/members', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/repository', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/domain_names', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/ssl_certificate', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/env_vars', { application: application }
+
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/mount_points', { application: application }
+
+- if can?(:delete_application, application)
+  .row
+    %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/delete', { application: application }
+
+= javascript_tag do
+  setBootstrapSwitch('#application');
+  setBootstrapSwitch('#env-vars');
+  setBootstrapSwitch('#mount-points');
+  groups = $('[id^=settings-]').slideToggle('fast');
