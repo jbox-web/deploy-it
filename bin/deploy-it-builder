@@ -20,7 +20,7 @@ User.current = User.find_by_id(ENV['USER_ID'])
 
 ## SSH_ORIGINAL_COMMAND is available as environment variable
 repo_name   = DeployIt::Utils.parse_repository_from_ssh_command
-application = Application.find_by_deploy_url(repo_name)
+application = Application.find_by_repo_url(repo_name)
 repository  = application.distant_repo
 
 ## Validate pushed data

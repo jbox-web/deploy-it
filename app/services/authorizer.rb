@@ -38,13 +38,13 @@ class Authorizer
 
 
     def find_application
-      application = Application.find_by_deploy_url(repo_name)
-      if application.nil?
+      app = Application.find_by_repo_url(repo_name)
+      if app.nil?
         @errors << "Repository does not exist in Deployer !"
         @errors << "Please contact your administrator."
         false
       else
-        @application = application
+        @application = app
         true
       end
     end

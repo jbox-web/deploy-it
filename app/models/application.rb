@@ -84,12 +84,12 @@ class Application < ActiveRecord::Base
       (1..DeployIt::MAX_INSTANCES_NUMBER).to_a
     end
 
-    def find_by_deploy_url(deploy_url)
-      super sanitize(deploy_url)
+    def find_by_repo_url(url)
+      find_by_deploy_url(sanitize(url))
     end
 
-    def sanitize(deploy_url)
-      deploy_url.start_with?('/') ? deploy_url[1..-1] : deploy_url
+    def sanitize(url)
+      url.start_with?('/') ? url[1..-1] : url
     end
 
   end
