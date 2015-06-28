@@ -30,6 +30,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'therubyracer',    '~> 0.12.1'
 gem 'turbolinks',      '~> 2.5.3'
 gem 'uglifier',        '~> 2.7.1'
+gem 'libv8',           '3.16.14.7'
 
 # Fonts
 gem 'font-awesome-rails',    '~> 4.3.0'
