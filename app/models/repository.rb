@@ -18,6 +18,8 @@ class Repository < ActiveRecord::Base
   ## Rugged methods (exits?, empty? ...)
   include ActsAs::RuggedRepository
 
+  GIT_USER_REGEX = /\A(ssh:\/\/)([a-z\-]+)@([a-z0-9\.\-]+)(\/[a-z0-9\-\/]+\.git)\z/i
+
   ## Relations
   belongs_to :application
   belongs_to :credential, class_name: 'RepositoryCredential'
@@ -63,7 +65,7 @@ class Repository < ActiveRecord::Base
 
 
   def username
-    url.match(/\A(ssh:\/\/)([a-z\-]+)@([a-z\.\-]+)(\/[a-z\-\/]+\.git)\Z/i)[2]
+    url.match(GIT_USER_REGEX)[2]
   end
 
 
