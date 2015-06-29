@@ -26,3 +26,6 @@
 # Dev files
 /sidekiq_dev.sh
 /faye_dev.sh
+
+# Mina files
+/config/deploy.rb
