@@ -16,4 +16,3 @@ docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>
 applications_clones_dir:  <%= ENV['APPLICATIONS_CLONES_DIR'] %>
 applications_repos_dir:   <%= ENV['APPLICATIONS_REPOS_DIR'] %>
 applications_datas_dir:   <%= ENV['APPLICATIONS_DATAS_DIR'] %>
-temporary_dir:            <%= ENV['TEMPORARY_DIR'] %>
