@@ -14,7 +14,7 @@ gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodrig
 gem 'rails',          '~> 4.2.3'
 gem 'bcrypt',         '~> 3.1.10'
 gem 'devise',         '~> 3.5.1'
-gem 'puma',           '~> 2.11.1'
+gem 'puma',           '~> 2.12.0'
 gem 'secure_headers', '~> 2.2.1'
 
 ## Database
@@ -59,13 +59,13 @@ gem 'carrierwave',   '~> 0.10.0'
 gem 'figaro',        '~> 1.1.0'
 gem 'i18n-tasks',    '~> 0.8.0'
 gem 'nested_form',   '~> 0.3.2'
-gem 'request_store', '~> 1.1.0'
+gem 'request_store', '~> 1.2.0'
 gem 'settingslogic', '~> 2.0.9'
 gem 'whenever',      '~> 0.9.4'
 
 ## Business required gems
 # Docker connection
-gem 'docker-api', '~> 1.21.0'
+gem 'docker-api', '~> 1.22.0'
 
 # SSH Keys generation
 gem 'sshkey', '~> 1.7.0'
