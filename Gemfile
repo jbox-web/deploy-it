@@ -8,7 +8,6 @@ gem 'active_use_case',       '~> 1.0.0',  git: 'https://github.com/jbox-web/acti
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
 gem 'zeroclipboard-rails',   '~> 0.1.0',  git: 'https://github.com/n-rodriguez/zeroclipboard-rails.git', branch: 'update_zc'
-gem 'bootstrap-growl-rails', '~> 3.0.0',  git: 'https://github.com/n-rodriguez/bootstrap-growl-rails.git', branch: 'notify_3'
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git'
 
 ## Base gems
@@ -45,6 +44,7 @@ gem 'autoprefixer-rails', '~> 5.2.1'
 # View rendering
 gem 'crummy',                      '~> 1.8.0'
 gem 'bootstrap_form',              '~> 2.3.0'
+gem 'bootstrap-growl-rails',       '~> 3.0.0'
 gem 'bootstrap-switch-rails',      '~> 3.3.2'
 gem 'codemirror-rails',            '~> 5.3.0'
 gem 'haml-rails',                  '~> 0.9.0'
