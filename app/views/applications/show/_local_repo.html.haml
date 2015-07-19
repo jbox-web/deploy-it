@@ -19,7 +19,7 @@
         = repository.last_commit
         %br
         = t('label.repository.commit_date') + ' : '
-        = l(repository.last_commit_date)
+        = l(repository.last_commit_date) rescue ''
         %br
         = t('label.repository.commit_author') + ' : '
         = mail_to repository.last_commit_author_mail, repository.last_commit_author_name
