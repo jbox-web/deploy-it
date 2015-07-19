@@ -41,10 +41,20 @@ module Applications
         end
 
 
+        def backend_urls
+          application.backend_urls.empty? ? default_backend : application.backend_urls
+        end
+
+
+        def default_backend
+          ['127.0.0.1:20000']
+        end
+
+
         def extra_vars
           {
             application_name: application.config_id,
-            backend_urls: application.backend_urls,
+            backend_urls: backend_urls,
             domain_name: application.domain_name,
             domain_aliases: application.domain_aliases.map(&:domain_name),
             domain_redirects: application.domain_redirects.map(&:domain_name),
