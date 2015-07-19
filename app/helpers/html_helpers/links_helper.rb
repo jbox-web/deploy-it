@@ -19,7 +19,7 @@ module HtmlHelpers
   module LinksHelper
 
     def link_to_repository(url)
-      link_to label_with_icon(shorten_url(url), repository_icon(url), fixed: true), url, target: 'blank', title: url
+      link_to label_with_icon(shorten_url(url), repository_icon(url), fixed: true), url, target: '_blank', title: url
     end
 
 
