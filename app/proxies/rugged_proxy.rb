@@ -121,8 +121,8 @@ class RuggedProxy
 
 
   def commit_distance
-    from = local_repo.references[local_branch].target_id
-    to   = local_repo.references[remote_branch].target_id
+    from = local_repo.references[local_branch].target_id rescue ''
+    to   = local_repo.references[remote_branch].target_id rescue ''
     {
       from: {
         commit_id: from,
