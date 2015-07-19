@@ -41,5 +41,10 @@ module HtmlHelpers
       end
     end
 
+
+    def link_to_external(domain)
+      link_to domain, "http://#{domain}", target: '_blank'
+    end
+
   end
 end
