@@ -9,24 +9,31 @@ fr:
       start:
         start: "Application '%{application}' en cours de démarrage ..."
         success: "Démarrage de l'application '%{application}' réussi !"
+        failed: "Echec du démarrage de l'application '%{application}' : %{errors}"
       stop:
         start: "Application '%{application}' en cours d'arrêt ..."
         success: "Arrêt de l'application '%{application}' réussi !"
+        failed: "Echec de l'arrêt de l'application '%{application}' : %{errors}"
       restart:
         start: "Application '%{application}' en cours de redémarrage ..."
         success: "Redémarrage de l'application '%{application}' réussi !"
+        failed: "Echec du redémarrage de l'application '%{application}' : %{errors}"
       pause:
         start: "Application '%{application}' en cours de mise en pause ..."
         success: "Mise en pause de l'application '%{application}' réussie !"
+        failed: "Echec de la mise en pause de l'application '%{application}' : %{errors}"
       unpause:
         start: "Application '%{application}' en cours de sortie de pause ..."
         success: "Sortie de pause de l'application '%{application}' réussie !"
+        failed: "Echec de la sortie de pause de l'application '%{application}' : %{errors}"
       export:
         start: "Application '%{application}' en cours d'export ..."
         success: "Export de l'application '%{application}' réussi !"
+        failed: "Echec de l'export de l'application '%{application}' : %{errors}"
       destroy:
         start: "Application '%{application}' en cours de destruction ..."
         success: "Destruction de l'application '%{application}' réussie !"
+        failed: "Echec de la destruction de l'application '%{application}' : %{errors}"
       update_files:
         start: "Mise à jour des fichiers de l'application '%{application}' en cours..."
         success: "Mise à jour des fichiers de l'application '%{application}' réussie !"
