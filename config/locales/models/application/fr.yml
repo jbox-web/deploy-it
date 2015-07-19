@@ -15,6 +15,9 @@ fr:
       pause: Mettre en pause l'application
       unpause: Sortir l'application de pause
 
+      image_type: Type d'image
+      buildpack: Buildpack
+      domain_name: Nom de domaine
       use_cron: Tâches CRON activées
       use_ssl: Utilise SSL
       enable_cron: Activer les tâches CRON

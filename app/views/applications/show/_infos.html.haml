@@ -9,6 +9,12 @@
     %dt= t('label.application_type.single') + ' :'
     %dd= application.type
 
+    %dt= t('label.application.image_type') + ' :'
+    %dd= application.image_type
+
+    %dt= t('label.application.buildpack') + ' :'
+    %dd= shorten_url application.buildpack
+
     %dt= t('label.application.domain_name') + ' :'
     %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'
 
