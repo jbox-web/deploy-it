@@ -18,14 +18,19 @@ module Containers
 
     def execute
       if container.docker_id
-        begin
-          container.docker_unpause
-        rescue => e
-          log_exception(e)
-          error_message("Erreurs lors de la remise en route du contenaire '#{container.docker_id}'")
-        end
+        container_unpause
       else
         error_message("Container does not exist !.")
+      end
+    end
+
+
+    def container_unpause
+      begin
+        container.docker_unpause
+      rescue => e
+        log_exception(e)
+        error_message("Erreurs lors de la remise en route du contenaire '#{container.docker_id[0..12]}'")
       end
     end
 

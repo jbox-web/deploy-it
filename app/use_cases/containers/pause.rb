@@ -18,14 +18,19 @@ module Containers
 
     def execute
       if container.docker_id
-        begin
-          container.docker_pause
-        rescue => e
-          log_exception(e)
-          error_message("Erreurs lors de la mise en pause du contenaire '#{container.docker_id}'")
-        end
+        container_pause
       else
         error_message("Container does not exist !.")
+      end
+    end
+
+
+    def container_pause
+      begin
+        container.docker_pause
+      rescue => e
+        log_exception(e)
+        error_message("Erreurs lors de la mise en pause du contenaire '#{container.docker_id[0..12]}'")
       end
     end
 

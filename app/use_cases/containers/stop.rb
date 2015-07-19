@@ -18,16 +18,21 @@ module Containers
 
     def execute
       if container.docker_id
-        begin
-          container.docker_stop
-        rescue => e
-          log_exception(e)
-          error_message("Erreurs lors de l'arrêt du contenaire '#{container.docker_id}'")
-        else
-          container.application.create_lb_route!
-        end
+        container_stop
       else
         error_message("Container does not exist !.")
+      end
+    end
+
+
+    def container_stop
+      begin
+        container.docker_stop
+      rescue => e
+        log_exception(e)
+        error_message("Erreurs lors de l'arrêt du contenaire '#{container.docker_id[0..12]}'")
+      else
+        container.application.create_lb_route!
       end
     end
 

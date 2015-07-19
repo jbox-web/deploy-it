@@ -17,26 +17,33 @@ module Containers
   class DestroyForever < ActiveUseCase::Base
 
     def execute(opts = {})
-      self_destroy = opts.delete(:self_destroy){ true }
       if container.docker_id
-        begin
-          # Stop it first
-          container.docker_stop
-        rescue => e
-          log_exception(e)
-          error_message(e.message)
-        ensure
-          begin
-            container.docker_delete
-          rescue => e
-            log_exception(e)
-            error_message("Erreurs lors de la suppression du contenaire '#{container.docker_id}'")
-          ensure
-            container.destroy! if self_destroy
-          end
-        end
+        container_destroy(opts)
       else
         error_message("Container does not exist !.")
+      end
+    end
+
+
+    def container_destroy(opts = {})
+      self_destroy = opts.delete(:self_destroy){ true }
+      begin
+        # Stop it first
+        container.docker_stop
+      rescue => e
+        log_exception(e)
+        error_message(e.message)
+      ensure
+        begin
+          # Remove from Docker
+          container.docker_delete
+        rescue => e
+          log_exception(e)
+          error_message("Erreurs lors de la suppression du contenaire '#{container.docker_id[0..12]}'")
+        ensure
+          # Remove from database
+          container.destroy! if self_destroy
+        end
       end
     end
 
