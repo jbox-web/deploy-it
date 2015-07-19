@@ -27,7 +27,7 @@ class ApplicationsConfigController < ApplicationController
     if repository.update(repository_params)
       # Destroy Application repository if url has changed.
       # It will be recloned by service object.
-      repository.destroy_dir! if repository.url_has_changed?
+      repository.destroy_dir! if repository.url_has_changed? || repository.branch_has_changed?
 
       # Call service objects to perform other actions
       !repository.exists? ? repository.run_async!('clone!') : repository.run_async!('resync!')

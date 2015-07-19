@@ -33,6 +33,7 @@ class Repository < ActiveRecord::Base
   ## Callbacks
   before_save :reset_credential_id
   after_save  :check_if_url_changed
+  after_save  :check_if_branch_changed
 
   ## UseCases
   add_use_cases [ :init_bare, :clone, :resync, :create_archive, :destroy_forever ]
@@ -42,6 +43,7 @@ class Repository < ActiveRecord::Base
 
   # Virtual attribute
   attr_accessor :url_has_changed
+  attr_accessor :branch_has_changed
 
 
   def to_s
@@ -61,6 +63,11 @@ class Repository < ActiveRecord::Base
 
   def url_has_changed?
     url_has_changed
+  end
+
+
+  def branch_has_changed?
+    branch_has_changed
   end
 
 
@@ -96,6 +103,15 @@ class Repository < ActiveRecord::Base
         self.url_has_changed = true
       else
         self.url_has_changed = false
+      end
+    end
+
+
+    def check_if_branch_changed
+      if branch_changed?
+        self.branch_has_changed = true
+      else
+        self.branch_has_changed = false
       end
     end
 
