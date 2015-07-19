@@ -17,7 +17,7 @@ module RepositoriesHelper
 
   def render_commit_distance(commit_hash)
     from_id   = commit_hash[:from][:commit_id][0..6]
-    from_auth = commit_hash[:from][:author][:name]
+    from_auth = commit_hash[:from][:author][:name] rescue ''
     from_mess = commit_hash[:from][:message]
 
     to_id   = commit_hash[:to][:commit_id][0..6]
