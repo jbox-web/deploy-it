@@ -17,9 +17,12 @@
       = f.text_field :domain_name, required: true
 
       = f.collection_select :application_type_id, ApplicationType.all, :id, :to_s, prompt: true
-      = f.select :instance_number, max_instances_available, required: true
+
+      = f.select :image_type, available_docker_images
 
       = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8'
+
+      = f.select :instance_number, max_instances_available, required: true
 
       = f.form_group :use_cron, label: { text: t('label.application.enable_cron') }, class: 'shifted' do
         = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''

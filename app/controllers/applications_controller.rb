@@ -153,7 +153,7 @@ class ApplicationsController < ApplicationController
 
 
     def application_update_params
-      params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :buildpack, :use_cron, :use_ssl, :debug_mode)
+      params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack, :use_cron, :use_ssl, :debug_mode)
     end
 
 
