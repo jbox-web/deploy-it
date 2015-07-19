@@ -1,6 +1,0 @@
-backend app-{{ APPLICATION_NAME }}
-  balance  roundrobin
-  option   httpclose
-{% for item in BACKEND_URLS %}
-  server   server_{{ loop.index }} {{ item.strip() }} check inter 1s
-{% endfor %}

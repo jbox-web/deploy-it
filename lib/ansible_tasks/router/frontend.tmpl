@@ -1,9 +1,0 @@
-  acl host-{{ APPLICATION_NAME }} hdr(host) -i {{ DOMAIN_NAME }} {% if DOMAIN_ALIASES != None %}{% for item in DOMAIN_ALIASES -%} {{ item.strip() }} {% endfor %}{% endif %}
-
-  use_backend app-{{ APPLICATION_NAME }} if host-{{ APPLICATION_NAME }}
-
-{% if DOMAIN_REDIRECTS is defined and DOMAIN_REDIRECTS|length != 0 %}
-  acl redi-{{ APPLICATION_NAME }} hdr(host) -i {% for item in DOMAIN_REDIRECTS -%} {{ item.strip() }} {% endfor %}
-
-  redirect prefix http://{{ DOMAIN_NAME }} if redi-{{ APPLICATION_NAME }}
-{% endif %}
