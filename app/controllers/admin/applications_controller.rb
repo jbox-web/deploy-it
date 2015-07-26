@@ -43,7 +43,7 @@ class Admin::ApplicationsController < Admin::DefaultController
 
 
     def find_applications
-      @applications = Application.all
+      @applications = Application.all.sort_by(&:fullname)
     end
 
 
