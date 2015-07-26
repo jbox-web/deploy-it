@@ -1,0 +1,9 @@
+- html_title t('label.application.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+
+    #manage_applications= render 'list', applications: @applications

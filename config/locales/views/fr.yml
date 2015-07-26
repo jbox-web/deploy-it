@@ -1,0 +1,21 @@
+fr:
+  admin:
+
+    applications:
+      list:
+        button:
+          execute: Exécuter
+        select:
+          action: Séléctionnez une action
+          options:
+            start: Démarrer
+            stop: Arrêter
+            restart: Redémarrer
+
+      manage:
+        error:
+          action:
+            empty: Vous devez spécifier l'action à exécuter
+            invalid: Action invalide
+          application_ids:
+            empty: Vous devez séléctionner une ou plusieurs applications

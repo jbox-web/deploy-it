@@ -1,0 +1,14 @@
+= form_tag manage_admin_applications_path, method: :post, remote: true do
+  %table{ class: 'table table-hover' }
+    %thead
+      %tr
+        %th= Application.human_attribute_name('name')
+        %th= Application.human_attribute_name('state')
+        %th
+
+    %tbody
+      - applications.each do |application|
+        = render 'application', application: application
+
+  = select_tag "deploy_action", options_for_select(options_for_manage_application), prompt: t('.select.action')
+  = submit_tag t('.button.execute')

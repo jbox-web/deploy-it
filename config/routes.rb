@@ -127,6 +127,12 @@ Rails.application.routes.draw do
     resources :docker_images
     resources :buildpacks
     resources :reserved_names
+    resources :applications, only: [:index] do
+      get 'status'
+      collection do
+        post 'manage'
+      end
+    end
 
     resources :roles do
       collection do

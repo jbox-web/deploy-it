@@ -136,6 +136,7 @@ module NavigationHelper
         menu.item :docker_images,     label_with_icon(t('label.docker_image.plural'), 'fa-cubes'), admin_docker_images_path, highlights_on: :subpath
         menu.item :buildpacks,        label_with_icon(t('label.buildpack.plural'), 'fa-rocket'), admin_buildpacks_path, highlights_on: :subpath
         menu.item :reserved_names,    label_with_icon(t('label.reserved_name.plural'), 'fa-shield'), admin_reserved_names_path, highlights_on: :subpath
+        menu.item :applications,      label_with_icon(t('label.application.plural'), 'fa-desktop'), admin_applications_path, highlights_on: :subpath
       end
     end
   end

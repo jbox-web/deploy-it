@@ -1,0 +1,4 @@
+= content_tag_for(:tr, application) do
+  %td= application.fullname
+  %td= render_application_state application.state
+  %td= check_box_tag "application_ids[]", application.id

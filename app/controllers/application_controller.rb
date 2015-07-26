@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def async_containers_toolbar_view_refresh
+  def async_containers_toolbar_view_refresh(opts = {})
     {
       context: {
         controller: 'applications',
@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def async_repositories_view_refresh
+  def async_repositories_view_refresh(opts = {})
     {
       context: {
         controller: 'applications',
@@ -167,9 +167,23 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def async_view_refresh(view)
+  def async_applications_list_view_refresh(opts = {})
+    {
+      context: {
+        controller: 'admin/applications',
+        action: 'index',
+        app_id: ''
+      },
+      triggers: [
+        "refreshView('#{admin_application_status_path(opts[:app_id])}')"
+      ]
+    }
+  end
+
+
+  def async_view_refresh(view, opts = {})
    method = "async_#{view}_view_refresh"
-   self.send(method)
+   self.send(method, opts)
   end
 
 
