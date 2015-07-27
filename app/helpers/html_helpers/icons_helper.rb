@@ -44,12 +44,12 @@ module HtmlHelpers
 
 
     def check_icon(opts = {})
-      icon('fa-check', {aligned: false, color: '#5cb85c'}, opts)
+      icon('fa-check', { aligned: false, color: '#5cb85c' }, opts)
     end
 
 
     def cross_icon(opts = {})
-      icon('fa-dot-circle-o', {aligned: false, color: '#a94442'}, opts)
+      icon('fa-dot-circle-o', { aligned: false, color: '#a94442' }, opts)
     end
 
 
