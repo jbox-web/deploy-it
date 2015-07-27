@@ -2,5 +2,6 @@
   %td= link_to application.fullname, application_path(application), target: '_blank'
   %td= link_to_external application.domain_name
   %td= application.type
+  %td= shorten_url application.buildpack
   %td= render_application_state application.state
-  %td= check_box_tag "application_ids[]", application.id
+  %td= check_box_tag "application_ids[]", application.id, false, class: 'app-checkbox' unless application.state == :undeployed

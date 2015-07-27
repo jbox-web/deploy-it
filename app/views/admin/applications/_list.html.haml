@@ -5,8 +5,9 @@
         %th= Application.human_attribute_name('name')
         %th= Application.human_attribute_name('domain_name')
         %th= Application.human_attribute_name('version')
+        %th= Application.human_attribute_name('buildpack')
         %th= Application.human_attribute_name('state')
-        %th
+        %th= button_select_all "toggleCheckboxesBySelector('input.app-checkbox'); return false;"
 
     %tbody
       - applications.each do |application|
