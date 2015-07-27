@@ -78,6 +78,7 @@ fr:
         platform: Plateforme
         stage: Stage
         state: Etat
+        version: Version
 
     errors:
       models:
