@@ -1,6 +1,6 @@
 = content_tag_for(:tr, application) do
   %td= link_to application.fullname, application_path(application), target: '_blank'
   %td= link_to_external application.domain_name
-  %td= application.version
+  %td= application.type
   %td= render_application_state application.state
   %td= check_box_tag "application_ids[]", application.id
