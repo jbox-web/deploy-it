@@ -20,7 +20,7 @@ root.getData = (element) ->
 root.toggleCheckboxesBySelector = (selector) ->
   all_checked = true
   $(selector).each -> all_checked = false if !($(this).is(':checked'))
-  $(selector).each -> this.checked = !all_checked
+  $(selector).each -> $(this).prop('checked', !all_checked)
 
 
 root.highlight = (element) ->
