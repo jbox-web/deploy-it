@@ -18,7 +18,7 @@ module Applications
     class Unpause < ActiveUseCase::Base
 
       def execute
-        application.containers.each do |c|
+        application.containers.find_each do |c|
           result = c.unpause!
           @errors += result.errors if !result.success?
         end
