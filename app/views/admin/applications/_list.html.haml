@@ -1,4 +1,4 @@
-= form_tag manage_admin_applications_path, method: :post, remote: true do
+= bootstrap_form_tag url: manage_admin_applications_path, method: :post, remote: true do |f|
   %table{ class: 'table table-hover' }
     %thead
       %tr
@@ -13,5 +13,5 @@
       - applications.each do |application|
         = render 'application', application: application
 
-  = select_tag "deploy_action", options_for_select(options_for_manage_application), prompt: t('.select.action')
-  = submit_tag t('.button.execute')
+  = f.select "deploy_action", options_for_select(options_for_manage_application), prompt: t('.select.action'), skip_label: true
+  = button_submit t('.button.execute')
