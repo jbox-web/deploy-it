@@ -44,7 +44,7 @@ class Admin::ApplicationsController < Admin::DefaultController
 
 
     def find_applications
-      @applications = Application.all.sort_by(&:fullname)
+      @applications = Application.includes([:stage, :containers, :application_type]).all.sort_by(&:fullname)
     end
 
 
