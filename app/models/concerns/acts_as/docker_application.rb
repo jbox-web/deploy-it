@@ -65,6 +65,8 @@ module ActsAs
         :paused
       elsif stopped?
         :stopped
+      else
+        :undefined
       end
     end
 
