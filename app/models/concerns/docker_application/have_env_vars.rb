@@ -28,17 +28,17 @@ module DockerApplication
 
 
     def env_vars_on_receive
-      env_vars_on(:receive).merge(additional_env_vars_on(:receive))
+      env_vars_on(:receive).merge(additional_env_vars)
     end
 
 
     def env_vars_on_build
-      env_vars_on(:build).merge(additional_env_vars_on(:build))
+      env_vars_on(:build).merge(additional_env_vars)
     end
 
 
     def env_vars_on_deploy
-      env_vars_on(:deploy).merge(additional_env_vars_on(:deploy))
+      env_vars_on(:deploy).merge(additional_env_vars)
     end
 
 
@@ -69,15 +69,17 @@ module DockerApplication
       end
 
 
-      def additional_env_vars_on(type)
-        case type
-        when :receive
-          {}
-        when :build
-          { buildpack_url: buildpack, buildpack_debug: (debug_mode? ? 'true' : '') }
-        when :deploy
-          { site_dns: domain_name, use_ssl: use_ssl?, container_id: identifier, port: port, log_server: find_log_server }
-        end
+      def additional_env_vars
+        {
+          buildpack_url:   buildpack,
+          buildpack_debug: (debug_mode? ? 'true' : ''),
+          site_dns:        domain_name,
+          use_ssl:         use_ssl?,
+          container_id:    identifier,
+          port:            port,
+          home:            '/app',
+          log_server:      find_log_server
+        }.merge(database_params)
       end
 
 
