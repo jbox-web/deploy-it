@@ -128,5 +128,5 @@ group :development do
   gem 'quiet_assets', '~> 1.1.0'
 
   # gem 'brakeman', '~> 2.6.3'
-  # gem 'bullet',   '~> 4.14.4'
+  # gem 'bullet',   '~> 4.14.7'
 end
