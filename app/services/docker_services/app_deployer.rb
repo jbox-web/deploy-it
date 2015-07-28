@@ -56,7 +56,8 @@ module DockerServices
       rescue => e
         raise e
       else
-        docker_options = docker_options.merge("Hostname" => hostname, "Domainname" => domain_name)
+        docker_options = docker_options.deep_merge("Hostname" => hostname, "Domainname" => domain_name)
+        docker_options = docker_options.deep_merge(container_options)
         do_deploy(docker_options)
       end
     end
@@ -82,6 +83,17 @@ module DockerServices
         # Execute plugins
         execute_plugins(:post_deploy, docker_options) if type == :web
       end
+    end
+
+
+    def container_options
+      {
+        "HostConfig" => {
+          "CpuShares"  => container.cpu_shares,
+          "Memory"     => container.memory.megabytes,
+          "MemorySwap" => -1
+        }
+      }
     end
 
 
