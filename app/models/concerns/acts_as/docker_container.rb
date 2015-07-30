@@ -78,6 +78,11 @@ module ActsAs
     end
 
 
+    def docker_exec(command, opts = {}, &block)
+      docker_proxy.exec(command, opts, &block)
+    end
+
+
     def backend_port
       docker_proxy.backend_port(application.port)
     rescue => e
