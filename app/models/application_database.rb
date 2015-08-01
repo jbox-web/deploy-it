@@ -40,7 +40,11 @@ class ApplicationDatabase < ActiveRecord::Base
       return '' if server.nil?
       if !server.mysql_host.empty?
         if server.mysql_host == '127.0.0.1'
-          'localhost:/var/run/mysqld/mysqld.sock'
+          if application.language == 'ruby'
+            '/var/run/mysqld/mysqld.sock'
+          else
+            'localhost:/var/run/mysqld/mysqld.sock'
+          end
         else
           "#{server.mysql_host}:#{server.mysql_port}"
         end

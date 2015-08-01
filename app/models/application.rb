@@ -60,7 +60,7 @@ class Application < ActiveRecord::Base
 
   ## Delegations to Stage
   delegate :platform, to: :stage
-  delegate :version, to: :application_type
+  delegate :version, :language, to: :application_type
 
   ## Virtual attribute
   attr_accessor :domain_name_has_changed
