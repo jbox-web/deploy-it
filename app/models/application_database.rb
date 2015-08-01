@@ -33,6 +33,15 @@ class ApplicationDatabase < ActiveRecord::Base
   end
 
 
+  def db_socket
+    if db_type == 'mysql'
+      '/var/run/mysqld/mysqld.sock'
+    else
+      "/var/run/postgresql/.s.PGSQL.#{server.postgres_port}"
+    end
+  end
+
+
   private
 
 
@@ -41,7 +50,7 @@ class ApplicationDatabase < ActiveRecord::Base
       if !server.mysql_host.empty?
         if server.mysql_host == '127.0.0.1'
           if application.language == 'ruby'
-            '/var/run/mysqld/mysqld.sock'
+            ''
           else
             'localhost:/var/run/mysqld/mysqld.sock'
           end
@@ -58,7 +67,11 @@ class ApplicationDatabase < ActiveRecord::Base
       return '' if server.nil?
       if !server.postgres_host.empty?
         if server.postgres_host == '127.0.0.1'
-          'localhost:/var/run/mysqld/mysqld.sock'
+          if application.language == 'ruby'
+            ''
+          else
+            "/var/run/postgresql/.s.PGSQL.#{server.postgres_port}"
+          end
         else
           "#{server.postgres_host}:#{server.postgres_port}"
         end
