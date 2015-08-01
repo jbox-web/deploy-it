@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528033432) do
+ActiveRecord::Schema.define(version: 20150801194547) do
 
   create_table "application_databases", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "db_name",        limit: 255
     t.string   "db_user",        limit: 255
     t.string   "db_pass",        limit: 255
-    t.boolean  "db_created",     limit: 1,   default: false
+    t.boolean  "db_created",                 default: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "image_type",          limit: 255
     t.string   "buildpack",           limit: 255
     t.integer  "instance_number",     limit: 4,     default: 1
-    t.boolean  "use_cron",            limit: 1,     default: false
-    t.boolean  "use_ssl",             limit: 1,     default: false
-    t.boolean  "debug_mode",          limit: 1,     default: false
-    t.boolean  "marked_for_deletion", limit: 1,     default: false
+    t.boolean  "use_cron",                          default: false
+    t.boolean  "use_ssl",                           default: false
+    t.boolean  "debug_mode",                        default: false
+    t.boolean  "marked_for_deletion",               default: false
     t.text     "description",         limit: 65535
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.integer  "cpu_shares",          limit: 4,   default: 256
     t.integer  "memory",              limit: 4,   default: 256
     t.string   "docker_id",           limit: 255
-    t.boolean  "marked_for_deletion", limit: 1,   default: false
+    t.boolean  "marked_for_deletion",             default: false
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end
@@ -135,8 +135,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.integer  "application_id", limit: 4
     t.string   "key",            limit: 255
     t.string   "value",          limit: 255
-    t.string   "step",           limit: 255
-    t.boolean  "protected",      limit: 1,   default: false
+    t.boolean  "protected",                  default: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
@@ -193,7 +192,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "source",         limit: 255
     t.string   "target",         limit: 255
     t.string   "step",           limit: 255
-    t.boolean  "active",         limit: 1,   default: true
+    t.boolean  "active",                     default: true
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
   end
@@ -257,7 +256,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "url",              limit: 255
     t.string   "relative_path",    limit: 255
     t.string   "branch",           limit: 255, default: "master"
-    t.boolean  "have_credentials", limit: 1,   default: false
+    t.boolean  "have_credentials",             default: false
     t.integer  "credential_id",    limit: 4
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
@@ -274,7 +273,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.text     "private_key", limit: 65535
     t.string   "login",       limit: 255
     t.string   "password",    limit: 255
-    t.boolean  "generated",   limit: 1
+    t.boolean  "generated"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -306,7 +305,7 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "alternative_host",   limit: 255, default: ""
     t.integer  "port",               limit: 4
     t.integer  "connection_timeout", limit: 4,   default: 10
-    t.boolean  "default_server",     limit: 1,   default: false
+    t.boolean  "default_server",                 default: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
   end
@@ -375,8 +374,8 @@ ActiveRecord::Schema.define(version: 20150528033432) do
     t.string   "email",                  limit: 255
     t.string   "language",               limit: 255
     t.string   "time_zone",              limit: 255
-    t.boolean  "admin",                  limit: 1,   default: false
-    t.boolean  "enabled",                limit: 1,   default: true
+    t.boolean  "admin",                              default: false
+    t.boolean  "enabled",                            default: true
     t.string   "authentication_token",   limit: 255
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
