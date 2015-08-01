@@ -161,16 +161,16 @@ module ActsAs
     def docker_options_for(step)
       case step
       when :receive
-        { "Env" => active_env_vars[:receive].to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:receive] } }
+        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:receive] } }
       when :build
-        { "Env" => active_env_vars[:build].to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:build] } }
+        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:build] } }
       when :release
-        { "Env" => active_env_vars[:deploy].to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
+        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
       when :cron
         {
           "Cmd"   => start_command('cron'),
           "Image" => image_tagged,
-          "Env"   => active_env_vars[:deploy].to_env,
+          "Env"   => active_env_vars.to_env,
           "HostConfig" => {
             "Binds" => active_mount_points_with_path[:deploy]
           }
@@ -179,7 +179,7 @@ module ActsAs
         {
           "Cmd"   => start_command('web'),
           "Image" => image_tagged,
-          "Env"   => active_env_vars[:deploy].to_env,
+          "Env"   => active_env_vars.to_env,
           "ExposedPorts" => {
             "#{port}/tcp" => {}
           },

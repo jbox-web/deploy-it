@@ -18,19 +18,17 @@ module Applications
     class RestoreEnvVars < ActiveUseCase::Base
 
       def execute
-        get_env_vars_list.each do |step, env_vars|
-          env_vars.each do |key, value|
-            ev_db = application.env_vars.find_by_key_and_step(key, step)
-            if ev_db.nil?
-              application.env_vars.create(key: key, value: value, step: step.to_s)
-            end
+        get_env_vars_list.each do |key, value|
+          ev_db = application.env_vars.find_by_key(key)
+          if ev_db.nil?
+            application.env_vars.create(key: key, value: value)
           end
         end
 
         get_secrets_list.each do |key, value|
-          ev_db = application.env_vars.find_by_key_and_step(key, 'deploy')
+          ev_db = application.env_vars.find_by_key(key)
           if ev_db.nil?
-            application.env_vars.create(key: key, value: value, step: 'deploy', protected: true)
+            application.env_vars.create(key: key, value: value, protected: true)
           end
         end
       end

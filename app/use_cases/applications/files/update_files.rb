@@ -41,12 +41,12 @@ module Applications
 
 
         def build_env_vars
-          application.active_env_vars[:build].to_env.map { |var| "export #{var}" }.join("\n")
+          application.active_env_vars.to_env.map { |var| "export #{var}" }.join("\n")
         end
 
 
         def deploy_env_vars
-          application.active_env_vars[:deploy].to_env.map { |var| "export #{var}" }.join("\n")
+          application.active_env_vars.to_env.map { |var| "export #{var}" }.join("\n")
         end
 
 

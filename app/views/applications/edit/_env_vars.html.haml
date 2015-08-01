@@ -24,7 +24,6 @@
           %tr
             %th= t('label.env_var.key')
             %th= t('label.env_var.value')
-            %th= t('label.env_var.step')
             %th{ class: 'text-center' }= t('label.env_var.protected')
             %th
 
@@ -34,7 +33,6 @@
             %tr{ class: 'fields' }
               %td{ class: 'vert-align' }= ff.text_field :key, hide_label: true
               %td{ class: 'vert-align' }= ff.text_field :value, hide_label: true
-              %td{ class: 'vert-align' }= ff.collection_select :step, EnvVar::ENVVAR_STEPS, :first, :last, prompt: true, hide_label: true
               %td{ class: 'vert-align shifted text-center' }= ff.check_box :protected, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
               %td{ class: 'vert-align' }= ff.link_to_remove icon('fa-trash')
 

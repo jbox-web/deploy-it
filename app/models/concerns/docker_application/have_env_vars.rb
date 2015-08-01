@@ -18,27 +18,12 @@ module DockerApplication
     extend ActiveSupport::Concern
 
     def active_env_vars
-      { receive: env_vars_on_receive, build: env_vars_on_build, deploy: env_vars_on_deploy }
+      Hash[env_vars.collect { |env| [env.key, env.value] }].merge(additional_env_vars)
     end
 
 
     def sorted_env_vars
-      { receive: env_vars.on_receive, build: env_vars.on_build, deploy: env_vars.on_deploy }
-    end
-
-
-    def env_vars_on_receive
-      env_vars_on(:receive).merge(additional_env_vars)
-    end
-
-
-    def env_vars_on_build
-      env_vars_on(:build).merge(additional_env_vars)
-    end
-
-
-    def env_vars_on_deploy
-      env_vars_on(:deploy).merge(additional_env_vars)
+      Hash[env_vars.collect { |env| [env.key, env.value] }].merge(additional_env_vars)
     end
 
 
@@ -54,19 +39,6 @@ module DockerApplication
 
 
     private
-
-
-      ## User defined EnvVars
-      def env_vars_on(type)
-        case type
-        when :receive
-          Hash[env_vars.on_receive.collect { |env| [env.key, env.value] }]
-        when :build
-          Hash[env_vars.on_build.collect { |env| [env.key, env.value] }]
-        when :deploy
-          Hash[env_vars.on_deploy.collect { |env| [env.key, env.value] }]
-        end
-      end
 
 
       def additional_env_vars

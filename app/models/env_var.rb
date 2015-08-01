@@ -15,27 +15,14 @@
 
 class EnvVar < ActiveRecord::Base
 
-  ENVVAR_STEPS = [
-    ['receive', 'receive'],
-    ['build',   'build'],
-    ['deploy',  'deploy']
-  ]
-
   ## Relations
   belongs_to :application
 
   ## Basic Validations
   validates :application_id, presence: true
-  validates :key,            presence: true, uniqueness: { case_sensitive: false, scope: [ :application_id, :step ] }
+  validates :key,            presence: true, uniqueness: { case_sensitive: false, scope: [:application_id] }
   validates :value,          presence: true
-  validates :step,           presence: true, inclusion: { in: ['receive', 'build', 'deploy'] }
 
   ## Callbacks
   before_validation { self.key = key.upcase if !key.nil? }
-
-  ## Scopes
-  scope :on_receive, -> { where(step: 'receive') }
-  scope :on_build,   -> { where(step: 'build') }
-  scope :on_deploy,  -> { where(step: 'deploy') }
-
 end
