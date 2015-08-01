@@ -42,3 +42,11 @@ fr:
         start: "Création de la base de données de l'application '%{application}' en cours..."
         success: "Création de la base de données de l'application '%{application}' réussie !"
         failed: "Echec de la création de la base de données de l'application '%{application}' : %{errors}"
+      create_lb_route:
+        start: "Création de la route de l'application '%{application}' en cours..."
+        success: "Création de la route de l'application '%{application}' réussie !"
+        failed: "Echec de la création de la route de l'application '%{application}' : %{errors}"
+      destroy_lb_route:
+        start: "Suppression de la route de l'application '%{application}' en cours..."
+        success: "Suppression de la route de l'application '%{application}' réussie !"
+        failed: "Echec de la suppression de la route de l'application '%{application}' : %{errors}"
