@@ -18,7 +18,7 @@ gem 'puma',           '~> 2.12.0'
 gem 'secure_headers', '~> 2.2.1'
 
 ## Database
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.3.19'
 gem 'pg',     '~> 0.18.2'
 
 ## Interface gems
@@ -32,7 +32,7 @@ gem 'uglifier',        '~> 2.7.1'
 gem 'libv8',           '3.16.14.7'
 
 # Fonts
-gem 'font-awesome-rails',    '~> 4.3.0'
+gem 'font-awesome-rails',    '~> 4.4.0'
 gem 'octicons-rails',        '~> 2.1.1'
 gem 'google-webfonts-rails', '~> 0.0.4'
 
@@ -65,7 +65,7 @@ gem 'whenever',      '~> 0.9.4'
 
 ## Business required gems
 # Docker connection
-gem 'docker-api', '~> 1.22.0'
+gem 'docker-api', '~> 1.22.2'
 
 # SSH Keys generation
 gem 'sshkey', '~> 1.7.0'
