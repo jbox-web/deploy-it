@@ -34,6 +34,7 @@ class Application < ActiveRecord::Base
   has_many   :env_vars,        dependent: :destroy
   has_many   :mount_points,    dependent: :destroy
   has_many   :domain_names,    dependent: :destroy
+  has_many   :credentials,     dependent: :destroy, class_name: 'ApplicationCredential'
 
   has_many   :configs,    dependent: :destroy
   has_many   :pushes,     dependent: :destroy
@@ -49,6 +50,7 @@ class Application < ActiveRecord::Base
   accepts_nested_attributes_for :env_vars,     allow_destroy: true
   accepts_nested_attributes_for :mount_points, allow_destroy: true
   accepts_nested_attributes_for :domain_names, allow_destroy: true
+  accepts_nested_attributes_for :credentials,  allow_destroy: true
 
   ## Basic Validations
   validates :domain_name, presence: true, on: :update
@@ -64,9 +66,11 @@ class Application < ActiveRecord::Base
 
   ## Virtual attribute
   attr_accessor :domain_name_has_changed
+  attr_accessor :use_credentials_has_changed
 
   ## Callbacks
   after_save  :check_if_domain_name_changed
+  after_save  :check_if_use_credentials_changed
 
   ## UseCases
   add_use_cases [ :build, :start, :stop, :restart, :pause, :unpause ], prefix: '::Docker'
@@ -146,6 +150,11 @@ class Application < ActiveRecord::Base
   end
 
 
+  def use_credentials_has_changed?
+    use_credentials_has_changed
+  end
+
+
   def create_build_request!(push, user = User.current)
     builds.create(
       author_id:  user.id,
@@ -172,6 +181,11 @@ class Application < ActiveRecord::Base
   end
 
 
+  def active_credentials
+    credentials.map(&:to_ansible)
+  end
+
+
   private
 
 
@@ -184,6 +198,15 @@ class Application < ActiveRecord::Base
         self.domain_name_has_changed = true
       else
         self.domain_name_has_changed = false
+      end
+    end
+
+
+    def check_if_use_credentials_changed
+      if use_credentials_changed?
+        self.use_credentials_has_changed = true
+      else
+        self.use_credentials_has_changed = false
       end
     end
 

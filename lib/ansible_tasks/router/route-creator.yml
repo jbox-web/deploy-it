@@ -10,16 +10,29 @@
   vars:
 
     NGINX_SITES_DIR:    '/etc/nginx/sites-enabled'
+    NGINX_PASSWORD_DIR: '/etc/nginx/htpasswd'
     NGINX_TARGET_FILE:  "{{ NGINX_SITES_DIR }}/{{ APPLICATION_NAME }}.conf"
     NGINX_SOURCE_FILE:  'nginx.tmpl'
 
   tasks:
 
-    ## Frontend : standard configuration (80)
+    - name: "Create htpasswords dir"
+      file: path={{ NGINX_PASSWORD_DIR }} owner=root group=www-data state=directory mode=0750
+
     - name: "Install Nginx config file : {{ NGINX_TARGET_FILE }}"
       template: src={{ NGINX_SOURCE_FILE }} dest={{ NGINX_TARGET_FILE }}
       notify:
         - reload nginx
+
+    - name: "Delete htpassword file"
+      file: path={{ NGINX_PASSWORD_DIR }}/{{ APPLICATION_NAME }}.htpasswd state=absent
+      tags:
+        - install_apache
+
+    - name: "Populate htpassword file"
+      htpasswd: path={{ NGINX_PASSWORD_DIR }}/{{ APPLICATION_NAME }}.htpasswd name={{ item['login'] }} password={{ item['password'] }} owner=root group=www-data mode=0640
+      when: HTPASSWORD is defined and HTPASSWORD|length != 0
+      with_items: HTPASSWORD
 
   handlers:
 

@@ -18,6 +18,9 @@
     %dt= t('label.application.domain_name') + ' :'
     %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'
 
+    %dt= t('label.application.use_credentials') + ' :'
+    %dd= bool_to_icon application.use_credentials?
+
     %dt= t('label.application.use_cron') + ' :'
     %dd= bool_to_icon application.use_cron?
 

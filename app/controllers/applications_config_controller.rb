@@ -36,6 +36,17 @@ class ApplicationsConfigController < ApplicationController
   end
 
 
+  def credentials
+    @saved = false
+    if @application.update(credentials_params)
+      @saved = true
+      # Call service objects to perform other actions
+      trigger_async_job!('create_lb_route!')
+    end
+    render_ajax_response
+  end
+
+
   def env_vars
     @saved = false
     if @application.update(env_vars_params)
@@ -134,6 +145,11 @@ class ApplicationsConfigController < ApplicationController
 
     def repository_params
       params.require(:application_repository).permit(:url, :branch, :have_credentials, :credential_id)
+    end
+
+
+    def credentials_params
+      params.require(:application).permit(credentials_attributes: [:id, :login, :password, :_destroy])
     end
 
 

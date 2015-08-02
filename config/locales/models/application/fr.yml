@@ -18,9 +18,11 @@ fr:
       image_type: Type d'image
       buildpack: Buildpack
       domain_name: Nom de domaine
+      use_credentials: Authentification activée
       use_cron: Tâches CRON activées
       use_ssl: Utilise SSL
       enable_cron: Activer les tâches CRON
+      enable_credentials: Activer l'authentification par mot de passe
       ssl_mode: Utiliser SSL
       debug_mode: Mode debug
 

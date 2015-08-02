@@ -17,6 +17,13 @@ server {
   ssl_certificate_key       /etc/nginx/ssl-certificates/{{ APPLICATION_NAME }}/server.key;
 {% endif %}
 
+{% if HTPASSWORD is defined and HTPASSWORD != None and HTPASSWORD|length != 0 %}
+{% if ENABLE_HTPASSWORD is defined and ENABLE_HTPASSWORD != None and ENABLE_HTPASSWORD == True %}
+  auth_basic "Restricted";
+  auth_basic_user_file {{ NGINX_PASSWORD_DIR }}/{{ APPLICATION_NAME }}.htpasswd;
+{% endif %}
+{% endif %}
+
   location / {
     include /etc/nginx/snippets/deploy-it.conf;
     proxy_pass http://{{ APPLICATION_NAME }};

@@ -58,7 +58,9 @@ module Applications
             domain_name: application.domain_name,
             domain_aliases: application.domain_aliases.map(&:domain_name),
             domain_redirects: application.domain_redirects.map(&:domain_name),
-            use_ssl: application.use_ssl?
+            use_ssl: application.use_ssl?,
+            enable_htpassword: application.use_credentials?,
+            htpassword: application.active_credentials
           }
         end
 

@@ -24,6 +24,9 @@
 
       = f.select :instance_number, max_instances_available, required: true
 
+      = f.form_group :use_credentials, label: { text: t('label.application.enable_credentials') }, class: 'shifted' do
+        = f.check_box :use_credentials, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
       = f.form_group :use_cron, label: { text: t('label.application.enable_cron') }, class: 'shifted' do
         = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 

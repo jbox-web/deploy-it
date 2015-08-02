@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       get   'synchronize_repository'
       patch 'database'
       patch 'domain_names'
+      patch 'credentials'
       patch 'env_vars'
       patch 'mount_points'
       patch 'repository'

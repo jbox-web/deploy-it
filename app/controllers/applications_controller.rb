@@ -153,7 +153,7 @@ class ApplicationsController < ApplicationController
 
 
     def application_update_params
-      params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack, :use_cron, :use_ssl, :debug_mode)
+      params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack, :use_credentials, :use_cron, :use_ssl, :debug_mode)
     end
 
 
@@ -174,7 +174,7 @@ class ApplicationsController < ApplicationController
         @application.run_async!('bootstrap!')
       when 'update'
         @application.run_async!('update_files!')
-        @application.run_async!('create_lb_route!') if @application.domain_name_has_changed?
+        @application.run_async!('create_lb_route!') if @application.domain_name_has_changed? || @application.use_credentials_has_changed?
       when 'destroy'
         @application.run_async!('destroy_forever!')
       end

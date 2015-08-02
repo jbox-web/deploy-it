@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801194547) do
+ActiveRecord::Schema.define(version: 20150801231605) do
+
+  create_table "application_credentials", force: :cascade do |t|
+    t.integer  "application_id", limit: 4
+    t.string   "login",          limit: 255
+    t.string   "password",       limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "application_credentials", ["application_id", "login"], name: "index_application_credentials_on_application_id_and_login", unique: true, using: :btree
+  add_index "application_credentials", ["application_id"], name: "index_application_credentials_on_application_id", using: :btree
 
   create_table "application_databases", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -51,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150801194547) do
     t.boolean  "use_cron",                          default: false
     t.boolean  "use_ssl",                           default: false
     t.boolean  "debug_mode",                        default: false
+    t.boolean  "use_credentials",                   default: false
     t.boolean  "marked_for_deletion",               default: false
     t.text     "description",         limit: 65535
     t.datetime "created_at",                                        null: false
