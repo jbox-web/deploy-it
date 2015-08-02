@@ -7,18 +7,20 @@
 - if application.domain_names.any?
   .row
     %div{ class: 'col-md-6' }
-      - if application.domain_aliases.any?
-        %ul{ class: 'list-group' }
-          %li{ class: 'list-group-item' }= t('label.domain_name.aliases')
+
+      %ul{ class: 'list-group' }
+        %li{ class: 'list-group-item' }= t('label.domain_name.aliases')
+        - if application.domain_aliases.any?
           %ul{ class: 'list-group' }
             - application.domain_aliases.each do |domain_alias|
               %li{ class: 'list-group-item' }
                 %span{ class: 'mount-point' }= link_to_external domain_alias.domain_name
 
     %div{ class: 'col-md-6' }
-      - if application.domain_redirects.any?
-        %ul{ class: 'list-group' }
-          %li{ class: 'list-group-item' }= t('label.domain_name.redirects')
+
+      %ul{ class: 'list-group' }
+        %li{ class: 'list-group-item' }= t('label.domain_name.redirects')
+        - if application.domain_redirects.any?
           %ul{ class: 'list-group' }
             - application.domain_redirects.each do |domain_redirect|
               %li{ class: 'list-group-item' }
