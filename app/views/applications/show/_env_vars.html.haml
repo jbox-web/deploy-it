@@ -1,13 +1,10 @@
-%div{ class: 'col-md-6' }
-  %hr
+%h4{ class: 'page-header' }= label_with_icon(t('label.env_var.plural'), 'fa-list-ul', fixed: true)
 
-  %h4{ class: 'page-header' }= label_with_icon(t('label.env_var.plural'), 'fa-list-ul', fixed: true)
+- if application.env_vars.any?
+  %ul{ class: 'list-group' }
+    - application.env_vars.each do |env_var|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'mount-point' }= render_env_var(env_var)
 
-  - if application.env_vars.any?
-    %ul{ class: 'list-group' }
-      - application.env_vars.each do |env_var|
-        %li{ class: 'list-group-item' }
-          %span{ class: 'mount-point' }= render_env_var(env_var)
-
-  - else
-    .alert{ class: 'alert-info dont-dismiss' }= t('label.env_var.none_defined')
+- else
+  .alert{ class: 'alert-info dont-dismiss' }= t('label.env_var.none_defined')

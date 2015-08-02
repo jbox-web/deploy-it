@@ -1,0 +1,10 @@
+%h4{ class: 'page-header' }= label_with_icon(t('label.domain_name.aliases'), 'fa-random', fixed: true)
+
+- if application.domain_aliases.any?
+  %ul{ class: 'list-group' }
+    - application.domain_aliases.each do |domain_alias|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'mount-point' }= link_to_external domain_alias.domain_name
+
+- else
+  .alert{ class: 'alert-info dont-dismiss' }= t('label.domain_name.none_defined')

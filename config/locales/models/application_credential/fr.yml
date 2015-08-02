@@ -2,7 +2,7 @@ fr:
 
   label:
     application_credential:
-      plural: Mots de passe de l'application
+      plural: Mots de passe
       login: Login
       password: Mot de passe
 

@@ -1,0 +1,10 @@
+%h4{ class: 'page-header' }= label_with_icon(t('label.domain_name.redirects'), 'fa-random', fixed: true)
+
+- if application.domain_redirects.any?
+  %ul{ class: 'list-group' }
+    - application.domain_redirects.each do |domain_redirect|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'mount-point' }= link_to_external domain_redirect.domain_name
+
+- else
+  .alert{ class: 'alert-info dont-dismiss' }= t('label.domain_name.none_defined')

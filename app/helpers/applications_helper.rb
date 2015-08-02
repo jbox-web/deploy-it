@@ -28,6 +28,11 @@ module ApplicationsHelper
   end
 
 
+  def render_credential(cred)
+    "#{cred.login} : *******"
+  end
+
+
   def render_group_member_form(opts = {})
     render_member_form('group', opts)
   end
