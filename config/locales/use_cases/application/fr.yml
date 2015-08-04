@@ -30,7 +30,7 @@ fr:
         start: "Application '%{application}' en cours d'export ..."
         success: "Export de l'application '%{application}' réussi !"
         failed: "Echec de l'export de l'application '%{application}' : %{errors}"
-      destroy:
+      destroy_forever:
         start: "Application '%{application}' en cours de destruction ..."
         success: "Destruction de l'application '%{application}' réussie !"
         failed: "Echec de la destruction de l'application '%{application}' : %{errors}"
