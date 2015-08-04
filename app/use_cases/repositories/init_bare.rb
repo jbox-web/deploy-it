@@ -37,8 +37,6 @@ module Repositories
 
 
       def install_hook
-        hook_file_path = File.join(repository.path, 'hooks', 'pre-receive')
-        script_path = Rails.root.join('wrappers', 'deploy-it-builder')
         begin
           file = File.open(hook_file_path, "w")
           file.write "#!/usr/bin/env bash\n"
@@ -50,6 +48,16 @@ module Repositories
           error_message("Error while installing hook !")
           log_exception(e)
         end
+      end
+
+
+      def hook_file_path
+        File.join(repository.path, 'hooks', 'pre-receive')
+      end
+
+
+      def script_path
+        Rails.root.join('wrappers', 'deploy-it-builder')
       end
 
   end
