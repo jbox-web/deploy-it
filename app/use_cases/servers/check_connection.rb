@@ -13,16 +13,21 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'net/http'
+require 'socket'
+
 module Servers
   class CheckConnection < ActiveUseCase::Base
 
     def execute(role)
       @role = role
-
-      if @role.to_s == 'docker'
-        docker_status
+      case role.to_s
+      when 'docker'
+        check_docker
+      when 'lb'
+        check_http
       else
-        service_status
+        check_socket
       end
     end
 
@@ -30,23 +35,37 @@ module Servers
     private
 
 
-      def docker_status
-        begin
+      def check_docker
+        catch_errors do
           server.docker_reachable?
-        rescue => e
-          @errors << treat_error(e.message)
         end
       end
 
 
-      def service_status
+      def check_http
+        catch_errors do
+          Net::HTTP.get(host, '/')
+        end
+      end
+
+
+      def check_socket
+        catch_errors do
+          TCPSocket.new(host, @role.port)
+        end
+      end
+
+
+      def host
+        (@role.alternative_host.nil? || @role.alternative_host.empty?) ? server.ip_address : @role.alternative_host
+      end
+
+
+      def catch_errors(&block)
         begin
-          output = server.ssh_execute(@role.status_command)
+          yield
         rescue => e
           @errors << treat_error(e.message)
-        else
-          # Output can be nil even if no error occurs (daemon is dead)
-          @errors << I18n.t('label.server_role.offline', service: @role.humanize) if output.nil?
         end
       end
 
