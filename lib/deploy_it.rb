@@ -62,30 +62,26 @@ module DeployIt
     end
 
   end
+end
 
-  ## Ruby Core patch
-  require_relative 'core_ext/hash/to_env'
-  require_relative 'core_ext/string/quote'
+## Load Ruby Core patch and DeployIt Libs
+required_lib_dirs = [
+  Rails.root.join('lib', 'core_ext', '**', '*.rb'),
+  Rails.root.join('lib', 'deploy_it', '**', '*.rb')
+]
 
-  ## DeployIt Libs
-  require_relative 'deploy_it/error'
-  require_relative 'deploy_it/utils'
-  require_relative 'deploy_it/ssh_utils'
-  require_relative 'deploy_it/ssl_utils'
+required_lib_dirs.each do |regex|
+  Dir.glob(regex).each do |file|
+    require file
+  end
+end
 
-  require_relative 'deploy_it/loggers/async_logs'
-  require_relative 'deploy_it/loggers/console_logs'
-  require_relative 'deploy_it/loggers/file_logs'
+## Init logs
+DeployIt.console_logger = DeployIt::Loggers::ConsoleLogs.new
+DeployIt.file_logger    = DeployIt::Loggers::FileLogs.init_logs!
 
-  require_relative 'deploy_it/access_control'
-
-  require_relative 'deploy_it/version'
-
-  ## Init logs
-  DeployIt.console_logger = Loggers::ConsoleLogs.new
-  DeployIt.file_logger    = Loggers::FileLogs.init_logs!
-  ActiveUseCase.logger    = DeployIt.file_logger
-
-  ## Plugins
-  Dir["#{Rails.root.join('plugins')}/*/*.rb"].each { |f| require f }
+# Init Plugins
+required_plugins_dirs = Rails.root.join('plugins', '**', '*.rb')
+Dir.glob(required_plugins_dirs).each do |file|
+  require file
 end
