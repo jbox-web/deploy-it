@@ -16,7 +16,7 @@
 module Containers
   class Pause < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if container.docker_id
         container_pause
       else

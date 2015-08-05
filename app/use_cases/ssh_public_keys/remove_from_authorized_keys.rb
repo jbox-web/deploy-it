@@ -18,7 +18,7 @@ require 'fileutils'
 module SshPublicKeys
   class RemoveFromAuthorizedKeys < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if ssh_public_key.exists_in_authorized_key_file?
         output_file = Tempfile.new('ssh_config')
         File.open(SshPublicKey.authorized_key_file, 'r') do |f|

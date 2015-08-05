@@ -17,7 +17,7 @@ module Applications
   module Files
     class Bootstrap < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         # Clone application repository!
         result = application.distant_repo.clone!
         @errors += result.errors if !result.success?

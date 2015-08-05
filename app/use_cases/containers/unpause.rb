@@ -16,7 +16,7 @@
 module Containers
   class Unpause < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if container.docker_id
         container_unpause
       else

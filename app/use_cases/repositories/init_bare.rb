@@ -16,7 +16,7 @@
 module Repositories
   class InitBare < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       init_repository if !repository.exists?
     end
 

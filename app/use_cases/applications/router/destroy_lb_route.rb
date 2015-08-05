@@ -17,7 +17,7 @@ module Applications
   module Router
     class DestroyLbRoute < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         begin
           router_server.recreate_inventory_file!
           router_server.ansible_proxy.run_playbook(route_destroyer, extra_vars)

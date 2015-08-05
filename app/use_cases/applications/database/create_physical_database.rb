@@ -17,7 +17,7 @@ module Applications
   module Database
     class CreatePhysicalDatabase < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         begin
           database_server.recreate_inventory_file!
           database_server.ansible_proxy.run_playbook(database_creator, extra_vars)

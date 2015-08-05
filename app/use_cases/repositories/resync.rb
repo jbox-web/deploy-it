@@ -16,7 +16,7 @@
 module Repositories
   class Resync < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if repository.exists?
         pulled = repository.pull_me!
         @errors += repository.rugged_errors if !pulled

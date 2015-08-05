@@ -16,6 +16,9 @@
 class BaseJob < ActiveJob::Base
 
   def perform(object, method, opts = {})
+    job_options   = opts.delete(:job_options){ {} }
+    event_options = opts.delete(:event_options){ {} }
+
     # Build people_to_notify list
     channels = object.notification_channels
 
@@ -26,7 +29,7 @@ class BaseJob < ActiveJob::Base
     AsyncEvents::Notification.info(channels, use_case.message_on_start)
 
     # Perform job
-    result = use_case.call
+    result = use_case.call(job_options)
 
     # Send job end notification
     if result.success?
@@ -35,7 +38,7 @@ class BaseJob < ActiveJob::Base
       AsyncEvents::Notification.errors(channels, result.message_on_errors)
     end
 
-    AsyncEvents::ViewRefresh.call(channels, opts)
+    AsyncEvents::ViewRefresh.call(channels, event_options) unless event_options.empty?
   end
 
 end

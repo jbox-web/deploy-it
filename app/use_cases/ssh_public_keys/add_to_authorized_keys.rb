@@ -16,7 +16,7 @@
 module SshPublicKeys
   class AddToAuthorizedKeys < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if !ssh_public_key.exists_in_authorized_key_file?
         begin
           File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_config + "\n") }

@@ -107,7 +107,7 @@ class ApplicationsController < ApplicationController
 
 
   def manage
-    @application.run_async!(@deploy_action.to_method, async_view_refresh(:containers_toolbar))
+    @application.run_async!(@deploy_action.to_method, event_options: async_view_refresh(:containers_toolbar))
     render_ajax_response
   end
 

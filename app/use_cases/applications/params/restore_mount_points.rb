@@ -17,7 +17,7 @@ module Applications
   module Params
     class RestoreMountPoints < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         get_mount_points_list.each do |step, mount_points|
           mount_points.each do |source, target|
             mp_db = application.mount_points.find_by_source_and_step(source, step)

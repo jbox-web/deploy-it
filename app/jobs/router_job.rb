@@ -13,18 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module Applications
-  module Docker
-    class Stop < ActiveUseCase::Base
+class RouterJob < BaseJob
 
-      def execute(opts = {})
-        application.containers.find_each do |c|
-          result = c.stop!
-          @errors += result.errors if !result.success?
-        end
-        application.update_lb_route!
-      end
+  queue_as :deploy_it_router
 
-    end
-  end
 end

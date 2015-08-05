@@ -17,7 +17,7 @@ module Applications
   module Params
     class CreateRelations < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         create_member_record
         create_distant_repository_record
         create_local_repository_record

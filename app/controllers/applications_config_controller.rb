@@ -82,7 +82,7 @@ class ApplicationsConfigController < ApplicationController
   def synchronize_repository
     repository = @application.distant_repo
     # Call service objects to perform other actions
-    repository.run_async!('resync!', async_view_refresh(:repositories))
+    repository.run_async!('resync!', event_options: async_view_refresh(:repositories))
     render_ajax_response
   end
 

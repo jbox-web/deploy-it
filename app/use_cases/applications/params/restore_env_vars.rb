@@ -17,7 +17,7 @@ module Applications
   module Params
     class RestoreEnvVars < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         get_env_vars_list.each do |key, value|
           ev_db = application.env_vars.find_by_key(key)
           if ev_db.nil?

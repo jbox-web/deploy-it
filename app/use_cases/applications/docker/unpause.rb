@@ -17,7 +17,7 @@ module Applications
   module Docker
     class Unpause < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         application.containers.find_each do |c|
           result = c.unpause!
           @errors += result.errors if !result.success?

@@ -17,7 +17,7 @@ module Applications
   module Files
     class UpdateFiles < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         update_file(application.env_file_for_build,  build_env_vars)
         update_file(application.env_file_for_deploy, deploy_env_vars)
         update_file(application.db_file,             database_env_vars)

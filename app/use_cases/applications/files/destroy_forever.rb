@@ -17,7 +17,7 @@ module Applications
   module Files
     class DestroyForever < ActiveUseCase::Base
 
-      def execute
+      def execute(opts = {})
         # Destroy route
         log_message "Destroy application route : #{application.name}"
         application.destroy_lb_route!

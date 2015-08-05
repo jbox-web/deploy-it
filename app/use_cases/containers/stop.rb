@@ -16,23 +16,24 @@
 module Containers
   class Stop < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if container.docker_id
-        container_stop
+        container_stop(opts)
       else
         error_message("Container does not exist !.")
       end
     end
 
 
-    def container_stop
+    def container_stop(opts = {})
+      update_route = opts.delete(:update_route){ false }
       begin
         container.docker_stop
       rescue => e
         log_exception(e)
         error_message("Erreurs lors de l'arrêt du contenaire '#{container.docker_id[0..12]}'")
       else
-        container.application.create_lb_route!
+        container.application.update_lb_route! if update_route
       end
     end
 

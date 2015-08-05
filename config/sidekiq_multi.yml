@@ -1,5 +1,6 @@
 ---
 :concurrency: 10
+:timeout: 15
 :queues:
   - deploy_it_repositories
   - deploy_it_applications

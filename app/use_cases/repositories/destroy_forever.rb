@@ -16,7 +16,7 @@
 module Repositories
   class DestroyForever < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       if repository.exists?
         begin
           FileUtils.rm_rf(repository.path)

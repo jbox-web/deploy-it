@@ -16,7 +16,7 @@
 module Servers
   class RecreateInventoryFile < ActiveUseCase::Base
 
-    def execute
+    def execute(opts = {})
       begin
         Server.generate_ansible_inventory_file!
       rescue => e

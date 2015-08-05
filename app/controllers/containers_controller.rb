@@ -28,7 +28,7 @@ class ContainersController < ApplicationController
 
 
   def manage
-    @container.run_async!(@deploy_action.to_method, async_view_refresh(:containers_toolbar))
+    @container.run_async!(@deploy_action.to_method, job_options: { update_route: true }, event_options: async_view_refresh(:containers_toolbar))
     render_ajax_response
   end
 
