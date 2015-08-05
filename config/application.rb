@@ -65,6 +65,9 @@ module DeployIt
 
     # Timezone
     config.time_zone = 'Paris'
+
+    # https://github.com/plataformatec/devise/issues/3643
+    config.relative_url_root = '/'
   end
 end
 
