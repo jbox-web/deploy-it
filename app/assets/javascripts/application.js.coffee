@@ -26,7 +26,7 @@
 #= require turbolinks
 #= require_tree .
 
-Turbolinks.enableTransitionCache()
+# Turbolinks.enableTransitionCache()
 Turbolinks.enableProgressBar()
 
 onFirstLoad = ->
