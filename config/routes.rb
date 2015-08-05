@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   ### All routes below this point should require login ###
 
   ## Sidekiq
-  mount Sidekiq::Web,  at: '/sidekiq'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
+
   mount DeployIt::API, at: '/'
 
   ## Devise routes
