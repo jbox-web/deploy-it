@@ -2,6 +2,10 @@ fr:
 
   use_cases:
     application:
+      bootstrap:
+        start: "Application '%{application}' en cours d'initialisation ..."
+        success: "Initialisation de l'application '%{application}' réussie !"
+        failed: "Echec d'initialisation de l'application '%{application}' : %{errors}"
       build:
         start: "Application '%{application}' en cours de construction ..."
         success: "Construction de l'application '%{application}' réussie !"
