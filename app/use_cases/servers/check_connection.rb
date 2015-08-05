@@ -44,20 +44,15 @@ module Servers
 
       def check_http
         catch_errors do
-          Net::HTTP.get(host, '/')
+          Net::HTTP.get(@role.host, '/')
         end
       end
 
 
       def check_socket
         catch_errors do
-          TCPSocket.new(host, @role.port)
+          TCPSocket.new(@role.host, @role.port)
         end
-      end
-
-
-      def host
-        (@role.alternative_host.nil? || @role.alternative_host.empty?) ? server.ip_address : @role.alternative_host
       end
 
 

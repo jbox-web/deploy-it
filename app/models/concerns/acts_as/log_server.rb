@@ -23,7 +23,7 @@ module ActsAs
 
 
     def logger_host
-      role_logger.alternative_host
+      role_logger.host
     end
 
 
@@ -33,11 +33,7 @@ module ActsAs
 
 
     def logger_url
-      if !logger_host.empty?
-        "#{logger_host}:#{logger_port}"
-      else
-        "#{ip_address}:#{logger_port}"
-      end
+      "#{logger_host}:#{logger_port}"
     end
 
   end

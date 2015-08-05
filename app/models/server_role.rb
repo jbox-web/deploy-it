@@ -75,6 +75,11 @@ class ServerRole < ActiveRecord::Base
   end
 
 
+  def host
+    (alternative_host.nil? || alternative_host.empty?) ? server.ip_address : alternative_host
+  end
+
+
   private
 
 

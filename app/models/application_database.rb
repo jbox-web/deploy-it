@@ -29,55 +29,20 @@ class ApplicationDatabase < ActiveRecord::Base
 
 
   def db_host
-    self.send("get_#{db_type}_host")
+    return '' if server.nil?
+    server.send("#{db_type}_host")
+  end
+
+
+  def db_port
+    return '' if server.nil?
+    server.send("#{db_type}_port")
   end
 
 
   def db_socket
-    if db_type == 'mysql'
-      '/var/run/mysqld/mysqld.sock'
-    else
-      "/var/run/postgresql/.s.PGSQL.#{server.postgres_port}"
-    end
+    return '' if server.nil?
+    server.send("#{db_type}_socket")
   end
-
-
-  private
-
-
-    def get_mysql_host
-      return '' if server.nil?
-      if !server.mysql_host.empty?
-        if server.mysql_host == '127.0.0.1'
-          if application.language == 'ruby'
-            ''
-          else
-            'localhost:/var/run/mysqld/mysqld.sock'
-          end
-        else
-          "#{server.mysql_host}:#{server.mysql_port}"
-        end
-      else
-        "#{server.ip_address}:#{server.mysql_port}"
-      end
-    end
-
-
-    def get_postgres_host
-      return '' if server.nil?
-      if !server.postgres_host.empty?
-        if server.postgres_host == '127.0.0.1'
-          if application.language == 'ruby'
-            ''
-          else
-            "/var/run/postgresql/.s.PGSQL.#{server.postgres_port}"
-          end
-        else
-          "#{server.postgres_host}:#{server.postgres_port}"
-        end
-      else
-        "#{server.ip_address}:#{server.postgres_port}"
-      end
-    end
 
 end

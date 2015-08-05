@@ -23,27 +23,22 @@ module ActsAs
 
 
     def docker_url
-      "tcp://#{docker_server_address}:#{docker_port}"
-    end
-
-
-    def docker_server_address
-      !docker_host.empty? ? docker_host : ip_address
+      "tcp://#{docker_host}:#{docker_port}"
     end
 
 
     def docker_host
-      role_docker.alternative_host
-    end
-
-
-    def docker_reachable?
-      docker_proxy.reachable?
+      role_docker.host
     end
 
 
     def docker_port
       role_docker.port
+    end
+
+
+    def docker_reachable?
+      docker_proxy.reachable?
     end
 
 

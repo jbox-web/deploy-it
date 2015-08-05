@@ -23,12 +23,17 @@ module ActsAs
 
 
     def postgres_host
-      role_postgres.alternative_host
+      role_postgres.host
     end
 
 
     def postgres_port
       role_postgres.port
+    end
+
+
+    def postgres_socket
+      "/var/run/postgresql/.s.PGSQL.#{postgres_port}"
     end
 
   end

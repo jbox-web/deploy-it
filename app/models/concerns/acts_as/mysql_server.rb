@@ -23,12 +23,17 @@ module ActsAs
 
 
     def mysql_host
-      role_mysql.alternative_host
+      role_mysql.host
     end
 
 
     def mysql_port
       role_mysql.port
+    end
+
+
+    def mysql_socket
+      '/var/run/mysqld/mysqld.sock'
     end
 
   end
