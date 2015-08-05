@@ -40,8 +40,7 @@ class ApplicationsConfigController < ApplicationController
     @saved = false
     if @application.update(credentials_params)
       @saved = true
-      # Call service objects to perform other actions
-      trigger_async_job!('create_lb_route!')
+      @application.update_lb_route!
     end
     render_ajax_response
   end

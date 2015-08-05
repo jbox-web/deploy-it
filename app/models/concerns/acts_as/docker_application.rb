@@ -147,7 +147,7 @@ module ActsAs
         container.rename(new_name)
         container.restart!
       end
-      create_lb_route! if type == :front
+      update_lb_route! if type == :front
     end
 
 

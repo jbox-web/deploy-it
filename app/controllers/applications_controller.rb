@@ -174,7 +174,7 @@ class ApplicationsController < ApplicationController
         @application.run_async!('bootstrap!')
       when 'update'
         @application.run_async!('update_files!')
-        @application.run_async!('create_lb_route!') if @application.domain_name_has_changed? || @application.use_credentials_has_changed?
+        @application.update_lb_route! if @application.domain_name_has_changed? || @application.use_credentials_has_changed?
       when 'destroy'
         @application.run_async!('destroy_forever!')
       end
