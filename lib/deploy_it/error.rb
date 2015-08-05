@@ -16,36 +16,9 @@
 module DeployIt
   module Error
 
-  # The default error. It's never actually raised, but can be used to catch all
-  # gem-specific errors that are thrown as they all subclass from this.
-  class DeployItError < StandardError; end
-
-  # Raised when invalid arguments are passed to a method.
-  class ArgumentError < DeployItError; end
-
-  # Raised when a file or a container already exists.
-  class AlreadyExistError < DeployItError; end
-
-  # Raised when a file or a container does not exists.
-  class NeverDeployedError < DeployItError; end
-
-  # Raised when a file or a container does not exists.
-  class ServerNotFoundError < DeployItError; end
-
-  # Raised when a file or a container is not found.
-  class RepositoryNotFoundError < DeployItError; end
-
-  # Raised when a file or a container is not found.
-  class DockerImageNotFound < DeployItError; end
-
-  # Raised when a Git revision is not found on Container build.
-  class GitRevisionNotFoundError < DeployItError; end
-
-  # Raised when a file or a container already exists.
-  class ForbiddenError < DeployItError; end
-
-  # Raised when an IO action fails.
-  class IOError < DeployItError; end
+    class DeployItError       < StandardError; end
+    class IOError             < DeployItError; end
+    class DockerImageNotFound < DeployItError; end
 
   end
 end
