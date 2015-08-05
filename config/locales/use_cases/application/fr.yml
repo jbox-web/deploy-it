@@ -2,55 +2,79 @@ fr:
 
   use_cases:
     application:
+
       bootstrap:
         start: "Application '%{application}' en cours d'initialisation ..."
         success: "Initialisation de l'application '%{application}' réussie !"
         failed: "Echec d'initialisation de l'application '%{application}' : %{errors}"
+
       build:
         start: "Application '%{application}' en cours de construction ..."
         success: "Construction de l'application '%{application}' réussie !"
         failed: "Echec de la construction de l'application '%{application}' : %{errors}"
+
       start:
         start: "Application '%{application}' en cours de démarrage ..."
         success: "Démarrage de l'application '%{application}' réussi !"
         failed: "Echec du démarrage de l'application '%{application}' : %{errors}"
+
       stop:
         start: "Application '%{application}' en cours d'arrêt ..."
         success: "Arrêt de l'application '%{application}' réussi !"
         failed: "Echec de l'arrêt de l'application '%{application}' : %{errors}"
+
       restart:
         start: "Application '%{application}' en cours de redémarrage ..."
         success: "Redémarrage de l'application '%{application}' réussi !"
         failed: "Echec du redémarrage de l'application '%{application}' : %{errors}"
+
       pause:
         start: "Application '%{application}' en cours de mise en pause ..."
         success: "Mise en pause de l'application '%{application}' réussie !"
         failed: "Echec de la mise en pause de l'application '%{application}' : %{errors}"
+
       unpause:
         start: "Application '%{application}' en cours de sortie de pause ..."
         success: "Sortie de pause de l'application '%{application}' réussie !"
         failed: "Echec de la sortie de pause de l'application '%{application}' : %{errors}"
+
       export:
         start: "Application '%{application}' en cours d'export ..."
         success: "Export de l'application '%{application}' réussi !"
         failed: "Echec de l'export de l'application '%{application}' : %{errors}"
+
       destroy_forever:
         start: "Application '%{application}' en cours de destruction ..."
         success: "Destruction de l'application '%{application}' réussie !"
         failed: "Echec de la destruction de l'application '%{application}' : %{errors}"
+
       update_files:
         start: "Mise à jour des fichiers de l'application '%{application}' en cours..."
         success: "Mise à jour des fichiers de l'application '%{application}' réussie !"
         failed: "Echec de la mise à jour des fichiers de l'application '%{application}' : %{errors}"
+
       create_physical_database:
         start: "Création de la base de données de l'application '%{application}' en cours..."
         success: "Création de la base de données de l'application '%{application}' réussie !"
         failed: "Echec de la création de la base de données de l'application '%{application}' : %{errors}"
+
+      router: &router
+        errors:
+          io_error: Erreur lors de l'exécution de la mise à jour
+          invalid_router_update: Requête de mise à jour invalide
+          unreachable_router: Routeur injoignable
+          unavailable_router: Aucun routeur disponible
+          router_update_failed: Mise à jour refusée
+          unknown_error: Erreur inconnue
+
       create_lb_route:
+        <<: *router
         start: "Création de la route de l'application '%{application}' en cours..."
         success: "Création de la route de l'application '%{application}' réussie !"
         failed: "Echec de la création de la route de l'application '%{application}' : %{errors}"
+
       destroy_lb_route:
+        <<: *router
         start: "Suppression de la route de l'application '%{application}' en cours..."
         success: "Suppression de la route de l'application '%{application}' réussie !"
         failed: "Echec de la suppression de la route de l'application '%{application}' : %{errors}"

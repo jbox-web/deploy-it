@@ -17,23 +17,19 @@ module Applications
   module Router
     class CreateLbRoute < ActiveUseCase::Base
 
+      include Router::Base
+
+
       def execute(opts = {})
-        begin
-          router_server.recreate_inventory_file!
-          router_server.ansible_proxy.run_playbook(route_creator, extra_vars)
-        rescue => e
-          error_message("Error while notifying router")
-          log_exception(e)
+        execute_if_exists do
+          catch_errors do
+            router_server.ansible_proxy.run_playbook(route_creator, extra_vars)
+          end
         end
       end
 
 
       private
-
-
-        def router_server
-          application.find_server_with_role(:lb)
-        end
 
 
         def route_creator
@@ -53,14 +49,14 @@ module Applications
 
         def extra_vars
           {
-            application_name: application.config_id,
-            backend_urls: backend_urls,
-            domain_name: application.domain_name,
-            domain_aliases: application.domain_aliases.map(&:domain_name),
-            domain_redirects: application.domain_redirects.map(&:domain_name),
-            use_ssl: application.use_ssl?,
+            application_name:  application.config_id,
+            backend_urls:      backend_urls,
+            domain_name:       application.domain_name,
+            domain_aliases:    application.domain_aliases.map(&:domain_name),
+            domain_redirects:  application.domain_redirects.map(&:domain_name),
+            use_ssl:           application.use_ssl?,
             enable_htpassword: application.use_credentials?,
-            htpassword: application.active_credentials
+            htpassword:        application.active_credentials
           }
         end
 

@@ -17,23 +17,19 @@ module Applications
   module Router
     class DestroyLbRoute < ActiveUseCase::Base
 
+      include Router::Base
+
+
       def execute(opts = {})
-        begin
-          router_server.recreate_inventory_file!
-          router_server.ansible_proxy.run_playbook(route_destroyer, extra_vars)
-        rescue => e
-          error_message("Error while notifying router")
-          log_exception(e)
+        execute_if_exists do
+          catch_errors do
+            router_server.ansible_proxy.run_playbook(route_destroyer, extra_vars)
+          end
         end
       end
 
 
       private
-
-
-        def router_server
-          application.find_server_with_role(:lb)
-        end
 
 
         def route_destroyer

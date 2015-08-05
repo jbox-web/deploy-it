@@ -19,6 +19,9 @@ module DeployIt
     class DeployItError       < StandardError; end
     class IOError             < DeployItError; end
     class DockerImageNotFound < DeployItError; end
+    class InvalidRouterUpdate < DeployItError; end
+    class UnreachableRouter   < DeployItError; end
+    class RouterUpdateFailed  < DeployItError; end
 
   end
 end

@@ -78,22 +78,19 @@ class AnsibleProxy
       playbook
     ]
 
-    log_regex = /TASK:\s\[([\w\s\:]+)\]\s\*+/
-
     begin
-      out = DeployIt::Utils.capture('/usr/bin/env', params)
-    rescue => e
-      # Re raise errors
-      DeployIt.file_logger.error e.message
+      output, err, status = DeployIt::Utils.execute('/usr/bin/env', params)
+    rescue DeployIt::Error::IOError => e
       raise e
     else
-      logs = []
-      out.split("\n").each do |line|
-        next if !line.match(log_regex)
-        text = line.match(log_regex)[1]
-        logs << text
+      case status.exitstatus
+      when 1
+        raise DeployIt::Error::InvalidRouterUpdate
+      when 2
+        raise DeployIt::Error::UnreachableRouter
+      when 3
+        raise DeployIt::Error::RouterUpdateFailed
       end
-      return logs
     ensure
       FileUtils.rm_f(vars_file)
       destroy_temp_keys
