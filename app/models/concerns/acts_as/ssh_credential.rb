@@ -47,7 +47,7 @@ module ActsAs
       def set_fingerprint
         # Don't mess with existing keys (since cannot change key text anyway)
         return unless new_record?
-        self.fingerprint = DeployIt::SshUtils.fingerprint(public_key)
+        self.fingerprint = DeployIt::Utils::Ssh.fingerprint(public_key)
       end
 
 
@@ -57,12 +57,12 @@ module ActsAs
 
         valid = true
 
-        if !DeployIt::SshUtils.valid_ssh_public_key?(public_key)
+        if !DeployIt::Utils::Ssh.valid_ssh_public_key?(public_key)
           errors.add(:public_key, :corrupted)
           valid = false
         end
 
-        if !DeployIt::SshUtils.valid_ssh_private_key?(private_key)
+        if !DeployIt::Utils::Ssh.valid_ssh_private_key?(private_key)
           errors.add(:private_key, :corrupted)
           valid = false
         end

@@ -15,13 +15,31 @@
 
 module DeployIt
   module Utils
-    extend Utils::Console
-    extend Utils::Crypto
-    extend Utils::Exec
-    extend Utils::Files
-    extend Utils::Git
-    extend Utils::Http
-    extend Utils::Ssh
-    extend Utils::Ssl
+    module Git
+      extend self
+
+      def parse_repository_from_ssh_command
+        ENV['SSH_ORIGINAL_COMMAND'].split(' ')[1].gsub!("'", '').gsub!('.git', '')
+      end
+
+
+      def parse_git_command_from_ssh_command
+        ENV['SSH_ORIGINAL_COMMAND'].split(' ')[0]
+      end
+
+
+      def ref_is_valid?(local_ref)
+        while data = $stdin.gets
+          old_revision, new_revision, pushed_ref = data.chomp.split(" ")
+          if pushed_ref == local_ref
+            valid = true
+          else
+            valid = false
+          end
+        end
+        return valid, { old_revision: old_revision, new_revision: new_revision, ref_name: pushed_ref }
+      end
+
+    end
   end
 end

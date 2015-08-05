@@ -7,6 +7,13 @@ STDERR.sync = true
 RAILS_ENV = ENV["RAILS_ENV"] ||= "production"
 require_relative '../config/environment'
 
+def display_errors_and_exit(errors)
+  logger = DeployIt.console_logger
+  DeployIt::Utils.display_errors_on_console(logger, errors)
+  exit 1
+end
+
+
 #########
 ## MAIN #
 #########
@@ -24,7 +31,7 @@ application = Application.find_by_repo_url(repo_name)
 repository  = application.distant_repo
 
 ## Validate pushed data
-valid, build_refs = DeployIt::Utils.build_is_valid?(repository.local_branch)
+valid, build_refs = DeployIt::Utils.ref_is_valid?(repository.local_branch)
 
 if valid
   # First create push
@@ -39,16 +46,13 @@ if valid
   if task.runnable?
     task.run!
     if !task.success?
-      DeployIt::Utils.display_errors_on_console(task.errors)
-      exit 1
+      display_errors_and_exit(task.errors)
+    else
+      exit 0
     end
   else
-    DeployIt::Utils.display_errors_on_console(task.errors)
-    exit 1
+    display_errors_and_exit(task.errors)
   end
 else
-  DeployIt::Utils.display_errors_on_console(["Deploy did not complete, you must push to '#{repository.local_branch}' branch !"])
-  exit 1
+  display_errors_and_exit(["Deploy did not complete, you must push to '#{repository.local_branch}' branch !"])
 end
-
-exit 0

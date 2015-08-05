@@ -59,7 +59,7 @@ class Admin::PlatformsController < Admin::DefaultController
 
 
     def create_platform_credential
-      data = DeployIt::SshUtils.generate_ssh_key
+      data = DeployIt::Utils::Ssh.generate_ssh_key
       @platform.create_credential(public_key: data[:public_key], private_key: data[:private_key])
     end
 

@@ -13,15 +13,32 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'open3'
+
 module DeployIt
   module Utils
-    extend Utils::Console
-    extend Utils::Crypto
-    extend Utils::Exec
-    extend Utils::Files
-    extend Utils::Git
-    extend Utils::Http
-    extend Utils::Ssh
-    extend Utils::Ssl
+    module Exec
+      extend self
+
+      def capture(command, args = [])
+        output, err, code = execute(command, args)
+        if code != 0
+          error_msg = "Non-zero exit code #{code} for `#{command} #{args.join(" ")}`"
+          DeployIt.file_logger.error error_msg
+          raise DeployIt::Error::IOError
+        end
+        output
+      end
+
+
+      def execute(command, args = [])
+        Open3.capture3(command, *args)
+      rescue => e
+        error_msg = "Exception occured executing `#{command} #{args.join(" ")}` : #{e.message}"
+        DeployIt.file_logger.error error_msg
+        raise DeployIt::Error::IOError
+      end
+
+    end
   end
 end

@@ -49,7 +49,7 @@ class CredentialCreationForm < ActionForm::Base
   def submit(params)
     super
     if type == 'RepositoryCredential::SshKey' && automatic_mode?
-      data = DeployIt::SshUtils.generate_ssh_key
+      data = DeployIt::Utils::Ssh.generate_ssh_key
       self.generated   = data[:generated]
       self.public_key  = data[:public_key]
       self.private_key = data[:private_key]

@@ -13,49 +13,45 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-require 'openssl'
+require 'net/ssh'
+require 'sshkey'
 
 module DeployIt
-  module SslUtils
+  module Utils
+    module Ssh
+      extend self
 
-    class << self
+      def fingerprint(key)
+        SSHKey.fingerprint(key)
+      rescue => e
+        nil
+      end
 
-      def valid_ssl_cert?(crt)
-        ssl_cert(crt) rescue false
-      rescue OpenSSL::X509::CertificateError => e
+
+      def valid_ssh_private_key?(key)
+        k = SSHKey.new(key)
+      rescue => e
         false
       end
 
 
-      def valid_ssl_key?(key)
-        ssl_key(key)
-      rescue OpenSSL::PKey::RSAError => e
-        false
+      def valid_ssh_public_key?(key)
+        SSHKey.valid_ssh_public_key?(key)
       end
 
 
-      def key_match_cert?(key, crt)
-        crt = ssl_cert(crt)
-        key = ssl_key(key)
-        crt.check_private_key(key)
-      rescue OpenSSL::X509::CertificateError, OpenSSL::PKey::RSAError => e
-        false
+      def generate_ssh_key
+        key = SSHKey.generate(comment: "deploy-it@#{Settings.access_domain_name}")
+        { generated: true, private_key: key.private_key, public_key: key.ssh_public_key }
       end
 
 
-      private
-
-
-        def ssl_cert(crt)
-          OpenSSL::X509::Certificate.new(crt)
+      def execute_ssh_command(host, user, command, opts = {})
+        Net::SSH.start(host, user, opts) do |ssh|
+          ssh.exec!(command)
         end
-
-
-        def ssl_key(key)
-          OpenSSL::PKey::RSA.new(key)
-        end
+      end
 
     end
-
   end
 end

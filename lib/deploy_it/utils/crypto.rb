@@ -13,15 +13,21 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'securerandom'
+
 module DeployIt
   module Utils
-    extend Utils::Console
-    extend Utils::Crypto
-    extend Utils::Exec
-    extend Utils::Files
-    extend Utils::Git
-    extend Utils::Http
-    extend Utils::Ssh
-    extend Utils::Ssl
+    module Crypto
+      extend self
+
+      def generate_secret(length)
+        length = length.to_i
+        secret = SecureRandom.base64(length * 2)
+        secret = secret.gsub(/[\=\_\-\+\/]/, '')
+        secret = secret.split(//).sample(length).join('')
+        secret
+      end
+
+    end
   end
 end

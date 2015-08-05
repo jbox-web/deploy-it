@@ -30,7 +30,7 @@ class SshProxy
 
 
   def execute(command)
-    DeployIt::SshUtils.execute_ssh_command(host, user, command, ssh_options)
+    DeployIt::Utils::Ssh.execute_ssh_command(host, user, command, ssh_options)
   end
 
 

@@ -36,7 +36,7 @@ describe RepositoryCredential::SshKey do
 
   describe "with valid ssh_key" do
     before do
-      data = DeployIt::SshUtils.generate_ssh_key
+      data = DeployIt::Utils::Ssh.generate_ssh_key
       @valid_ssh_key = build(:ssh_key, public_key: data[:public_key], private_key: data[:private_key])
     end
     subject { @valid_ssh_key }

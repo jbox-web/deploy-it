@@ -74,7 +74,7 @@ class SshPublicKey < ActiveRecord::Base
     def set_fingerprint
       # Don't mess with existing keys (since cannot change key text anyway)
       return unless new_record?
-      self.fingerprint = DeployIt::SshUtils.fingerprint(key)
+      self.fingerprint = DeployIt::Utils::Ssh.fingerprint(key)
     end
 
 
@@ -98,7 +98,7 @@ class SshPublicKey < ActiveRecord::Base
     def key_correctness
       return false if (key.nil? || key.empty?)
 
-      if !DeployIt::SshUtils.valid_ssh_public_key?(key)
+      if !DeployIt::Utils::Ssh.valid_ssh_public_key?(key)
         errors.add(:key, :corrupted)
         return false
       end

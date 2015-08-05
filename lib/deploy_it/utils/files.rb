@@ -13,46 +13,26 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-require 'net/ssh'
-require 'sshkey'
-
 module DeployIt
-  module SshUtils
+  module Utils
+    module Files
+      extend self
 
-    class << self
-
-      def fingerprint(key)
-        SSHKey.fingerprint(key)
-      rescue => e
-        nil
+      def write_yaml_file(data)
+        # Get random file
+        file = Tempfile.new('temp')
+        filepath = file.path
+        file.close!
+        # Write file
+        write_file(filepath, data.to_yaml)
+        return filepath
       end
 
 
-      def valid_ssh_private_key?(key)
-        k = SSHKey.new(key)
-      rescue => e
-        false
-      end
-
-
-      def valid_ssh_public_key?(key)
-        SSHKey.valid_ssh_public_key?(key)
-      end
-
-
-      def generate_ssh_key
-        key = SSHKey.generate(comment: "deploy-it@#{Settings.access_domain_name}")
-        { generated: true, private_key: key.private_key, public_key: key.ssh_public_key }
-      end
-
-
-      def execute_ssh_command(host, user, command, opts = {})
-        Net::SSH.start(host, user, opts) do |ssh|
-          ssh.exec!(command)
-        end
+      def write_file(file, content)
+        File.open(file, 'w+') {|f| f.write(content) }
       end
 
     end
-
   end
 end

@@ -13,15 +13,48 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'openssl'
+
 module DeployIt
   module Utils
-    extend Utils::Console
-    extend Utils::Crypto
-    extend Utils::Exec
-    extend Utils::Files
-    extend Utils::Git
-    extend Utils::Http
-    extend Utils::Ssh
-    extend Utils::Ssl
+    module Ssl
+      extend self
+
+      def valid_ssl_cert?(crt)
+        ssl_cert(crt) rescue false
+      rescue OpenSSL::X509::CertificateError => e
+        false
+      end
+
+
+      def valid_ssl_key?(key)
+        ssl_key(key)
+      rescue OpenSSL::PKey::RSAError => e
+        false
+      end
+
+
+      def key_match_cert?(key, crt)
+        crt = ssl_cert(crt)
+        key = ssl_key(key)
+        crt.check_private_key(key)
+      rescue OpenSSL::X509::CertificateError, OpenSSL::PKey::RSAError => e
+        false
+      end
+
+
+      private
+
+
+        def ssl_cert(crt)
+          OpenSSL::X509::Certificate.new(crt)
+        end
+
+
+        def ssl_key(key)
+          OpenSSL::PKey::RSA.new(key)
+        end
+
+    end
   end
 end

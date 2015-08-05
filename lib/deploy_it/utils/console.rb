@@ -15,13 +15,17 @@
 
 module DeployIt
   module Utils
-    extend Utils::Console
-    extend Utils::Crypto
-    extend Utils::Exec
-    extend Utils::Files
-    extend Utils::Git
-    extend Utils::Http
-    extend Utils::Ssh
-    extend Utils::Ssl
+    module Console
+      extend self
+
+      def display_errors_on_console(logger, errors)
+        logger.info ""
+        errors.each do |error|
+          logger.error error
+        end
+        logger.info ""
+      end
+
+    end
   end
 end

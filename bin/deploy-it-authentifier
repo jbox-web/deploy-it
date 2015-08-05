@@ -4,7 +4,8 @@ STDOUT.sync = true
 STDERR.sync = true
 
 ## Include Libs
-require_relative '../lib/deploy_it/utils'
+require_relative '../lib/deploy_it/utils/git'
+require_relative '../lib/deploy_it/utils/http'
 
 #########
 ## MAIN #
@@ -16,7 +17,7 @@ def get_user_authorization(login, fingerprint, repo_name)
   auth_path   = '/deploy_it/auth'
   auth_url    = File.join(auth_server, auth_path)
   data = { login: login, fingerprint: fingerprint, repo_name: repo_name }
-  failed, message = DeployIt::Utils.post_data(auth_url, data)
+  failed, message = DeployIt::Utils::Http.post_data(auth_url, data)
   failed ? { 'auth' => { 'passed' => false, 'messages' => [message] } } : message
 end
 
@@ -28,13 +29,13 @@ end
 
 login        = ARGV[0]
 fingerprint  = ARGV[1]
-repo_name    = DeployIt::Utils.parse_repository_from_ssh_command
+repo_name    = DeployIt::Utils::Git.parse_repository_from_ssh_command
 
 token = get_user_authorization(login, fingerprint, repo_name)
 
 if token['auth']['passed']
   # Get original Git command
-  git_command = DeployIt::Utils.parse_git_command_from_ssh_command
+  git_command = DeployIt::Utils::Git.parse_git_command_from_ssh_command
 
   # Get repo path
   repo_path = token['auth']['repo_path']
