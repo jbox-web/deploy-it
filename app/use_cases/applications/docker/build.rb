@@ -54,7 +54,7 @@ module Applications
 
         def build(archive_path)
           # Display banner
-          banner('Building application :')
+          logger.banner('Building application :')
 
           begin
             compiler = DockerServices::AppCompiler.new(application, archive_path, logger)
@@ -70,7 +70,7 @@ module Applications
 
         def release
           # Display banner
-          banner('Releasing application :')
+          logger.banner('Releasing application :')
 
           begin
             releaser = DockerServices::AppReleaser.new(application, build_id, logger)
@@ -86,7 +86,7 @@ module Applications
 
         def publish
           # Display banner
-          banner('Publishing application :')
+          logger.banner('Publishing application :')
 
           begin
             publisher = DockerServices::AppPublisher.new(application.image_tagged, logger)
@@ -102,7 +102,7 @@ module Applications
 
         def scale
           # Display banner
-          banner('Scaling application :')
+          logger.banner('Scaling application :')
 
           begin
             scaler = DockerServices::AppScaler.new(application, logger)
@@ -131,18 +131,9 @@ module Applications
 
 
         def goodbye_banner
-          logger.empty_line
-          logger.header('Application deployed !')
-          logger.empty_line
+          logger.banner('Application deployed !')
           logger.padded('Have a nice day!')
           logger.padded('The JBox Team @JBoxWeb.')
-          logger.empty_line
-        end
-
-
-        def banner(message)
-          logger.empty_line
-          logger.header(message)
           logger.empty_line
         end
 

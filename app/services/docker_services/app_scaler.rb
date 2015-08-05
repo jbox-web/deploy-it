@@ -71,7 +71,9 @@ module DockerServices
           application.unmark_containers!(type: :front)
           raise "Errors while starting web instances"
         else
+          logger.banner('Notifying router :')
           application.switch_containers!(type: :front, version: release.version)
+          logger.padded('Done !')
         end
       end
 

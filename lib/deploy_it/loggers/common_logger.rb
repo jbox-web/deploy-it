@@ -22,6 +22,13 @@ module DeployIt
       end
 
 
+      def banner(message)
+        empty_line
+        header(message)
+        empty_line
+      end
+
+
       def title(message)
         info(message, type: :title)
       end
