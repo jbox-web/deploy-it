@@ -51,7 +51,6 @@ fr:
       server_role:
         type: Rôle
         default_server: Serveur par défaut pour ce rôle
-        daemon_path: Chemin du daemon
         alternative_host: Adresse alternative
         port: Port
         connection_timeout: Timeout de connexion
@@ -66,9 +65,6 @@ fr:
               inclusion: entrée invalide
             default_server:
               taken: déjà assigné
-            daemon_path:
-              blank: ne peut être nul
-              invalid: invalide
             docker_port:
               not_a_number: n'est pas un nombre
             connection_timeout:

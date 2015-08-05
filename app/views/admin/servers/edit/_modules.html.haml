@@ -19,19 +19,9 @@
 
             %h4{ class: 'page-header' }= label_with_icon(ff.object.humanize, ff.object.to_icon, fixed: true)
 
-            - if ff.object.name == 'docker'
-              = ff.text_field :alternative_host, required: false
-              = ff.text_field :port, required: false
-              = ff.text_field :connection_timeout, required: false
-            - elsif ff.object.name == 'lb'
-              = ff.text_field :daemon_path, required: true
-            - elsif ff.object.name == 'log'
-              = ff.text_field :alternative_host, required: false
-              = ff.text_field :port, required: false
-            - else
-              = ff.text_field :daemon_path, required: true
-              = ff.text_field :alternative_host, required: false
-              = ff.text_field :port, required: false
+            = ff.text_field :alternative_host, required: false
+            = ff.text_field :port, required: false
+            = ff.text_field :connection_timeout, required: false
 
             = ff.form_group :default_server, label: { text: t('label.server_role.default_server') }, class: 'shifted' do
               = ff.check_box :default_server, class: 'bootstrap-switch', data: { size: 'small' }, label: ''

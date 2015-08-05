@@ -148,7 +148,7 @@ class Admin::ServersController < Admin::DefaultController
 
 
     def roles_params
-      params.require(:server).permit(roles_attributes: [:id, :default_server, :daemon_path, :alternative_host, :port, :connection_timeout])
+      params.require(:server).permit(roles_attributes: [:id, :default_server, :alternative_host, :port, :connection_timeout])
     end
 
 end

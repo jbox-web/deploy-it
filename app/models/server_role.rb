@@ -32,7 +32,6 @@ class ServerRole < ActiveRecord::Base
 
   ## Additionnal Validations
   validate :valid_default_uniqueness
-  validate :daemon_path_format, on: :update
 
   ## Scopes
   scope :by_role,        -> { order(name: :asc) }
@@ -76,11 +75,6 @@ class ServerRole < ActiveRecord::Base
   end
 
 
-  def status_command
-    "pidof #{daemon_path}"
-  end
-
-
   private
 
 
@@ -90,21 +84,6 @@ class ServerRole < ActiveRecord::Base
       return if existing_server == self
       if default_server == true && !existing_server.nil?
         errors.add(:default_server, :taken)
-        return false
-      end
-    end
-
-
-    def daemon_path_format
-      return if name == 'docker'
-
-      if daemon_path.nil? || daemon_path.empty?
-        errors.add(:daemon_path, :blank)
-        return false
-      end
-
-      if daemon_path.match(/\A(^\/[\w\/\.-]+)\z/).nil?
-        errors.add(:daemon_path, :invalid)
         return false
       end
     end

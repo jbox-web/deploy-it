@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801231605) do
+ActiveRecord::Schema.define(version: 20150805022158) do
 
   create_table "application_credentials", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 20150801231605) do
     t.integer  "platform_id",        limit: 4
     t.integer  "server_id",          limit: 4
     t.string   "name",               limit: 255
-    t.string   "daemon_path",        limit: 255
     t.string   "alternative_host",   limit: 255, default: ""
     t.integer  "port",               limit: 4
     t.integer  "connection_timeout", limit: 4,   default: 10

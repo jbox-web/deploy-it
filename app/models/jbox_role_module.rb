@@ -63,15 +63,15 @@ class JboxRoleModule
   def default_options
     case id
     when 'pg_db'
-      { daemon_path: '/usr/lib/postgresql/9.1/bin/postgres', port: 5432 }
+      { port: 5432, connection_timeout: 10 }
     when 'mysql_db'
-      { daemon_path: '/usr/sbin/mysqld', port: 3306 }
+      { port: 3306, connection_timeout: 10 }
     when 'docker'
       { port: 4243, connection_timeout: 10 }
     when 'lb'
-      { daemon_path: '/usr/sbin/haproxy' }
+      { port: 80, connection_timeout: 10 }
     when 'log'
-      { daemon_path: '/usr/sbin/rsyslogd', port: 514 }
+      { port: 514, connection_timeout: 10 }
     end
   end
 
