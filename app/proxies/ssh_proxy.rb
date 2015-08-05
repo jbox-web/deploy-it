@@ -35,7 +35,7 @@ class SshProxy
 
 
   def ssh_options
-    { config: false, use_agent: false, keys_only: true, port: port, key_data: [private_key] }
+    { config: false, use_agent: false, keys_only: true, port: port, key_data: [private_key], auth_methods: ['publickey'] }
   end
 
 end
