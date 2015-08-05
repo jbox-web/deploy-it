@@ -4,7 +4,7 @@ gem 'rugged',                '~> 0.22.2', git: 'https://github.com/libgit2/rugge
 gem 'actionform',            '~> 0.0.1',  git: 'https://github.com/rails/actionform.git', require: 'action_form'
 
 gem 'async_notifications',   '~> 0.1.0',  git: 'https://github.com/jbox-web/async_notifications.git'
-gem 'active_use_case',       '~> 1.0.1',  git: 'https://github.com/jbox-web/active_use_case.git'
+gem 'active_use_case',       '~> 1.0.2',  git: 'https://github.com/jbox-web/active_use_case.git'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git'

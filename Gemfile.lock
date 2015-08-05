@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/jbox-web/active_use_case.git
-  revision: 19adac0790c83d1241397acc900ce0d5ea15ba86
+  revision: ea8622a5bd79a0ff6b4528b09d2ff21ea51f161c
   specs:
-    active_use_case (1.0.1)
+    active_use_case (1.0.2)
       rails (~> 4.0, >= 4.0.0)
 
 GIT
@@ -460,7 +460,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (~> 4.2.0)
   actionform (~> 0.0.1)!
-  active_use_case (~> 1.0.1)!
+  active_use_case (~> 1.0.2)!
   acts_as_list (~> 0.7.0)
   async_model (~> 1.0.0)!
   async_notifications (~> 0.1.0)!
