@@ -8,7 +8,7 @@ fr:
         failed: "Echec de la synchronisation du dépôt '%{repository}' : %{errors}"
       clone:
         start: "Clonage du dépôt '%{repository}' en cours..."
-        success: "Clonage du dépôt '%{repository}' réussie !"
+        success: "Clonage du dépôt '%{repository}' réussi !"
         failed: "Echec du clonage du dépôt '%{repository}' : %{errors}"
       create_archive:
         start: "Création de l'archive du dépôt '%{repository}' en cours..."
