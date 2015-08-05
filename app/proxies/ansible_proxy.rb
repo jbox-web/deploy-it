@@ -69,6 +69,7 @@ class AnsibleProxy
     vars_file = vars_to_file(extra_vars)
 
     params = [
+      'ANSIBLE_SSH_PIPELINING=True',
       'ANSIBLE_HOST_KEY_CHECKING=False',
       'ansible-playbook',
       '--inventory-file', INVENTORY_FILE,
