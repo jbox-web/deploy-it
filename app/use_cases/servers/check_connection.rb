@@ -25,7 +25,9 @@ module Servers
       when 'docker'
         check_docker
       when 'lb'
-        check_http
+        check_http && check_ssh
+      when 'pg_db', 'mysql_db'
+        check_socket && check_ssh
       else
         check_socket
       end
@@ -53,6 +55,14 @@ module Servers
         catch_errors do
           TCPSocket.new(@role.host, @role.port)
         end
+      end
+
+
+      def check_ssh
+        catch_errors do
+          @output = server.ssh_execute('whoami')
+        end
+        @errors << I18n.t('label.server_role.offline', service: @role.humanize) if @output.nil?
       end
 
 
