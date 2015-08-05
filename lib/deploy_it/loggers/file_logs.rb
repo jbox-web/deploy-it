@@ -15,19 +15,21 @@
 
 require 'logger'
 
-module DeployIt::Loggers
-  class FileLogs < Logger
+module DeployIt
+  module Loggers
+    class FileLogs < Logger
 
-    class << self
+      class << self
 
-      def init_logs!
-        logfile = File.join(Settings.log_dir, 'deploy-it.log')
-        logger = new(logfile)
-        logger.progname = 'DeployIt'
-        return logger
+        def init_logs!
+          logfile = File.join(Settings.log_dir, 'deploy-it.log')
+          logger = new(logfile)
+          logger.progname = 'DeployIt'
+          return logger
+        end
+
       end
 
     end
-
   end
 end
