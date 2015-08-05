@@ -16,11 +16,12 @@
 module Containers
   class Pause < ActiveUseCase::Base
 
+    include Containers::Base
+
+
     def execute(opts = {})
-      if container.docker_id
+      execute_if_exists do
         container_pause
-      else
-        error_message("Container does not exist !.")
       end
     end
 

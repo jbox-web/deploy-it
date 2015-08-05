@@ -2,6 +2,8 @@ fr:
 
   use_cases:
     container:
+      errors:
+        not_exists: "Le contenaire n'existe pas !"
       start:
         start: "Contenaire '%{container}' en cours de démarrage ..."
         success: "Démarrage du contenaire '%{container}' réussi !"

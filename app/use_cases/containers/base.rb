@@ -14,27 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 module Containers
-  class Start < ActiveUseCase::Base
+  module Base
 
-    include Containers::Base
-
-
-    def execute(opts = {})
-      execute_if_exists do
-        container_start(opts)
-      end
-    end
-
-
-    def container_start(opts = {})
-      update_route = opts.delete(:update_route){ false }
-      begin
-        container.docker_start
-      rescue => e
-        log_exception(e)
-        error_message("Erreurs lors du démarrage du contenaire '#{container.docker_id[0..12]}'")
+    def execute_if_exists(&block)
+      if container.docker_id
+        yield
       else
-        container.application.update_lb_route! if update_route
+        error_message(I18n.t('use_cases.container.errors.not_exists'))
       end
     end
 

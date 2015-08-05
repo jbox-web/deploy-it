@@ -16,11 +16,12 @@
 module Containers
   class DestroyForever < ActiveUseCase::Base
 
+    include Containers::Base
+
+
     def execute(opts = {})
-      if container.docker_id
+      execute_if_exists do
         container_destroy(opts)
-      else
-        error_message("Container does not exist !.")
       end
     end
 
