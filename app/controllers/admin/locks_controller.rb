@@ -13,14 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Lock < ActiveRecord::Base
+class Admin::LocksController < Admin::DefaultController
 
-  ## Basic Validations
-  validates :token, presence: true, uniqueness: true
+  include Crudify::Base
 
-
-  def to_s
-    token
-  end
+  crudify 'lock',
+          namespace: 'admin',
+          crumbable: true,
+          crumbs_opts: { icon: 'fa-lock' }
 
 end

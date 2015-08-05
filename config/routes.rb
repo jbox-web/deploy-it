@@ -128,6 +128,9 @@ Rails.application.routes.draw do
     resources :docker_images
     resources :buildpacks
     resources :reserved_names
+
+    resources :locks, only: [:index, :destroy]
+
     resources :applications, only: [:index] do
       get 'status'
       collection do

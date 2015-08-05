@@ -1,0 +1,19 @@
+- html_title t('label.lock.plural')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = render_crumbs
+
+    %table{ class: 'table table-hover' }
+      %thead
+        %tr
+          %th= Lock.human_attribute_name('token')
+          %th
+
+      %tbody
+        - @locks.each do |lock|
+          %tr
+            %td= lock
+            %td{ class: 'text-right' }= button_delete admin_lock_path(lock), class: 'btn-sm'
