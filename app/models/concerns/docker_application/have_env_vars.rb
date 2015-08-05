@@ -18,12 +18,12 @@ module DockerApplication
     extend ActiveSupport::Concern
 
     def active_env_vars
-      Hash[env_vars.collect { |env| [env.key, env.value] }].merge(additional_env_vars)
+      base_params.merge(Hash[env_vars.collect { |env| [env.key, env.value] }])
     end
 
 
-    def sorted_env_vars
-      Hash[env_vars.collect { |env| [env.key, env.value] }].merge(additional_env_vars)
+    def base_params
+      application_params.merge(database_params)
     end
 
 
@@ -40,21 +40,21 @@ module DockerApplication
     end
 
 
+    def application_params
+      params = {}
+      params[:buildpack_url]   = buildpack
+      params[:buildpack_debug] = debug_mode? ? 'true' : ''
+      params[:site_dns]        = domain_name
+      params[:use_ssl]         = use_ssl?
+      params[:port]            = port
+      params[:home]            = '/app'
+      params[:log_server]      = find_log_server
+      params[:secret_key_base] = DeployIt::Utils.generate_secret(64)
+      params
+    end
+
+
     private
-
-
-      def additional_env_vars
-        {
-          buildpack_url:   buildpack,
-          buildpack_debug: (debug_mode? ? 'true' : ''),
-          site_dns:        domain_name,
-          use_ssl:         use_ssl?,
-          container_id:    identifier,
-          port:            port,
-          home:            '/app',
-          log_server:      find_log_server
-        }.merge(database_params)
-      end
 
 
       def find_log_server
