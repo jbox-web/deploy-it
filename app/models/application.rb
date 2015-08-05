@@ -187,7 +187,7 @@ class Application < ActiveRecord::Base
 
 
   def update_lb_route!(opts = {})
-    RouterJob.set(wait: 2.second).perform_later(self, 'create_lb_route!', opts)
+    RouterJob.perform_later(self, 'create_lb_route!', opts)
   end
 
 
