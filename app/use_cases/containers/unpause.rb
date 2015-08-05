@@ -21,17 +21,14 @@ module Containers
 
     def execute(opts = {})
       execute_if_exists do
-        container_unpause
+        container_unpause(opts)
       end
     end
 
 
-    def container_unpause
-      begin
+    def container_unpause(opts = {})
+      catch_errors(opts) do
         container.docker_unpause
-      rescue => e
-        log_exception(e)
-        error_message("Erreurs lors de la remise en route du contenaire '#{container.docker_id[0..12]}'")
       end
     end
 

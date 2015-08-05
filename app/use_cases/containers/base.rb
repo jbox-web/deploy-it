@@ -24,5 +24,18 @@ module Containers
       end
     end
 
+
+    def catch_errors(opts = {}, &block)
+      update_route = opts.delete(:update_route){ false }
+      begin
+        yield
+      rescue => e
+        log_exception(e)
+        error_message(e.message)
+      else
+        container.application.update_lb_route! if update_route
+      end
+    end
+
   end
 end

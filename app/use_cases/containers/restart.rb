@@ -27,14 +27,8 @@ module Containers
 
 
     def container_restart(opts = {})
-      update_route = opts.delete(:update_route){ false }
-      begin
+      catch_errors(opts) do
         container.docker_restart
-      rescue => e
-        log_exception(e)
-        error_message("Erreurs lors du redémarrage du contenaire '#{container.docker_id[0..12]}'")
-      else
-        container.application.update_lb_route! if update_route
       end
     end
 
