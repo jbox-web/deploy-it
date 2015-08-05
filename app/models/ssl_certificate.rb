@@ -34,35 +34,15 @@ class SslCertificate < ActiveRecord::Base
     def key_correctness
       return if (ssl_crt.nil? || ssl_key.nil?)
       return if (ssl_crt.empty? || ssl_key.empty?)
-
-      valid = true
-
-      if !DeployIt::SslUtils.valid_ssl_cert?(ssl_crt)
-        errors.add(:ssl_crt, :corrupted)
-        valid = false
-      end
-
-      if !DeployIt::SslUtils.valid_ssl_key?(ssl_key)
-        errors.add(:ssl_key, :corrupted)
-        valid = false
-      end
-
-      return valid
+      errors.add(:ssl_crt, :corrupted) if !DeployIt::SslUtils.valid_ssl_cert?(ssl_crt)
+      errors.add(:ssl_key, :corrupted) if !DeployIt::SslUtils.valid_ssl_key?(ssl_key)
     end
 
 
     def key_match_cert
       return if (ssl_crt.nil? || ssl_key.nil?)
       return if (ssl_crt.empty? || ssl_key.empty?)
-
-      valid = true
-
-      if !DeployIt::SslUtils.key_match_cert?(ssl_key, ssl_crt)
-        errors.add(:base, :key_match_cert)
-        valid = false
-      end
-
-      return valid
+      errors.add(:base, :key_match_cert) if !DeployIt::SslUtils.key_match_cert?(ssl_key, ssl_crt)
     end
 
 end

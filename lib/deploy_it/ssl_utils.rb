@@ -21,15 +21,15 @@ module DeployIt
     class << self
 
       def valid_ssl_cert?(crt)
-        ssl_cert(crt)
-      rescue
+        ssl_cert(crt) rescue false
+      rescue OpenSSL::X509::CertificateError => e
         false
       end
 
 
       def valid_ssl_key?(key)
         ssl_key(key)
-      rescue
+      rescue OpenSSL::PKey::RSAError => e
         false
       end
 
@@ -38,6 +38,8 @@ module DeployIt
         crt = ssl_cert(crt)
         key = ssl_key(key)
         crt.check_private_key(key)
+      rescue OpenSSL::X509::CertificateError, OpenSSL::PKey::RSAError => e
+        false
       end
 
 
