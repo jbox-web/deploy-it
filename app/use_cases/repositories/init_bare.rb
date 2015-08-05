@@ -57,7 +57,7 @@ module Repositories
 
 
       def script_path
-        Rails.root.join('wrappers', 'deploy-it-builder')
+        File.join(Settings.scripts_path, 'deploy-it-builder')
       end
 
   end
