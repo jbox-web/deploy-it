@@ -22,19 +22,19 @@ fr:
       docker: Docker
       pg_db: Postgres
       mysql_db: MySQL
-      lb: HAProxy
+      lb: Nginx
       log: Rsyslog
 
       docker_role: Rôle Docker
       pg_db_role: Rôle Postgres
       mysql_db_role: Rôle MySQL
-      lb_role: Rôle HAProxy
+      lb_role: Rôle Nginx
       log_role: Rôle Rsyslog
 
       docker_service: Service Docker
       pg_db_service: Service Postgres
       mysql_db_service: Service MySQL
-      lb_service: Service HAProxy
+      lb_service: Service Nginx
       log_service: Service Rsyslog
 
   notice:
