@@ -7,7 +7,6 @@ gem 'async_notifications',   '~> 0.1.0',  git: 'https://github.com/jbox-web/asyn
 gem 'active_use_case',       '~> 1.0.1',  git: 'https://github.com/jbox-web/active_use_case.git'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
-gem 'zeroclipboard-rails',   '~> 0.1.0',  git: 'https://github.com/n-rodriguez/zeroclipboard-rails.git', branch: 'update_zc'
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git'
 
 ## Base gems
@@ -52,6 +51,7 @@ gem 'select2-rails',               '~> 3.5.9'
 gem 'simple-navigation',           '~> 4.0.0'
 gem 'will_paginate',               '~> 3.0.7'
 gem 'will_paginate-bootstrap',     '~> 1.0.1'
+gem 'zeroclipboard-rails',         '~> 0.1.1'
 
 ## Utils gems
 gem 'acts_as_list',  '~> 0.7.0'
