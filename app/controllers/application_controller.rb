@@ -175,7 +175,7 @@ class ApplicationController < ActionController::Base
         app_id: ''
       },
       triggers: [
-        "refreshView('#{admin_application_status_path(opts[:app_id])}')"
+        "refreshView('#{admin_application_status_path(opts[:app_id], opts)}')"
       ]
     }
   end

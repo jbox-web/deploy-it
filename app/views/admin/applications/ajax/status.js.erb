@@ -1,2 +1,8 @@
-<%= js_render_partial("#application_#{@application.id}", 'admin/applications/application', method: :replace, locals: { application: @application }) %>
-$("#application_<%= @application.id %> span.action-result").html('Done !').show();
+$("#application_<%= @application.id %> span.action-status")
+  .html('<%= render_application_state(@application.state) %>')
+  .show();
+<% if @after_action %>
+$("#application_<%= @application.id %> span.action-result")
+  .html('Done !')
+  .show();
+<% end %>

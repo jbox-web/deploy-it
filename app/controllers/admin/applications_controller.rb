@@ -28,13 +28,14 @@ class Admin::ApplicationsController < Admin::DefaultController
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
       deploy_action = application.find_active_use_case(params[:deploy_action])
-      application.run_async!(deploy_action.to_method, async_view_refresh(:applications_list, app_id: application.id))
+      application.run_async!(deploy_action.to_method, async_view_refresh(:applications_list, app_id: application.id, after_action: true))
     end
     render_ajax_response
   end
 
 
   def status
+    @after_action = params[:after_action] || false
     @application = Application.find_by_id(params[:application_id])
     render_ajax_response
   end

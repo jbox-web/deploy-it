@@ -9,6 +9,7 @@
         %th= Application.human_attribute_name('buildpack')
         %th= Application.human_attribute_name('state')
         %th= button_select_all "toggleCheckboxesBySelector('input.app-checkbox'); return false;"
+        %th
 
     %tbody
       - applications.each do |application|
