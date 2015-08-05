@@ -86,19 +86,23 @@ module ActsAs
     def backend_port
       docker_proxy.backend_port(application.port)
     rescue => e
-      ''
+      nil
     end
 
 
     def backend_address
       docker_proxy.backend_address(application.port)
     rescue => e
-      ''
+      nil
     end
 
 
     def backend_url
-      "#{backend_address}:#{backend_port}"
+      if !backend_address.nil? && !backend_port.nil?
+        "#{backend_address}:#{backend_port}"
+      else
+        nil
+      end
     end
 
 

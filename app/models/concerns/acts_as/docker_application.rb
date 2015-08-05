@@ -87,7 +87,7 @@ module ActsAs
 
 
     def backend_urls
-      containers.type_front.map(&:backend_url)
+      containers.type_front.map(&:backend_url).compact
     end
 
 
