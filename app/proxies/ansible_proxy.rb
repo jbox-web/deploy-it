@@ -83,6 +83,7 @@ class AnsibleProxy
       out = DeployIt::Utils.capture('/usr/bin/env', params)
     rescue => e
       # Re raise errors
+      DeployIt.file_logger.error e.message
       raise e
     else
       logs = []

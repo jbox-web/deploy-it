@@ -23,9 +23,7 @@ module DeployIt
       def capture(command, args = [])
         output, err, code = execute(command, args)
         if code != 0
-          error_msg = "Non-zero exit code #{code} for `#{command} #{args.join(" ")}`"
-          DeployIt.file_logger.error error_msg
-          raise DeployIt::Error::IOError
+          raise DeployIt::Error::IOError, "Non-zero exit code #{code} for `#{command} #{args.join(" ")}`"
         end
         output
       end
@@ -34,9 +32,7 @@ module DeployIt
       def execute(command, args = [])
         Open3.capture3(command, *args)
       rescue => e
-        error_msg = "Exception occured executing `#{command} #{args.join(" ")}` : #{e.message}"
-        DeployIt.file_logger.error error_msg
-        raise DeployIt::Error::IOError
+        raise DeployIt::Error::IOError, "Exception occured executing `#{command} #{args.join(" ")}` : #{e.message}"
       end
 
     end
