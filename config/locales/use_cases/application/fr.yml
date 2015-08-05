@@ -58,23 +58,12 @@ fr:
         success: "Création de la base de données de l'application '%{application}' réussie !"
         failed: "Echec de la création de la base de données de l'application '%{application}' : %{errors}"
 
-      router: &router
-        errors:
-          io_error: Erreur lors de l'exécution de la mise à jour
-          invalid_router_update: Requête de mise à jour invalide
-          unreachable_router: Routeur injoignable
-          unavailable_router: Aucun routeur disponible
-          router_update_failed: Mise à jour refusée
-          unknown_error: Erreur inconnue
-
       create_lb_route:
-        <<: *router
         start: "Création de la route de l'application '%{application}' en cours..."
         success: "Création de la route de l'application '%{application}' réussie !"
         failed: "Echec de la création de la route de l'application '%{application}' : %{errors}"
 
       destroy_lb_route:
-        <<: *router
         start: "Suppression de la route de l'application '%{application}' en cours..."
         success: "Suppression de la route de l'application '%{application}' réussie !"
         failed: "Echec de la suppression de la route de l'application '%{application}' : %{errors}"

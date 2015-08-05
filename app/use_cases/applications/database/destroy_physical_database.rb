@@ -17,23 +17,20 @@ module Applications
   module Database
     class DestroyPhysicalDatabase < ActiveUseCase::Base
 
+      include ::Helpers::Ansible
+      include Database::Base
+
+
       def execute(opts = {})
-        begin
-          database_server.recreate_inventory_file!
-          database_server.ansible_proxy.run_playbook(database_destroyer, extra_vars)
-        rescue => e
-          error_message("Error while destroying '#{application.database.db_type}' database")
-          log_exception(e)
+        execute_if_exists(database_server) do
+          catch_errors(database_server) do
+            database_server.ansible_proxy.run_playbook(database_destroyer, extra_vars)
+          end
         end
       end
 
 
       private
-
-
-        def database_server
-          application.database.server
-        end
 
 
         def database_destroyer

@@ -21,42 +21,6 @@ module Applications
         application.find_server_with_role(:lb)
       end
 
-
-      def execute_if_exists(&block)
-        if router_server.nil?
-          error_message(t('errors.unavailable_router'))
-        else
-          yield
-        end
-      end
-
-
-      def catch_errors(&block)
-        begin
-          router_server.recreate_inventory_file!
-          yield
-        rescue => e
-          error_message(treat_exception(e))
-          log_exception(e)
-        end
-      end
-
-
-      def treat_exception(e)
-        case e
-        when DeployIt::Error::IOError
-          t('errors.io_error')
-        when DeployIt::Error::InvalidRouterUpdate
-          t('errors.invalid_router_update')
-        when DeployIt::Error::UnreachableRouter
-          t('errors.unreachable_router')
-        when DeployIt::Error::RouterUpdateFailed
-          t('errors.router_update_failed')
-        else
-          t('errors.unknown_error')
-        end
-      end
-
     end
   end
 end

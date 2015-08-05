@@ -17,25 +17,21 @@ module Applications
   module Database
     class CreatePhysicalDatabase < ActiveUseCase::Base
 
+      include ::Helpers::Ansible
+      include Database::Base
+
+
       def execute(opts = {})
-        begin
-          database_server.recreate_inventory_file!
-          database_server.ansible_proxy.run_playbook(database_creator, extra_vars)
-        rescue => e
-          error_message("Error while creating '#{application.database.db_type}' database")
-          log_exception(e)
-        else
-          application.database.update_attribute(:db_created, true)
+        execute_if_exists(database_server) do
+          catch_errors(database_server) do
+            database_server.ansible_proxy.run_playbook(database_creator, extra_vars)
+            application.database.update_attribute(:db_created, true)
+          end
         end
       end
 
 
       private
-
-
-        def database_server
-          application.database.server
-        end
 
 
         def database_creator

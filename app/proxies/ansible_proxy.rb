@@ -85,11 +85,11 @@ class AnsibleProxy
     else
       case status.exitstatus
       when 1
-        raise DeployIt::Error::InvalidRouterUpdate
+        raise DeployIt::Error::InvalidServerUpdate
       when 2
-        raise DeployIt::Error::UnreachableRouter
+        raise DeployIt::Error::UnreachableServer
       when 3
-        raise DeployIt::Error::RouterUpdateFailed
+        raise DeployIt::Error::ServerUpdateFailed
       end
     ensure
       FileUtils.rm_f(vars_file)

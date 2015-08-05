@@ -17,12 +17,13 @@ module Applications
   module Router
     class DestroyLbRoute < ActiveUseCase::Base
 
+      include ::Helpers::Ansible
       include Router::Base
 
 
       def execute(opts = {})
-        execute_if_exists do
-          catch_errors do
+        execute_if_exists(router_server) do
+          catch_errors(router_server) do
             router_server.ansible_proxy.run_playbook(route_destroyer, extra_vars)
           end
         end

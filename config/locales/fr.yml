@@ -108,6 +108,15 @@ fr:
     account:
       disabled: Votre compte a été désactivé !
 
+  ansible:
+    errors:
+      io_error: Erreur lors de l'exécution de la mise à jour
+      invalid_server_update: Requête de mise à jour invalide
+      unreachable_server: Serveur injoignable
+      unavailable_server: Aucun serveur disponible
+      server_update_failed: Mise à jour refusée
+      unknown_error: Erreur inconnue
+
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté!"

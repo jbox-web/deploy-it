@@ -13,15 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DeployIt
-  module Error
+module Applications
+  module Database
+    module Base
 
-    class DeployItError       < StandardError; end
-    class IOError             < DeployItError; end
-    class DockerImageNotFound < DeployItError; end
-    class InvalidServerUpdate < DeployItError; end
-    class UnreachableServer   < DeployItError; end
-    class ServerUpdateFailed  < DeployItError; end
+      def database_server
+        application.database.server
+      end
 
+    end
   end
 end
