@@ -36,7 +36,7 @@ module DeployIt
   class RepositoryNotFoundError < DeployItError; end
 
   # Raised when a file or a container is not found.
-  class DockerImageNotFoundError < DeployItError; end
+  class DockerImageNotFound < DeployItError; end
 
   # Raised when a Git revision is not found on Container build.
   class GitRevisionNotFoundError < DeployItError; end
