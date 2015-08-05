@@ -11,8 +11,12 @@ fr:
             start: Démarrer
             stop: Arrêter
             restart: Redémarrer
+            update_route: Mettre à jour la route
 
       manage:
+        success:
+          action:
+            enqueue: Action mise en file d'attente
         error:
           action:
             empty: Vous devez spécifier l'action à exécuter

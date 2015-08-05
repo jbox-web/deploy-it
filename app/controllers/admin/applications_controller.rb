@@ -27,9 +27,15 @@ class Admin::ApplicationsController < Admin::DefaultController
   def manage
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
-      deploy_action = application.find_active_use_case(params[:deploy_action])
-      application.run_async!(deploy_action.to_method, event_options: async_view_refresh(:applications_list, app_id: application.id, after_action: true))
+      options = { event_options: async_view_refresh(:applications_list, app_id: application.id, after_action: true) }
+      if params[:deploy_action] == 'update_route'
+        application.update_lb_route!(options)
+      else
+        deploy_action = application.find_active_use_case(params[:deploy_action])
+        application.run_async!(deploy_action.to_method, options)
+      end
     end
+    flash[:notice] = t('.success.action.enqueue')
     render_ajax_response
   end
 
@@ -68,7 +74,7 @@ class Admin::ApplicationsController < Admin::DefaultController
 
 
     def valid_actions
-      ['start', 'stop', 'restart']
+      ['start', 'stop', 'restart', 'update_route']
     end
 
 end
