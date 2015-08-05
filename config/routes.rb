@@ -132,7 +132,8 @@ Rails.application.routes.draw do
     resources :buildpacks
     resources :reserved_names
 
-    resources :locks, only: [:index, :destroy]
+    resources :locks,    only: [:index, :destroy]
+    resources :settings, only: [:index]
 
     resources :applications, only: [:index] do
       get 'status'

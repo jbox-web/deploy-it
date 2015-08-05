@@ -1,0 +1,47 @@
+- html_title t('label.settings')
+
+.row
+  %div{ class: 'col-md-offset-1 col-md-10' }
+
+    %h3{ class: 'page-header' }
+      = label_with_icon(t('label.settings'), 'fa-info-circle', fixed: true)
+
+    %table{ class: 'table table-striped' }
+      - Settings.each do |key, value|
+        %tr
+          %td= key.upcase
+          %td
+            %code= value
+
+    %h3{ class: 'page-header' }
+      = label_with_icon(t('label.versions'), 'fa-info-circle', fixed: true)
+
+    %table{ class: 'table table-striped' }
+      %tr
+        %td= t('label.version_of.deploy_it')
+        %td
+          %code= DeployIt.version
+      %tr
+        %td= t('label.version_of.ruby')
+        %td
+          %code= RUBY_VERSION
+      %tr
+        %td= t('label.version_of.rails')
+        %td
+          %code= Rails::VERSION::STRING
+      %tr
+        %td= t('label.version_of.docker')
+        %td
+          %code= Docker.version['Version']
+          = link_to "(#{t('label.more_infos')})", 'javascript:void(0);', onclick: "$('#docker-infos').toggle(); return false;"
+          %span{ id: 'docker-infos', style: 'display: none;' }
+            %pre= preserve(pp Docker.info)
+      %tr
+        %td= t('label.version_of.libgit2')
+        %td
+          %code= Rugged.libgit2_version.join('.')
+
+      %tr
+        %td= t('label.version_of.rugged')
+        %td
+          %code= Rugged.features.join('/')

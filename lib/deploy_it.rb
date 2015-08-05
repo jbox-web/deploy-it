@@ -79,6 +79,8 @@ module DeployIt
 
   require_relative 'deploy_it/access_control'
 
+  require_relative 'deploy_it/version'
+
   ## Init logs
   DeployIt.console_logger = Loggers::ConsoleLogs.new
   DeployIt.file_logger    = Loggers::FileLogs.init_logs!

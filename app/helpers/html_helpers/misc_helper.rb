@@ -59,6 +59,11 @@ module HtmlHelpers
     end
 
 
+    def pp(hash)
+      JSON.pretty_generate(hash)
+    end
+
+
     def merge_css_class(opts = {}, default_class = [])
       css_class = opts.delete(:class){ '' }
       css_class = css_class.split(' ')

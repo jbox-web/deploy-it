@@ -13,18 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DeployIt
+class Admin::SettingsController < Admin::DefaultController
 
-  def self.version
-    VERSION::STRING
+  def index
+
   end
 
-  module VERSION
-    MAJOR = 1
-    MINOR = 0
-    TINY  = 0
-    PRE   = nil
-
-    STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
-  end
 end

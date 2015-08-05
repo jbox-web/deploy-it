@@ -60,6 +60,7 @@ fr:
     dashboard: Tableau de bord
     help: Aide
     infos: Informations
+    more_infos: Afficher plus d'informations
     tips: Astuce
     settings: Paramètres
     global_settings: Paramètres globaux
@@ -78,6 +79,14 @@ fr:
       ssh_keys: Mes clés SSH
       dashboard: Mon tableau de bord
       api_key: Clé d'accès API
+
+    version_of:
+      deploy_it: Version de DeployIt
+      ruby: Version de Ruby
+      rails: Version de Rails
+      docker: Version de Docker
+      rugged: Version de Rugged
+      libgit2: Version de libgit2
 
     wizard_form:
       current_step: Etape
