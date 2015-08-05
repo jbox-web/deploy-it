@@ -138,6 +138,7 @@ module NavigationHelper
         menu.item :reserved_names,    label_with_icon(t('label.reserved_name.plural'), 'fa-shield'), admin_reserved_names_path, highlights_on: :subpath
         menu.item :applications,      label_with_icon(t('label.application.plural'), 'fa-desktop'), admin_applications_path, highlights_on: :subpath
         menu.item :locks,             label_with_icon(t('label.lock.plural'), 'fa-lock'), admin_locks_path, highlights_on: :subpath
+        menu.item :sidekiq,           label_with_icon(t('label.sidekiq'), 'fa-gears'), sidekiq_web_path
       end
     end
   end

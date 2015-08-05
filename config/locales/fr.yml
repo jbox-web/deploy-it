@@ -70,6 +70,8 @@ fr:
 
     signup: S'inscrire
 
+    sidekiq: Sidekiq
+
     my:
       account: Mon compte
       profile: Mon profil
