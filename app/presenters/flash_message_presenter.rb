@@ -72,14 +72,7 @@ class FlashMessagePresenter < SimpleDelegator
 
 
     def icon
-      case type.to_sym
-      when :notice
-        'fa-check'
-      when :alert, :error
-        'fa-warning'
-      when :warning
-        'fa-warning'
-      end
+      DeployIt::Theme::FONT_AWESOME_MAPPING[type.to_sym]
     end
 
 
@@ -89,19 +82,12 @@ class FlashMessagePresenter < SimpleDelegator
 
 
     def flash_css_class
-      case type.to_sym
-      when :notice
-        'alert-success'
-      when :alert, :error
-        'alert-danger'
-      when :warning
-        'alert-warning'
-      end
+      DeployIt::Theme::BOOTSTRAP_ALERT_MAPPING[type.to_sym]
     end
 
 
     def default_css_classes
-      [ 'alert', 'fade', 'in' ]
+      DeployIt::Theme::BOOTSTRAP_ALERT_DEFAULT_CLASS
     end
 
 

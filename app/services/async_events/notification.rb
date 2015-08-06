@@ -16,20 +16,6 @@
 module AsyncEvents
   class Notification
 
-    FONT_AWESOME_MAPPING = {
-      success: 'fa-check',
-      error:   'fa-exclamation',
-      warning: 'fa-warning',
-      info:    'fa-info-circle'
-    }
-
-    BOOTSTRAP_MAPPING = {
-      success: 'success',
-      error:   'danger',
-      warning: 'warning',
-      info:    'info'
-    }
-
     include AsyncEvents::Base
     include ActionView::Helpers::TagHelper
 
@@ -98,18 +84,18 @@ module AsyncEvents
 
 
       def icon
-        icon = FONT_AWESOME_MAPPING[status] || options[:icon] || 'fa-info-circle'
-        icon_default_class.push(icon).join(' ')
+        icon = DeployIt::Theme::FONT_AWESOME_MAPPING[status] || options[:icon] || 'fa-info-circle'
+        icon_default_class.clone.push(icon).join(' ')
       end
 
 
       def type
-        BOOTSTRAP_MAPPING[status] || options[:icon] || 'info'
+        DeployIt::Theme::BOOTSTRAP_NOTIFY_MAPPING[status] || options[:type] || 'info'
       end
 
 
       def icon_default_class
-        ['fa', 'fa-align']
+        DeployIt::Theme::FONT_AWESOME_DEFAULT_CLASS
       end
 
   end
