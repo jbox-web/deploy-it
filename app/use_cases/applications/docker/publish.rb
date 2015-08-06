@@ -13,29 +13,27 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DockerServices
-  class AppPublisher
+module Applications
+  module Docker
+    class Publish < ActiveUseCase::Base
 
-    attr_reader :image_name
-    attr_reader :logger
+      def execute(logger)
+        logger.title("Pushing Docker image '#{application.image_tagged}' to registry ...")
+        begin
+          docker_server.push(application.image_tagged, Settings.docker_registry)
+        rescue => e
+          log_exception(e)
+          error_message(e.message)
+        else
+          logger.padded("Done !")
+        end
+      end
 
 
-    def initialize(image_name, logger)
-      @image_name = image_name
-      @logger     = logger
+      def docker_server
+        DockerServerProxy.local_server
+      end
+
     end
-
-
-    def run!
-      logger.title("Pushing Docker image '#{image_name}' to registry ...")
-      docker_server.push(image_name, Settings.docker_registry)
-      logger.padded("Done !")
-    end
-
-
-    def docker_server
-      DockerServerProxy.local_server
-    end
-
   end
 end

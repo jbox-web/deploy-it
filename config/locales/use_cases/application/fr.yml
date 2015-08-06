@@ -13,6 +13,35 @@ fr:
         success: "Construction de l'application '%{application}' réussie !"
         failed: "Echec de la construction de l'application '%{application}' : %{errors}"
 
+        notice:
+          on_receive: "Receiving application :"
+          on_compile: "Building application :"
+          on_release: "Releasing application :"
+          on_publish: "Publishing application :"
+          on_scale: "Scaling application :"
+
+          welcome: "Welcome to JBox Deploy'it !"
+          application_deployed: "Application deployed !"
+          goodbye: "Have a nice day!"
+          signature: "The JBox Team @JBoxWeb."
+
+        warning:
+          on_receive: "Vous devez d'abord pousser vers le dépôt principal"
+
+        errors:
+          on_receive: "Erreurs lors de la réception des données de l'application '#{application}' : %{errors}"
+          on_compile: "Erreurs lors de la construction de l'application '#{application}'"
+          on_release: "Erreurs lors de la création de la nouvelle version de l'application '#{application}'"
+          on_publish: "Erreurs lors de la publication de l'application '#{application}'"
+          on_scale: "Erreurs lors du déploiement de l'application '#{application}'"
+
+      scale:
+        notice:
+          starting_container: "Starting %{type} container instance : %{id}/%{instance_number}"
+          notifying_router: "Notifying router :"
+        errors:
+          no_instance_started: "Errors while starting %{type} instances"
+
       start:
         start: "Application '%{application}' en cours de démarrage ..."
         success: "Démarrage de l'application '%{application}' réussi !"

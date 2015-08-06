@@ -27,11 +27,11 @@ class Container < ActiveRecord::Base
   validates :application_id, presence: true
   validates :server_id,      presence: true
   validates :release_id,     presence: true
-  validates :type,           presence: true, inclusion: { in: [ 'Container::Front', 'Container::Data', 'Container::Cron' ]}
+  validates :type,           presence: true, inclusion: { in: [ 'Container::Web', 'Container::Data', 'Container::Cron' ]}
 
   ## Scopes
   scope :to_delete,  -> { where(marked_for_deletion: true) }
-  scope :type_front, -> { where(type: 'Container::Front') }
+  scope :type_web,   -> { where(type: 'Container::Web') }
   scope :type_data,  -> { where(type: 'Container::Data') }
   scope :type_cron,  -> { where(type: 'Container::Cron') }
 
@@ -39,7 +39,7 @@ class Container < ActiveRecord::Base
   delegate :image_tagged, :image_name, to: :application
 
   ## UseCases
-  add_use_cases [ :start, :stop, :restart, :pause, :unpause, :destroy_forever ]
+  add_use_cases [ :deploy, :start, :stop, :restart, :pause, :unpause, :destroy_forever ]
 
   ## AsyncModels
   acts_as_async_model 'Container'
@@ -47,6 +47,11 @@ class Container < ActiveRecord::Base
 
   def to_s
     docker_name
+  end
+
+
+  def stype
+    type.split('::')[1].downcase.to_sym
   end
 
 

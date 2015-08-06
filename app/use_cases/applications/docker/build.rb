@@ -36,82 +36,61 @@ module Applications
       private
 
 
-        # RECEIVE (create archive) --> BUILD --> RELEASE --> PUBLISH --> SCALE
+        # RECEIVE (create archive) --> COMPILE --> RELEASE --> PUBLISH --> SCALE
 
         def receive
-          # Create archive of repository
+          logger.banner(tt('notice.on_receive'))
           result = application.distant_repo.create_archive!(revision)
-
-          if !result.success?
-            error_message("Erreurs lors de la réception des données de l'application '#{application.fullname}'")
-            error_message(result.message_on_errors)
-            error_message("You must push on origin repository first!")
+          if result.success?
+            logger.padded('Done !')
+            compile(result.path)
           else
-            build(result.path)
+            error_message(tt('errors.on_receive', errors: result.errors.to_sentence))
+            error_message(tt('warning.on_receive'))
           end
         end
 
 
-        def build(archive_path)
-          # Display banner
-          logger.banner('Building application :')
-
-          begin
-            compiler = DockerServices::AppCompiler.new(application, archive_path, logger)
-            compiler.run!
-          rescue => e
-            log_exception(e)
-            error_message("Erreurs lors de la construction de l'application '#{application.fullname}'")
-          else
+        def compile(archive_path)
+          logger.banner(tt('notice.on_compile'))
+          result = application.compile!(logger, archive_path)
+          if result.success?
             release
+          else
+            error_message(tt('errors.on_compile'))
           end
         end
 
 
         def release
-          # Display banner
-          logger.banner('Releasing application :')
-
-          begin
-            releaser = DockerServices::AppReleaser.new(application, build_id, logger)
-            releaser.run!
-          rescue => e
-            log_exception(e)
-            error_message("Erreurs lors de la création de la nouvelle version de l'application '#{application.fullname}'")
-          else
+          logger.banner(tt('notice.on_release'))
+          result = application.release!(logger, build_id)
+          if result.success?
             publish
+          else
+            error_message(tt('errors.on_release'))
           end
         end
 
 
         def publish
-          # Display banner
-          logger.banner('Publishing application :')
-
-          begin
-            publisher = DockerServices::AppPublisher.new(application.image_tagged, logger)
-            publisher.run!
-          rescue => e
-            log_exception(e)
-            error_message("Erreurs lors de la publication de l'application '#{application.fullname}'")
-          else
+          logger.banner(tt('notice.on_publish'))
+          result = application.publish!(logger)
+          if result.success?
             scale
+          else
+            error_message(tt('errors.on_publish'))
           end
         end
 
 
         def scale
-          # Display banner
-          logger.banner('Scaling application :')
-
-          begin
-            scaler = DockerServices::AppScaler.new(application, logger)
-            scaler.run!
-          rescue => e
-            log_exception(e)
-            error_message("Erreurs lors du déploiement de l'application '#{application.fullname}'")
-          else
+          logger.banner(tt('notice.on_scale'))
+          result = application.scale!(logger)
+          if result.success?
             goodbye_banner
+          else
+            error_message(tt('errors.on_scale'))
           end
         end
 
@@ -126,14 +105,14 @@ module Applications
 
         def welcome_banner
           logger.empty_line
-          logger.padded("Welcome to JBox Deploy'it !")
+          logger.padded(tt('notice.welcome'))
         end
 
 
         def goodbye_banner
-          logger.banner('Application deployed !')
-          logger.padded('Have a nice day!')
-          logger.padded('The JBox Team @JBoxWeb.')
+          logger.banner(tt('notice.application_deployed'))
+          logger.padded(tt('notice.goodbye'))
+          logger.padded(tt('notice.signature'))
           logger.empty_line
         end
 

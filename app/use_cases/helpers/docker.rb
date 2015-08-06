@@ -13,28 +13,28 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DockerServices
-  module DockerHelper
+module Helpers
+  module Docker
 
     def file_exists_in_container?(file)
-      docker_connection.file_exists?(image_name, file)
+      docker_connection.file_exists?(application.image_name, file)
     end
 
 
     def directory_exists_in_container?(directory)
-      docker_connection.directory_exists?(image_name, directory)
+      docker_connection.directory_exists?(application.image_name, directory)
     end
 
 
     def run_command(command, docker_options = {})
-      docker_connection.run_attached(image_name, command, docker_options) do |chunk|
+      docker_connection.run_attached(application.image_name, command, docker_options) do |chunk|
         logger.info chunk
       end
     end
 
 
     def copy_file_to_container(source_file, dest_file, perms, opts = {})
-      docker_connection.inject_file(image_name, source_file, dest_file, perms, opts)
+      docker_connection.inject_file(application.image_name, source_file, dest_file, perms, opts)
     end
 
 

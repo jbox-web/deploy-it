@@ -87,7 +87,7 @@ module ActsAs
 
 
     def backend_urls
-      containers.type_front.map(&:backend_url).compact
+      containers.type_web.map(&:backend_url).compact
     end
 
 
@@ -134,7 +134,7 @@ module ActsAs
 
 
     def create_container!(type:, release_id:)
-      container_type = type == :cron ? 'Container::Cron' : 'Container::Front'
+      container_type = type == :cron ? 'Container::Cron' : 'Container::Web'
       server = find_server_with_role(:docker)
       containers.create(server_id: server.id, release_id: release_id, type: container_type)
     end
@@ -147,7 +147,7 @@ module ActsAs
         container.rename(new_name)
         container.restart!
       end
-      update_lb_route! if type == :front
+      update_lb_route! if type == :web
     end
 
 
@@ -175,7 +175,7 @@ module ActsAs
             "Binds" => active_mount_points_with_path[:deploy]
           }
         }
-      when :deploy
+      when :web
         {
           "Cmd"   => start_command('web'),
           "Image" => image_tagged,

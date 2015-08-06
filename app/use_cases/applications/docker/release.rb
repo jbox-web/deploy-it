@@ -13,32 +13,30 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module Database
-  class Command < DockerPlugin
+module Applications
+  module Docker
+    class Release < ActiveUseCase::Base
 
-    def pre_deploy
-      run_task_runner
-    end
-
-
-    def run_task_runner
-      return if !file_exists_in_container?('/app/Procfile')
-
-      logger.title('Injecting Task Runner ...')
-      copy_file_to_container(task_runner_path, '/build/task-runner', '755')
-
-      logger.title('Running additionnal tasks ...')
-      run_command('/build/task-runner', docker_options)
-    end
-
-
-    private
-
-
-      # Local file to inject within the container to create/update database schema
-      def task_runner_path
-        File.join(File.dirname(__FILE__), 'files', 'task-runner.sh').to_s
+      def execute(logger, build_id)
+        logger.title("Creating new release ...")
+        release = create_release(build_id)
+        logger.padded("Release 'v#{release.version}' created !")
       end
 
+
+      def create_release(build_id)
+        config = application.configs.create(values: get_values)
+        application.releases.create(build_id: build_id, author: User.current, config_id: config.id)
+      end
+
+
+      def get_values
+        values = {}
+        values[:env_vars]     = application.active_env_vars
+        values[:mount_points] = application.active_mount_points_with_path
+        values
+      end
+
+    end
   end
 end
