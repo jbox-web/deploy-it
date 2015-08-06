@@ -17,6 +17,10 @@ fr:
       updated: Plateforme modifiée avec succès
       deleted: Plateforme supprimée avec succès
 
+  error:
+    platform:
+      failed_delete: Impossible de supprimer la plateforme
+
   activerecord:
     models:
       platform: plateforme

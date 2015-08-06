@@ -136,7 +136,7 @@ module Crudify
 
 
           def failed_delete
-            redirect_to redirect_url, error: t('error.#{singular_name}.failed_delete')
+            redirect_to redirect_url, alert: t('error.#{singular_name}.failed_delete')
           end
 
 
