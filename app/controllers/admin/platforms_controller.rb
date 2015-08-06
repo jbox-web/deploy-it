@@ -50,6 +50,8 @@ class Admin::PlatformsController < Admin::DefaultController
   end
 
 
+  # Called from non-admin interface
+  #
   def stages
     @stages = @platform.stages.by_name
   end
