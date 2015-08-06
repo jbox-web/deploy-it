@@ -15,6 +15,8 @@
 
 class Platform < ActiveRecord::Base
 
+  include HaveDbReferences
+
   ## Relations
   has_many :servers
   has_many :stages
@@ -27,8 +29,8 @@ class Platform < ActiveRecord::Base
   ## Scopes
   scope :by_name, -> { order(name: :asc) }
 
-  ## Callbacks
-  before_destroy :check_references
+  check_db_references 'server', :host_name
+  check_db_references 'stage',  :name
 
 
   def to_s
@@ -59,25 +61,5 @@ class Platform < ActiveRecord::Base
   def servers_with_role(role)
     servers.select{ |s| s.has_role?(role) }
   end
-
-
-  private
-
-
-    def check_references
-      valid = true
-
-      if !servers.empty?
-        errors.add(:base, :undeletable, object_name: :server, list: servers.map(&:host_name).to_sentence)
-        valid = false
-      end
-
-      if !stages.empty?
-        errors.add(:base, :undeletable, object_name: :stage, list: stages.map(&:name).to_sentence)
-        valid = false
-      end
-
-      return valid
-    end
 
 end
