@@ -15,13 +15,14 @@
 
 module Applications
   module Docker
-    class Pause < ActiveUseCase::Base
+    module Base
 
-      include Docker::Base
-
-
-      def execute(opts = {})
-        call_containers(:pause!, opts)
+      def call_containers(method, opts = {}, &block)
+        application.containers.find_each do |c|
+          result = c.send(method, opts.dup)
+          @errors += result.errors if !result.success?
+        end
+        yield if block_given?
       end
 
     end

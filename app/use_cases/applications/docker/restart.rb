@@ -17,12 +17,13 @@ module Applications
   module Docker
     class Restart < ActiveUseCase::Base
 
+      include Docker::Base
+
+
       def execute(opts = {})
-        application.containers.find_each do |c|
-          result = c.restart!
-          @errors += result.errors if !result.success?
+        call_containers(:restart!, opts) do
+          application.update_lb_route!(opts.dup)
         end
-        application.update_lb_route!
       end
 
     end

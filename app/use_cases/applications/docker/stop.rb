@@ -17,12 +17,13 @@ module Applications
   module Docker
     class Stop < ActiveUseCase::Base
 
+      include Docker::Base
+
+
       def execute(opts = {})
-        application.containers.find_each do |c|
-          result = c.stop!
-          @errors += result.errors if !result.success?
+        call_containers(:stop!, opts) do
+          application.update_lb_route!(opts.dup)
         end
-        application.update_lb_route!
       end
 
     end
