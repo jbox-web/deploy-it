@@ -46,7 +46,7 @@ module Builds
         # Update state machine
         build.fail!
         # Send job end notification
-        AsyncEvents::Notification.errors(channels, result.message_on_errors)
+        AsyncEvents::Notification.error(channels, result.message_on_errors)
       end
 
       AsyncEvents::ViewRefresh.call(channels, event_options)

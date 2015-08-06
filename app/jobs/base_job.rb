@@ -35,7 +35,7 @@ class BaseJob < ActiveJob::Base
     if result.success?
       AsyncEvents::Notification.success(channels, result.message_on_success)
     else
-      AsyncEvents::Notification.errors(channels, result.message_on_errors)
+      AsyncEvents::Notification.error(channels, result.message_on_errors)
     end
 
     AsyncEvents::ViewRefresh.call(channels, event_options) unless event_options.empty?

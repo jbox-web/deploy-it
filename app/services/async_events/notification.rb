@@ -16,40 +16,61 @@
 module AsyncEvents
   class Notification
 
+    FONT_AWESOME_MAPPING = {
+      success: 'fa-check',
+      error:   'fa-exclamation',
+      warning: 'fa-warning',
+      info:    'fa-info-circle'
+    }
+
+    BOOTSTRAP_MAPPING = {
+      success: 'success',
+      error:   'danger',
+      warning: 'warning',
+      info:    'info'
+    }
+
     include AsyncEvents::Base
     include ActionView::Helpers::TagHelper
 
     attr_reader :channels
     attr_reader :status
     attr_reader :event
+    attr_reader :options
 
 
     def initialize(channels, status, options = {})
       @channels = channels
       @status   = status
       @event    = 'notification'
+      @options  = options
     end
 
 
     class << self
 
-      def info(channels, message, opts = {})
-        notify(channels, :info, message, opts)
+      def success(channels, messages = [], opts = {})
+        notify(channels, :success, messages, opts)
       end
 
 
-      def success(channels, message, opts = {})
-        notify(channels, :success, message, opts)
+      def error(channels, messages = [], opts = {})
+        notify(channels, :error, messages, opts)
       end
 
 
-      def errors(channels, message, opts = {})
-        notify(channels, :error, message, opts)
+      def warning(channels, messages = [], opts = {})
+        notify(channels, :warning, messages, opts)
       end
 
 
-      def notify(channels, status, message, opts = {})
-        new(channels, status, opts).send_messages!(message)
+      def info(channels, messages = [], opts = {})
+        notify(channels, :info, messages, opts)
+      end
+
+
+      def notify(channels, status, messages = [], opts = {})
+        new(channels, status, opts).send_messages!(messages)
       end
 
     end
@@ -66,47 +87,29 @@ module AsyncEvents
 
       def send_messages(messages)
         messages.each do |message|
-          send_async_notification!(channels, event, { title: title, message: message, icon: icon, type: type }) if channels.any?
-        end
+          send_async_notification!(channels, event, { title: title, message: message, icon: icon, type: type })
+        end if channels.any?
       end
 
 
       def title
-        ''
+        options[:title] || ''
       end
 
 
       def icon
-        message_icon =
-          case status
-          when :success
-            'fa-check'
-          when :error
-            'fa-exclamation'
-          when :warning
-            'fa-warning'
-          when :info
-            'fa-info-circle'
-          else
-            'fa-info-circle'
-          end
-        "fa fa-align #{message_icon}"
+        icon = FONT_AWESOME_MAPPING[status] || options[:icon] || 'fa-info-circle'
+        icon_default_class.push(icon).join(' ')
       end
 
 
       def type
-        case status
-        when :success
-          'success'
-        when :error
-          'danger'
-        when :warning
-          'warning'
-        when :info
-          'info'
-        else
-          'info'
-        end
+        BOOTSTRAP_MAPPING[status] || options[:icon] || 'info'
+      end
+
+
+      def icon_default_class
+        ['fa', 'fa-align']
       end
 
   end
