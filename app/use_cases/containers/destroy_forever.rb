@@ -20,7 +20,7 @@ module Containers
 
 
     def execute(opts = {})
-      execute_if_exists do
+      execute_if_exists(container.docker_id) do
         container_destroy(opts)
       end
     end

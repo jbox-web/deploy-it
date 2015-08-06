@@ -17,10 +17,10 @@ module Helpers
   module Ansible
 
     def execute_if_exists(object, &block)
-      if object.nil?
-        error_message(I18n.t('ansible.errors.unavailable_server'))
-      else
+      if !object.nil?
         yield
+      else
+        error_message(I18n.t('ansible.errors.unavailable_server'))
       end
     end
 
@@ -30,8 +30,8 @@ module Helpers
         object.recreate_inventory_file!
         yield
       rescue => e
-        error_message(treat_ansible_exception(e))
         log_exception(e)
+        error_message(treat_ansible_exception(e))
       end
     end
 

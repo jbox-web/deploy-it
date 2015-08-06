@@ -16,16 +16,16 @@
 module Containers
   module Base
 
-    def execute_if_exists(&block)
-      if container.docker_id
+    def execute_if_exists(object, &block)
+      if !object.nil? && !object.empty?
         yield
       else
-        error_message(I18n.t('use_cases.container.errors.not_exists'))
+        error_message(message_on_nil_object)
       end
     end
 
 
-    def catch_errors(opts = {}, &block)
+    def catch_errors(container, opts = {}, &block)
       update_route = opts.delete(:update_route){ false }
       begin
         yield

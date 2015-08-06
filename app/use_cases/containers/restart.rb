@@ -20,15 +20,10 @@ module Containers
 
 
     def execute(opts = {})
-      execute_if_exists do
-        container_restart(opts)
-      end
-    end
-
-
-    def container_restart(opts = {})
-      catch_errors(opts) do
-        container.docker_restart
+      execute_if_exists(container.docker_id) do
+        catch_errors(container, opts) do
+          container.docker_restart
+        end
       end
     end
 

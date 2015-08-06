@@ -20,15 +20,10 @@ module Containers
 
 
     def execute(opts = {})
-      execute_if_exists do
-        container_unpause(opts)
-      end
-    end
-
-
-    def container_unpause(opts = {})
-      catch_errors(opts) do
-        container.docker_unpause
+      execute_if_exists(container.docker_id) do
+        catch_errors(container, opts) do
+          container.docker_unpause
+        end
       end
     end
 
