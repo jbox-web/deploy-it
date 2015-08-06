@@ -13,9 +13,9 @@ fr:
 
   notice:
     platform:
-      created: Platforme créée avec succès
-      updated: Platforme modifiée avec succès
-      deleted: Platforme supprimée avec succès
+      created: Plateforme créée avec succès
+      updated: Plateforme modifiée avec succès
+      deleted: Plateforme supprimée avec succès
 
   activerecord:
     models:
@@ -32,7 +32,7 @@ fr:
         platform:
           attributes:
             base:
-              undeletable: "Cette platforme est utilisée par les %{object_name}(s): %{list}"
+              undeletable: "Cette plateforme est utilisée par les %{object_name}(s): %{list}"
             name:
               blank: ne peut être nul
               taken: déjà utilisé
