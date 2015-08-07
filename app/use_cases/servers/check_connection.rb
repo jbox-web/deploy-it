@@ -39,7 +39,7 @@ module Servers
 
       def check_docker
         catch_errors do
-          server.docker_reachable?
+          server.docker_proxy.reachable?
         end
       end
 
@@ -60,7 +60,7 @@ module Servers
 
       def check_ssh
         catch_errors do
-          @output = server.ssh_execute('whoami')
+          @output = server.ssh_proxy.execute('whoami')
         end
         @errors << I18n.t('label.server_role.offline', service: @role.humanize) if @output.nil?
       end

@@ -17,11 +17,6 @@ module ActsAs
   module SshServer
     extend ActiveSupport::Concern
 
-    def ssh_execute(command)
-      ssh_proxy.execute(command)
-    end
-
-
     def ssh_proxy
       @ssh_proxy ||= SshProxy.new(ip_address, ssh_user, ssh_port, credential.private_key)
     end

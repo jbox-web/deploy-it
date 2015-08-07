@@ -22,11 +22,6 @@ module ActsAs
     end
 
 
-    def docker_url
-      "tcp://#{docker_host}:#{docker_port}"
-    end
-
-
     def docker_host
       role_docker.host
     end
@@ -37,8 +32,13 @@ module ActsAs
     end
 
 
-    def docker_reachable?
-      docker_proxy.reachable?
+    def connection_timeout
+      role_docker.connection_timeout
+    end
+
+
+    def docker_url
+      "tcp://#{docker_host}:#{docker_port}"
     end
 
 
@@ -49,11 +49,6 @@ module ActsAs
 
     def docker_options
       { connect_timeout: connection_timeout, tcp_nodelay: true }
-    end
-
-
-    def connection_timeout
-      role_docker.connection_timeout
     end
 
   end
