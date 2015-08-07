@@ -40,7 +40,7 @@ module Containers
           container.docker_proxy.delete
         rescue => e
           log_exception(e)
-          error_message("Erreurs lors de la suppression du contenaire '#{container.docker_id[0..12]}'")
+          error_message("Erreurs lors de la suppression du contenaire '#{container.short_id}'")
         ensure
           # Remove from database
           container.destroy! if self_destroy

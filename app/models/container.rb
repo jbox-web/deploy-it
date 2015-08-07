@@ -46,7 +46,14 @@ class Container < ActiveRecord::Base
 
 
   def to_s
+    return '' if docker_id.nil?
     docker_name
+  end
+
+
+  def short_id
+    return '' if docker_id.nil?
+    docker_id[0..12]
   end
 
 
