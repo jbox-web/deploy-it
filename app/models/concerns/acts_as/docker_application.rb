@@ -157,7 +157,6 @@ module ActsAs
         container.docker_proxy.rename(new_name)
         container.restart!
       end
-      update_lb_route! if type == :web
     end
 
 

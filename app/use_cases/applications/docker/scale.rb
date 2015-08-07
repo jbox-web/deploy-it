@@ -41,10 +41,13 @@ module Applications
         if started == 0
           application.unmark_containers!(type: type)
           error_message(tt('errors.no_instance_started', type: type))
-        elsif type == :web
-          logger.banner(tt('notice.notifying_router'))
+        else
           application.switch_containers!(type: type, version: release.version)
-          logger.padded('Done !')
+          if type == :web
+            logger.banner(tt('notice.notifying_router'))
+            application.update_lb_route!
+            logger.padded('Done !')
+          end
         end
       end
 
