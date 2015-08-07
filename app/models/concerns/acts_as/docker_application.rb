@@ -87,22 +87,32 @@ module ActsAs
 
 
     def backend_urls
-      containers.type_web.map(&:backend_url).compact
+      all_containers.type_web.map(&:docker_proxy).map(&:backend_url).compact
     end
 
 
     def running_containers
-      containers.includes(:docker_server).select{ |c| c.running? }.size
+      proxified_containers.select { |c| c.running? }.size
     end
 
 
     def paused_containers
-      containers.includes(:docker_server).select{ |c| c.paused? }.size
+      proxified_containers.select { |c| c.paused? }.size
     end
 
 
     def stopped_containers
-      containers.includes(:docker_server).select{ |c| c.stopped? }.size
+      proxified_containers.select { |c| c.stopped? }.size
+    end
+
+
+    def proxified_containers
+      all_containers.map(&:docker_proxy)
+    end
+
+
+    def all_containers
+      containers.includes(:docker_server)
     end
 
 
@@ -144,7 +154,7 @@ module ActsAs
       scope = "type_#{type}"
       containers.send(scope).each_with_index do |container, index|
         new_name = "#{fullname_with_dashes}_v#{version}.#{type}.#{index + 1}"
-        container.rename(new_name)
+        container.docker_proxy.rename(new_name)
         container.restart!
       end
       update_lb_route! if type == :web

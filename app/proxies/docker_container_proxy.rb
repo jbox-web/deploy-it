@@ -13,25 +13,36 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class DockerContainerProxy
+class DockerContainerProxy < SimpleDelegator
 
-  attr_reader :docker_id
-  attr_reader :docker_server
+  def initialize(container)
+    super(container)
+  end
 
 
-  def initialize(docker_id, docker_server)
-    @docker_id     = docker_id
-    @docker_server = docker_server
+  def state
+    if running?
+      :running
+    elsif paused?
+      :paused
+    elsif stopped?
+      :stopped
+    end
   end
 
 
   def running?
-    info['State']['Running']
+    !!is_running? && !paused?
   end
 
 
   def paused?
-    info['State']['Paused']
+    !!is_paused?
+  end
+
+
+  def stopped?
+    !running? && !paused?
   end
 
 
@@ -40,81 +51,109 @@ class DockerContainerProxy
   end
 
 
-  def backend_port(port)
-    info['NetworkSettings']['Ports']["#{port}/tcp"][0]['HostPort']
+  def backend_port
+    info['NetworkSettings']['Ports']["#{application.port}/tcp"][0]['HostPort']
+  rescue => e
+    nil
   end
 
 
-  def backend_address(port)
-    info['NetworkSettings']['Ports']["#{port}/tcp"][0]['HostIp']
+  def backend_address
+    info['NetworkSettings']['Ports']["#{application.port}/tcp"][0]['HostIp']
+  rescue => e
+    nil
+  end
+
+
+  def backend_url
+    !backend_address.nil? && !backend_port.nil? ? "#{backend_address}:#{backend_port}" : nil
   end
 
 
   def uptime
-    info['State']['StartedAt']
+    DateTime.parse(info['State']['StartedAt'])
   end
 
 
   def info
-    container.info
+    docker_container.info
   end
 
 
   def start
-    container.start
+    docker_container.start
   end
 
 
   def stop
-    container.stop
+    docker_container.stop
   end
 
 
   def restart
-    container.restart
+    docker_container.restart
   end
 
 
   def pause
-    container.pause
+    docker_container.pause
   end
 
 
   def unpause
-    container.unpause
+    docker_container.unpause
   end
 
 
   def delete
-    container.delete
+    docker_container.delete
   end
 
 
   def kill
-    container.kill
+    docker_container.kill
   end
 
 
   def export(&block)
-    container.export(&block)
+    docker_container.export(&block)
   end
 
 
   def exec(command, opts = {}, &block)
-    container.exec(command, opts, &block)
+    docker_container.exec(command, opts, &block)
   end
 
 
   def rename(new_name)
-    container.rename(new_name)
+    docker_container.rename(new_name)
+  end
+
+
+  def server
+    docker_server.docker_proxy
   end
 
 
   private
 
 
-    def container
-      docker_server.get_container(docker_id)
+    def docker_container
+      server.get_container(docker_id)
+    end
+
+
+    def is_running?
+      return false if docker_server.nil?
+      return false if docker_id.nil?
+      info['State']['Running'] rescue false
+    end
+
+
+    def is_paused?
+      return false if docker_server.nil?
+      return false if docker_id.nil?
+      info['State']['Paused'] rescue false
     end
 
 end

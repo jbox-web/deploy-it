@@ -22,7 +22,7 @@ module Containers
     def execute(opts = {})
       execute_if_exists(container.docker_id) do
         catch_errors(container, opts) do
-          container.docker_start
+          container.docker_proxy.start
         end
       end
     end

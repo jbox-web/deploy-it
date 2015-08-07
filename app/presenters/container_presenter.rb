@@ -31,7 +31,7 @@ class ContainerPresenter < SimpleDelegator
 
   def container_actions
     content_tag(:span, class: 'pull-right') do
-      case container.state
+      case container.docker_proxy.state
       when :running
         links_for_running_container
       when :paused
@@ -44,12 +44,12 @@ class ContainerPresenter < SimpleDelegator
 
 
   def container_infos
-    uptime = distance_of_time_in_words(DateTime.now, container.uptime) rescue 'Not running'
+    uptime = distance_of_time_in_words(DateTime.now, container.docker_proxy.uptime) rescue 'Not running'
     html_list(class: 'container-infos') do
       add_item(t('label.container.state'), container_state_tag) +
       add_item(t('label.container.docker_id'), container.docker_id[0..12]) +
       add_item(t('label.container.uptime'), uptime) +
-      add_item(t('label.container.backend_url'), container.backend_url) +
+      add_item(t('label.container.backend_url'), container.docker_proxy.backend_url) +
       add_item(t('label.container.current_revision'), container.current_revision) +
       add_item(t('label.container.current_server'), container.docker_server.to_s)
     end
@@ -67,7 +67,7 @@ class ContainerPresenter < SimpleDelegator
 
 
     def container_state_tag
-      case container.state
+      case container.docker_proxy.state
       when :running
         label   = t('label.container.running')
         method  = :label_with_success_tag

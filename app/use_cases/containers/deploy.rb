@@ -24,7 +24,7 @@ module Containers
       if image_updated?
         docker_options = docker_options_for(container.stype)
         docker_options = docker_options.deep_merge("Hostname" => hostname, "Domainname" => domain_name)
-        docker_options = docker_options.deep_merge(container_options)
+        docker_options = docker_options.deep_merge(container.docker_options)
         deploy(docker_options)
       end
     end
@@ -82,7 +82,7 @@ module Containers
 
 
       def docker_server
-        container.docker_server_proxy
+        container.docker_proxy.server
       end
 
 
@@ -93,17 +93,6 @@ module Containers
 
       def execute_plugins(step, docker_options = {})
         DockerPlugin.execute(step, application, docker_server, logger, docker_options)
-      end
-
-
-      def container_options
-        {
-          "HostConfig" => {
-            "CpuShares"  => container.cpu_shares,
-            "Memory"     => container.memory.megabytes,
-            "MemorySwap" => -1
-          }
-        }
       end
 
   end

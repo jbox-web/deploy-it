@@ -30,14 +30,14 @@ module Containers
       self_destroy = opts.delete(:self_destroy){ true }
       begin
         # Stop it first
-        container.docker_stop
+        container.docker_proxy.stop
       rescue => e
         log_exception(e)
         error_message(e.message)
       ensure
         begin
           # Remove from Docker
-          container.docker_delete
+          container.docker_proxy.delete
         rescue => e
           log_exception(e)
           error_message("Erreurs lors de la suppression du contenaire '#{container.docker_id[0..12]}'")
