@@ -40,15 +40,7 @@ module NavigationHelper
 
 
   def current_menu_name
-    if admin_section?
-      t('label.admin')
-    elsif profile_section?
-      t('label.my.account')
-    elsif welcome_section?
-      t('label.help')
-    else
-      t('label.application.plural')
-    end
+    BaseMenu.new(self).current_menu_name
   end
 
 
@@ -63,44 +55,6 @@ module NavigationHelper
         render 'layouts/page'
       end
     end
-  end
-
-
-  # Here we create all menus we need with simple-navigation gem.
-  # Each menu includes its own condition of display depending on the current user and/or the current controller.
-  # This generate HTML list with Bootstrap css class.
-
-
-  USER_CONTROLLERS = [ 'MyController', 'PublicKeysController', 'RegistrationsController' ]
-
-
-  def welcome_section?
-    !admin_section? && !dashboard_section? && !profile_section?
-  end
-
-
-  def admin_section?
-    controller.class.name.split("::").first == 'Admin'
-  end
-
-
-  def dashboard_section?
-    !USER_CONTROLLERS.include?(controller.class.name) && controller.class.name != 'WelcomeController'
-  end
-
-
-  def profile_section?
-    USER_CONTROLLERS.include?(controller.class.name)
-  end
-
-
-  def application_section?
-    controller.class.name == 'ApplicationsController'
-  end
-
-
-  def credential_section?
-    controller.class.name == 'CredentialsController'
   end
 
 end
