@@ -206,7 +206,7 @@ module HtmlHelpers
 
       def is_active?(path, options = {})
         state = uri_state(path, options)
-        'active' if state.in?([:active, :chosen]) || state === true
+        state.in?([:active, :chosen]) || state === true ? 'active' : ''
       end
 
 
