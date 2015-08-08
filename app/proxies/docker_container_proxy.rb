@@ -51,15 +51,20 @@ class DockerContainerProxy < SimpleDelegator
   end
 
 
+  def network_settings
+    info['NetworkSettings']['Ports']["#{application.port}/tcp"][0]
+  end
+
+
   def backend_port
-    info['NetworkSettings']['Ports']["#{application.port}/tcp"][0]['HostPort']
+    network_settings['HostPort']
   rescue => e
     nil
   end
 
 
   def backend_address
-    info['NetworkSettings']['Ports']["#{application.port}/tcp"][0]['HostIp']
+    network_settings['HostIp']
   rescue => e
     nil
   end
