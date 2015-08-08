@@ -137,26 +137,10 @@ module ActsAs
     end
 
 
-    def delete_containers!(type:)
-      scope = "type_#{type}"
-      containers.send(scope).to_delete.map(&:destroy_forever!)
-    end
-
-
     def create_container!(type:, release_id:)
       container_type = type == :cron ? 'Container::Cron' : 'Container::Web'
       server = find_server_with_role(:docker)
       containers.create(server_id: server.id, release_id: release_id, type: container_type)
-    end
-
-
-    def rename_containers!(type:, version:)
-      scope = "type_#{type}"
-      containers.send(scope).each_with_index do |container, index|
-        new_name = "#{fullname_with_dashes}_v#{version}.#{type}.#{index + 1}"
-        container.docker_proxy.rename(new_name)
-        container.restart!
-      end
     end
 
 
