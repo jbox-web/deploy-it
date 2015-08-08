@@ -27,7 +27,7 @@ module HtmlHelpers
 
 
     def responsive_nav_bar(options = {}, &block)
-      options = options.merge(fixed: :top, fluid: true, responsive: true)
+      options = { fixed: :top, fluid: true, responsive: true }.merge(options)
       nav_bar(options, &block)
     end
 
