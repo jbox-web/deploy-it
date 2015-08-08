@@ -66,7 +66,8 @@ class AnsibleProxy
 
 
   def run_playbook(playbook, extra_vars)
-    vars_file = vars_to_file(extra_vars)
+    extra_vars = extra_vars.merge(host: host_name, user: user, port: port).map_keys!(&:to_s).map_keys!(&:upcase)
+    vars_file = DeployIt::Utils.write_yaml_file(extra_vars)
 
     params = [
       'ANSIBLE_SSH_PIPELINING=True',
@@ -99,19 +100,6 @@ class AnsibleProxy
 
 
   private
-
-
-    def vars_to_file(vars)
-      DeployIt::Utils.write_yaml_file(format_var(vars))
-    end
-
-
-    def format_var(vars)
-      new_hash = {}
-      # Inject additional variables and convert Hash keys from symbols to upercase strings
-      vars.merge(host: host_name, user: user, port: port).each { |k, v| new_hash[k.to_s.upcase] = v }
-      new_hash
-    end
 
 
     def private_key_to_file
