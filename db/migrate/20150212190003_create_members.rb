@@ -25,6 +25,6 @@ class CreateMembers < ActiveRecord::Migration
 
     add_index :members, :enrolable_id
     add_index :members, :application_id
-    add_index :members, [ :enrolable_id, :enrolable_type, :application_id ], name: :unique_member, unique: true
+    add_index :members, [:enrolable_id, :enrolable_type, :application_id], name: :unique_member, unique: true
   end
 end

@@ -26,6 +26,6 @@ class CreateEnvVars < ActiveRecord::Migration
     end
 
     add_index :env_vars, :application_id
-    add_index :env_vars, [ :application_id, :key ], unique: true
+    add_index :env_vars, [:application_id, :key], unique: true
   end
 end

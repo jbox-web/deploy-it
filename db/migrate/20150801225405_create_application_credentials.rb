@@ -24,6 +24,6 @@ class CreateApplicationCredentials < ActiveRecord::Migration
     end
 
     add_index :application_credentials, :application_id
-    add_index :application_credentials, [ :application_id, :login ], unique: true
+    add_index :application_credentials, [:application_id, :login], unique: true
   end
 end

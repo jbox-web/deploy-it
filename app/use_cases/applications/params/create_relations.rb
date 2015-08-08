@@ -62,11 +62,7 @@ module Applications
 
 
         def get_db_type
-          if application.temp_db_type == 'mysql'
-            :mysql_db
-          else
-            :pg_db
-          end
+          application.temp_db_type == 'mysql' ? :mysql_db : :pg_db
         end
 
 
