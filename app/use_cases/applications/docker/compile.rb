@@ -79,25 +79,25 @@ module Applications
 
 
         def install_build_vars
-          if File.exists?(application.env_file_for_build)
-            logger.title("Adding environment variables to build environment")
-            copy_file_to_container(application.env_file_for_build, '/app/.env', '644')
+          if File.exists? application.env_file_for(:build)
+            logger.title "Adding environment variables to build environment"
+            copy_file_to_container application.env_file_for(:build), '/app/.env', '644'
           end
         end
 
 
         def install_app_vars
-          if File.exists?(application.env_file_for_deploy)
-            logger.title("Adding environment variables to runtime environment")
-            copy_file_to_container(application.env_file_for_deploy, '/app/.profile.d/app-env.sh', '644', create_parent_dir: true)
+          if File.exists? application.env_file_for(:deploy)
+            logger.title "Adding environment variables to runtime environment"
+            copy_file_to_container application.env_file_for(:deploy), '/app/.profile.d/app-env.sh', '644', create_parent_dir: true
           end
         end
 
 
         def install_db_vars
-          if File.exists?(application.db_file)
-            logger.title('Pushing database variables within the container')
-            copy_file_to_container(application.db_file, '/app/.profile.d/db-env.sh', '640')
+          if File.exists? application.env_file_for(:database)
+            logger.title 'Pushing database variables within the container'
+            copy_file_to_container application.env_file_for(:database), '/app/.profile.d/db-env.sh', '640'
           end
         end
 

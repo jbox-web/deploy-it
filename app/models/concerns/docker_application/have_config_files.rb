@@ -17,18 +17,25 @@ module DockerApplication
   module HaveConfigFiles
     extend ActiveSupport::Concern
 
-    def env_file_for_build
-      File.join(local_repo.path, 'BUILD_ENV').to_s
+    def env_file_for(step)
+      case step
+      when :build
+        File.join(local_repo.path, 'BUILD_ENV').to_s
+      when :deploy
+        File.join(local_repo.path, 'ENV').to_s
+      when :database
+        File.join(local_repo.path, 'DATABASE').to_s
+      end
     end
 
 
-    def env_file_for_deploy
-      File.join(local_repo.path, 'ENV').to_s
-    end
-
-
-    def db_file
-      File.join(local_repo.path, 'DATABASE').to_s
+    def env_vars_for(step)
+      case step
+      when :build, :deploy
+        active_env_vars.to_env.map { |var| "export #{var}" }.join("\n")
+      when :database
+        database_params.to_env.map { |var| "export #{var}" }.join("\n")
+      end
     end
 
   end

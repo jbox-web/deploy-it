@@ -18,41 +18,23 @@ module Applications
     class UpdateFiles < ActiveUseCase::Base
 
       def execute(opts = {})
-        update_file(application.env_file_for_build,  build_env_vars)
-        update_file(application.env_file_for_deploy, deploy_env_vars)
-        update_file(application.db_file,             database_env_vars)
+        update_file application.env_file_for(:build),    application.env_vars_for(:build)
+        update_file application.env_file_for(:deploy),   application.env_vars_for(:deploy)
+        update_file application.env_file_for(:database), application.env_vars_for(:database)
       end
 
 
-      private
-
-
-        def update_file(file, content)
-          File.delete(file) if File.exists?(file)
-          begin
-            new_file = File.open(file, 'w')
-            new_file.write content + "\n"
-            new_file.close
-          rescue => e
-            error_message('Error while creating Application config files!')
-            log_exception(e)
-          end
+      def update_file(file, content)
+        File.delete(file) if File.exists?(file)
+        begin
+          new_file = File.open(file, 'w')
+          new_file.write content + "\n"
+          new_file.close
+        rescue => e
+          error_message('Error while creating Application config files!')
+          log_exception(e)
         end
-
-
-        def build_env_vars
-          application.active_env_vars.to_env.map { |var| "export #{var}" }.join("\n")
-        end
-
-
-        def deploy_env_vars
-          application.active_env_vars.to_env.map { |var| "export #{var}" }.join("\n")
-        end
-
-
-        def database_env_vars
-          application.database_params.to_env.map { |var| "export #{var}" }.join("\n")
-        end
+      end
 
     end
   end
