@@ -37,56 +37,17 @@ module Applications
 
 
         def get_env_vars
-          params = {}
-
-          if application_type.has_extra_attributes?
-            # Convert JSON attributes to YAML
-            attributes = YAML::load(application_type.extra_attributes.to_yaml)
-            # Parse YAML
-            if attributes.has_key?('env_vars')
-              attributes['env_vars'].each do |step, vars|
-                params[step.to_sym] = vars
-              end
-            end
-          end
-
-          params
+          extract_params('env_vars')
         end
 
 
         def get_mount_points
-          params = {}
-
-          if application_type.has_extra_attributes?
-            # Convert JSON attributes to YAML
-            attributes = YAML::load(application_type.extra_attributes.to_yaml)
-            # Parse YAML
-            if attributes.has_key?('mount_points')
-              attributes['mount_points'].each do |step, points|
-                params[step.to_sym] = points
-              end
-            end
-          end
-
-          params
+          extract_params('mount_points')
         end
 
 
         def get_secrets
-          params = {}
-
-          if application_type.has_extra_attributes?
-            # Convert JSON attributes to YAML
-            attributes = YAML::load(application_type.extra_attributes.to_yaml)
-            # Parse YAML
-            if attributes.has_key?('secrets')
-              attributes['secrets'].each do |key, length|
-                params[key.to_sym] = DeployIt::Utils.generate_secret(length)
-              end
-            end
-          end
-
-          params
+          extract_params('secrets')
         end
 
 
@@ -96,12 +57,34 @@ module Applications
 
 
         def get_default_servers
-          [ :docker, :log, :lb ].push(get_db_server_type)
+          [:docker, :log, :lb].push(get_db_server_type)
         end
 
 
         def get_db_server_type
           application.db_type == 'mysql' ? :mysql_db : :pg_db
+        end
+
+
+        def extract_params(type)
+          params = {}
+
+          if application_type.has_extra_attributes?
+            # Convert JSON attributes to YAML
+            attributes = YAML::load(application_type.extra_attributes.to_yaml)
+            # Parse YAML
+            if attributes.has_key?(type)
+              attributes[type].each do |key, value|
+                if type == 'secrets'
+                  params[key.to_sym] = DeployIt::Utils.generate_secret(value)
+                else
+                  params[key.to_sym] = value
+                end
+              end
+            end
+          end
+
+          params
         end
 
     end
