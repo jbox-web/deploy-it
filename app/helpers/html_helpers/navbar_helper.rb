@@ -26,6 +26,12 @@ module HtmlHelpers
     end
 
 
+    def responsive_nav_bar(options = {}, &block)
+      options = options.merge(fixed: :top, fluid: true, responsive: true)
+      nav_bar(options, &block)
+    end
+
+
     def menu_group(options = {}, &block)
       pull_class = "navbar-#{options[:pull].to_s}" if options[:pull].present?
       content_tag(:ul, :class => "nav navbar-nav #{pull_class}", &block)

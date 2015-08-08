@@ -11,7 +11,7 @@
   %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: get_application_id } }
 
     #header
-      = nav_bar(fixed: :top, fluid: true, responsive: true, brand: t('the_jbox_deployer')) do
+      = responsive_nav_bar(brand: t('the_jbox_deployer')) do
         = render_topbar_menu
 
     #main-content{ class: 'container-fluid' }
