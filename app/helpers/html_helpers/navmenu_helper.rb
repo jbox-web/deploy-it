@@ -45,43 +45,43 @@ module HtmlHelpers
     private
 
 
-    def render_hidden_menu(name, id, target, button_type)
-      container_options = { id: id, class: hidden_menu_css_class(button_type) }
+      def render_hidden_menu(name, id, target, button_type)
+        container_options = { id: id, class: hidden_menu_css_class(button_type) }
 
-      content_tag(:div, container_options) do
-        toggle_button(target, hidden_menu_html_options(button_type)) +
-        content_tag(:a, name, href: '#', class: 'navbar-brand')
+        content_tag(:div, container_options) do
+          toggle_button(target, hidden_menu_html_options(button_type)) +
+          content_tag(:a, name, href: '#', class: 'navbar-brand')
+        end
       end
-    end
 
 
-    def hidden_menu_html_options(type)
-      case type
-      when :canvas
-        { toggle: 'offcanvas', recalc: 'false', canvas: 'body' }
-      when :collapse
-        { toggle: 'collapse' }
+      def hidden_menu_html_options(type)
+        case type
+        when :canvas
+          { toggle: 'offcanvas', recalc: 'false', canvas: 'body' }
+        when :collapse
+          { toggle: 'collapse' }
+        end
       end
-    end
 
 
-    def hidden_menu_css_class(type)
-      case type
-      when :canvas
-        [ 'navbar', 'navbar-default', 'navbar-fixed-top', 'hidden-sm', 'hidden-md', 'hidden-lg' ]
-      when :collapse
-        [ 'navbar-header' ]
+      def hidden_menu_css_class(type)
+        case type
+        when :canvas
+          [ 'navbar', 'navbar-default', 'navbar-fixed-top', 'hidden-sm', 'hidden-md', 'hidden-lg' ]
+        when :collapse
+          [ 'navbar-header' ]
+        end
       end
-    end
 
 
-    def toggle_button(target, opts = {})
-      content_tag(:button, class: 'navbar-toggle', data: opts.merge(target: target)) do
-        content_tag(:span, '', class: 'icon-bar') +
-        content_tag(:span, '', class: 'icon-bar') +
-        content_tag(:span, '', class: 'icon-bar')
+      def toggle_button(target, opts = {})
+        content_tag(:button, class: 'navbar-toggle', data: opts.merge(target: target)) do
+          content_tag(:span, '', class: 'icon-bar') +
+          content_tag(:span, '', class: 'icon-bar') +
+          content_tag(:span, '', class: 'icon-bar')
+        end
       end
-    end
 
   end
 end
