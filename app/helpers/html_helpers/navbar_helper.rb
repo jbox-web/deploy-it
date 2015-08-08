@@ -136,104 +136,104 @@ module HtmlHelpers
     private
 
 
-    def nav_bar_nav(options, &block)
-      position = "static-#{options[:static].to_s}" if options[:static]
-      position = "fixed-#{options[:fixed].to_s}" if options[:fixed]
-      inverse = (options[:inverse].present? && options[:inverse] == true) ? true : false
+      def nav_bar_nav(options, &block)
+        position = "static-#{options[:static].to_s}" if options[:static]
+        position = "fixed-#{options[:fixed].to_s}" if options[:fixed]
+        inverse = (options[:inverse].present? && options[:inverse] == true) ? true : false
 
-      content_tag :nav, :class => nav_bar_css_class(position, inverse), :role => "navigation" do
-        yield
+        content_tag :nav, :class => nav_bar_css_class(position, inverse), :role => "navigation" do
+          yield
+        end
       end
-    end
 
 
-    def container_div(brand, brand_link, responsive, fluid, no_turbolink, &block)
-      div_container_class = fluid ? "container-fluid" : "container"
-      no_turbolink ||= false
+      def container_div(brand, brand_link, responsive, fluid, no_turbolink, &block)
+        div_container_class = fluid ? "container-fluid" : "container"
+        no_turbolink ||= false
 
-      content_tag :div, :class => div_container_class do
-        container_div_with_block(brand, brand_link, responsive, no_turbolink, &block)
+        content_tag :div, :class => div_container_class do
+          container_div_with_block(brand, brand_link, responsive, no_turbolink, &block)
+        end
       end
-    end
 
 
-    def container_div_with_block(brand, brand_link, responsive, no_turbolink, &block)
-      output = []
-      if responsive == true
-        output << responsive_nav_header(brand, brand_link, no_turbolink)
-        output << responsive_div { capture(&block) }
-      else
-        output << brand_link(brand, brand_link, no_turbolink)
-        output << capture(&block)
-      end
-      output.join("\n").html_safe
-    end
-
-
-    def responsive_nav_header(brand, brand_link, no_turbolink)
-      content_tag(:div, :class => "navbar-header") do
+      def container_div_with_block(brand, brand_link, responsive, no_turbolink, &block)
         output = []
-        output << responsive_button
-        output << brand_link(brand, brand_link, no_turbolink)
+        if responsive == true
+          output << responsive_nav_header(brand, brand_link, no_turbolink)
+          output << responsive_div { capture(&block) }
+        else
+          output << brand_link(brand, brand_link, no_turbolink)
+          output << capture(&block)
+        end
         output.join("\n").html_safe
       end
-    end
 
 
-    def nav_bar_css_class(position, inverse = false)
-      css_class = ["navbar", "navbar-default"]
-      css_class << "navbar-#{position}" if position.present?
-      css_class << "navbar-inverse" if inverse
-      css_class.join(" ")
-    end
-
-
-    def brand_link(name, url, no_turbolink)
-      return "" if name.blank?
-      url ||= root_url
-
-      if no_turbolink
-        link_to(name, url, :class => "navbar-brand", :data => { :no_turbolink => true})
-      else
-        link_to(name, url, :class => "navbar-brand")
+      def responsive_nav_header(brand, brand_link, no_turbolink)
+        content_tag(:div, :class => "navbar-header") do
+          output = []
+          output << responsive_button
+          output << brand_link(brand, brand_link, no_turbolink)
+          output.join("\n").html_safe
+        end
       end
-    end
 
 
-    def responsive_button
-      %{<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-  	        <span class="icon-bar"></span>
-  	        <span class="icon-bar"></span>
-  	        <span class="icon-bar"></span>
-  	      </button>}
-    end
+      def nav_bar_css_class(position, inverse = false)
+        css_class = ["navbar", "navbar-default"]
+        css_class << "navbar-#{position}" if position.present?
+        css_class << "navbar-inverse" if inverse
+        css_class.join(" ")
+      end
 
 
-    def responsive_div(&block)
-      content_tag(:div, :class => "navbar-collapse collapse", &block)
-    end
+      def brand_link(name, url, no_turbolink)
+        return "" if name.blank?
+        url ||= root_url
+
+        if no_turbolink
+          link_to(name, url, :class => "navbar-brand", :data => { :no_turbolink => true})
+        else
+          link_to(name, url, :class => "navbar-brand")
+        end
+      end
 
 
-    def is_active?(path, options = {})
-      state = uri_state(path, options)
-      "active" if state.in?([:active, :chosen]) || state === true
-    end
+      def responsive_button
+        %{<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+    	        <span class="icon-bar"></span>
+    	        <span class="icon-bar"></span>
+    	        <span class="icon-bar"></span>
+    	      </button>}
+      end
 
 
-    def name_and_caret(name)
-      "#{name} #{content_tag(:b, :class => "caret") {}}".html_safe
-    end
+      def responsive_div(&block)
+        content_tag(:div, :class => "navbar-collapse collapse", &block)
+      end
 
 
-    def drop_down_link(name)
-      link_to(name_and_caret(name), "#", :class => "dropdown-toggle", "data-toggle" => "dropdown")
-    end
+      def is_active?(path, options = {})
+        state = uri_state(path, options)
+        "active" if state.in?([:active, :chosen]) || state === true
+      end
 
 
-    def drop_down_list(&block)
-      content_tag :ul, :class => "dropdown-menu", &block
-    end
+      def name_and_caret(name)
+        "#{name} #{content_tag(:b, :class => "caret") {}}".html_safe
+      end
+
+
+      def drop_down_link(name)
+        link_to(name_and_caret(name), "#", :class => "dropdown-toggle", "data-toggle" => "dropdown")
+      end
+
+
+      def drop_down_list(&block)
+        content_tag :ul, :class => "dropdown-menu", &block
+      end
 
   end
 end
