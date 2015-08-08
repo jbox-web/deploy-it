@@ -15,7 +15,7 @@ class SidebarMenuTop < BaseMenu
 
 
     def admin_menu_items
-      nav_menu do |menu|
+      sidebar_menu do |menu|
         menu.item :users,             label_with_icon(t('label.user.plural'), 'fa-user'), admin_users_path
         menu.item :groups,            label_with_icon(t('label.group.plural'), 'fa-users'), admin_groups_path
         menu.item :roles,             label_with_icon(t('label.role.plural'), 'fa-database'), admin_roles_path
@@ -33,7 +33,7 @@ class SidebarMenuTop < BaseMenu
 
 
     def user_account_menu_items
-      nav_menu do |menu|
+      sidebar_menu do |menu|
         menu.item :my_profile,      label_with_icon(t('label.my.profile'), 'fa-user'), my_account_path
         menu.item :change_password, label_with_icon(t('label.user.change_password'), 'fa-lock'), edit_user_registration_path
         menu.item :ssh_keys,        label_with_icon(t('label.my.ssh_keys'), 'octicon octicon-key'), public_keys_path
@@ -42,7 +42,7 @@ class SidebarMenuTop < BaseMenu
 
 
     def welcome_menu_items
-      nav_menu do |menu|
+      sidebar_menu do |menu|
         menu.item :my_profile,   label_with_icon(t('label.my.profile'), 'fa-user'), my_account_path
         menu.item :applications, label_with_icon(t('label.application.plural'), 'fa-desktop'), applications_path
         menu.item :admin,        label_with_icon(t('label.admin'), 'fa-cog'), admin_root_path if User.current.admin?
@@ -52,7 +52,7 @@ class SidebarMenuTop < BaseMenu
 
 
     def application_menu_items
-      nav_menu do |menu|
+      sidebar_menu do |menu|
         menu.item :new_application, label_with_icon(t('label.application.new'), 'fa-plus'), new_application_path if can?(:create_application, nil, global: true)
         Application.visible.includes(:stage).all.sort_by(&:fullname).each do |application|
           menu.item "application_#{application.id}", label_with_icon(application.fullname, 'fa-desktop'), application_path(application)

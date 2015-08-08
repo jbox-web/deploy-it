@@ -24,7 +24,7 @@ class BaseMenu < SimpleDelegator
   private
 
 
-    def nav_menu(&block)
+    def sidebar_menu(&block)
       proc do |menu|
         menu.dom_class = 'nav navmenu-nav'
         yield menu
@@ -32,7 +32,7 @@ class BaseMenu < SimpleDelegator
     end
 
 
-    def nav_bar_right(&block)
+    def topbar_right_menu(&block)
       proc do |menu|
         menu.dom_class = 'nav navbar-nav navbar-right'
         yield menu

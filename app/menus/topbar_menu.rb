@@ -15,7 +15,7 @@ class TopbarMenu < BaseMenu
 
 
     def logged_user_menu
-      nav_bar_right do |menu|
+      topbar_right_menu do |menu|
         menu.item :applications, t('label.application.plural'), applications_path
         menu.item :admin,        t('label.admin'), admin_root_path if User.current.admin?
 
@@ -31,7 +31,7 @@ class TopbarMenu < BaseMenu
 
 
     def not_logged_user_menu
-      nav_bar_right do |menu|
+      topbar_right_menu do |menu|
         menu.item :login,  t('label.login'), new_user_session_path
         # menu.item :signup, t('label.signup'), new_user_registration_path
       end
