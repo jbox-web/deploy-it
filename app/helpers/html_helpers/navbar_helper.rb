@@ -17,7 +17,7 @@
 module HtmlHelpers
   module NavbarHelper
 
-    def nav_bar(options={}, &block)
+    def nav_bar(options = {}, &block)
       nav_bar_nav(options) do
         container_div(options[:brand], options[:brand_link], options[:responsive], options[:fluid], options[:no_turbolink]) do
           yield if block_given?
@@ -26,7 +26,7 @@ module HtmlHelpers
     end
 
 
-    def menu_group(options={}, &block)
+    def menu_group(options = {}, &block)
       pull_class = "navbar-#{options[:pull].to_s}" if options[:pull].present?
       content_tag(:ul, :class => "nav navbar-nav #{pull_class}", &block)
     end
@@ -83,7 +83,7 @@ module HtmlHelpers
     end
 
 
-    def menu_text(text=nil, options={}, &block)
+    def menu_text(text=nil, options = {}, &block)
       pull       = options.delete(:pull)
       pull_class = pull.present? ? "pull-#{pull.to_s}" : nil
       options.append_merge!(:class, pull_class)
@@ -101,7 +101,7 @@ module HtmlHelpers
     #   uri_state('/blog/categories', {})                    # :chosen
     #   uri_state('/blog/categories/test', {method: delete}) # :inactive
     #   uri_state('/blog/categories/test/3', {})             # :inactive
-    def uri_state(uri, options={})
+    def uri_state(uri, options = {})
       return options[:status] if options.key?(:status)
 
       root_url = request.host_with_port + '/'
@@ -209,7 +209,7 @@ module HtmlHelpers
     end
 
 
-    def is_active?(path, options={})
+    def is_active?(path, options = {})
       state = uri_state(path, options)
       "active" if state.in?([:active, :chosen]) || state === true
     end
