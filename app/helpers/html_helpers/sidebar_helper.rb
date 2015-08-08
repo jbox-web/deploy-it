@@ -16,16 +16,16 @@
 module HtmlHelpers
   module SidebarHelper
 
-  def static_sidebar(opts = {}, &block)
-    menu = capture(&block).strip
-    !menu.empty? ? content_tag(:div, menu.html_safe, opts) : ''
-  end
+    def static_sidebar(opts = {}, &block)
+      menu = capture(&block).strip
+      !menu.empty? ? content_tag(:div, menu.html_safe, opts) : ''
+    end
 
 
-  def sidebar_module(opts = {}, &block)
-    menu = capture(&block).strip
-    !menu.empty? ? content_tag(:div, menu.html_safe, opts) : ''
-  end
+    def sidebar_module(opts = {}, &block)
+      menu = capture(&block).strip
+      !menu.empty? ? content_tag(:div, menu.html_safe, opts) : ''
+    end
 
   end
 end
