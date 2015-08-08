@@ -53,9 +53,6 @@ Rails.application.routes.draw do
   ## DeployIt Authentifier
   post 'deploy_it/auth'
 
-  ## User show profile
-  get 'profiles/:login', to: 'profiles#index', as: 'user_profile', login: /\w+/
-
   resources :credentials
   scope '/credentials' do
     resources :basic_auths, controller: 'credentials'
