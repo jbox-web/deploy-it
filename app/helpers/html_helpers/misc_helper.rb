@@ -55,7 +55,8 @@ module HtmlHelpers
 
 
     def create_array(object)
-      object.split(' ') if object.is_a?(String)
+      object = object.split(' ') if object.is_a?(String)
+      object
     end
 
 
