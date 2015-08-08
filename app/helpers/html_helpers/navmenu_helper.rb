@@ -28,8 +28,8 @@ module HtmlHelpers
       navbar_id   = opts.fetch(:navbar_id)
       target      = "##{id}"
 
-      container_options = { id: id, role: 'navigation', class: [ 'navmenu-inverse', 'navmenu-fixed-left', 'offcanvas' ] }
-      container_options = merge_css_class(container_options, [ 'navmenu', 'navmenu-default' ])
+      container_options = { id: id, role: 'navigation', class: ['navmenu-inverse', 'navmenu-fixed-left', 'offcanvas'] }
+      container_options = merge_css_class(container_options, ['navmenu', 'navmenu-default'])
 
       menu_content = nav_menu(container_options, &block)
 
@@ -68,9 +68,9 @@ module HtmlHelpers
       def hidden_menu_css_class(type)
         case type
         when :canvas
-          [ 'navbar', 'navbar-default', 'navbar-fixed-top', 'hidden-sm', 'hidden-md', 'hidden-lg' ]
+          ['navbar', 'navbar-default', 'navbar-fixed-top', 'hidden-sm', 'hidden-md', 'hidden-lg']
         when :collapse
-          [ 'navbar-header' ]
+          ['navbar-header']
         end
       end
 
