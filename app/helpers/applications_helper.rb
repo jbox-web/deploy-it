@@ -23,7 +23,7 @@ module ApplicationsHelper
 
 
   def render_env_var(env_var)
-    value = env_var.protected? ? '*******' : env_var.value
+    value = env_var.masked? ? '*******' : env_var.value
     "#{env_var.key} : #{value}"
   end
 

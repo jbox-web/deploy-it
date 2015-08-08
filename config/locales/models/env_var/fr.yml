@@ -8,7 +8,7 @@ fr:
       key: Clé
       value: Valeur
       step: Etape
-      protected: Protégée
+      masked: Masquée
       none_defined: Aucune variable d'environnement définie
       restore_defaults: Restaurer les variables d'environnement par défaut
 
@@ -26,7 +26,7 @@ fr:
         key: Clé
         value: Valeur
         step: Etape
-        protected: Protégée
+        masked: Masquée
 
     errors:
       models:

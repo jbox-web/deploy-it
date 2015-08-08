@@ -153,7 +153,7 @@ class ApplicationsConfigController < ApplicationController
 
 
     def env_vars_params
-      params.require(:application).permit(env_vars_attributes: [:id, :key, :value, :step, :protected, :_destroy])
+      params.require(:application).permit(env_vars_attributes: [:id, :key, :value, :step, :masked, :_destroy])
     end
 
 

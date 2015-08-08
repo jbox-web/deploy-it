@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805022158) do
+ActiveRecord::Schema.define(version: 20150808233333) do
 
   create_table "application_credentials", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150805022158) do
     t.integer  "application_id", limit: 4
     t.string   "key",            limit: 255
     t.string   "value",          limit: 255
-    t.boolean  "protected",                  default: false
+    t.boolean  "masked",                     default: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end

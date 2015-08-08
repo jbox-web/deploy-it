@@ -20,16 +20,12 @@ module Applications
       def execute(opts = {})
         get_env_vars_list.each do |key, value|
           ev_db = application.env_vars.find_by_key(key)
-          if ev_db.nil?
-            application.env_vars.create(key: key, value: value)
-          end
+          create_env_var(key, value) if ev_db.nil?
         end
 
         get_secrets_list.each do |key, value|
           ev_db = application.env_vars.find_by_key(key)
-          if ev_db.nil?
-            application.env_vars.create(key: key, value: value, protected: true)
-          end
+          create_env_var(key, value, true) if ev_db.nil?
         end
       end
 
@@ -41,6 +37,11 @@ module Applications
 
       def get_secrets_list
         application.get_default_params!(:secrets)
+      end
+
+
+      def create_env_var(key, value, masked = false)
+        application.env_vars.create(key: key, value: value, masked: masked)
       end
 
     end
