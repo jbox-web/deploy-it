@@ -12,7 +12,7 @@
 
     #header
       = nav_bar(fixed: :top, fluid: true, responsive: true, brand: t('the_jbox_deployer')) do
-        = topbar_menu_items
+        = render_topbar_menu
 
     #main-content{ class: 'container-fluid' }
       .row-fluid

@@ -7,7 +7,7 @@ gem 'async_notifications',   '~> 0.1.0',  git: 'https://github.com/jbox-web/asyn
 gem 'active_use_case',       '~> 1.0.3',  git: 'https://github.com/jbox-web/active_use_case.git'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
-gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git'
+gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git', branch: 'fix_rails4'
 
 ## Base gems
 gem 'rails',          '~> 4.2.3'
