@@ -66,18 +66,9 @@ class AnsibleProxy
 
 
   def run_playbook(playbook, extra_vars)
-    extra_vars = extra_vars.merge(host: host_name, user: user, port: port).map_keys!(&:to_s).map_keys!(&:upcase)
+    extra_vars = extend_vars(extra_vars)
     vars_file = DeployIt::Utils.write_yaml_file(extra_vars)
-
-    params = [
-      'ANSIBLE_SSH_PIPELINING=True',
-      'ANSIBLE_HOST_KEY_CHECKING=False',
-      'ansible-playbook',
-      '--inventory-file', INVENTORY_FILE,
-      '--private-key', private_key_to_file,
-      '--extra-vars', "CONTAINER_VARS=#{vars_file}",
-      playbook
-    ]
+    params = default_params.concat(["CONTAINER_VARS=#{vars_file}", playbook])
 
     begin
       output, err, status = DeployIt::Utils.execute('/usr/bin/env', params)
@@ -100,6 +91,23 @@ class AnsibleProxy
 
 
   private
+
+
+    def default_params
+      [
+        'ANSIBLE_SSH_PIPELINING=True',
+        'ANSIBLE_HOST_KEY_CHECKING=False',
+        'ansible-playbook',
+        '--inventory-file', INVENTORY_FILE,
+        '--private-key', private_key_to_file,
+        '--extra-vars'
+      ].clone
+    end
+
+
+    def extend_vars(extra_vars)
+      extra_vars.merge(host: host_name, user: user, port: port).map_keys!(&:to_s).map_keys!(&:upcase)
+    end
 
 
     def private_key_to_file
