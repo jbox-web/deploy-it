@@ -149,16 +149,19 @@ class DockerContainerProxy < SimpleDelegator
 
 
     def is_running?
-      return false if docker_server.nil?
-      return false if docker_id.nil?
-      info['State']['Running'] rescue false
+      valid_connection? && info['State']['Running'] rescue false
     end
 
 
     def is_paused?
+      valid_connection? && info['State']['Paused'] rescue false
+    end
+
+
+    def valid_connection?
       return false if docker_server.nil?
       return false if docker_id.nil?
-      info['State']['Paused'] rescue false
+      return true
     end
 
 end
