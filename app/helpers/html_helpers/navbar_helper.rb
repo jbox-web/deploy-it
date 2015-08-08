@@ -34,58 +34,58 @@ module HtmlHelpers
 
     def menu_group(options = {}, &block)
       pull_class = "navbar-#{options[:pull].to_s}" if options[:pull].present?
-      content_tag(:ul, :class => "nav navbar-nav #{pull_class}", &block)
+      content_tag(:ul, class: "nav navbar-nav #{pull_class}", &block)
     end
 
 
-    def menu_item(name=nil, path="#", *args, &block)
+    def menu_item(name = nil, path = '#', *args, &block)
       path = name || path if block_given?
       options = args.extract_options!
-      content_tag :li, :class => is_active?(path, options) do
+      content_tag(:li, class: is_active?(path, options)) do
         name, path = path, options if block_given?
         link_to name, path, options, &block
       end
     end
 
 
-    def drop_down(name)
-      content_tag :li, :class => "dropdown" do
+    def drop_down(name, &block)
+      content_tag(:li, class: 'dropdown') do
         drop_down_link(name) + drop_down_list { yield }
       end
     end
 
 
     def drop_down_with_submenu(name, &block)
-      content_tag :li, :class => "dropdown" do
+      content_tag(:li, class: 'dropdown') do
         drop_down_link(name) + drop_down_sublist(&block)
       end
     end
 
 
     def drop_down_sublist(&block)
-      content_tag :ul, :class => "dropdown-menu", &block
+      content_tag(:ul, class: 'dropdown-menu', &block)
     end
 
 
     def drop_down_submenu(name, &block)
-      content_tag :li, :class => "dropdown-submenu" do
-        link_to(name, "") + drop_down_list(&block)
+      content_tag(:li, class: 'dropdown-submenu') do
+        link_to(name, '') + drop_down_list(&block)
       end
     end
 
 
     def drop_down_divider
-      content_tag :li, "", :class => "divider"
+      content_tag(:li, '', class: 'divider')
     end
 
 
     def drop_down_header(text)
-      content_tag :li, text, :class => "nav-header"
+      content_tag(:li, text, class: 'nav-header')
     end
 
 
     def menu_divider
-      content_tag :li, "", :class => "divider-vertical"
+      content_tag(:li, '', class: 'divider-vertical')
     end
 
 
@@ -93,8 +93,8 @@ module HtmlHelpers
       pull       = options.delete(:pull)
       pull_class = pull.present? ? "pull-#{pull.to_s}" : nil
       options.append_merge!(:class, pull_class)
-      options.append_merge!(:class, "navbar-text")
-      content_tag :p, options do
+      options.append_merge!(:class, 'navbar-text')
+      content_tag(:p, options) do
         text || yield
       end
     end
@@ -107,28 +107,19 @@ module HtmlHelpers
     #   uri_state('/blog/categories', {})                    # :chosen
     #   uri_state('/blog/categories/test', {method: delete}) # :inactive
     #   uri_state('/blog/categories/test/3', {})             # :inactive
+    #
     def uri_state(uri, options = {})
       return options[:status] if options.key?(:status)
+      root_url    = request.host_with_port + '/'
+      root        = uri == '/' || uri == root_url
+      request_uri = uri.start_with?(root_url) ? request.url : request.path
 
-      root_url = request.host_with_port + '/'
-      root = uri == '/' || uri == root_url
-
-      request_uri = if uri.start_with?(root_url)
-        request.url
-      else
-        request.path
-      end
-
-      if !options[:method].nil? || !options["data-method"].nil?
+      if !options[:method].nil? || !options['data-method'].nil?
         :inactive
       elsif uri == request_uri || (options[:root] && (request_uri == '/') || (request_uri == root_url))
         :active
       else
-        if request_uri.start_with?(uri) and not(root)
-          :chosen
-        else
-          :inactive
-        end
+        request_uri.start_with?(uri) && !root ? :chosen : :inactive
       end
     end
 
@@ -140,18 +131,16 @@ module HtmlHelpers
         position = "static-#{options[:static].to_s}" if options[:static]
         position = "fixed-#{options[:fixed].to_s}" if options[:fixed]
         inverse = (options[:inverse].present? && options[:inverse] == true) ? true : false
-
-        content_tag :nav, :class => nav_bar_css_class(position, inverse), :role => "navigation" do
+        content_tag(:nav, class: nav_bar_css_class(position, inverse), role: 'navigation') do
           yield
         end
       end
 
 
       def container_div(brand, brand_link, responsive, fluid, no_turbolink, &block)
-        div_container_class = fluid ? "container-fluid" : "container"
+        div_container_class = fluid ? 'container-fluid' : 'container'
         no_turbolink ||= false
-
-        content_tag :div, :class => div_container_class do
+        content_tag(:div, class: div_container_class) do
           container_div_with_block(brand, brand_link, responsive, no_turbolink, &block)
         end
       end
@@ -171,7 +160,7 @@ module HtmlHelpers
 
 
       def responsive_nav_header(brand, brand_link, no_turbolink)
-        content_tag(:div, :class => "navbar-header") do
+        content_tag(:div, class: 'navbar-header') do
           output = []
           output << responsive_button
           output << brand_link(brand, brand_link, no_turbolink)
@@ -181,15 +170,15 @@ module HtmlHelpers
 
 
       def nav_bar_css_class(position, inverse = false)
-        css_class = ["navbar", "navbar-default"]
+        css_class = ['navbar', 'navbar-default']
         css_class << "navbar-#{position}" if position.present?
-        css_class << "navbar-inverse" if inverse
-        css_class.join(" ")
+        css_class << 'navbar-inverse' if inverse
+        css_class.join(' ')
       end
 
 
       def brand_link(name, url, no_turbolink)
-        return "" if name.blank?
+        return '' if name.blank?
         url ||= root_url
 
         if no_turbolink
@@ -211,13 +200,13 @@ module HtmlHelpers
 
 
       def responsive_div(&block)
-        content_tag(:div, :class => "navbar-collapse collapse", &block)
+        content_tag(:div, class: 'navbar-collapse collapse', &block)
       end
 
 
       def is_active?(path, options = {})
         state = uri_state(path, options)
-        "active" if state.in?([:active, :chosen]) || state === true
+        'active' if state.in?([:active, :chosen]) || state === true
       end
 
 
@@ -227,12 +216,12 @@ module HtmlHelpers
 
 
       def drop_down_link(name)
-        link_to(name_and_caret(name), "#", :class => "dropdown-toggle", "data-toggle" => "dropdown")
+        link_to name_and_caret(name), '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }
       end
 
 
       def drop_down_list(&block)
-        content_tag :ul, :class => "dropdown-menu", &block
+        content_tag(:ul, class: 'dropdown-menu', &block)
       end
 
   end
