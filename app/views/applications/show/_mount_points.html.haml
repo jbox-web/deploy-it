@@ -11,7 +11,7 @@
           - mount_points.each do |mount_point|
             - next if mount_point.source == '/run/mysqld/mysqld.sock'
             - next if mount_point.source == 'log-files'
-            %li{ class: "list-group-item #{bool_to_css mount_point.active}" }
+            %li{ class: "list-group-item #{bool_to_css_disabled mount_point.active}" }
               %span{ class: 'mount-point' }
                 = bool_to_icon mount_point.active, title: t('label.mount_point.active')
                 = mount_point

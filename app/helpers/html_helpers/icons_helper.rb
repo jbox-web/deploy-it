@@ -23,7 +23,7 @@ module HtmlHelpers
     end
 
 
-    def bool_to_css(bool)
+    def bool_to_css_disabled(bool)
       bool ? '' : 'disabled'
     end
 
@@ -32,67 +32,65 @@ module HtmlHelpers
       return '' if url.empty?
       uri = URI(url)
       case uri.host
-        when 'github.com'
-          'fa-github'
-        else
-          'fa-git'
+      when 'github.com'
+        'fa-github'
+      else
+        'fa-git'
       end
     end
 
 
-    ### PRIVATE ###
-
-
     def check_icon(opts = {})
-      icon('fa-check', { aligned: false, color: '#5cb85c' }, opts)
+      icon 'fa-check', opts.merge({ aligned: false, color: '#5cb85c' })
     end
 
 
     def cross_icon(opts = {})
-      icon('fa-dot-circle-o', { aligned: false, color: '#a94442' }, opts)
+      icon 'fa-dot-circle-o', opts.merge({ aligned: false, color: '#a94442' })
     end
 
 
-    def stacked_icon(icon_name, opts = {})
-      icon_name = icon_name.gsub('fa-', '')
-      fa_stacked_icon icon_name, opts
+    def stacked_icon(name, opts = {})
+      name = name.gsub('fa-', '')
+      fa_stacked_icon(name, opts)
     end
 
 
-    def icon(icon_name, opts = {}, html_options = {})
-      color = opts.delete(:color){ nil }
+    def icon(name, opts = {})
+      options   = opts.dup
+      color     = options.delete(:color){ nil }
+      css_class = options.delete(:class){ [] }
+      css_class = create_array(css_class)
 
       # Set icon options
       icon_options = {}
       icon_options[:style] = "color: #{color};" unless color.nil?
-      icon_options[:class] = build_icon_css_class(opts).push(icon_name)
+      icon_options[:class] = build_icon_css_class(options).push(name)
+      icon_options[:class] = icon_options[:class].concat(css_class).uniq.compact
 
-      # Treat html_options hash
-      html_options[:class] = create_array(html_options[:class])
-
-      # Create a new hash that contains our css class
-      options = merge_hashes(icon_options, html_options)
-
-      # Merge our new hash with the rest of opts
-      options = merge_hashes(options, opts)
+      # Merge our new hash with the rest of options
+      icon_options = merge_hashes(icon_options, options)
 
       # Return icon
-      content_tag(:i, '', options)
+      content_tag(:i, '', icon_options)
     end
 
 
-    def build_icon_css_class(opts)
-      # Treat opts hash
-      inverse = opts.delete(:inverse){ false }
-      fixed   = opts.delete(:fixed){ false }
-      aligned = opts.delete(:aligned){ true }
+    private
 
-      css_class = [ 'fa', 'fa-lg' ]
-      css_class.push('fa-align') if aligned
-      css_class.push('fa-inverse') if inverse
-      css_class.delete('fa-lg') if fixed
-      css_class
-    end
+
+      def build_icon_css_class(opts)
+        # Treat opts hash
+        inverse = opts.delete(:inverse){ false }
+        fixed   = opts.delete(:fixed){ false }
+        aligned = opts.delete(:aligned){ true }
+
+        css_class = ['fa', 'fa-lg']
+        css_class.push('fa-align') if aligned
+        css_class.push('fa-inverse') if inverse
+        css_class.delete('fa-lg') if fixed
+        css_class
+      end
 
   end
 end
