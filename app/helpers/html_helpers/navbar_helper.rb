@@ -180,12 +180,8 @@ module HtmlHelpers
       def brand_link(name, url, no_turbolink)
         return '' if name.blank?
         url ||= root_url
-
-        if no_turbolink
-          link_to(name, url, :class => "navbar-brand", :data => { :no_turbolink => true})
-        else
-          link_to(name, url, :class => "navbar-brand")
-        end
+        opts = no_turbolink ? { data: { no_turbolink: true } } : {}
+        link_to name, url, opts.merge(class: 'navbar-brand')
       end
 
 
