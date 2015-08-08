@@ -19,24 +19,14 @@ class MembersController < ApplicationController
   before_action :set_application
   before_action :authorize
 
-  before_action :set_member, only: [ :update, :destroy ]
+  before_action :set_member, only: [:update, :destroy]
 
 
   def create
     members = []
-
-    member_params[:user_ids].each do |user_id|
-      next if user_id == ''
-      members << Member.new(role_ids: member_params[:role_ids], enrolable_type: 'User',  enrolable_id: user_id)
-    end
-
-    member_params[:group_ids].each do |group_id|
-      next if group_id == ''
-      members << Member.new(role_ids: member_params[:role_ids], enrolable_type: 'Group',  enrolable_id: group_id)
-    end
-
+    members += build_members('User', member_params[:user_ids], member_params[:role_ids])
+    members += build_members('Group', member_params[:group_ids], member_params[:role_ids])
     @application.members << members
-
     @member_ids = members.map(&:id)
   end
 
@@ -48,9 +38,7 @@ class MembersController < ApplicationController
 
 
   def destroy
-    if request.delete? && @member.deletable?
-      @member.destroy
-    end
+    @member.destroy if request.delete? && @member.deletable?
   end
 
 
@@ -73,6 +61,16 @@ class MembersController < ApplicationController
 
     def member_params
       params.require(:member).permit(user_ids: [], group_ids: [], role_ids: [])
+    end
+
+
+    def build_members(type, list_ids = [], role_ids = [])
+      list_ids.select { |id| !id.empty? }.map{ |id| build_member(id, type, role_ids) }
+    end
+
+
+    def build_member(id, type, role_ids = [])
+      Member.new(enrolable_id: id, enrolable_type: type, role_ids: role_ids)
     end
 
 end
