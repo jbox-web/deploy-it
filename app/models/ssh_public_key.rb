@@ -30,8 +30,11 @@ class SshPublicKey < ActiveRecord::Base
   validate :key_uniqueness
 
   ## Callbacks
-  before_validation :strip_whitespace
-  before_validation :set_fingerprint
+  before_validation(on: :create) do
+    self.title       = title.strip if !title.nil?
+    self.key         = key.strip if !key.nil?
+    self.fingerprint = DeployIt::Utils::Ssh.fingerprint(key) if !key.nil?
+  end
 
   ## UseCases
   add_use_cases [ :add_to_authorized_keys, :remove_from_authorized_keys ]
@@ -87,22 +90,6 @@ class SshPublicKey < ActiveRecord::Base
 
 
   private
-
-
-    # Strip leading and trailing whitespace
-    def strip_whitespace
-      # Don't mess with existing keys (since cannot change key text anyway)
-      return unless new_record?
-      self.title = title.strip rescue ''
-      self.key   = key.strip rescue ''
-    end
-
-
-    def set_fingerprint
-      # Don't mess with existing keys (since cannot change key text anyway)
-      return unless new_record?
-      self.fingerprint = DeployIt::Utils::Ssh.fingerprint(key)
-    end
 
 
     def has_not_been_changed
