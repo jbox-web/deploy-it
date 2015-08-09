@@ -11,8 +11,8 @@
       = navigation_tab label_with_icon(t('label.user.ssh_keys'), 'octicon octicon-key'), admin_user_public_keys_path(@user), '#user-ssh-keys', remote: true, class: 'buggy'
 
     %div{ class: 'tab-content' }
-      #user-settings{ class: 'tab-pane active' }= render partial: 'admin/users/edit_tabs/settings', locals: { user: @user }
-      #user-applications{ class: 'tab-pane' }= render partial: 'admin/users/edit_tabs/memberships', locals: { user: @user }
+      #user-settings{ class: 'tab-pane active' }= render 'admin/users/edit_tabs/settings', user: @user
+      #user-applications{ class: 'tab-pane' }= render 'admin/users/edit_tabs/memberships', user: @user
       #user-ssh-keys{ class: 'tab-pane' }
 
 = javascript_tag do

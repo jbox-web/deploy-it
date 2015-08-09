@@ -9,12 +9,9 @@
 
     %ul{ class: 'nav nav-tabs', role: 'tablist' }
       - @platforms.each do |platform|
-        - active = @platforms.first == platform ? true : false
-        = navigation_tab label_with_icon(platform.name, 'fa-sitemap'),
-                         "##{platform.to_id}", "##{platform.to_id}", active: active
+        = navigation_tab label_with_icon(platform.name, 'fa-sitemap'), "##{platform.to_id}", "##{platform.to_id}", active: @platforms.first == platform
 
     %div{ class: 'tab-content' }
       - @platforms.each do |platform|
-        - active = @platforms.first == platform ? 'active' : ''
-        %div{ class: "tab-pane #{active}", id: platform.to_id }
+        %div{ class: "tab-pane #{@platforms.first == platform ? 'active' : ''}", id: platform.to_id }
           = render template: 'admin/platforms/show', locals: { platform: platform }
