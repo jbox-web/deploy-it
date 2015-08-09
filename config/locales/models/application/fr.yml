@@ -120,6 +120,7 @@ fr:
               blank: ne peut être nul
             repository_url:
               blank: ne peut être nul
+              invalid: invalide
             repository_branch:
               blank: ne peut être nul
             instance_number:

@@ -17,47 +17,35 @@ module DockerApplication
   module HaveMultiStepCreation
     extend ActiveSupport::Concern
 
+    VALID_REPO_REGEX = /\A(ssh:\/\/)([\w\-\.@]+)(\:[\d]+)?([\w\/\-\.~]+)(\.git)?\z/i
+
     included do
-
       ## First step
-      validates :name, presence: true,
-                       if: lambda { |o| o.current_step == 'select_params' || o.current_step == 'submit_form' }
-
-      validates :identifier, presence: true, exclusion: { in: lambda { |o| ReservedName.all.map(&:name) } }, length: { maximum: 13 },
-                             if: lambda { |o| o.current_step == 'select_params' || o.current_step == 'submit_form' }
-
-      validates :application_type_id, presence: true,
-                                      if: lambda { |o| o.current_step == 'select_params' || o.current_step == 'submit_form' }
-
-      validates :stage_id, presence: true, uniqueness: { case_sensitive: false, scope: :identifier },
-                           if: lambda { |o| o.current_step == 'select_params' || o.current_step == 'submit_form' }
+      validates :name,                presence: true, if: lambda { |o| o.first_step_or_last_step? }
+      validates :identifier,          presence: true, if: lambda { |o| o.first_step_or_last_step? }, length: { maximum: 13 }, exclusion: { in: lambda { |o| ReservedName.all.map(&:name) } }
+      validates :application_type_id, presence: true, if: lambda { |o| o.first_step_or_last_step? }
+      validates :stage_id,            presence: true, if: lambda { |o| o.first_step_or_last_step? }, uniqueness: { case_sensitive: false, scope: :identifier }
 
       ## Second step
-      validates :deploy_url,   presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-
-      validates :temp_db_name, presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-      validates :temp_db_user, presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-      validates :temp_db_type, presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' },
-                               inclusion: { in: DeployIt::AVAILABLE_DATABASES }
-
-      validates :repository_url,    presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-      validates :repository_branch, presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-
-      validates :image_type, presence: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' },
-                             inclusion: { in: lambda { |o| DockerImage.all.map(&:name) } }
-
-      validates :buildpack, allow_blank: true, if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' },
-                            inclusion: { in: lambda { |o| Buildpack.all.map(&:url) } }
+      validates :deploy_url,     presence: true,    if: lambda { |o| o.second_step_or_last_step? }
+      validates :domain_name,    presence: true,    if: lambda { |o| o.second_step_or_last_step? }
+      validates :repository_url, presence: true,    if: lambda { |o| o.second_step_or_last_step? }, format: { with: VALID_REPO_REGEX }
+      validates :temp_db_name,   presence: true,    if: lambda { |o| o.second_step_or_last_step? }
+      validates :temp_db_user,   presence: true,    if: lambda { |o| o.second_step_or_last_step? }
+      validates :temp_db_type,   presence: true,    if: lambda { |o| o.second_step_or_last_step? }, inclusion: { in: DeployIt::AVAILABLE_DATABASES }
+      validates :image_type,     presence: true,    if: lambda { |o| o.second_step_or_last_step? }, inclusion: { in: lambda { |o| DockerImage.all.map(&:name) } }
+      validates :buildpack,      allow_blank: true, if: lambda { |o| o.second_step_or_last_step? }, inclusion: { in: lambda { |o| Buildpack.all.map(&:url) } }
 
       ## Callbacks
       before_validation { self.identifier = identifier.downcase if !identifier.nil? }
 
-      after_validation :add_deploy_url_field,  if: lambda { |o| o.current_step == 'select_params' }
-      after_validation :add_database_fields,   if: lambda { |o| o.current_step == 'select_params' }
-      after_validation :add_domain_name_field, if: lambda { |o| o.current_step == 'select_params' }
+      after_validation :add_deploy_url_field,  if: lambda { |o| o.first_step? }
+      after_validation :add_database_fields,   if: lambda { |o| o.first_step? }
+      after_validation :add_domain_name_field, if: lambda { |o| o.first_step? }
 
-      before_validation :add_deploy_url_field,  if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
-      before_validation :add_database_fields,   if: lambda { |o| o.current_step == 'select_params2' || o.current_step == 'submit_form' }
+      before_validation :add_deploy_url_field,  if: lambda { |o| o.second_step_or_last_step? }
+      before_validation :add_database_fields,   if: lambda { |o| o.second_step_or_last_step? }
+      before_validation :add_repo_branch_field, if: lambda { |o| o.second_step_or_last_step? }
     end
 
 
@@ -107,8 +95,23 @@ module DockerApplication
     end
 
 
+    def second_step?
+      current_step == 'select_params2'
+    end
+
+
     def last_step?
       current_step == steps.last
+    end
+
+
+    def first_step_or_last_step?
+      first_step? || last_step?
+    end
+
+
+    def second_step_or_last_step?
+      second_step? || last_step?
     end
 
 
@@ -161,6 +164,12 @@ module DockerApplication
 
       def sanitize(content)
         content.gsub(/[\-]/, '_')
+      end
+
+
+      def add_repo_branch_field
+        branch = (!repository_branch.nil? && !repository_branch.blank?) ? repository_branch : 'master'
+        self.repository_branch = branch if self.repository_branch.nil? || self.repository_branch.empty?
       end
 
   end

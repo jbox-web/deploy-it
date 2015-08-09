@@ -1,4 +1,4 @@
-= f.text_field :domain_name, required: true
+= f.text_field :domain_name
 = f.select     :temp_db_type, available_databases_type, prompt: t('select.application.database_type')
 = f.select     :image_type,   available_docker_images,  prompt: t('select.application.docker_image')
 = f.select     :buildpack,    available_buildpacks,     include_blank: t('select.application.buildpack'), control_col: 'col-sm-7 col-md-7 col-lg-6'
