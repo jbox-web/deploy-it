@@ -50,38 +50,7 @@ class ServerPresenter < SimpleDelegator
 
     def render_role(role)
       content_tag(:li, id: "server-#{server.id}-#{role.to_s}", class: "connexion-status", data: { "refresh-url" => status_admin_platform_server_path(server.platform, server, role: role.to_s) }) do
-        render_role_name(role) +
-        render_default_role(role) +
-        render_service_status
-      end
-    end
-
-
-    def render_role_name(role)
-      content_tag(:span) do
-        label_with_icon('', role.to_icon, title: role.humanize)
-      end
-    end
-
-
-    def render_default_role(role)
-      if role.default_server?
-        title = t('label.server_role.default')
-        color = '#5cb85c'
-      else
-        title = ''
-        color = '#000'
-      end
-
-      content_tag(:span) do
-        icon('fa-check-circle-o', fixed: true, title: title, color: color)
-      end
-    end
-
-
-    def render_service_status
-      content_tag(:span) do
-        icon('fa-heartbeat', fixed: true, title: "Service status")
+        render_role_name(role) + render_default_role(role) + render_service_status(has_errors: nil)
       end
     end
 

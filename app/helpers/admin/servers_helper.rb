@@ -16,7 +16,7 @@
 module Admin::ServersHelper
 
   def service_status(server, role, errors)
-    render_role_name(role) + render_default_role(role) + render_service_status(errors)
+    render_role_name(role) + render_default_role(role) + render_service_status(has_errors: errors)
   end
 
 
@@ -42,12 +42,15 @@ module Admin::ServersHelper
   end
 
 
-  def render_service_status(errors)
-    if errors
-      title = "Service DOWN"
+  def render_service_status(has_errors: nil)
+    if has_errors.nil?
+      title = 'Service status'
+      color = ''
+    elsif has_errors
+      title = 'Service DOWN'
       color = '#d9534f'
     else
-      title = "Service OK"
+      title = 'Service OK'
       color = '#5cb85c'
     end
 
