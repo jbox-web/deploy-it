@@ -36,7 +36,7 @@ class MyController < ApplicationController
   def reset_api_key
     @user = User.current
     if request.patch?
-      @user.authentication_token = DeployIt::Utils.generate_secret(42)
+      @user.api_token = DeployIt::Utils.generate_secret(42)
       @user.save!
     end
   end

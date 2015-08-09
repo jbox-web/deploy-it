@@ -89,5 +89,7 @@ fr:
               blank: ne peut être nul
             create_options:
               blank: ne peut être nul
+            api_token:
+              blank: ne peut être nul
             authentication_token:
               blank: ne peut être nul

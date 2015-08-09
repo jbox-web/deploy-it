@@ -35,4 +35,4 @@
             = link_to t('button.reset'), reset_api_key_path, remote: true, method: :patch, data: { confirm: t('text.are_you_sure') }
             )
 
-        %pre{ id: 'authentication-token' }= @user.authentication_token
+        %pre{ id: 'authentication-token' }= @user.api_token

@@ -41,10 +41,12 @@ class User < ActiveRecord::Base
   validates :password,  presence: true, length: { minimum: 6 }, on: :create
   validates_confirmation_of :password, on: :create
 
+  validates :api_token,            presence: true
   validates :authentication_token, presence: true
 
   ## Callbacks
   before_validation { self.email = email.downcase if !email.nil? }
+  before_validation :ensure_api_token
   before_validation :ensure_authentication_token
 
   ## Scopes
@@ -131,15 +133,20 @@ class User < ActiveRecord::Base
   private
 
 
-    def ensure_authentication_token
-      self.authentication_token = generate_authentication_token if authentication_token.blank?
+    def ensure_api_token
+      self.api_token = generate_token_for(:api_token) if api_token.blank?
     end
 
 
-    def generate_authentication_token
+    def ensure_authentication_token
+      self.authentication_token = generate_token_for(:authentication_token) if authentication_token.blank?
+    end
+
+
+    def generate_token_for(type, size = 42)
       loop do
-        token = DeployIt::Utils.generate_secret(42)
-        break token unless User.where(authentication_token: token).first
+        token = DeployIt::Utils.generate_secret(size)
+        break token unless User.where(type => token).first
       end
     end
 

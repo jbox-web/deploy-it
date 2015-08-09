@@ -13,41 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DeployIt
-  class API < Grape::API
-    version 'v1', using: :path
-    format :json
-    prefix :api
-
-
-    before do
-      error!("401 Unauthorized", 401) unless authenticated
-    end
-
-
-    helpers do
-
-      def authenticated
-        params[:access_token] && User.current = User.find_by_api_token(params[:access_token])
-      end
-
-    end
-
-
-    resource :applications do
-      desc "Return applications list."
-      get :list do
-        ::Application.visible.all
-      end
-    end
-
-
-    resource :containers do
-      desc "Return containers list."
-      get :list do
-        ::Application.includes(:containers).visible.map(&:containers)
-      end
-    end
-
+class AddApiTokenField < ActiveRecord::Migration
+  def change
+    add_column :users, :api_token, :string, after: :authentication_token
+    add_index  :users, :api_token, unique: true
   end
 end

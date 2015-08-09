@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809022911) do
+ActiveRecord::Schema.define(version: 20150809044327) do
 
   create_table "application_credentials", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -387,6 +387,7 @@ ActiveRecord::Schema.define(version: 20150809022911) do
     t.boolean  "admin",                              default: false
     t.boolean  "enabled",                            default: true
     t.string   "authentication_token",   limit: 255
+    t.string   "api_token",              limit: 255
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -399,6 +400,7 @@ ActiveRecord::Schema.define(version: 20150809022911) do
     t.datetime "updated_at",                                         null: false
   end
 
+  add_index "users", ["api_token"], name: "index_users_on_api_token", unique: true, using: :btree
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
