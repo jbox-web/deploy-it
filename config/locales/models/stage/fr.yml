@@ -36,7 +36,7 @@ fr:
         stage:
           attributes:
             base:
-              undeletable_applications: "Ce stage est utilisé par les application(s): %{applications}"
+              undeletable: "Ce stage est utilisé par les %{object_name} : %{list}"
             name:
               blank: ne peut être nul
             identifier:

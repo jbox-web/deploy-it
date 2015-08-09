@@ -15,15 +15,14 @@
 
 class RepositoryCredential < ActiveRecord::Base
 
+  include HaveDbReferences
+
   ## Relations
   has_many :repositories, foreign_key: :credential_id
 
   ## Basic Validations
   validates :name, presence: true
   validates :type, presence: true, inclusion: { in: [ 'RepositoryCredential::BasicAuth', 'RepositoryCredential::SshKey' ] }
-
-  ## Callbacks
-  before_destroy :check_references
 
 
   def to_s
@@ -34,17 +33,5 @@ class RepositoryCredential < ActiveRecord::Base
   def deletable?
     repositories.empty?
   end
-
-
-  private
-
-
-    def check_references
-      if !repositories.empty?
-        errors.add(:base, :undeletable, object: I18n.t('label.repository.plural'), objects: repositories.map(&:name).to_sentence)
-        return false
-      end
-      return true
-    end
 
 end

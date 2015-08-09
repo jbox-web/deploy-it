@@ -15,6 +15,8 @@
 
 class Stage < ActiveRecord::Base
 
+  include HaveDbReferences
+
   ## Relations
   belongs_to :platform
 
@@ -25,8 +27,8 @@ class Stage < ActiveRecord::Base
   validates :platform_id, presence: true
   validates :identifier,  presence: true, uniqueness: { scope: :platform_id }
 
-  ## Callbacks
-  before_destroy :check_references
+  ## References checking
+  check_db_references :applications
 
   ## Scopes
   scope :by_name, -> { order(name: :asc) }
@@ -40,17 +42,5 @@ class Stage < ActiveRecord::Base
   def full_name
     "#{platform.name} - #{name}"
   end
-
-
-  private
-
-
-    def check_references
-      if !applications.empty?
-        errors.add(:base, :undeletable_applications, applications: applications.map(&:name).to_sentence)
-        return false
-      end
-      return true
-    end
 
 end

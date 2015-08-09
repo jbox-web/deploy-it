@@ -23,9 +23,9 @@ module HaveDbReferences
 
     class << self
 
-      def check_db_references(model, method = :to_s)
+      def check_db_references(relation, method = :to_s)
         @references ||= {}
-        @references[model] = method
+        @references[relation.to_sym] = method
       end
 
 
@@ -43,21 +43,17 @@ module HaveDbReferences
 
     def check_db_references
       checked = {}
-      self.class.references_to_check.each do |model, method|
-        checked[model] = check_references_on_model(model, method)
+      self.class.references_to_check.each do |relation, method|
+        checked[relation] = check_references_on_relation(relation, method)
       end
       !checked.values.include?(false)
     end
 
 
-    def check_references_on_model(model, method = :to_s)
-      valid      = true
-      references = send(model.pluralize)
-      if !references.empty?
-        errors.add(:base, :undeletable, object_name: model.to_sym, list: references.map(&method).to_sentence)
-        valid = false
-      end
-      valid
+    def check_references_on_relation(relation, method = :to_s)
+      references = send(relation)
+      errors.add(:base, :undeletable, object_name: relation, list: references.map(&method).to_sentence) unless references.empty?
+      !!references.empty?
     end
 
 end

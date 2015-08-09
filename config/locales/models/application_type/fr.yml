@@ -12,6 +12,10 @@ fr:
       updated: Type d'application modifié avec succès
       deleted: Type d'application supprimé avec succès
 
+  error:
+    application_type:
+      failed_delete: Impossible de supprimer le type d'application
+
   activerecord:
     models:
       application_type: type d'application
@@ -28,7 +32,7 @@ fr:
         application_type:
           attributes:
             base:
-              undeletable: "Ce type d'application est utilisé par les application(s): %{applications}"
+              undeletable: "Ce type d'application est utilisé par les %{object_name} : %{list} "
             name:
               blank: ne peut être nul
               taken: déjà utilisé

@@ -15,6 +15,8 @@
 
 class ApplicationType < ActiveRecord::Base
 
+  include HaveDbReferences
+
   ## Relations
   has_many :applications
 
@@ -33,8 +35,8 @@ class ApplicationType < ActiveRecord::Base
     scope lang.to_sym, -> { where(language: lang) }
   end
 
-  ## Callbacks
-  before_destroy :check_references
+  ## References checking
+  check_db_references :applications
 
   ## Serializer
   serialize :extra_attributes, JSON
@@ -81,15 +83,6 @@ class ApplicationType < ActiveRecord::Base
       self.extra_attributes = JSON::parse(extra_attributes) unless (extra_attributes.nil? || extra_attributes.empty?)
     rescue
       errors.add(:json_attributes, :unserializable)
-    end
-
-
-    def check_references
-      if !applications.empty?
-        errors.add(:base, :undeletable, applications: applications.map(&:to_s).to_sentence)
-        return false
-      end
-      return true
     end
 
 end

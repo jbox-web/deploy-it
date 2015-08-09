@@ -18,4 +18,7 @@ class RepositoryCredential::BasicAuth < RepositoryCredential
   ## Basic Validations
   validates :login,    presence: true
   validates :password, presence: true
+
+  ## References checking
+  check_db_references :repositories
 end

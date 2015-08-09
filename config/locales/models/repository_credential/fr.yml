@@ -40,7 +40,7 @@ fr:
         repository_credential:
           attributes:
             base:
-              undeletable: "Cette clé d'accès est utilisée par le(s) dépôt(s): %{repositories}"
+              undeletable: "Cette clé d'accès est utilisée par les %{object_name} : %{list}"
             name:
               blank: ne peut être vide
             type:

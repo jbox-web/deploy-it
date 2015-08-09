@@ -36,7 +36,7 @@ fr:
         platform:
           attributes:
             base:
-              undeletable: "Cette plateforme est utilisée par les %{object_name}(s): %{list}"
+              undeletable: "Cette plateforme est utilisée par les %{object_name} : %{list}"
             name:
               blank: ne peut être nul
               taken: déjà utilisé

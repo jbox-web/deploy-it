@@ -17,4 +17,6 @@ class RepositoryCredential::SshKey < RepositoryCredential
 
   include ActsAs::SshCredential
 
+  ## References checking
+  check_db_references :repositories
 end

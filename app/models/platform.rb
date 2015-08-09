@@ -29,8 +29,9 @@ class Platform < ActiveRecord::Base
   ## Scopes
   scope :by_name, -> { order(name: :asc) }
 
-  check_db_references 'server', :host_name
-  check_db_references 'stage',  :name
+  ## References checking
+  check_db_references :servers
+  check_db_references :stages
 
 
   def to_s
