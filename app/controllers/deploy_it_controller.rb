@@ -33,15 +33,15 @@ class DeployItController < ApplicationController
 
 
     def find_params
-      email       = params[:email] || ''
+      token       = params[:token] || ''
       fingerprint = params[:fingerprint] || ''
       repo_name   = params[:repo_name] || ''
 
-      if email.empty?
-        render_error('Error! Missing params : email')
+      if token.empty?
+        render_error('Error! Missing params : token')
         return
       else
-        @email = email
+        @token = token
       end
 
       if fingerprint.empty?
@@ -62,7 +62,7 @@ class DeployItController < ApplicationController
 
     def authenticate_user
       # First authenticate user in Deployer
-      authentication = Authentifier.new(@email, @fingerprint)
+      authentication = Authentifier.new(@token, @fingerprint)
       if !authentication.passed?
         render_error(["You don't have any account on this platform !", "Subscribe before : http://www.jbox-cloud.com"])
         return

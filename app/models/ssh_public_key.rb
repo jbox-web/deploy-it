@@ -51,6 +51,11 @@ class SshPublicKey < ActiveRecord::Base
   end
 
 
+  def token
+    user.authentication_token
+  end
+
+
   def exists_in_authorized_key_file?
     line = File.open(self.class.authorized_key_file, 'r') { |f| f.each_line.detect { |line| /#{fingerprint}/.match(line) } }
     !line.nil?
@@ -71,7 +76,7 @@ class SshPublicKey < ActiveRecord::Base
       "no-X11-forwarding",
       "no-pty",
       "no-user-rc",
-      "command=\"#{script_path} #{owner} #{fingerprint}\""
+      "command=\"#{script_path} #{owner} #{token} #{fingerprint}\""
     ]
   end
 
