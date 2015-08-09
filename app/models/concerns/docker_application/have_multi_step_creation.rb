@@ -139,26 +139,21 @@ module DockerApplication
 
       def add_database_fields
         return if stage.nil?
-        db_prefix = stage.database_name_prefix
-        if !db_prefix.nil? && !db_prefix.empty?
-          self.temp_db_name = sanitize("#{db_prefix}#{identifier}")
-          self.temp_db_user = sanitize("#{db_prefix}#{identifier}")
-        else
-          self.temp_db_name = sanitize(identifier)
-          self.temp_db_user = sanitize(identifier)
-        end
-
+        self.temp_db_name = set_field(identifier, stage.database_name_prefix)
+        self.temp_db_user = set_field(identifier, stage.database_name_prefix)
         self.temp_db_pass = DeployIt::Utils.generate_secret(12)
       end
 
 
       def add_domain_name_field
         return if stage.nil?
-        domain_name = "#{identifier}"
-        if !stage.domain_name_suffix.nil? && !stage.domain_name_suffix.empty?
-          domain_name = "#{domain_name}.#{stage.domain_name_suffix}"
-        end
-        self.domain_name = domain_name if self.domain_name.nil? || self.domain_name.empty?
+        domain = "#{identifier}.#{stage.domain_name_suffix}"
+        self.domain_name = domain if field_empty?(:domain_name)
+      end
+
+
+      def set_field(identifier, prefix = '')
+        sanitize("#{prefix}#{identifier}")
       end
 
 
@@ -169,7 +164,12 @@ module DockerApplication
 
       def add_repo_branch_field
         branch = (!repository_branch.nil? && !repository_branch.blank?) ? repository_branch : 'master'
-        self.repository_branch = branch if self.repository_branch.nil? || self.repository_branch.empty?
+        self.repository_branch = branch if field_empty?(:repository_branch)
+      end
+
+
+      def field_empty?(field)
+        self.send(field).nil? || self.send(field).empty?
       end
 
   end
