@@ -59,6 +59,28 @@ class SshPublicKey < ActiveRecord::Base
   end
 
 
+  def ssh_config
+    [ssh_directives.join(',').strip, key ].join(' ').strip
+  end
+
+
+  def ssh_directives
+    [
+      "no-agent-forwarding",
+      "no-port-forwarding",
+      "no-X11-forwarding",
+      "no-pty",
+      "no-user-rc",
+      "command=\"#{script_path} #{owner} #{fingerprint}\""
+    ]
+  end
+
+
+  def script_path
+    Rails.root.join('wrappers', 'deploy-it-authentifier')
+  end
+
+
   private
 
 

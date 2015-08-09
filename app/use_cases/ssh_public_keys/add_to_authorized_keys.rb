@@ -19,40 +19,15 @@ module SshPublicKeys
     def execute(opts = {})
       if !ssh_public_key.exists_in_authorized_key_file?
         begin
-          File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_config + "\n") }
+          File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_public_key.ssh_config + "\n") }
         rescue Errno::ENOENT => e
-          File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_config + "\n") }
+          File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_config + "\n") }
         rescue => e
           error_message('Error while creating SSH Key!')
           log_exception(e)
         end
       end
     end
-
-
-    private
-
-
-      def ssh_config
-        [ssh_directives.join(',').strip, ssh_public_key.key ].join(' ').strip
-      end
-
-
-      def ssh_directives
-        [
-          "no-agent-forwarding",
-          "no-port-forwarding",
-          "no-X11-forwarding",
-          "no-pty",
-          "no-user-rc",
-          "command=\"#{script_path} #{ssh_public_key.owner} #{ssh_public_key.fingerprint}\""
-        ]
-      end
-
-
-      def script_path
-        Rails.root.join('wrappers', 'deploy-it-authentifier')
-      end
 
   end
 end
