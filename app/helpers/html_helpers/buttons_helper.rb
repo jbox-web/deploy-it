@@ -39,7 +39,7 @@ module HtmlHelpers
       opts = {title: t('button.clone')}.merge(opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-copy', new_class, opts)
+      link_to_with_options(url, 'fa-clone', new_class, opts)
     end
 
 
