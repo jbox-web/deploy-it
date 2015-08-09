@@ -31,20 +31,6 @@ module HtmlHelpers
     end
 
 
-    ## Tabs
-    def navigation_tab(label, url, target, opts = {})
-      active = opts.delete(:active){ false }
-      css_class = opts.delete(:class){ [] }
-      opts = opts.deep_merge(
-        role: 'tab',
-        data: { toggle: 'tab', target: target }
-      )
-      content = link_to(label, url, opts)
-      css_class << (active ? 'active' : '')
-      content_tag(:li, content, class: css_class)
-    end
-
-
     def merge_hashes(left, right)
       # Merge it with html_options
       left.merge!(right) do |key, oldval, newval|
