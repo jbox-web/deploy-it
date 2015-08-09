@@ -14,7 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 class RemoveStepField < ActiveRecord::Migration
-  def change
+  def up
     remove_column :env_vars, :step
+  end
+
+  def down
+    add_column :env_vars, :step, :string
   end
 end

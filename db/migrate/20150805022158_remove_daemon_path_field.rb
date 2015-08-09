@@ -14,7 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 class RemoveDaemonPathField < ActiveRecord::Migration
-  def change
+  def up
     remove_column :server_roles, :daemon_path
+  end
+
+  def down
+    add_column :server_roles, :daemon_path, :string
   end
 end
