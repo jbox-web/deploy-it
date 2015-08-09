@@ -77,7 +77,7 @@ class SshPublicKey < ActiveRecord::Base
 
 
   def script_path
-    Rails.root.join('wrappers', 'deploy-it-authentifier')
+    File.join(Settings.scripts_path, 'deploy-it-authentifier')
   end
 
 
