@@ -25,7 +25,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       t.string  :language
       t.string  :time_zone
-      t.boolean :admin, default: false
+      t.boolean :admin,   default: false
       t.boolean :enabled, default: true
 
       ## Authentication token to authent API users
