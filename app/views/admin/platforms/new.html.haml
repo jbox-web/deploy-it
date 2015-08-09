@@ -10,7 +10,7 @@
                          url:    admin_platforms_path,
                          html:   { method: :post } do |f|
 
-      = render partial: 'form', locals: { f: f, platform: @platform }
+      = render 'form', f: f, platform: @platform
 
       .form-group
         %div{ class: 'col-sm-offset-2 col-sm-4' }

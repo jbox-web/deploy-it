@@ -10,7 +10,7 @@
                          url:    admin_buildpack_path(@buildpack),
                          html:   { method: :patch } do |f|
 
-      = render partial: 'form', locals: { f: f }
+      = render 'form', f: f
 
       .form-group
         %div{ class: 'col-sm-offset-2 col-sm-4' }

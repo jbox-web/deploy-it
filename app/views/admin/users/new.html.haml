@@ -10,7 +10,7 @@
                          url:    admin_users_path,
                          html:   { method: :post } do |f|
 
-      = render partial: 'form', locals: { f: f }
+      = render 'form', f: f
 
       #select-password-creation-mode
         = f.hidden_field :create_options, value: ''

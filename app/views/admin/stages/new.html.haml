@@ -8,7 +8,7 @@
                          url:    admin_platform_stages_path(@platform),
                          html:   { method: :post } do |f|
 
-      = render partial: 'form', locals: { f: f, stage: @stage }
+      = render 'form', f: f, stage: @stage
 
       .form-group
         %div{ class: 'col-sm-offset-2 col-sm-3' }

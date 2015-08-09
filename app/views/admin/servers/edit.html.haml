@@ -7,18 +7,18 @@
 
     .row
       %div{ class: 'col-md-6' }
-        #server-settings= render partial: 'admin/servers/edit/settings', locals: { server: @server }
+        #server-settings= render 'admin/servers/edit/settings', server: @server
 
       %div{ class: 'col-md-6' }
-        #server-roles= render partial: 'admin/servers/edit/roles', locals: { server: @server }
+        #server-roles= render 'admin/servers/edit/roles', server: @server
 
     .row
       %div{ class: 'col-md-12' }
-        #server-modules= render partial: 'admin/servers/edit/modules', locals: { server: @server }
+        #server-modules= render 'admin/servers/edit/modules', server: @server
 
     .row
       %div{ class: 'col-md-12' }
-        #server-delete= render partial: 'admin/servers/edit/delete', locals: { server: @server }
+        #server-delete= render 'admin/servers/edit/delete', server: @server
 
 = javascript_tag do
   setBootstrapSwitch('#server-modules');

@@ -10,7 +10,7 @@
                          url:    admin_platform_stage_path(@stage.platform, @stage),
                          html:   { method: :patch } do |f|
 
-      = render partial: 'form', locals: { f: f, stage: @stage }
+      = render 'form', f: f, stage: @stage
 
       .form-group
         %div{ class: 'col-sm-offset-3 col-sm-4' }
