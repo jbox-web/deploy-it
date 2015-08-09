@@ -15,7 +15,6 @@
 
 class MembersController < ApplicationController
 
-  before_action :require_login
   before_action :set_application
   before_action :authorize
 

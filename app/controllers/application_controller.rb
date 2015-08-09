@@ -31,6 +31,9 @@ class ApplicationController < ActionController::Base
   # http://railscasts.com/episodes/106-time-zones-revised?view=comments#comment_162005
   around_action :set_time_zone
 
+  before_action :require_login
+
+
   # Module to render label
   include Labelable
 
@@ -191,9 +194,9 @@ class ApplicationController < ActionController::Base
 
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:login) { |u| u.permit(:login, :password, :remember_me) }
+      devise_parameter_sanitizer.for(:login) { |u| u.permit(:email, :password, :remember_me) }
       devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:current_password, :password, :password_confirmation) }
-      # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:login, :email, :password, :password_confirmation) }
+      # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
     end
 
 

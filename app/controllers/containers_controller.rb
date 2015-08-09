@@ -15,7 +15,6 @@
 
 class ContainersController < ApplicationController
 
-  before_action :require_login
   before_action :set_application
   before_action :set_container
   before_action :set_deployment_action, only: :manage

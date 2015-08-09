@@ -13,33 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-require "rails_helper"
-
-describe SessionsController do
-
-  let(:user){ create(:user) }
-
-  describe "POST #create" do
-    it "assigns User.current to the current_user" do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      post :create, user: {
-                      email: user.email,
-                      password: user.password
-                    }
-      expect(User.current).to eq user
-    end
+class RemoveLoginField < ActiveRecord::Migration
+  def up
+    remove_column :users, :login
+    change_column :users, :email, :string, null: false, default: '', after: :id
   end
 
-  describe 'DELETE destroy' do
-    before do
-      sign_in user
-    end
-
-    it "assigns User.current to nil" do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      delete :destroy
-      expect(User.current).to be_an_instance_of(AnonymousUser)
-    end
+  def down
+    add_column :users, :login, :string, null: false, default: '', after: :id
   end
-
 end

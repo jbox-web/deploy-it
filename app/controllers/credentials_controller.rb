@@ -15,7 +15,6 @@
 
 class CredentialsController < ApplicationController
 
-  before_action :require_login
   before_action :authorize_global
   before_action :set_credential, only: [:edit, :update, :destroy]
 

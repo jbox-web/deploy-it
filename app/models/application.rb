@@ -141,7 +141,7 @@ class Application < ActiveRecord::Base
 
 
   def notification_channels
-    people_to_notify.map(&:pusher_token)
+    people_to_notify.map(&:private_channel)
   end
 
 

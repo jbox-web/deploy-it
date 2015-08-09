@@ -15,14 +15,14 @@
 
 class Authentifier
 
-  attr_reader :login
+  attr_reader :email
   attr_reader :fingerprint
   attr_reader :user
   attr_reader :ssh_key
 
 
-  def initialize(login, fingerprint)
-    @login       = login
+  def initialize(email, fingerprint)
+    @email       = email
     @fingerprint = fingerprint
     @user        = nil
     @ssh_key     = nil
@@ -45,7 +45,7 @@ class Authentifier
 
 
     def find_user
-      @user = User.find_by_login(login)
+      @user = User.find_by_email(email)
     end
 
 

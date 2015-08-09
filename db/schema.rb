@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808233333) do
+ActiveRecord::Schema.define(version: 20150809022911) do
 
   create_table "application_credentials", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -378,11 +378,10 @@ ActiveRecord::Schema.define(version: 20150808233333) do
   add_index "stages", ["platform_id"], name: "index_stages_on_platform_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                  limit: 255, default: "",    null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
     t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "firstname",              limit: 255
     t.string   "lastname",               limit: 255
-    t.string   "email",                  limit: 255
     t.string   "language",               limit: 255
     t.string   "time_zone",              limit: 255
     t.boolean  "admin",                              default: false
@@ -402,7 +401,6 @@ ActiveRecord::Schema.define(version: 20150808233333) do
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

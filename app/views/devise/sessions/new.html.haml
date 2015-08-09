@@ -7,7 +7,7 @@
                            as:  resource_name,
                            url: session_path(resource_name) do |f|
 
-        = f.text_field :login, autofocus: true
+        = f.text_field :email, autofocus: true
         = f.password_field :password, autocomplete: "off"
 
         - if devise_mapping.rememberable?

@@ -15,9 +15,6 @@
 
 class MyController < ApplicationController
 
-  before_action :require_login
-
-
   def account
     @user = User.current
     if request.patch?

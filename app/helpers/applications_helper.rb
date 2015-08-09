@@ -128,11 +128,8 @@ module ApplicationsHelper
 
 
   def render_member(member)
-    if member.is_a?(User)
-      label_with_icon(member.login, 'fa-user', fixed: true)
-    else
-      label_with_icon(member.name, 'fa-users', fixed: true)
-    end
+    icon = member.is_a?(User) ? 'fa-user' : 'fa-users'
+    label_with_icon(member.to_s, icon, fixed: true)
   end
 
 

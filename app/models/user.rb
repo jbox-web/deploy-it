@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'digest'
+
 class User < ActiveRecord::Base
 
   ## Module copied from Redmine to perform Authorization
@@ -30,7 +32,6 @@ class User < ActiveRecord::Base
   has_many :applications, through: :memberships
 
   ## Basic Validations
-  validates :login,     presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
   validates :email,     presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :firstname, presence: true, length: { maximum: 50 }
   validates :lastname,  presence: true, length: { maximum: 50 }
@@ -47,7 +48,7 @@ class User < ActiveRecord::Base
   before_validation :ensure_authentication_token
 
   ## Scopes
-  scope :by_login,  -> { order(login: :asc) }
+  scope :by_email,  -> { order(email: :asc) }
   scope :admin,     -> { where(admin: true) }
   scope :non_admin, -> { where(admin: false) }
   scope :active,    -> { where(enabled: true) }
@@ -66,14 +67,14 @@ class User < ActiveRecord::Base
 
     # Returns the anonymous user.
     def anonymous
-      AnonymousUser.new(firstname: 'Anonymous', lastname: '', email: '', login: '')
+      AnonymousUser.new(firstname: 'Anonymous', lastname: '', email: '',)
     end
 
   end
 
 
   def to_s
-    login
+    full_name
   end
 
 
@@ -97,8 +98,13 @@ class User < ActiveRecord::Base
   end
 
 
-  def pusher_token
-    "/private/#{login}"
+  def notification_token
+    @sha256 ||= Digest::SHA256.new.hexdigest(email)
+  end
+
+
+  def private_channel
+    "/private/#{notification_token}"
   end
 
 

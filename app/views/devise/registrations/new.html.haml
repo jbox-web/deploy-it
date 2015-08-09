@@ -7,7 +7,6 @@
                      url:    user_registration_path,
                      html:   { method: :post } do |f|
 
-  = f.text_field :login, autofocus: true
   = f.email_field :email, autofocus: true
   = f.password_field :password, autocomplete: "off"
 

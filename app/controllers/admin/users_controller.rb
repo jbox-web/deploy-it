@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::DefaultController
 
 
   def index
-    @users = User.by_login
+    @users = User.by_email
   end
 
 
@@ -40,7 +40,7 @@ class Admin::UsersController < Admin::DefaultController
 
 
   def edit
-    add_crumb @user.login, '#'
+    add_crumb @user.full_name, '#'
     add_crumb t('label.edit'), '#'
   end
 
@@ -72,7 +72,7 @@ class Admin::UsersController < Admin::DefaultController
       redirect_to admin_users_path
     else
       add_crumb label_with_icon(t('label.user.plural'), 'fa-user', fixed: true), admin_users_path
-      add_crumb @user.login, '#'
+      add_crumb @user.full_name, '#'
       add_crumb t('label.edit'), '#'
 
       render :edit
@@ -92,7 +92,7 @@ class Admin::UsersController < Admin::DefaultController
 
 
   def change_password
-    add_crumb @user.login, edit_admin_user_path(@user)
+    add_crumb @user.full_name, edit_admin_user_path(@user)
     add_crumb t('label.user.changing_password'), '#'
 
     @password_form = AdminPasswordForm.new(@user)
@@ -148,7 +148,7 @@ class Admin::UsersController < Admin::DefaultController
 
 
     def user_create_params
-      params.require(:user).permit(:login, :firstname, :lastname, :email, :language, :time_zone, :admin, :enabled,
+      params.require(:user).permit(:firstname, :lastname, :email, :language, :time_zone, :admin, :enabled,
         :password, :password_confirmation, :create_options, :send_by_mail)
     end
 

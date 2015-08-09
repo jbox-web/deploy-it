@@ -3,6 +3,6 @@
   %h4{ class: 'page-header' }= label_with_icon(t('label.application.instructions'), 'fa-info', fixed: true)
 
   %pre
-    = "#{User.current.login}@desktop:~$ git remote add #{application.stage_identifier} #{application.push_url}"
+    = "user@desktop:~$ git remote add #{application.stage_identifier} #{application.push_url}"
     &#x000A;
-    = "#{User.current.login}@desktop:~$ git push #{application.stage_identifier} master"
+    = "user@desktop:~$ git push #{application.stage_identifier} master"

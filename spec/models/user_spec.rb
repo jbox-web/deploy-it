@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 require 'rails_helper'
+require 'digest'
 
 describe User do
 
@@ -31,19 +32,16 @@ describe User do
     it { should be_valid }
 
     ## Fields validation
-    it { should validate_presence_of(:login) }
     it { should validate_presence_of(:firstname) }
     it { should validate_presence_of(:lastname) }
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:time_zone) }
     it { should validate_presence_of(:language) }
 
-    it { should validate_length_of(:login).is_at_most(20) }
     it { should validate_length_of(:firstname).is_at_most(50) }
     it { should validate_length_of(:lastname).is_at_most(50) }
     it { should validate_length_of(:password).is_at_least(6) }
 
-    it { should validate_uniqueness_of(:login).case_insensitive }
     it { should validate_uniqueness_of(:email).case_insensitive }
 
     it { should allow_value(*VALID_MAIL_ADDRESSES).for(:email) }
@@ -61,7 +59,7 @@ describe User do
     it { should respond_to(:anonymous?) }
 
     it "should render as string" do
-      expect(@user.to_s).to eq @user.login
+      expect(@user.to_s).to eq @user.email
     end
 
     it "should be logged" do
@@ -72,8 +70,12 @@ describe User do
       expect(@user.full_name).to eq "#{@user.firstname} #{@user.lastname}"
     end
 
-    it "should have a pusher token" do
-      expect(@user.pusher_token).to eq "/private/#{@user.login}"
+    it "should have a notification token" do
+      expect(@user.notification_token).to eq Digest::SHA256.new.hexdigest(@user.email)
+    end
+
+    it "should have a private notification channel" do
+      expect(@user.private_channel).to eq "/private/#{@user.notification_token}"
     end
 
     it "should have never been connected" do
@@ -88,12 +90,6 @@ describe User do
       user = build(:user, email: "TOTO@TOTO.COM")
       user.valid?
       expect(user.email).to eq 'toto@toto.com'
-    end
-
-    it "should downcase login" do
-      user = build(:user, login: "TOTO")
-      user.valid?
-      expect(user.login).to eq 'toto'
     end
 
     describe ".current" do

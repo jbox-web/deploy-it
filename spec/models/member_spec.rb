@@ -72,7 +72,7 @@ describe Member do
           user, role, member = create_user_membership(application)
           user_member = Member.find_or_new(application, user)
 
-          expect(member.name).to eq user.login
+          expect(member.name).to eq user.email
           expect(member.deletable?).to be true
           expect(user_member.new_record?).to be false
           expect(user_member).to eq member

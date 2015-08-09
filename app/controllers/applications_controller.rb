@@ -15,7 +15,6 @@
 
 class ApplicationsController < ApplicationController
 
-  before_action :require_login
   before_action :set_application,  except: [:index, :new, :create]
   before_action :authorize,        except: [:index, :new, :create]
   before_action :authorize_global, only:   [:new, :create]

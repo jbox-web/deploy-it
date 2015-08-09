@@ -20,7 +20,7 @@ AsyncNotifications.register_channel :broadcast do
 end
 
 AsyncNotifications.register_channel :private do
-  target Proc.new { User.current.login }
+  target Proc.new { User.current.notification_token }
   event  :notification
   event  :view_refresh
 end

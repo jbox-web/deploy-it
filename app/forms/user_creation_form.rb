@@ -23,7 +23,6 @@ class UserCreationForm < ActionForm::Base
   self.main_model = :user
 
   ## Real attributes
-  attribute :login,     required: false
   attribute :firstname, required: false
   attribute :lastname,  required: false
   attribute :email,     required: false

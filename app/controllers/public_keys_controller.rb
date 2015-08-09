@@ -15,7 +15,6 @@
 
 class PublicKeysController < ApplicationController
 
-  before_action :require_login
   before_action :find_user_ssh_keys
   before_action :find_ssh_key, only: :destroy
 

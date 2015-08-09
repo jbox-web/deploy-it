@@ -16,6 +16,7 @@
 class DeployItController < ApplicationController
 
   protect_from_forgery except: :auth
+  skip_before_action :require_login
 
   before_action :find_params
   before_action :authenticate_user
@@ -32,15 +33,15 @@ class DeployItController < ApplicationController
 
 
     def find_params
-      login       = params[:login] || ''
+      email       = params[:email] || ''
       fingerprint = params[:fingerprint] || ''
       repo_name   = params[:repo_name] || ''
 
-      if login.empty?
-        render_error('Error! Missing params : login')
+      if email.empty?
+        render_error('Error! Missing params : email')
         return
       else
-        @login = login
+        @email = email
       end
 
       if fingerprint.empty?
@@ -61,7 +62,7 @@ class DeployItController < ApplicationController
 
     def authenticate_user
       # First authenticate user in Deployer
-      authentication = Authentifier.new(@login, @fingerprint)
+      authentication = Authentifier.new(@email, @fingerprint)
       if !authentication.passed?
         render_error(["You don't have any account on this platform !", "Subscribe before : http://www.jbox-cloud.com"])
         return

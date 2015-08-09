@@ -47,7 +47,7 @@ class SshPublicKey < ActiveRecord::Base
 
 
   def owner
-    user.login
+    user.email
   end
 
 
@@ -81,51 +81,33 @@ class SshPublicKey < ActiveRecord::Base
     def has_not_been_changed
       return if new_record?
 
-      valid = true
-
       %w(user_id title key fingerprint).each do |attribute|
         method = "#{attribute}_changed?"
-        if self.send(method)
-          errors.add(attribute, 'cannot be changed')
-          valid = false
-        end
+        errors.add(attribute, 'cannot be changed') if self.send(method)
       end
-
-      return valid
     end
 
 
     def key_correctness
-      return false if (key.nil? || key.empty?)
-
-      if !DeployIt::Utils::Ssh.valid_ssh_public_key?(key)
-        errors.add(:key, :corrupted)
-        return false
-      end
+      return if (key.nil? || key.empty?)
+      errors.add(:key, :corrupted) if !DeployIt::Utils::Ssh.valid_ssh_public_key?(key)
     end
 
 
     def key_uniqueness
       # Validate uniqueness for new record only
       return unless new_record?
-
       existing = SshPublicKey.find_by_fingerprint(fingerprint)
-
       if existing
         # Hm.... have a duplicate key!
         if existing.user == User.current
           errors.add(:key, :in_use_by_you, name: existing.title)
-          return false
         elsif User.current.admin?
-          errors.add(:key, :in_use_by_other, login: existing.user.login, name: existing.title)
-          return false
+          errors.add(:key, :in_use_by_other, login: existing.user.email, name: existing.title)
         else
           errors.add(:key, :in_use_by_someone)
-          return false
         end
       end
-
-      return true
     end
 
 end
