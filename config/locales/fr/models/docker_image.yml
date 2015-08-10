@@ -1,0 +1,20 @@
+fr:
+
+  activerecord:
+    models:
+      docker_image:
+        one: Image Docker
+        other: Images Docker
+
+    attributes:
+      docker_image:
+        name: Nom
+        description: Description
+
+    errors:
+      models:
+        docker_image:
+          attributes:
+            name:
+              blank: ne peut être nul
+              taken: déjà pris

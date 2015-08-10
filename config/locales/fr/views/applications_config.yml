@@ -1,0 +1,29 @@
+fr:
+  applications_config:
+    database:
+      notice: Base de données modifiée avec succès
+    reset_ssl_certificate:
+      notice: Certificat SSL réinitialisé avec succès
+    domain_names:
+      notice: Alias / Redirections mis à jour avec succès
+      error: Erreurs lors de l'enregistrement des alias / redirections
+    ssl_certificate:
+      notice: Certificat SSL créé avec succès
+      error: Erreurs lors de l'enregistrement du certificat SSL
+    credentials:
+      notice: Mots de passe modifiés avec succès
+      error: Erreurs lors de l'enregistrement des mots de passe
+    restore_env_vars:
+      notice: Variables d'environnement restaurées avec succès
+      error: Erreurs lors de la restauration des variables d'environnement
+    restore_mount_points:
+      notice: Points de montage restaurés avec succès
+      error: Erreurs lors de la restauration des points de montage
+    env_vars:
+      notice: Variables d'environnement enregistrées avec succès
+      error: Erreurs lors de l'enregistrement des variables d'environnement
+    mount_points:
+      notice: Points de montage enregistrés avec succès
+      error: Erreurs lors de l'enregistrement des points de montage
+    repository:
+      notice: Modifications enregistrées avec succès

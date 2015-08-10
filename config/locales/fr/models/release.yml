@@ -1,0 +1,15 @@
+fr:
+
+  activerecord:
+    models:
+      release:
+        one: Version
+        other: Versions
+
+    attributes:
+      release:
+        application_id: Application
+        author_id: Auteur
+        build_id: Build
+        config_id: Config
+        version: Version

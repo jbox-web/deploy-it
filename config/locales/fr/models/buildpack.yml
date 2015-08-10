@@ -1,0 +1,22 @@
+fr:
+
+  activerecord:
+    models:
+      buildpack:
+        one: Buildpack
+        other: Buildpacks
+
+    attributes:
+      buildpack:
+        name: Nom
+        url: URL
+
+    errors:
+      models:
+        buildpack:
+          attributes:
+            name:
+              blank: ne peut être nul
+              taken: déjà pris
+            url:
+              blank: ne peut être nulle

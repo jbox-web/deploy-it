@@ -1,0 +1,38 @@
+fr:
+
+  activerecord:
+    models:
+      server:
+        one: Serveur
+        other: Serveurs
+
+    attributes:
+      server:
+        host_name: Nom d'hôte
+        platform_id: Plateforme
+        ip_address: Adresse IP
+        roles: Rôles associés
+        ssh_user: Login SSH
+        ssh_port: Port SSH
+
+    errors:
+      models:
+        server:
+          attributes:
+            base:
+              undeletable: "Ce serveur est utilisé par les %{object_name}(s): %{list}"
+            host_name:
+              blank: ne peut être nul
+              invalid: invalide
+              taken: déjà utilisé
+            platform_id:
+              blank: ne peut être nul
+            ip_address:
+              blank: ne être nulle
+              invalid: invalide
+              taken: déjà utilisée
+            ssh_user:
+              blank: ne peut être nul
+            ssh_port:
+              blank: ne peut être nul
+              not_a_number: n'est pas un nombre

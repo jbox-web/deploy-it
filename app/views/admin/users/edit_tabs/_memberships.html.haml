@@ -5,8 +5,8 @@
     %table{ class: 'table table-hover' }
       %thead
         %tr
-          %th= t('label.application.plural')
-          %th= t('label.role.plural')
+          %th= Application.model_name.human(count: 2)
+          %th= Role.model_name.human(count: 2)
           %th
 
       %tbody
@@ -47,7 +47,7 @@
                               remote: true,
                               confirm: false if membership.deletable?
   - else
-    .alert{ class: 'alert-warning dont-dismiss' }= t('label.application.none_defined')
+    .alert{ class: 'alert-warning dont-dismiss' }= t('.none_defined')
 
 
 %div{ class: 'col-md-6' }

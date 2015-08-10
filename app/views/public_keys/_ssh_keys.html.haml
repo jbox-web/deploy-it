@@ -2,16 +2,17 @@
   .col-md-12
 
     .alert{ class: 'alert-info dont-dismiss' }
-      %span= label_with_icon(t('label.help'), 'fa-info-circle')
-      %span= t('label.ssh_public_key.explanation')
+      %span= label_with_icon(t('.help'), 'fa-info-circle')
+      \:
+      %span= t('.explanation')
 
     .panel{ class: 'panel-default'}
       .panel-heading
-        = link_to t('label.ssh_public_key.new'), 'javascript:void(0)', id: 'btn-add-key',
-                                                  class:   'btn btn-default btn-sm minibutton pull-right',
-                                                  onclick: "$('#form-add-key').show(); return false;"
+        = link_to t('.new'), 'javascript:void(0)', id: 'btn-add-key',
+                                                   class:   'btn btn-default btn-sm minibutton pull-right',
+                                                   onclick: "$('#form-add-key').show(); return false;"
 
-        %h3= t('label.ssh_public_key.plural')
+        %h3= get_model_name_for('SshPublicKey')
 
       %ul{ class: 'list-group' }
         - ssh_keys.each do |ssh_key|
@@ -20,14 +21,14 @@
               %span{ class: 'ssh-key-icon' }
                 %span{ class: 'mega-octicon octicon-key' }
 
-              = button_delete public_key_path(ssh_key), class: 'btn-sm pull-right', label: t('label.delete'), remote: true
+              = button_delete public_key_path(ssh_key), class: 'btn-sm pull-right', label: t('.delete'), remote: true
 
               %strong{ class: 'ssh-key-title' }= ssh_key.title
               %code{ class: 'ssh-key-fingerprint' }= ssh_key.fingerprint
 
     .panel{ class: 'panel-default', id: 'form-add-key', style: ssh_key_form.model.errors.any? ? '' : 'display: none;' }
       .panel-heading
-        %h3= t('label.ssh_public_key.new')
+        %h3= t('.new')
 
       .panel-body
         = bootstrap_form_for ssh_key_form,

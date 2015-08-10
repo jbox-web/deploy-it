@@ -1,0 +1,25 @@
+fr:
+
+  admin:
+    roles:
+      index:
+        permissions_report: Synthèse des permissions
+        sort: Trier
+      new:
+        title: Nouveau rôle
+      create:
+        title: Nouveau rôle
+        notice: Rôle créé avec succès
+      edit:
+        title: Modifier le rôle
+      update:
+        title: Modifier le rôle
+        notice: Rôle modifié avec succès
+      destroy:
+        notice: Rôle supprimé avec succès
+      permissions:
+        title: Synthèse des permissions
+        permissions_report: Synthèse des permissions
+        notice: Rôles modifiés avec succès
+      form:
+        permissions: Permissions

@@ -16,13 +16,13 @@
 class CredentialCreationForm < ActionForm::Base
 
   CREATION_OPTIONS = [
-    ['generate', I18n.t('label.repository_credential.generate_key')],
-    ['manual',   I18n.t('label.repository_credential.specify_key')]
+    ['generate', RepositoryCredential.human_attribute_name('generate_key')],
+    ['manual',   RepositoryCredential.human_attribute_name('specify_key')]
   ]
 
   AVAILABLE_CREDENTIALS = [
-    ['RepositoryCredential::BasicAuth', I18n.t('label.repository_credential.basic_auth')],
-    ['RepositoryCredential::SshKey',    I18n.t('label.repository_credential.ssh_key')]
+    ['RepositoryCredential::BasicAuth', RepositoryCredential.human_attribute_name('basic_auth')],
+    ['RepositoryCredential::SshKey',    RepositoryCredential.human_attribute_name('ssh_key')]
   ]
 
   self.main_model = :credential

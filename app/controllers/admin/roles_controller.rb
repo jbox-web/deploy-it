@@ -29,7 +29,7 @@ class Admin::RolesController < Admin::DefaultController
 
   def index
     @roles = Role.sorted
-    breadcrumbs_for_index
+    breadcrumbs_for(:index)
   end
 
 
@@ -37,15 +37,15 @@ class Admin::RolesController < Admin::DefaultController
     @roles = Role.sorted
     @permissions = DeployIt::AccessControl.permissions.select { |p| !p.public? }
 
-    breadcrumbs_for_index
-    add_crumb t('label.role.permissions_report'), '#'
+    breadcrumbs_for(:index)
+    add_crumb t('.permissions_report'), '#'
 
     if request.post?
       @roles.each do |role|
         role.permissions = params[:permissions][role.id.to_s]
         role.save
       end
-      flash[:notice] = t('notice.roles.updated')
+      flash[:notice] = t('.notice')
       redirect_to permissions_admin_roles_path
     end
   end

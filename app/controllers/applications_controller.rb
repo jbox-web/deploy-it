@@ -25,7 +25,7 @@ class ApplicationsController < ApplicationController
 
   def index
     @applications = Application.visible.all
-    add_crumb label_with_icon(t('label.application.plural'), 'fa-desktop', fixed: true), '#'
+    add_crumb label_with_icon(Application.model_name.human(count: 2), 'fa-desktop', fixed: true), '#'
   end
 
 
@@ -36,7 +36,7 @@ class ApplicationsController < ApplicationController
 
   def new
     @application = @wizard_form.object
-    add_crumb label_with_icon(t('label.application.new'), 'fa-desktop', fixed: true), '#'
+    add_crumb label_with_icon(t('.title'), 'fa-desktop', fixed: true), '#'
   end
 
 
@@ -52,7 +52,7 @@ class ApplicationsController < ApplicationController
       call_service_objects
       render_ajax_redirect application_path(@application)
     else
-      add_crumb label_with_icon(t('label.application.new'), 'fa-desktop', fixed: true), '#'
+      add_crumb label_with_icon(t('.title'), 'fa-desktop', fixed: true), '#'
       render_ajax_response
     end
   end

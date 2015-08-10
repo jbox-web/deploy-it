@@ -1,0 +1,21 @@
+fr:
+
+  activerecord:
+    models:
+      group:
+        one: Groupe
+        other: Groupes
+
+    attributes:
+      group:
+        name: Nom
+        user_ids: Membres
+        members: Membres
+
+    errors:
+      models:
+        group:
+          attributes:
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé

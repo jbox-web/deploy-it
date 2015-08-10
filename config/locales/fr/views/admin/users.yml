@@ -1,0 +1,28 @@
+fr:
+  admin:
+    users:
+      index:
+        admins: Comptes administrateurs
+        non_admins: Comptes simples
+        disabled: Comptes désactivés
+      new:
+        title: Nouvel utilisateur
+      edit:
+        title: Modifier l'utilisateur
+        settings: Paramètres
+      create:
+        notice: Utilisateur créé avec succès
+      update:
+        notice: Utilisateur modifié avec succès
+      destroy:
+        notice: Utilisateur supprimé avec succès
+
+      edit_tabs:
+        memberships:
+          none_defined: Aucune application associée
+        settings:
+          change_password: Changer de mot de passe
+
+      change_password:
+        changing_password: Changement de mot de passe
+        notice: Mot de passe mis à jour avec succès

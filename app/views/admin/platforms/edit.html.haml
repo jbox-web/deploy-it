@@ -1,4 +1,4 @@
-- html_title t('label.platform.plural'), @platform
+- html_title @page_title
 
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
@@ -18,4 +18,4 @@
           = button_cancel admin_platforms_path
 
 .row
-  %div{ class: 'col-md-offset-1 col-md-10' }= render partial: 'delete', locals: { platform: @platform }
+  %div{ class: 'col-md-offset-1 col-md-10' }= render 'delete', platform: @platform

@@ -1,0 +1,63 @@
+fr:
+
+  label:
+    server_role:
+      docker: Docker
+      pg_db: Postgres
+      mysql_db: MySQL
+      lb: Nginx
+      log: Rsyslog
+
+      docker_role: Rôle Docker
+      pg_db_role: Rôle Postgres
+      mysql_db_role: Rôle MySQL
+      lb_role: Rôle Nginx
+      log_role: Rôle Rsyslog
+
+      docker_service: Service Docker
+      pg_db_service: Service Postgres
+      mysql_db_service: Service MySQL
+      lb_service: Service Nginx
+      log_service: Service Rsyslog
+
+      default: Serveur par défaut
+      default_server: Serveur par défaut pour ce rôle ?
+      none_defined: Aucun rôle défini
+      configuration: Configuration des rôles
+
+      enabled: "%{role} activé"
+      disabled: "%{role} désactivé"
+
+      online: "%{service} en ligne"
+      offline: "%{service} déconnecté"
+
+      services_connexion: Connection aux services
+      connexion_to: "Connection à %{service} ..."
+
+  activerecord:
+    models:
+        one: Rôle serveur
+        other: Rôles serveur
+
+    attributes:
+      server_role:
+        type: Rôle
+        default_server: Serveur par défaut pour ce rôle
+        alternative_host: Adresse alternative
+        port: Port
+        connection_timeout: Timeout de connexion
+
+    errors:
+      models:
+        server_role:
+          attributes:
+            type:
+              blank: ne peut être nul
+              taken: rôle déjà attribué
+              inclusion: entrée invalide
+            default_server:
+              taken: déjà assigné
+            docker_port:
+              not_a_number: n'est pas un nombre
+            connection_timeout:
+              not_a_number: n'est pas un nombre

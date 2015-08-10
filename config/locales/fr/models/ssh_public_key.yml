@@ -1,0 +1,25 @@
+fr:
+
+  activerecord:
+    models:
+      ssh_public_key:
+        one: Clé publique
+        other: Clés publiques
+
+    attributes:
+      ssh_public_key:
+        title: Titre
+        key: Clé
+
+    errors:
+      models:
+        ssh_public_key:
+          attributes:
+            title:
+              blank: ne peut être nul
+            key:
+              blank: ne peut être nulle
+              corrupted: Clé SSH corrompue
+              in_use_by_you: "Cette clé est déjà utilisée par vous : %{name}"
+              in_use_by_other: "Cette clé (%{name}) est déjà utilisée par %{login}"
+              in_use_by_someone: Cette clé est déjà utilisée par quelqu'un

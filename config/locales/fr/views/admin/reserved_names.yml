@@ -1,0 +1,16 @@
+fr:
+
+  admin:
+    reserved_names:
+      new:
+        title: Nouveau nom réservé
+      create:
+        title: Nouveau nom réservé
+        notice: Nom réservé créé avec succès
+      edit:
+        title: Modifier le nom réservé
+      update:
+        title: Modifier le nom réservé
+        notice: Nom réservé modifié avec succès
+      destroy:
+        notice: Nom réservé supprimé avec succès

@@ -1,4 +1,4 @@
-- html_title t('label.role.plural')
+- html_title @page_title
 
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
@@ -10,11 +10,11 @@
     %table{ id: 'roles', class: 'table table-hover' }
       %thead
         %tr
-          %th= t('label.sort')
-          %th= t('label.name')
-          %th{ class: 'text-right' }= button_edit permissions_admin_roles_path, title: t('label.role.permissions_report'), class: 'btn-sm'
+          %th= t('.sort')
+          %th= Role.human_attribute_name('name')
+          %th{ class: 'text-right' }= button_edit permissions_admin_roles_path, title: t('.permissions_report'), class: 'btn-sm'
 
-      %tbody{ class: 'sortable', data: { 'update-url' => sort_admin_roles_path } }
+      %tbody{ class: 'sortable', data: { update: { url: sort_admin_roles_path } } }
         - @roles.each do |role|
           - css = role.builtin? ? 'ui-state-disabled' : ''
           = content_tag_for(:tr, role, class: css) do

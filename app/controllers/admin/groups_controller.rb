@@ -29,7 +29,7 @@ class Admin::GroupsController < Admin::DefaultController
 
   def index
     @groups = Group.includes(:users).by_name
-    breadcrumbs_for_index
+    breadcrumbs_for(:index)
   end
 
 end

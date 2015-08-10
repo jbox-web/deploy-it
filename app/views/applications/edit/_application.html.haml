@@ -1,7 +1,7 @@
 #application{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-application'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.global_settings'), 'fa-sliders', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(t('.settings'), 'fa-sliders', fixed: true)
 
   #settings-application
 
@@ -24,16 +24,16 @@
 
       = f.select :instance_number, max_instances_available, required: true
 
-      = f.form_group :use_credentials, label: { text: t('label.application.enable_credentials') }, class: 'shifted' do
+      = f.form_group :use_credentials, label: { text: Application.human_attribute_name('enable_credentials') }, class: 'shifted' do
         = f.check_box :use_credentials, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
-      = f.form_group :use_cron, label: { text: t('label.application.enable_cron') }, class: 'shifted' do
+      = f.form_group :use_cron, label: { text: Application.human_attribute_name('enable_cron') }, class: 'shifted' do
         = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
-      = f.form_group :use_ssl, label: { text: t('label.application.ssl_mode') }, class: 'shifted' do
+      = f.form_group :use_ssl, label: { text: Application.human_attribute_name('enable_ssl') }, class: 'shifted' do
         = f.check_box :use_ssl, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
-      = f.form_group :debug_mode, label: { text: t('label.application.debug_mode') }, class: 'shifted' do
+      = f.form_group :debug_mode, label: { text: Application.human_attribute_name('enable_debug') }, class: 'shifted' do
         = f.check_box :debug_mode, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
       .form-group

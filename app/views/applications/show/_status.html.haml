@@ -1,4 +1,4 @@
 %ul{ id: 'status', class: 'list-unstyled list-inline' }
-  %li= label_with_success_tag "#{t('label.application.running_containers')} : #{application.running_containers}"
-  %li= label_with_warning_tag "#{t('label.application.paused_containers')} : #{application.paused_containers}"
-  %li= label_with_danger_tag  "#{t('label.application.stopped_containers')} : #{application.stopped_containers}"
+  %li= label_with_success_tag "#{t('.running_containers')} : #{application.running_containers}"
+  %li= label_with_warning_tag "#{t('.paused_containers')} : #{application.paused_containers}"
+  %li= label_with_danger_tag  "#{t('.stopped_containers')} : #{application.stopped_containers}"

@@ -40,17 +40,17 @@ class StagePresenter < SimpleDelegator
 
 
     def stage_identifier
-      "#{t('label.identifier')} : #{tagged_data(stage.identifier)}"
+      "#{Stage.human_attribute_name('identifier')} : #{tagged_data(stage.identifier)}"
     end
 
 
     def database_name_prefix
-      "#{t('label.stage.database_name_prefix')} : #{tagged_data(stage.database_name_prefix)}"
+      "#{Stage.human_attribute_name('database_name_prefix')} : #{tagged_data(stage.database_name_prefix)}"
     end
 
 
     def domain_name_suffix
-      "#{t('label.stage.domain_name_suffix')} : #{tagged_data(stage.domain_name_suffix)}"
+      "#{Stage.human_attribute_name('domain_name_suffix')} : #{tagged_data(stage.domain_name_suffix)}"
     end
 
 

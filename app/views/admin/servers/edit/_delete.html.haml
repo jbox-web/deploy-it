@@ -1,5 +1,5 @@
 %hr
-%h4{ class: 'page-header' }= t('label.server.destroy')
+%h4{ class: 'page-header' }= t('.destroy')
 = link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
             admin_platform_server_path(server.platform, server),
             method: :delete,

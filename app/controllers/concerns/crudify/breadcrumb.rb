@@ -1,18 +1,21 @@
 module Crudify
   class Breadcrumb
 
+    attr_reader :namespace
     attr_reader :singular_name
     attr_reader :plural_name
-    attr_reader :namespace
+    attr_reader :class_name
+
     attr_reader :crumbs_opts
 
 
-    def initialize(singular_name, plural_name, namespace, crumbable = false, crumbs_opts = {})
-      @singular_name = singular_name
-      @plural_name   = plural_name
+    def initialize(namespace, options = {})
       @namespace     = namespace
-      @crumbable     = crumbable
-      @crumbs_opts   = crumbs_opts
+      @singular_name = options[:singular_name]
+      @plural_name   = options[:plural_name]
+      @class_name    = options[:class_name]
+      @crumbable     = options[:crumbable]
+      @crumbs_opts   = options[:crumbs_opts]
     end
 
 
@@ -63,7 +66,7 @@ module Crudify
 
 
     def global_crumb_title_without_icon
-      "t('label.#{singular_name}.plural')"
+      "#{class_name}.model_name.human(count: 2)"
     end
 
 
@@ -79,7 +82,7 @@ module Crudify
 
     ## NEW / CREATE
     def crumb_title_for_new
-      "t('label.#{singular_name}.new')"
+      "t('.title')"
     end
 
 
@@ -100,7 +103,7 @@ module Crudify
 
 
     def crumb_title_for_edit
-      "t('label.edit')"
+      "t('text.edit')"
     end
 
 

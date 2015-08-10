@@ -1,0 +1,20 @@
+fr:
+
+  layouts:
+    application:
+      my_account: Mon compte
+      admin: Admin
+      help: Aide
+      login: Connexion
+      logout: Déconnexion
+
+    sidebar:
+      new_application: Nouvelle application
+      my_account: Mon compte
+      my_ssh_keys: Mes clés SSH
+      change_password: Changer de mot de passe
+      admin: Admin
+      help: Aide
+      sidekiq: Sidekiq
+      settings: Paramètres
+      new_credentials: Nouvelle clé d'accès

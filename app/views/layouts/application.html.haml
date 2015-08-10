@@ -2,7 +2,7 @@
 %html(lang="en")
   %head
     %meta(charset="utf-8")
-    %title= h @html_title
+    %title= yield(:title)
     = csrf_meta_tags
     = google_webfonts_init({google: ['Ubuntu','Pacifico']})
     = stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => true

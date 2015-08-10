@@ -1,0 +1,16 @@
+fr:
+
+  admin:
+    docker_images:
+      new:
+        title: Nouvelle image Docker
+      create:
+        title: Nouvelle image Docker
+        notice: Image Docker créée avec succès
+      edit:
+        title: Modifier l'image Docker
+      update:
+        title: Modifier l'image Docker
+        notice: Image Docker modifiée avec succès
+      destroy:
+        notice: Image Docker supprimée avec succès

@@ -33,7 +33,7 @@ class Admin::ServersController < Admin::DefaultController
 
   def new
     @server = @platform.servers.new
-    add_crumb t('label.server.new'), '#'
+    add_crumb t('.title'), '#'
   end
 
 
@@ -46,24 +46,24 @@ class Admin::ServersController < Admin::DefaultController
     @server = @platform.servers.new(server_params)
 
     if @server.save
-      flash[:notice] = t('notice.server.created')
+      flash[:notice] = t('.notice')
       redirect_to admin_platforms_path
     else
-      add_crumb t('label.server.new'), '#'
+      add_crumb t('.title'), '#'
       render :new
     end
   end
 
 
   def update
-    flash[:notice] = t('notice.server.updated') if @server.update(server_params)
+    flash[:notice] = t('.notice') if @server.update(server_params)
     render_ajax_response
   end
 
 
   def destroy
     if @server.destroy
-      flash[:notice] = t('notice.server.deleted')
+      flash[:notice] = t('.notice')
     else
       flash[:alert] = @server.errors.full_messages
     end
@@ -87,7 +87,7 @@ class Admin::ServersController < Admin::DefaultController
     if !@server.has_role?(@jbox_role_module.type)
       opts = { name: @jbox_role_module.type, platform: @server.platform }.merge(@jbox_role_module.default_options)
       @server.roles.create(opts)
-      flash[:notice] = t('notice.server_role.enabled', role: @jbox_role_module.to_s)
+      flash[:notice] = t('.notice', role: @jbox_role_module.to_s)
     end
     render_ajax_response('toggle_role')
   end
@@ -97,14 +97,14 @@ class Admin::ServersController < Admin::DefaultController
     if @server.has_role?(@jbox_role_module.type)
       @server.roles.find_by_name(@jbox_role_module.type).destroy!
       @server.reload
-      flash[:notice] = t('notice.server_role.disabled', role: @jbox_role_module.to_s)
+      flash[:notice] = t('.notice', role: @jbox_role_module.to_s)
     end
     render_ajax_response('toggle_role')
   end
 
 
   def update_roles
-    flash[:notice] = t('notice.server_role.updated') if @server.update(roles_params)
+    flash[:notice] = t('.notice') if @server.update(roles_params)
     render_ajax_response
   end
 
@@ -114,7 +114,7 @@ class Admin::ServersController < Admin::DefaultController
 
     def set_platform
       @platform = Platform.find(params[:platform_id])
-      add_crumb label_with_icon(t('label.platform.plural'), 'fa-sitemap', fixed: true), admin_platforms_path
+      add_crumb label_with_icon(Platform.model_name.human(count: 2), 'fa-sitemap', fixed: true), admin_platforms_path
       add_crumb @platform.name, admin_platforms_path
     rescue ActiveRecord::RecordNotFound => e
       render_404

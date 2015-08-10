@@ -1,0 +1,26 @@
+fr:
+
+  activerecord:
+    models:
+      mount_point:
+        one: Point de montage
+        other: Points de montage
+
+    attributes:
+      mount_point:
+        source: Source
+        target: Cible
+        step: Etape
+        active: Activé
+
+    errors:
+      models:
+        mount_point:
+          attributes:
+            source:
+              blank: ne peut être nulle
+            target:
+              blank: ne peut être nulle
+            step:
+              blank: ne peut être nulle
+              inclusion: vous devez choisir

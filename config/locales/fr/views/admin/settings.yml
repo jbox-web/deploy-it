@@ -1,0 +1,15 @@
+fr:
+  admin:
+    settings:
+      index:
+        title: Paramètres
+        settings: Paramètres
+        more_infos: Afficher plus d'informations
+        versions: Versions
+        version_of:
+          deploy_it: Version de DeployIt
+          ruby: Version de Ruby
+          rails: Version de Rails
+          docker: Version de Docker
+          rugged: Version de Rugged
+          libgit2: Version de libgit2

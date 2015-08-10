@@ -1,0 +1,16 @@
+fr:
+
+  admin:
+    groups:
+      new:
+        title: Nouveau groupe
+      create:
+        title: Nouveau groupe
+        notice: Groupe créé avec succès
+      edit:
+        title: Modifier le groupe
+      update:
+        title: Modifier le groupe
+        notice: Groupe modifié avec succès
+      destroy:
+        notice: Groupe supprimé avec succès

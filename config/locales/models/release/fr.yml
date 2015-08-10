@@ -1,8 +1,0 @@
-fr:
-
-  label:
-    release:
-      single: Version
-      plural: Versions de l'application
-      from: De
-      to: à

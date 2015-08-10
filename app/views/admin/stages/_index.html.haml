@@ -2,7 +2,7 @@
   %div{ class: 'col-md-12' }
 
     %h4{ class: 'page-header' }
-      = label_with_icon(t('label.stage.plural'), 'fa-puzzle-piece', fixed: true)
+      = label_with_icon(get_model_name_for('Stage'), 'fa-puzzle-piece', fixed: true)
       = button_add new_admin_platform_stage_path(platform)
 
     - stages.by_name.in_groups_of(3, false).each do |row_stage|

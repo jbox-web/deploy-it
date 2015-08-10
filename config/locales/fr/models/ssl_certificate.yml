@@ -1,0 +1,25 @@
+fr:
+
+  activerecord:
+    models:
+      ssl_certificate:
+        one: Certificat SSL
+        other: Certificats SSL
+
+    attributes:
+      ssl_certificate:
+        ssl_crt: Fichier .crt
+        ssl_key: Fichier .key
+
+    errors:
+      models:
+        ssl_certificate:
+          attributes:
+            base:
+              key_match_cert: La clé SSL ne correspond pas au certificat
+            ssl_crt:
+              blank: ne peut être nul
+              corrupted: Certificat SSL corrompu
+            ssl_key:
+              blank: ne peut être nul
+              corrupted: Clé SSL corrompue

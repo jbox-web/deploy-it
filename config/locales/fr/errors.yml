@@ -1,0 +1,16 @@
+fr:
+
+  errors:
+    not_authorized: "Vous n'êtes pas autorisé à accéder à cette page."
+    file_not_found: "La page à laquelle vous souhaitez accéder n'existe pas ou a été supprimée."
+
+    account:
+      disabled: Votre compte a été désactivé !
+
+    ansible:
+      io_error: Erreur lors de l'exécution de la mise à jour
+      invalid_server_update: Requête de mise à jour invalide
+      unreachable_server: Serveur injoignable
+      unavailable_server: Aucun serveur disponible
+      server_update_failed: Mise à jour refusée
+      unknown_error: Erreur inconnue

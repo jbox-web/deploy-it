@@ -1,0 +1,135 @@
+fr:
+
+  applications:
+    new:
+      title: Nouvelle application
+      current_step: Etape
+    create:
+      title: Nouvelle application
+
+    show:
+      env_vars:
+        none_defined: Aucune variable d'environnement définie
+
+      mount_points:
+        none_defined: Aucun point de montage défini
+
+      members:
+        none_defined: Aucun membre
+
+      domain_aliases:
+        title: Alias
+        none_defined: Aucun alias défini
+
+      domain_redirects:
+        title: Redirections
+        none_defined: Aucune redirection définie
+
+      credentials:
+        none_defined: Aucun mot de passe défini
+
+      console:
+        title: Console
+
+      instructions:
+        text: Instructions pour mettre à jour l'application
+
+      infos:
+        settings: Paramètres
+
+      releases:
+        from: De
+        to: à
+
+      settings: Paramètres
+      code: Code
+      informations: Infos
+      destroying: En cours de destruction
+
+      local_repo:
+        title: Dépôt local
+
+        empty: Le dépôt est vide
+        syncable: Synchronisable
+        not_syncable: Non synchronisable
+        synced: Synchronisé
+
+        state: Etat
+        last_commit: Dernier commit
+        commit_id: ID
+        commit_author: Auteur
+        commit_message: Message
+        commit_date: Date
+
+      distant_repo:
+        title: Dépôt distant
+        resync: Resynchroniser le dépôt
+
+        empty: Le dépôt est vide
+        syncable: Synchronisable
+        not_syncable: Non synchronisable
+        synced: Synchronisé
+
+        state: Etat
+        last_commit: Dernier commit
+        commit_id: ID
+        commit_author: Auteur
+        commit_message: Message
+        commit_date: Date
+
+        settings: Paramètres du dépôt
+
+      containers:
+        app_start: Démarrer l'application
+        app_stop: Arrêter l'application
+        app_restart: Redémarrer l'application
+        app_rebuild: Reconstruire l'application
+        app_pause: Mettre en pause l'application
+        app_unpause: Sortir l'application de pause
+
+        state: Etat du contenaire
+        docker_id: Identifiant Docker
+        uptime: Uptime
+        backend_url: URL du contenaire
+        current_revision: Révision déployée
+        current_server: Serveur actuel
+
+        start: Démarrer le contenaire
+        stop: Arrêter le contenaire
+        pause: Mettre en pause le contenaire
+        restart: Redémarrer le contenaire
+        unpause: Sortir le contenaire de pause
+        docker_infos: Informations Docker
+
+        running: Démarré
+        stopped: Arrêté
+        paused: En pause
+
+      status:
+        running_containers: Contenaires démarrés
+        stopped_containers: Contenaires arrêtés
+        paused_containers: Contenaires en pause
+
+    edit:
+      application:
+        settings: Paramètres Globaux
+      env_vars:
+        add: Ajouter une variable d'environnement
+        restore_defaults: Restaurer les variables d'environnement par défaut
+      mount_points:
+        add: Ajouter un point de montage
+        restore_defaults: Restaurer les points de montage par défaut
+      members:
+        none_defined: Aucun membre
+      domain_names:
+        add: Ajouter un alias / une redirection
+      ssl_certificate:
+        reset: Réinitialiser le certificat SSL
+      credentials:
+        add: Ajouter un mot de passe
+      delete:
+        destroy: Détruire l'application
+      repository:
+        have_credentials: Utilise une clé d'accès
+      credential:
+        desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"

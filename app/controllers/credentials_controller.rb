@@ -33,7 +33,7 @@ class CredentialsController < ApplicationController
     @credential = RepositoryCredential.new
     @credential_form = CredentialCreationForm.new(@credential)
 
-    add_crumb label_with_icon(t('label.repository_credential.new'), 'fa-lock', fixed: true), applications_path
+    add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
   end
 
 
@@ -41,7 +41,7 @@ class CredentialsController < ApplicationController
     @credential_form = CredentialUpdateForm.new(@credential)
 
     add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
-    add_crumb t('label.edit'), '#'
+    add_crumb t('text.edit'), '#'
   end
 
 
@@ -51,10 +51,10 @@ class CredentialsController < ApplicationController
     @credential_form.submit(credential_create_params)
 
     if @credential_form.save
-      flash[:notice] = t('notice.repository_credential.created')
+      flash[:notice] = t('.notice')
       redirect_to applications_path
     else
-      add_crumb label_with_icon(t('label.repository_credential.new'), 'fa-lock', fixed: true), applications_path
+      add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
       render :new
     end
   end
@@ -65,11 +65,11 @@ class CredentialsController < ApplicationController
     @credential_form.submit(credential_update_params)
 
     if @credential_form.save
-      flash[:notice] = t('notice.repository_credential.updated')
+      flash[:notice] = t('.notice')
       redirect_to applications_path
     else
       add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
-      add_crumb t('label.edit'), '#'
+      add_crumb t('text.edit'), '#'
       render :edit
     end
   end
@@ -77,7 +77,7 @@ class CredentialsController < ApplicationController
 
   def destroy
     if @credential.destroy
-      flash[:notice] = t('notice.repository_credential.deleted')
+      flash[:notice] = t('.notice')
     else
       flash[:alert] = @credential.errors.full_messages
     end

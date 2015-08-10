@@ -1,34 +1,34 @@
 %div{ class: 'col-md-6' }
 
-  %h4{ class: 'page-header' }= label_with_icon(t('label.settings'), 'fa-sliders', fixed: true)
+  %h4{ class: 'page-header' }= label_with_icon(t('.settings'), 'fa-sliders', fixed: true)
 
   %dl{ class: 'dl-horizontal dl-big' }
-    %dt= t('label.identifier') + ' :'
+    %dt= Application.human_attribute_name('identifier') + ' :'
     %dd= application.identifier
 
-    %dt= t('label.application_type.single') + ' :'
+    %dt= Application.human_attribute_name('type') + ' :'
     %dd= application.type
 
-    %dt= t('label.application.image_type') + ' :'
+    %dt= Application.human_attribute_name('image_type') + ' :'
     %dd= application.image_type
 
-    %dt= t('label.application.buildpack') + ' :'
+    %dt= Application.human_attribute_name('buildpack') + ' :'
     %dd= shorten_url application.buildpack
 
-    %dt= t('label.application.domain_name') + ' :'
+    %dt= Application.human_attribute_name('domain_name') + ' :'
     %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'
 
-    %dt= t('label.application.use_credentials') + ' :'
+    %dt= Application.human_attribute_name('credentials_enabled') + ' :'
     %dd= bool_to_icon application.use_credentials?
 
-    %dt= t('label.application.use_cron') + ' :'
+    %dt= Application.human_attribute_name('cron_enabled') + ' :'
     %dd= bool_to_icon application.use_cron?
 
-    %dt= t('label.application.use_ssl') + ' :'
+    %dt= Application.human_attribute_name('ssl_enabled') + ' :'
     %dd= bool_to_icon application.use_ssl?
 
-    %dt= t('label.application.debug_mode') + ' :'
+    %dt= Application.human_attribute_name('debug_enabled') + ' :'
     %dd= bool_to_icon application.debug_mode?
 
-    %dt= t('label.application.instance_number') + ' :'
+    %dt= Application.human_attribute_name('instance_number') + ' :'
     %dd= label_with_success_tag application.instance_number

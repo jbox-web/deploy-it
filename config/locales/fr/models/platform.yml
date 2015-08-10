@@ -1,0 +1,26 @@
+fr:
+
+  activerecord:
+    models:
+      platform:
+        one: Plateforme
+        other: Plateformes
+
+    attributes:
+      platform:
+        name: Nom
+        identifier: Identifiant
+        description: Description
+
+    errors:
+      models:
+        platform:
+          attributes:
+            base:
+              undeletable: "Cette plateforme est utilisée par les %{object_name} : %{list}"
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé
+            identifier:
+              blank: ne peut être nul
+              taken: déjà utilisé

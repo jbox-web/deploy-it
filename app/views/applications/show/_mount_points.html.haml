@@ -1,11 +1,11 @@
-%h4{ class: 'page-header' }= label_with_icon(t('label.mount_point.plural'), 'fa-download', fixed: true)
+%h4{ class: 'page-header' }= label_with_icon(get_model_name_for('MountPoint'), 'fa-download', fixed: true)
 
 - if application.mount_points.any?
   - application.sorted_mount_points.each do |step, mount_points|
     - if mount_points.any?
       %ul{ class: 'list-group' }
         %li{ class: 'list-group-item' }
-          = t('label.mount_point.step') + ' :'
+          = MountPoint.human_attribute_name('step') + ' :'
           %span{ class: 'label label-info' }= step
         %ul{ class: 'list-group' }
           - mount_points.each do |mount_point|
@@ -13,7 +13,7 @@
             - next if mount_point.source == 'log-files'
             %li{ class: "list-group-item #{bool_to_css_disabled mount_point.active}" }
               %span{ class: 'mount-point' }
-                = bool_to_icon mount_point.active, title: t('label.mount_point.active')
+                = bool_to_icon mount_point.active, title: MountPoint.human_attribute_name('active')
                 = mount_point
 - else
-  .alert{ class: 'alert-info dont-dismiss' }= t('label.mount_point.none_defined')
+  .alert{ class: 'alert-info dont-dismiss' }= t('.none_defined')

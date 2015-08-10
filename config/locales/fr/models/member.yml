@@ -1,0 +1,12 @@
+fr:
+
+  activerecord:
+    models:
+      member:
+        one: Membre
+        other: Membres
+
+    attributes:
+      member:
+        user_ids: Utilisateurs
+        role_ids: Rôles

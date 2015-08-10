@@ -1,0 +1,21 @@
+fr:
+
+  activerecord:
+    models:
+      container:
+        one: Contenaire
+        other: Contenaires
+
+    errors:
+      models:
+        container:
+          attributes:
+            application_id:
+              blank: ne peut être nul
+            server_id:
+              blank: ne peut être nul
+            release_id:
+              blank: ne peut être nul
+            type:
+              blank: ne peut être nul
+              inclusion: vous devez choisir

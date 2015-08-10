@@ -78,28 +78,26 @@ class ApplicationController < ActionController::Base
 
   def render_403(opts = {})
     @application = nil
-    render_error({message: t('notice.not_authorized'), status: 403}.merge(opts))
+    render_error({ message: t('errors.not_authorized'), status: 403 }.merge(opts))
     return false
   end
 
 
   def render_404(opts = {})
-    render_error({message: t('notice.file_not_found'), status: 404}.merge(opts))
+    render_error({ message: t('errors.file_not_found'), status: 404 }.merge(opts))
     return false
   end
 
 
   # Renders an error response
   def render_error(arg)
-    arg = {:message => arg} unless arg.is_a?(Hash)
+    arg = { message: arg } unless arg.is_a?(Hash)
 
     @message = arg[:message]
     @status  = arg[:status] || 500
 
     respond_to do |format|
-      format.html {
-        render :template => 'common/error', :layout => use_layout, :status => @status
-      }
+      format.html { render template: 'common/error', layout: use_layout, status: @status }
       format.any { head @status }
     end
   end
@@ -113,9 +111,7 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     return unless require_login
-    if !User.current.admin?
-      render_403
-    end
+    render_403 if !User.current.admin?
   end
 
 
@@ -126,7 +122,7 @@ class ApplicationController < ActionController::Base
 
   # Authorize the user for the requested action
   def authorize(ctrl = params[:controller], action = params[:action], global = false)
-    allowed = User.current.allowed_to?({controller: ctrl, action: action}, @application || @applications, global: global)
+    allowed = User.current.allowed_to?({ controller: ctrl, action: action }, @application || @applications, global: global)
     if allowed
       true
     else

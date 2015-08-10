@@ -1,12 +1,12 @@
-- html_title t('label.user.plural')
+- html_title get_model_name_for('User')
 
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
 
     %h3{ class: 'page-header' }
-      = label_with_icon(t('label.user.plural'), 'fa-user', fixed: true)
+      = label_with_icon(get_model_name_for('User'), 'fa-user', fixed: true)
       = button_add new_admin_user_path
 
-    = render partial: 'admin/users/user', locals: { users: @users.active.admin, label: label_with_icon(t('label.user.admins'), 'fa-star') }
-    = render partial: 'admin/users/user', locals: { users: @users.active.non_admin, label: label_with_icon(t('label.user.non_admins'), 'fa-user') }
-    = render partial: 'admin/users/user', locals: { users: @users.locked, label: label_with_icon(t('label.user.disabled'), 'fa-lock') }
+    = render 'admin/users/user', users: @users.active.admin,     label: label_with_icon(t('.admins'), 'fa-star')
+    = render 'admin/users/user', users: @users.active.non_admin, label: label_with_icon(t('.non_admins'), 'fa-user')
+    = render 'admin/users/user', users: @users.locked,           label: label_with_icon(t('.disabled'), 'fa-lock')

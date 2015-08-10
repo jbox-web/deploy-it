@@ -1,0 +1,18 @@
+fr:
+
+  admin:
+    stages:
+      new:
+        title: Nouveau stage
+      create:
+        title: Nouveau stage
+        notice: Stage créé avec succès
+      edit:
+        title: Modifier le stage
+      update:
+        title: Modifier le stage
+        notice: Stage modifié avec succès
+      destroy:
+        notice: Stage supprimé avec succès
+      delete:
+        destroy: Supprimer le stage

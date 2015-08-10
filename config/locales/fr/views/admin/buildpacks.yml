@@ -1,0 +1,16 @@
+fr:
+
+  admin:
+    buildpacks:
+      new:
+        title: Nouveau buildpack
+      create:
+        title: Nouveau buildpack
+        notice: Buildpack créée avec succès
+      edit:
+        title: Modifier le buildpack
+      update:
+        title: Modifier le buildpack
+        notice: Buildpack modifié avec succès
+      destroy:
+        notice: Buildpack supprimé avec succès

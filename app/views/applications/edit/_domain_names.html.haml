@@ -1,7 +1,7 @@
 #domain-names{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-domain-names'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.domain_name.plural'), 'fa-random', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('DomainName'), 'fa-random', fixed: true)
 
   #settings-domain-names
 
@@ -14,8 +14,8 @@
       %table{ class: 'table table-hover', id: 'domain_names_list' }
         %thead
           %tr
-            %th= t('label.application_domain_name.domain_name')
-            %th= t('label.application_domain_name.mode')
+            %th= DomainName.human_attribute_name('domain_name')
+            %th= DomainName.human_attribute_name('mode')
             %th
 
         %tbody
@@ -29,4 +29,4 @@
       .form-group
         %div{ class: 'col-sm-12' }
           = button_submit t('button.save')
-          %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('label.application_domain_name.add'), 'fa-plus', fixed: true), :domain_names, data: { target: "#domain_names_list" }
+          %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :domain_names, data: { target: "#domain_names_list" }

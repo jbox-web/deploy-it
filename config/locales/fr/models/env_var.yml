@@ -1,0 +1,23 @@
+fr:
+
+  activerecord:
+    models:
+      env_var:
+        one: Variable d'environnement
+        other: Variables d'environnement
+
+    attributes:
+      env_var:
+        key: Clé
+        value: Valeur
+        masked: Masquée
+
+    errors:
+      models:
+        env_var:
+          attributes:
+            key:
+              blank: ne peut être nulle
+              taken: déjà pris
+            value:
+              blank: ne peut être nulle

@@ -10,8 +10,9 @@ module Crudify
       namespace     = !options[:namespace].nil? ? "#{options[:namespace]}_" : ''
 
       finder        = Crudify::Finder.new(singular_name, options[:find])
-      breadcrumbs   = Crudify::Breadcrumb.new(singular_name, plural_name, namespace, options[:crumbable], options[:crumbs_opts])
       strong_params = Crudify::Params.new(singular_name, options[:params])
+      breadcrumbs   = Crudify::Breadcrumb.new(namespace, options)
+
 
       module_eval %(
         class << self
@@ -22,12 +23,14 @@ module Crudify
 
         end
 
+
         prepend_before_action #{finder.render}
+        prepend_before_action :set_page_title
 
 
         def index
           @#{plural_name} = #{class_name}.all
-          breadcrumbs_for_index
+          breadcrumbs_for(:index)
         end
 
 
@@ -38,19 +41,19 @@ module Crudify
 
         def new
           @#{singular_name} = #{class_name}.new
-          breadcrumbs_for_new
+          breadcrumbs_for(:new)
         end
 
 
         def edit
-          breadcrumbs_for_edit
+          breadcrumbs_for(:edit)
         end
 
 
         def create
           @#{singular_name} = #{class_name}.new(create_#{singular_name}_params)
 
-          breadcrumbs_for_create
+          breadcrumbs_for(:create)
 
           if @#{singular_name}.save
             successful_create
@@ -61,7 +64,7 @@ module Crudify
 
 
         def update
-          breadcrumbs_for_update
+          breadcrumbs_for(:update)
 
           if @#{singular_name}.update(update_#{singular_name}_params)
             successful_update
@@ -111,17 +114,17 @@ module Crudify
 
 
           def successful_create
-            redirect_to redirect_url, notice: t('notice.#{singular_name}.created')
+            redirect_to redirect_url, notice: t('.notice')
           end
 
 
           def successful_update
-            redirect_to redirect_url, notice: t('notice.#{singular_name}.updated')
+            redirect_to redirect_url, notice: t('.notice')
           end
 
 
           def successful_delete
-            redirect_to redirect_url, notice: t('notice.#{singular_name}.deleted')
+            redirect_to redirect_url, notice: t('.notice')
           end
 
 
@@ -136,34 +139,43 @@ module Crudify
 
 
           def failed_delete
-            errors = [ t('error.#{singular_name}.failed_delete') ].concat(@#{singular_name}.errors.full_messages)
+            errors = [ t('.failed') ].concat(@#{singular_name}.errors.full_messages)
             redirect_to redirect_url, alert: errors
           end
 
 
-          def breadcrumbs_for_index
-            #{breadcrumbs.render(:index)}
+          def breadcrumbs_for(type)
+            case type
+            when :index
+              #{breadcrumbs.render(:index)}
+            when :new
+              #{breadcrumbs.render(:new)}
+            when :edit
+              #{breadcrumbs.render(:edit)}
+            when :create
+              #{breadcrumbs.render(:create)}
+            when :update
+              #{breadcrumbs.render(:update)}
+            else
+              ''
+            end
           end
 
 
-          def breadcrumbs_for_new
-            #{breadcrumbs.render(:new)}
+          def set_page_title
+            @page_title =
+              case self.action_name
+              when 'index'
+                [#{class_name}.model_name.human(count: 2)]
+              when 'new', 'create'
+                [t('.title')]
+              when 'edit', 'update'
+                [t('.title'), @#{singular_name}.to_s]
+              else
+                ['']
+              end
           end
 
-
-          def breadcrumbs_for_edit
-            #{breadcrumbs.render(:edit)}
-          end
-
-
-          def breadcrumbs_for_create
-            #{breadcrumbs.render(:create)}
-          end
-
-
-          def breadcrumbs_for_update
-            #{breadcrumbs.render(:update)}
-          end
       )
     end
 

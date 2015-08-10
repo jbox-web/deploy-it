@@ -16,8 +16,8 @@
 class UserCreationForm < ActionForm::Base
 
   PASSWORD_OPTIONS = [
-    ['generate', I18n.t('label.user.generate_password')],
-    ['manual',   I18n.t('label.user.specify_password')]
+    ['generate', User.human_attribute_name('generate_password')],
+    ['manual',   User.human_attribute_name('specify_password')]
   ]
 
   self.main_model = :user

@@ -4,9 +4,9 @@
     %table{ class: 'table table-hover' }
       %thead
         %tr
-          %th= t('label.identifier')
-          %th= t('label.user.email_address')
-          %th= t('label.user.last_connection')
+          %th= User.human_attribute_name('identifier')
+          %th= User.human_attribute_name('email')
+          %th= User.human_attribute_name('last_connection')
           %th
 
       %tbody

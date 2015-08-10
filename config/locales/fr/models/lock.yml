@@ -1,0 +1,18 @@
+fr:
+
+  activerecord:
+    models:
+      lock:
+        one: Verrou
+        other: Verrous
+
+    attributes:
+      lock:
+        token: Jeton
+
+    errors:
+      models:
+        lock:
+          attributes:
+            token:
+              blank: ne peut être nul

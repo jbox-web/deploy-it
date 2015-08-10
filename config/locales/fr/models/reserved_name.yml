@@ -1,0 +1,19 @@
+fr:
+
+  activerecord:
+    models:
+      reserved_name:
+        one: Nom réservé
+        other: Noms réservés
+
+    attributes:
+      reserved_name:
+        name: Nom
+
+    errors:
+      models:
+        reserved_name:
+          attributes:
+            name:
+              blank: ne peut être nul
+              taken: déjà pris

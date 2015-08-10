@@ -10,13 +10,13 @@ class BaseMenu < SimpleDelegator
 
   def current_menu_name
     if admin_section?
-      t('label.admin')
+      t('.admin')
     elsif profile_section?
-      t('label.my.account')
+      t('.my_account')
     elsif welcome_section?
-      t('label.help')
+      t('.help')
     else
-      t('label.application.plural')
+      get_model_name_for('Application')
     end
   end
 

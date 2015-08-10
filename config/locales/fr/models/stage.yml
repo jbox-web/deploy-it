@@ -1,0 +1,33 @@
+fr:
+
+  activerecord:
+    models:
+      stage:
+        one: Stage
+        other: Stages
+
+    attributes:
+      stage:
+        name: Nom
+        identifier: Identifiant
+        platform_id: Plateforme
+        portal_url: URL du portail
+        database_name_prefix: Préfixe du nom de la base de données
+        domain_name_suffix: Suffixe du nom de domaine
+
+    errors:
+      models:
+        stage:
+          attributes:
+            base:
+              undeletable: "Ce stage est utilisé par les %{object_name} : %{list}"
+            name:
+              blank: ne peut être nul
+            identifier:
+              blank: ne peut être nul
+            platform_id:
+              blank: ne peut être nulle
+
+      # portal_url: URL du portail
+      # database_name_prefix: Préfixe du nom de la base de données
+      # domain_name_suffix: Suffixe du nom de domaine

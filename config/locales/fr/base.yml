@@ -1,0 +1,40 @@
+fr:
+
+  the_jbox_deployer: "Deploy'it"
+
+  text:
+    are_you_sure: Etes vous sur?
+    or: ou
+    copy_to_clipboard: Copier dans le presse papier
+    copied: Copié!
+    edit: Modifier
+
+  language:
+    name:
+      fr: Français
+      en: Anglais
+
+  button:
+    save: Sauvegarder
+    back: Revenir
+    cancel: Annuler
+    continue: Continuer
+    add: Ajouter
+    create: Créer
+    clone: Cloner
+    edit: Modifier
+    update: Modifier
+    delete: Supprimer
+    signup: S'inscrire
+    check_all: Tout cocher
+    uncheck_all: Tout décocher
+    refresh: Actualiser
+    reset: Réinitialiser
+
+  helpers:
+    select:
+      prompt: Sélectionnez une entrée
+    submit:
+      create: Créer
+      update: Modifier
+      submit: Sauvegarder

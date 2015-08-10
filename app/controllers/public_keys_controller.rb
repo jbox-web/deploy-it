@@ -31,7 +31,7 @@ class PublicKeysController < ApplicationController
     @ssh_key_form.submit(ssh_key_params.merge(user: User.current))
 
     if @ssh_key_form.save
-      flash[:notice] = t('notice.ssh_public_key.created')
+      flash[:notice] = t('.notice')
       # Call service objects to perform other actions
       call_service_objects
       # Reset form object
@@ -43,7 +43,7 @@ class PublicKeysController < ApplicationController
   def destroy
     if request.delete?
       if @ssh_key.destroy
-        flash[:notice] = t('notice.ssh_public_key.deleted')
+        flash[:notice] = t('.notice')
         # Call service objects to perform other actions
         call_service_objects
         # Reset form object

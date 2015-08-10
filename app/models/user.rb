@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
 
   def last_connection
-    last_sign_in_at ? I18n.l(last_sign_in_at) : I18n.t('label.user.never_connected')
+    last_sign_in_at ? I18n.l(last_sign_in_at) : User.human_attribute_name('never_connected')
   end
 
 
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
 
 
   def inactive_message
-    enabled? ? super : I18n.t('notice.account.disabled')
+    enabled? ? super : User.human_attribute_name('disabled')
   end
 
 

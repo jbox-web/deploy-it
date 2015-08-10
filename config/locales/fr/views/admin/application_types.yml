@@ -1,0 +1,19 @@
+fr:
+
+  admin:
+    application_types:
+      new:
+        title: Nouveau type d'application
+      clone:
+        title: Nouveau type d'application
+      create:
+        title: Nouveau type d'application
+        notice: Type d'application créé avec succès
+      edit:
+        title: Modifier le type d'application
+      update:
+        title: Modifier le type d'application
+        notice: Type d'application modifié avec succès
+      destroy:
+        notice: Type d'application supprimé avec succès
+        failed: Impossible de supprimer le type d'application

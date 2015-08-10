@@ -1,12 +1,12 @@
 #ssl-certificate{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-ssl-certificate'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.ssl_certificate.single'), 'fa-shield', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('SslCertificate', pluralize: false), 'fa-shield', fixed: true)
 
   #settings-ssl-certificate
 
     %span{ class: 'pull-right'}
-      = link_to label_with_icon(t('label.ssl_certificate.reset'), 'fa-trash', fixed: true),
+      = link_to label_with_icon(t('.reset'), 'fa-trash', fixed: true),
                 reset_ssl_certificate_application_path(application),
                 remote: true,
                 data:   { confirm: t('text.are_you_sure') }
@@ -23,8 +23,8 @@
 
       = f.errors_on :base
 
-      = f.text_area :ssl_crt, required: true, rows: "6", disabled: !f.object.new_record?
-      = f.text_area :ssl_key, required: true, rows: "6", disabled: !f.object.new_record?
+      = f.text_area :ssl_crt, required: true, rows: '6', disabled: !f.object.new_record?
+      = f.text_area :ssl_key, required: true, rows: '6', disabled: !f.object.new_record?
 
       .form-group
         %div{ class: 'col-sm-offset-2 col-sm-3' }

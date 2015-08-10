@@ -46,12 +46,12 @@ class ContainerPresenter < SimpleDelegator
   def container_infos
     uptime = distance_of_time_in_words(DateTime.now, container.docker_proxy.uptime) rescue 'Not running'
     html_list(class: 'container-infos') do
-      add_item(t('label.container.state'), container_state_tag) +
-      add_item(t('label.container.docker_id'), container.short_id) +
-      add_item(t('label.container.uptime'), uptime) +
-      add_item(t('label.container.backend_url'), container.docker_proxy.backend_url) +
-      add_item(t('label.container.current_revision'), container.current_revision) +
-      add_item(t('label.container.current_server'), container.docker_server.to_s)
+      add_item(t('.state'), container_state_tag) +
+      add_item(t('.docker_id'), container.short_id) +
+      add_item(t('.uptime'), uptime) +
+      add_item(t('.backend_url'), container.docker_proxy.backend_url) +
+      add_item(t('.current_revision'), container.current_revision) +
+      add_item(t('.current_server'), container.docker_server.to_s)
     end
   end
 
@@ -69,15 +69,15 @@ class ContainerPresenter < SimpleDelegator
     def container_state_tag
       case container.docker_proxy.state
       when :running
-        label   = t('label.container.running')
+        label   = t('.running')
         method  = :label_with_success_tag
         icon    = :label_with_icon_check
       when :paused
-        label   = t('label.container.paused')
+        label   = t('.paused')
         method  = :label_with_warning_tag
         icon    = :label_with_icon_warning
       when :stopped
-        label   = t('label.container.stopped')
+        label   = t('.stopped')
         method  = :label_with_danger_tag
         icon    = :label_with_icon_warning
       end
@@ -117,12 +117,12 @@ class ContainerPresenter < SimpleDelegator
 
 
     def info_options
-      { 'data-title' => t('label.container.docker_infos'), 'data-toggle' => 'lightbox', 'data-width' => '1000' }
+      { title: t('.docker_infos'), data: { title: t('.docker_infos'), toggle: 'lightbox', width: 1000 } }
     end
 
 
     def link_options(action)
-      { title: t("label.container.#{action}"), method: :post, remote: true }
+      { title: t(".#{action}"), method: :post, remote: true }
     end
 
 

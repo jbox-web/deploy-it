@@ -1,0 +1,32 @@
+fr:
+
+  activerecord:
+    models:
+      application_type:
+        one: Type d'application
+        other: Types d'application
+
+    attributes:
+      application_type:
+        name: Nom
+        version: Version
+        language: Langage
+        json_attributes: Attributs supplémentaires
+
+    errors:
+      models:
+        application_type:
+          attributes:
+            base:
+              undeletable: "Ce type d'application est utilisé par les %{object_name} : %{list} "
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé
+            version:
+              blank: ne peut être nul
+              taken: déjà utilisée
+            language:
+              blank: ne peut être nul
+              inclusion: vous devez choisir
+            json_attributes:
+              unserializable: Erreur de syntaxe

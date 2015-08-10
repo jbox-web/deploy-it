@@ -1,0 +1,23 @@
+fr:
+
+  activerecord:
+    models:
+      domain_name:
+        one: Nom de domaine
+        other: Alias et Redirections
+
+    attributes:
+      domain_name:
+        domain_name: Nom de domaine
+        mode: Mode
+
+    errors:
+      models:
+        domain_name:
+          attributes:
+            domain_name:
+              blank: ne peut être nul
+              taken: déjà utilisé
+            mode:
+              blank: ne peut être nul
+              inclusion: vous devez choisir

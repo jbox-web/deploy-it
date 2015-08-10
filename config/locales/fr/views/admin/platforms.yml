@@ -1,0 +1,22 @@
+fr:
+
+  admin:
+    platforms:
+      credential:
+        desc: "Les serveurs doivent donner accès à la clé publique suivante"
+        none_defined: Aucune clé d'accès définie
+      new:
+        title: Nouvelle plateforme
+      create:
+        title: Nouvelle plateforme
+        notice: Plateforme créée avec succès
+      edit:
+        title: Modifier la plateforme
+      update:
+        title: Modifier la plateforme
+        notice: Plateforme modifiée avec succès
+      destroy:
+        notice: Plateforme supprimée avec succès
+        failed: Impossible de supprimer la plateforme
+      delete:
+        destroy: Supprimer la plateforme

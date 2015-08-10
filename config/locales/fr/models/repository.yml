@@ -1,0 +1,24 @@
+fr:
+
+  activerecord:
+    models:
+      repository:
+        one: Dépôt
+        other: Dépôts
+
+    attributes:
+      repository:
+        url: URL du dépôt
+        branch: Branche
+        credential_id: Clé d'accès
+
+    errors:
+      models:
+        repository:
+          attributes:
+            path:
+              taken: déjà pris
+            url:
+              blank: ne peut être vide
+            credential_id:
+              blank: vous devez choisir une clé d'accès

@@ -1,8 +1,8 @@
-- html_title t('label.my.profile')
+- html_title t('.title')
 
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
-    %h3{ class: 'page-header' }= label_with_icon(t('label.my.profile'), 'fa-user', fixed: true)
+    %h3{ class: 'page-header' }= label_with_icon(t('.title'), 'fa-user', fixed: true)
 
     .row
 
@@ -20,7 +20,7 @@
 
           = f.select :language, available_locales
 
-          = f.time_zone_select :time_zone, nil, { default: "Paris" }
+          = f.time_zone_select :time_zone, nil, { default: 'Paris' }
 
           .form-group
             %div{ class: "col-sm-offset-4 col-sm-5 col-md-offset-4 col-md-4" }
@@ -29,7 +29,7 @@
       %div{ class: 'col-md-5' }
 
         %h5{ class: 'page-header' }
-          = t('label.my.api_key')
+          = t('.api_key')
           %span{ class: 'pull-right' }
             (
             = link_to t('button.reset'), reset_api_key_path, remote: true, method: :patch, data: { confirm: t('text.are_you_sure') }

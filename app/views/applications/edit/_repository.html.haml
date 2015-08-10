@@ -1,7 +1,7 @@
 #repository{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-repository'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.repository.single'), 'fa-git', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Repository', pluralize: false), 'fa-git', fixed: true)
 
   #settings-repository
 
@@ -15,7 +15,7 @@
       = f.text_field :url, required: true, control_col: 'col-sm-8'
       = f.text_field :branch, required: false
 
-      = f.form_group :have_credentials, label: { text: t('label.repository.have_credentials') }, class: 'shifted' do
+      = f.form_group :have_credentials, label: { text: t('.have_credentials') }, class: 'shifted' do
         = f.check_box :have_credentials, data: { size: 'small' }, label: ''
 
       #select-credential
@@ -26,7 +26,7 @@
           = button_submit t('button.save')
 
     - if !application.distant_repo.credential.nil?
-      #in-use-credential= render 'applications/edit/credential', { credential: application.distant_repo.credential }
+      #in-use-credential= render 'applications/edit/credential', credential: application.distant_repo.credential
 
     = javascript_tag do
       useCredentials();

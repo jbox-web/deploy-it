@@ -1,4 +1,4 @@
-- html_title t('label.role.permissions_report')
+- html_title @page_title
 
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
@@ -11,7 +11,7 @@
       %table{ class: 'table table-hover' }
         %thead
           %tr
-            %th= t('label.role.permissions')
+            %th= t('.title')
             - @roles.each do |role|
               %th
                 = role.name

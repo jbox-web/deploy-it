@@ -1,0 +1,6 @@
+fr:
+
+  admin:
+    locks:
+      destroy:
+        notice: Verrou supprimé avec succès

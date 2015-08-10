@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::DefaultController
 
   before_action :set_user, except: [:index, :new, :create]
 
-  add_crumb label_with_icon(I18n.t('label.user.plural'), 'fa-user', fixed: true),
+  add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true),
             only: [:show, :new, :edit, :change_password] { |instance| instance.send :admin_users_path }
 
 
@@ -35,13 +35,13 @@ class Admin::UsersController < Admin::DefaultController
     @user = User.new
     @user_form = UserCreationForm.new(@user)
 
-    add_crumb t('label.user.new'), '#'
+    add_crumb t('.title'), '#'
   end
 
 
   def edit
     add_crumb @user.full_name, '#'
-    add_crumb t('label.edit'), '#'
+    add_crumb t('text.edit'), '#'
   end
 
 
@@ -51,11 +51,11 @@ class Admin::UsersController < Admin::DefaultController
     @user_form.submit(user_create_params)
 
     if @user_form.save
-      flash[:notice] = t('notice.user.created')
+      flash[:notice] = t('.notice')
       redirect_to admin_users_path
     else
-      add_crumb label_with_icon(t('label.user.plural'), 'fa-user', fixed: true), admin_users_path
-      add_crumb t('label.user.new'), '#'
+      add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true), admin_users_path
+      add_crumb t('.title'), '#'
 
       render :new
     end
@@ -66,14 +66,14 @@ class Admin::UsersController < Admin::DefaultController
     if @user.update(user_update_params)
       # Locales may have changed, reset them before redirect
       reload_user_locales if @user.id == User.current.id
-      flash[:notice] = t('notice.user.updated')
+      flash[:notice] = t('.notice')
       # Call service objects to perform other actions
       call_service_objects
       redirect_to admin_users_path
     else
-      add_crumb label_with_icon(t('label.user.plural'), 'fa-user', fixed: true), admin_users_path
+      add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true), admin_users_path
       add_crumb @user.full_name, '#'
-      add_crumb t('label.edit'), '#'
+      add_crumb t('.title'), '#'
 
       render :edit
     end
@@ -82,7 +82,7 @@ class Admin::UsersController < Admin::DefaultController
 
   def destroy
     if @user.destroy
-      flash[:notice] = t('notice.user.deleted')
+      flash[:notice] = t('.notice')
       redirect_to admin_users_path
     else
       flash[:alert] = @user.errors.full_messages
@@ -93,14 +93,14 @@ class Admin::UsersController < Admin::DefaultController
 
   def change_password
     add_crumb @user.full_name, edit_admin_user_path(@user)
-    add_crumb t('label.user.changing_password'), '#'
+    add_crumb t('.changing_password'), '#'
 
     @password_form = AdminPasswordForm.new(@user)
     if request.patch?
       @password_form.submit(user_change_password_params)
       if @password_form.save
         sign_in(@user, bypass: true) if @user.id == User.current.id
-        redirect_to admin_users_path, notice: t('notice.user.password_updated')
+        redirect_to admin_users_path, notice: t('.notice')
       end
     end
   end

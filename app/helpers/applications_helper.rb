@@ -50,7 +50,7 @@ module ApplicationsHelper
 
   def render_step_counter(application)
     counter = "#{application.current_index + 1}/#{application.total_steps}"
-    "#{t('label.wizard_form.current_step')} : #{counter}"
+    "#{t('.current_step')} : #{counter}"
   end
 
 
@@ -94,7 +94,7 @@ module ApplicationsHelper
     control_col = opts.delete(:control_col){ 'col-sm-4' }
     string = ''.html_safe
     string << content_tag(:div, class: 'form-group') do
-      label_tag("member_#{type}_ids", t("label.#{type}.plural"), class: "control-label #{label_col}") +
+      label_tag("member_#{type}_ids", get_model_name_for(type.capitalize), class: "control-label #{label_col}") +
       content_tag(:div, class: control_col) do
         render_member_checkbox(type)
       end

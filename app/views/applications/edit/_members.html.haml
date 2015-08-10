@@ -1,7 +1,7 @@
 #members{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-members'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.member.plural'), 'fa-users', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Member'), 'fa-users', fixed: true)
 
   #settings-members
 
@@ -16,8 +16,8 @@
           %table{ class: 'table table-hover' }
             %thead
               %tr
-                %th= t('label.user.plural')
-                %th= t('label.role.plural')
+                %th= Member.human_attribute_name('user_ids')
+                %th= Member.human_attribute_name('role_ids')
                 %th
 
             %tbody
@@ -26,7 +26,7 @@
               = render partial: 'applications/edit/member', collection: sorted['User'], locals: { application: application }
 
         - else
-          .alert{ class: 'alert alert-warning dont-dismiss' }= t('label.member.none_defined')
+          .alert{ class: 'alert alert-warning dont-dismiss' }= t('.none_defined')
 
       .col-md-4
         - member = Member.new

@@ -1,0 +1,11 @@
+fr:
+  admin:
+    public_keys:
+      ssh_keys:
+        help: Aide
+        new: Nouvelle clé SSH
+        delete: Supprimer
+      create:
+        notice: Clé publique créée avec succès
+      destroy:
+        notice: Clé publique supprimée avec succès

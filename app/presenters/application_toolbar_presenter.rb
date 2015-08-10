@@ -73,13 +73,13 @@ class ApplicationToolbarPresenter < SimpleDelegator
 
 
     def manage_link(action, icon)
-      label = t("label.application.#{action}")
+      label = t(".app_#{action}")
       link_to label_with_icon(label, icon), manage_application_path(application, deploy_action: action), title: label, remote: true, method: :post
     end
 
 
     def build_link(action, icon)
-      label = t("label.application.#{action}")
+      label = t(".app_#{action}")
       link_to label_with_icon(label, icon), build_application_path(application), title: label, remote: true, method: :post
     end
 

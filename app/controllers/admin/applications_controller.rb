@@ -20,7 +20,7 @@ class Admin::ApplicationsController < Admin::DefaultController
 
 
   def index
-    add_crumb label_with_icon(t('label.application.plural'), 'fa-desktop', fixed: true), '#'
+    add_crumb label_with_icon(Application.model_name.human(count: 2), 'fa-desktop', fixed: true), '#'
   end
 
 

@@ -31,7 +31,7 @@ class Admin::StagesController < Admin::DefaultController
 
   def new
     @stage = @platform.stages.new
-    add_crumb t('label.stage.new'), '#'
+    add_crumb t('.title'), '#'
   end
 
 
@@ -44,7 +44,7 @@ class Admin::StagesController < Admin::DefaultController
     @stage = @platform.stages.new(stage_params)
 
     if @stage.save
-      flash[:notice] = t('notice.stage.created')
+      flash[:notice] = t('.notice')
       redirect_to admin_platforms_path
     else
       add_crumb t('label.stage.new'), '#'
@@ -55,7 +55,7 @@ class Admin::StagesController < Admin::DefaultController
 
   def update
     if @stage.update(stage_params)
-      flash[:notice] = t('notice.stage.updated')
+      flash[:notice] = t('.notice')
       redirect_to admin_platforms_path
     else
       render :edit
@@ -65,7 +65,7 @@ class Admin::StagesController < Admin::DefaultController
 
   def destroy
     if @stage.destroy
-      flash[:notice] = t('notice.stage.deleted')
+      flash[:notice] = t('.notice')
     else
       flash[:alert] = @stage.errors.full_messages
     end
@@ -78,7 +78,7 @@ class Admin::StagesController < Admin::DefaultController
 
     def set_platform
       @platform = Platform.find(params[:platform_id])
-      add_crumb label_with_icon(t('label.platform.plural'), 'fa-sitemap', fixed: true), admin_platforms_path
+      add_crumb label_with_icon(Platform.model_name.human(count: 2), 'fa-sitemap', fixed: true), admin_platforms_path
       add_crumb @platform.name, admin_platforms_path
     rescue ActiveRecord::RecordNotFound => e
       render_404

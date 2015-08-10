@@ -16,7 +16,7 @@
 module ApplicationHelper
 
   def html_title(*title)
-    @html_title = title.join(' - ')
+    content_for(:title, title.join(' - '))
   end
 
 
@@ -26,7 +26,13 @@ module ApplicationHelper
 
 
   def available_locales
-    I18n.available_locales.map{ |l| [t("language.name.#{l}"), l] }
+    I18n.available_locales.map { |l| [t("language.name.#{l}"), l] }
+  end
+
+
+  def get_model_name_for(klass, pluralize: true)
+    count = pluralize ? 2 : 1
+    klass.constantize.model_name.human(count: count)
   end
 
 end

@@ -1,4 +1,4 @@
-- html_title t('label.login')
+- html_title t('.login')
 
 .container-fluid
   .row-fluid
@@ -13,5 +13,5 @@
         - if devise_mapping.rememberable?
           = f.check_box :remember_me
 
-        = f.submit t('label.login'), class: 'btn btn-primary'
-        = link_to t('label.forgot_password'), new_password_path(resource_name)
+        = f.submit t('.login'), class: 'btn btn-primary'
+        = link_to t('.forgot_password'), new_password_path(resource_name)

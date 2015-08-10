@@ -1,10 +1,10 @@
-- html_title t('label.forgot_password')
+- html_title t('.forgot_password')
 
 .container-fluid
   .row-fluid
     %div{ class: 'col-sm-5 col-sm-offset-4 col-md-4 col-md-offset-4' }
 
-      %h3{ class: 'page-header' }= label_with_icon(t('label.forgot_password'), 'fa-mail', fixed: true)
+      %h3{ class: 'page-header' }= label_with_icon(t('.forgot_password'), 'fa-mail', fixed: true)
 
       = bootstrap_form_for resource,
                            as:   resource_name,
@@ -12,4 +12,4 @@
                            html: { method: :post } do |f|
 
         = f.email_field :email, autofocus: true
-        = f.submit t('label.reset_password_instructions'), class: 'btn btn-primary'
+        = f.submit t('.reset_password_instructions'), class: 'btn btn-primary'

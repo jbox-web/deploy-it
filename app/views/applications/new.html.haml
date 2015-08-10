@@ -1,4 +1,4 @@
-- html_title t('label.application.new')
+- html_title t('.title')
 
 #new-application
   .row
@@ -19,7 +19,7 @@
 
             %h4= render_step_counter(@application)
 
-            = render "applications/creation_steps/#{@application.current_step}", { f: f, application: @application }
+            = render "applications/creation_steps/#{@application.current_step}", f: f, application: @application
 
             .form-group
               %div{ class: 'col-sm-offset-3 col-sm-7 col-md-offset-4 col-md-7 col-lg-offset-3 col-lg-4' }

@@ -1,0 +1,21 @@
+fr:
+
+  activerecord:
+    models:
+      role:
+        one: Rôle
+        other: Rôles
+
+    attributes:
+      role:
+        name: Nom
+
+    errors:
+      models:
+        role:
+          attributes:
+            base:
+              undeletable: "Cette rôle est utilisé par les %{object_name}(s): %{list}"
+            name:
+              blank: ne peut être nul
+              taken: déjà utilisé

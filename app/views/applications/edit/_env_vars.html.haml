@@ -1,12 +1,12 @@
 #env-vars{ class: 'settings' }
 
   .settings-head{ onclick: "showSettings('#settings-env-vars'); return false;" }
-    %h4{ class: 'page-header' }= label_with_icon(t('label.env_var.plural'), 'fa-list-ul', fixed: true)
+    %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('EnvVar'), 'fa-list-ul', fixed: true)
 
   #settings-env-vars
 
     %span{ class: 'pull-right'}
-      = link_to label_with_icon(t('label.env_var.restore_defaults'), 'fa-refresh', fixed: true),
+      = link_to label_with_icon(t('.restore_defaults'), 'fa-refresh', fixed: true),
                 restore_env_vars_application_path(application),
                 remote: true
 
@@ -22,9 +22,9 @@
       %table{ class: 'table table-hover', id: 'env_vars_list' }
         %thead
           %tr
-            %th= t('label.env_var.key')
-            %th= t('label.env_var.value')
-            %th{ class: 'text-center' }= t('label.env_var.masked')
+            %th= EnvVar.human_attribute_name('key')
+            %th= EnvVar.human_attribute_name('value')
+            %th{ class: 'text-center' }= EnvVar.human_attribute_name('masked')
             %th
 
         %tbody
@@ -39,4 +39,4 @@
       .form-group
         %div{ class: 'col-sm-12' }
           = button_submit t('button.save')
-          %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('label.env_var.add'), 'fa-plus', fixed: true), :env_vars, data: { target: "#env_vars_list" }
+          %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :env_vars, data: { target: "#env_vars_list" }

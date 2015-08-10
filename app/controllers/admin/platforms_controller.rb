@@ -22,8 +22,8 @@ class Admin::PlatformsController < Admin::DefaultController
           crumbable: true,
           crumbs_opts: { icon: 'fa-sitemap' },
           params: {
-            on_create: [:name, :identifier],
-            on_update: [:name, :identifier]
+            on_create: [:name, :identifier, :description],
+            on_update: [:name, :identifier, :description]
           }
 
   skip_before_action :require_admin, only: :stages
@@ -31,14 +31,14 @@ class Admin::PlatformsController < Admin::DefaultController
 
   def index
     @platforms = Platform.includes(:stages, :servers).all
-    breadcrumbs_for_index
+    breadcrumbs_for(:index)
   end
 
 
   def create
     @platform = Platform.new(create_platform_params)
 
-    breadcrumbs_for_create
+    breadcrumbs_for(:create)
 
     if @platform.save
       # Generate a PlatformCredential
