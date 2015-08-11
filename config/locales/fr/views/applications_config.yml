@@ -27,3 +27,5 @@ fr:
       error: Erreurs lors de l'enregistrement des points de montage
     repository:
       notice: Modifications enregistrées avec succès
+    synchronize_repository:
+      notice: Synchronisation du dépôt mise en file d'attente
