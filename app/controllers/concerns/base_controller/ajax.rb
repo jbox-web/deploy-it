@@ -23,9 +23,9 @@ module BaseController::Ajax
   end
 
 
-  def render_ajax_response(template = action_name)
+  def render_ajax_response(template: action_name, locals: {})
     respond_to do |format|
-      format.js { render "#{get_controller_name}/ajax/#{template}" }
+      format.js { render "#{get_controller_name}/ajax/#{template}", locals: locals }
     end
   end
 

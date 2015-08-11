@@ -1,6 +1,6 @@
-<%= js_render_partial('#mount-points', 'applications/edit/mount_points', method: :replace, locals: { application: @application }) %>
+<%= js_render_partial('#mount-points', 'applications/edit/mount_points', method: :replace, locals: { application: application }) %>
 <%= render_flash_messages_as_js('#mount-points .flash-messages') %>
 setBootstrapSwitch('#mount-points');
-<% if @saved %>
+<% if saved %>
 highlight('#mount-points table > tbody');
 <% end %>

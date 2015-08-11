@@ -93,7 +93,7 @@ class Admin::UsersController < Admin::DefaultController
       @member = Member.new(role_ids: membership_create_params[:role_ids], enrolable_type: 'User',  enrolable_id: @user.id)
       application.members << @member
     end
-    render_ajax_response
+    render_ajax_response(locals: { user: @user, member: @member })
   end
 
 
@@ -101,14 +101,14 @@ class Admin::UsersController < Admin::DefaultController
     @member = Member.find(params[:membership_id])
     @member.role_ids = membership_update_params[:role_ids]
     @member.save!
-    render_ajax_response
+    render_ajax_response(locals: { user: @user, member: @member })
   end
 
 
   def destroy_membership
     @member = Member.find(params[:membership_id])
     @member.destroy if request.delete? && @member.deletable?
-    render_ajax_response
+    render_ajax_response(locals: { user: @user })
   end
 
 

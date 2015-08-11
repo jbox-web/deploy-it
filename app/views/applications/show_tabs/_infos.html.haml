@@ -1,18 +1,18 @@
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
     .row
-      = render 'applications/show/infos',   { application: application }
-      = render 'applications/show/members', { application: application }
+      = render 'applications/show/infos',   application: application
+      = render 'applications/show/members', application: application
 
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
     .row
-      %div{ class: 'col-md-4' }= render 'applications/show/domain_aliases', { application: application }
-      %div{ class: 'col-md-4' }= render 'applications/show/domain_redirects', { application: application }
-      %div{ class: 'col-md-4' }= render 'applications/show/env_vars', { application: application }
+      %div{ class: 'col-md-4' }= render 'applications/show/domain_aliases', application: application
+      %div{ class: 'col-md-4' }= render 'applications/show/domain_redirects', application: application
+      %div{ class: 'col-md-4' }= render 'applications/show/env_vars', application: application
 
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
     .row
-      %div{ class: 'col-md-8' }= render 'applications/show/mount_points', { application: application }
-      %div{ class: 'col-md-4' }= render 'applications/show/credentials', { application: application }
+      %div{ class: 'col-md-8' }= render 'applications/show/mount_points', application: application
+      %div{ class: 'col-md-4' }= render 'applications/show/credentials', application: application

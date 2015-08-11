@@ -15,10 +15,17 @@
 
 class ApplicationsConfigController < ApplicationController
 
+  include Contextable
+
   before_action :set_application
 
   # TODO:
-  # before_action :authorize, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  # before_action :authorize
+
+
+  def settings
+    call_context(:update_settings)
+  end
 
 
   def repository
@@ -76,24 +83,6 @@ class ApplicationsConfigController < ApplicationController
   end
 
 
-  def render_success(message: t('.notice'), template: get_template)
-    @saved = true
-    render_message(message, :notice, template)
-  end
-
-
-  def render_failed(message: t('.error'), template: get_template)
-    @saved = false
-    render_message(message, :alert, template)
-  end
-
-
-  def render_message(message, type, template)
-    flash[type] = message
-    render_ajax_response(template)
-  end
-
-
   private
 
 
@@ -111,6 +100,9 @@ class ApplicationsConfigController < ApplicationController
 
     def get_params(action: action_name)
       case action
+      when 'settings'
+        params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack,
+          :use_credentials, :use_cron, :use_ssl, :debug_mode)
       when 'repository'
         params.require(:application_repository).permit(:url, :branch, :have_credentials, :credential_id)
       when 'credentials'

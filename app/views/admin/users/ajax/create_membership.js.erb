@@ -1,5 +1,5 @@
-<%= js_render_partial('#user-applications', 'admin/users/edit_tabs/memberships', locals: { user: @user }) %>
+<%= js_render_partial('#user-applications', 'admin/users/edit_tabs/memberships', locals: { user: user }) %>
 setHideOnLoad();
-<% if !@member.nil? %>
-highlight("#member-<%= @member.id %>");
+<% if !member.nil? %>
+highlight("#member-<%= member.id %>");
 <% end %>

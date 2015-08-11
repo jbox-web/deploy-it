@@ -1,6 +1,6 @@
-<%= js_render_partial('#env-vars', 'applications/edit/env_vars', method: :replace, locals: { application: @application }) %>
+<%= js_render_partial('#env-vars', 'applications/edit/env_vars', method: :replace, locals: { application: application }) %>
 <%= render_flash_messages_as_js('#env-vars .flash-messages') %>
 setBootstrapSwitch('#env-vars');
-<% if @saved %>
+<% if saved %>
 highlight('#env-vars table > tbody');
 <% end %>

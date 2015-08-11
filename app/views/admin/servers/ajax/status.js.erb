@@ -1,2 +1,2 @@
-<%= js_render("#server-#{@server.id}-#{@server_role.name}", service_status(@server_role, has_errors: @errors)) %>
-<%= render_flash_messages_as_js("#server-#{@server.id} .flash-messages", method: :append) %>
+<%= js_render("#server-#{server.id}-#{server_role.name}", service_status(server_role, has_errors: errors)) %>
+<%= render_flash_messages_as_js("#server-#{server.id} .flash-messages", method: :append) %>

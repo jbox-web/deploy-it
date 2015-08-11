@@ -1,7 +1,7 @@
 - if can?(:build_application, application)
   .row
     %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
-      .row= render 'applications/show/instructions', { application: application, repository: application.local_repo }
+      .row= render 'applications/show/instructions', application: application, repository: application.local_repo
       %hr
 
 .row
@@ -10,11 +10,11 @@
     .flash-messages
 
     .row
-      = render 'applications/show/distant_repo', { repository: application.distant_repo }
-      = render 'applications/show/local_repo',   { repository: application.local_repo }
+      = render 'applications/show/distant_repo', repository: application.distant_repo
+      = render 'applications/show/local_repo',   repository: application.local_repo
 
     %hr
 
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
-    .row= render 'applications/show/releases', { application: application }
+    .row= render 'applications/show/releases', application: application

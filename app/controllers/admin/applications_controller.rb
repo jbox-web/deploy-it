@@ -36,14 +36,14 @@ class Admin::ApplicationsController < Admin::DefaultController
       end
     end
     flash[:notice] = t('.success.action.enqueue')
-    render_ajax_response
+    render_ajax_response(locals: { applications: @applications })
   end
 
 
   def status
-    @after_action = params[:after_action] || false
+    after_action = params[:after_action] || false
     @application = Application.find_by_id(params[:application_id])
-    render_ajax_response
+    render_ajax_response(locals: { application: @application, after_action: after_action })
   end
 
 
@@ -58,17 +58,17 @@ class Admin::ApplicationsController < Admin::DefaultController
     def validate_params
       if !params.has_key?(:deploy_action) || params[:deploy_action].blank?
         flash[:alert] = t('.error.action.empty')
-        return render_ajax_response
+        return render_ajax_response(locals: { applications: @applications })
       end
 
       if !params.has_key?(:application_ids) || params[:application_ids].empty?
         flash[:alert] = t('.error.application_ids.empty')
-        return render_ajax_response
+        return render_ajax_response(locals: { applications: @applications })
       end
 
       if !valid_actions.include?(params[:deploy_action])
         flash[:alert] = t('.error.action.invalid')
-        return render_ajax_response
+        return render_ajax_response(locals: { applications: @applications })
       end
     end
 

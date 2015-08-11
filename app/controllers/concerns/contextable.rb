@@ -13,29 +13,33 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module ApplicationCommon
+module Contextable
+  extend ActiveSupport::Concern
+
+
+  def render_success(message: t('.notice'), template: get_template, locals: {})
+    locals = locals.merge(saved: true)
+    render_message(message, :notice, template, locals)
+  end
+
+
+  def render_failed(message: t('.error'), template: get_template, locals: {})
+    locals = locals.merge(saved: false)
+    render_message(message, :alert, template, locals)
+  end
+
+
+  def render_message(message, type, template, locals = {})
+    flash[type] = message
+    render_ajax_response(template: template, locals: locals)
+  end
+
 
   private
 
 
-    def execute_action(application, params = {})
-      result = yield application
-      if result.success?
-        application.run_async!('update_files!')
-        render_success(locals: { application: application })
-      else
-        render_failed(locals: { application: application }, message: result.message_on_errors)
-      end
-    end
-
-
-    def update_application(application, params = {})
-      if application.update(params)
-        yield application
-        render_success(locals: { application: application })
-      else
-        render_failed(locals: { application: application })
-      end
+    def get_template(action: action_name)
+      action
     end
 
 end

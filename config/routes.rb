@@ -59,8 +59,8 @@ Rails.application.routes.draw do
     resources :ssh_keys,    controller: 'credentials'
   end
 
-  # Applications
-  resources :applications do
+  # Applications base
+  resources :applications, except: [:edit, :update] do
     # Ajax rendering
     member do
       get   'clone'
@@ -69,28 +69,32 @@ Rails.application.routes.draw do
       get   'repositories'
       get   'status'
       get   'toolbar'
-      post  'build'
-      post  'manage'
     end
-
-    # Applications have containers
-    resources :containers, only: [] do
-      member do
-        get  'infos'
-        post 'manage'
-      end
-    end
-
-    # Applications have members (users or groups)
     resources :members, only: [:create, :update, :destroy]
   end
 
+  # Applications Manager
+  resources :applications, only: [], controller: 'applications_manager' do
+    member do
+      post  'build',  action: 'build_application'
+      post  'manage', action: 'manage_application'
+    end
+    resources :containers, only: [], controller: 'applications_manager' do
+      member do
+        get  'infos',  action: 'container_infos'
+        post 'manage', action: 'manage_container'
+      end
+    end
+  end
+
+  # Applications Config
   resources :applications, only: [], controller: 'applications_config' do
     member do
       get   'restore_env_vars'
       get   'restore_mount_points'
       get   'reset_ssl_certificate'
       get   'synchronize_repository'
+      patch 'settings'
       patch 'database'
       patch 'domain_names'
       patch 'credentials'

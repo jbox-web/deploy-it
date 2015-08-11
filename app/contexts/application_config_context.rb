@@ -23,6 +23,14 @@ class ApplicationConfigContext < SimpleDelegator
   end
 
 
+  def update_settings(application, params = {})
+    update_application(application, params) do |application|
+      application.run_async!('update_files!')
+      application.update_lb_route! if application.domain_name_has_changed? || application.use_credentials_has_changed?
+    end
+  end
+
+
   def update_repository(application, params = {})
     repository = application.distant_repo
     if repository.update(params)
@@ -32,9 +40,9 @@ class ApplicationConfigContext < SimpleDelegator
 
       # Call service objects to perform other actions
       !repository.exists? ? repository.run_async!('clone!') : repository.run_async!('resync!')
-      render_success
+      render_success(locals: { application: application })
     else
-      render_failed
+      render_failed(locals: { application: application })
     end
   end
 
@@ -68,9 +76,9 @@ class ApplicationConfigContext < SimpleDelegator
 
 
   def ssl_certificate(application, params = {})
-    return render_failed(message: t('.already_exist')) unless application.ssl_certificate.nil?
+    return render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
     certificate = application.build_ssl_certificate(params)
-    certificate.save ? render_success : render_failed
+    certificate.save ? render_success(locals: { application: application }) : render_failed(locals: { application: application })
   end
 
 
@@ -86,7 +94,7 @@ class ApplicationConfigContext < SimpleDelegator
     # Call service objects to perform other actions
     event_options = RefreshViewEvent.create(app_id: application.id, triggers: [repositories_application_path(application)])
     repository.run_async!('resync!', event_options: event_options)
-    render_success
+    render_success(locals: { application: application })
   end
 
 
@@ -106,7 +114,7 @@ class ApplicationConfigContext < SimpleDelegator
 
   def reset_ssl_certificate(application, params = {})
     application.ssl_certificate = nil
-    render_success
+    render_success(locals: { application: application })
   end
 
 end

@@ -1,4 +1,4 @@
-<%= js_render_partial('#server-roles', 'admin/servers/edit/roles', locals: { server: @server }) %>
-<%= js_render_partial('#server-modules', 'admin/servers/edit/modules', locals: { server: @server }) %>
+<%= js_render_partial('#server-roles', 'admin/servers/edit/roles', locals: { server: server }) %>
+<%= js_render_partial('#server-modules', 'admin/servers/edit/modules', locals: { server: server }) %>
 <%= render_flash_messages_as_js %>
 setBootstrapSwitch('#server-modules');

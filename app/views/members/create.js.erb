@@ -1,5 +1,0 @@
-<%= js_render_partial('#members', 'applications/edit/members', locals: { application: @application }) %>
-setHideOnLoad();
-<% @member_ids.each do |id| %>
-highlight("#member-<%= id %>");
-<% end %>

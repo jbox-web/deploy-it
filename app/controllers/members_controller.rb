@@ -26,18 +26,21 @@ class MembersController < ApplicationController
     members += build_members('User', member_params[:user_ids], member_params[:role_ids])
     members += build_members('Group', member_params[:group_ids], member_params[:role_ids])
     @application.members << members
-    @member_ids = members.map(&:id)
+    member_ids = members.map(&:id)
+    render_ajax_response(locals: { application: @application, member_ids: member_ids })
   end
 
 
   def update
     @member.role_ids = member_params[:role_ids]
     @member.save
+    render_ajax_response(locals: { application: @application, member: @member })
   end
 
 
   def destroy
     @member.destroy if request.delete? && @member.deletable?
+    render_ajax_response(locals: { application: @application })
   end
 
 

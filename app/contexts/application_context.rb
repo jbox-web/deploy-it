@@ -13,29 +13,33 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module ApplicationCommon
+class ApplicationContext < SimpleDelegator
 
-  private
+  include ApplicationCommon
 
 
-    def execute_action(application, params = {})
-      result = yield application
-      if result.success?
-        application.run_async!('update_files!')
-        render_success(locals: { application: application })
-      else
-        render_failed(locals: { application: application }, message: result.message_on_errors)
-      end
+  def initialize(context)
+    super(context)
+  end
+
+
+  def create(wizard_form)
+    application = wizard_form.object
+    if wizard_form.save
+      application.create_relations!
+      application.run_async!('bootstrap!')
+      render_create_success(application)
+    else
+      render_create_failed(locals: { application: application })
     end
+  end
 
 
-    def update_application(application, params = {})
-      if application.update(params)
-        yield application
-        render_success(locals: { application: application })
-      else
-        render_failed(locals: { application: application })
-      end
-    end
+  def destroy(application)
+    application.marked_for_deletion = true
+    application.save!
+    application.run_async!('destroy_forever!')
+    render_destroy_success
+  end
 
 end

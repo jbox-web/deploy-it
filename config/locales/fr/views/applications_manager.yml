@@ -1,0 +1,9 @@
+fr:
+  applications_manager:
+    manage_application:
+      notice: Demande mise en file d'attente
+    manage_container:
+      notice: Demande mise en file d'attente
+    build_application:
+      notice: Reconstruction mise en file d'attente
+      unbuildable: "Reconstruction impossible : vous devez d'abord pousser des données via 'git push'"

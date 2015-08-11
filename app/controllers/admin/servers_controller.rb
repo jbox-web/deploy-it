@@ -46,7 +46,7 @@ class Admin::ServersController < Admin::DefaultController
 
   def update
     flash[:notice] = t('.notice') if @server.update(server_params)
-    render_ajax_response
+    render_ajax_response(locals: { server: @server })
   end
 
 
@@ -62,7 +62,7 @@ class Admin::ServersController < Admin::DefaultController
       @errors = true
       flash[:alert] = result.errors
     end
-    render_ajax_response
+    render_ajax_response(locals: { server: @server, server_role: @server_role, errors: @errors })
   end
 
 
@@ -72,7 +72,7 @@ class Admin::ServersController < Admin::DefaultController
       @server.roles.create(opts)
       flash[:notice] = t('.notice', role: @jbox_role_module.to_s)
     end
-    render_ajax_response('toggle_role')
+    render_ajax_response(template: 'toggle_role', locals: { server: @server })
   end
 
 
@@ -82,13 +82,13 @@ class Admin::ServersController < Admin::DefaultController
       @server.reload
       flash[:notice] = t('.notice', role: @jbox_role_module.to_s)
     end
-    render_ajax_response('toggle_role')
+    render_ajax_response(template: 'toggle_role', locals: { server: @server })
   end
 
 
   def update_roles
     flash[:notice] = t('.notice') if @server.update(roles_params)
-    render_ajax_response
+    render_ajax_response(locals: { server: @server })
   end
 
 

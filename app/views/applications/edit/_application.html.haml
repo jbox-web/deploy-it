@@ -9,7 +9,7 @@
 
     = bootstrap_form_for application,
                          layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-5 col-md-4',
-                         url:    application_path(application),
+                         url:    settings_application_path(application),
                          html:   { method: :patch, remote: true } do |f|
 
       = f.text_field :name, required: true
