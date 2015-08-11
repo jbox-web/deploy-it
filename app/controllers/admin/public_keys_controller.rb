@@ -15,82 +15,14 @@
 
 class Admin::PublicKeysController < Admin::DefaultController
 
-  before_action :find_user
-  before_action :find_user_ssh_keys
-  before_action :find_ssh_key, only: :destroy
-
-
-  def index
-    set_form_object
-  end
-
-
-  def create
-    set_form_object
-
-    ## Assign new SshKey to @user
-    @ssh_key_form.submit(ssh_key_params.merge(user: @user))
-
-    if @ssh_key_form.save
-      flash[:notice] = t('.notice')
-      # Call service objects to perform other actions
-      call_service_objects
-      # Reset form object
-      set_form_object
-    end
-  end
-
-
-  def destroy
-    if request.delete?
-      if @ssh_key.destroy
-        flash[:notice] = t('.notice')
-        # Call service objects to perform other actions
-        call_service_objects
-        # Reset form object
-        set_form_object
-      end
-    end
-  end
+  include SshKeysManager
 
 
   private
 
 
-    def set_form_object
-      @ssh_key = SshPublicKey.new
-      @ssh_key_form = PublicKeyCreationForm.new(@ssh_key)
-    end
-
-
-    def ssh_key_params
-      params.require(:ssh_public_key).permit(:title, :key)
-    end
-
-
     def find_user
       @user = User.find_by_id(params[:user_id])
-    end
-
-
-    def find_user_ssh_keys
-      @ssh_keys = @user.ssh_public_keys
-    end
-
-
-    def find_ssh_key
-      @ssh_key = @user.ssh_public_keys.find_by_id(params[:id])
-    end
-
-
-    def call_service_objects
-      case self.action_name
-      when 'create'
-        result = @ssh_key.add_to_authorized_keys!
-      when 'destroy'
-        result = @ssh_key.remove_from_authorized_keys!
-      end
-      flash[:alert] = result.errors if !result.success?
     end
 
 end
