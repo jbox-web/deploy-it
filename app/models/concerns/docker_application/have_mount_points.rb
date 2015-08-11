@@ -18,10 +18,12 @@ module DockerApplication
     extend ActiveSupport::Concern
 
     def active_mount_points
-      receive = mounts_on(:receive).active.map(&:to_s).concat(additional_mounts_on(:receive))
-      build   = mounts_on(:build).active.map(&:to_s).concat(additional_mounts_on(:build))
-      deploy  = mounts_on(:deploy).active.map(&:to_s).concat(additional_mounts_on(:deploy))
-      { receive: receive, build: build, deploy: deploy }
+      get_mount_points(method: :to_s)
+    end
+
+
+    def active_mount_points_with_path
+      get_mount_points(method: :full_path)
     end
 
 
@@ -33,15 +35,20 @@ module DockerApplication
     end
 
 
-    def active_mount_points_with_path
-      receive = mounts_on(:receive).active.map(&:full_path).concat(additional_mounts_on(:receive))
-      build   = mounts_on(:build).active.map(&:full_path).concat(additional_mounts_on(:build))
-      deploy  = mounts_on(:deploy).active.map(&:full_path).concat(additional_mounts_on(:deploy))
-      { receive: receive, build: build, deploy: deploy }
-    end
-
-
     private
+
+
+      def get_mount_points(method: :to_s)
+        receive = get_mount_point(:receive, method)
+        build   = get_mount_point(:build, method)
+        deploy  = get_mount_point(:deploy, method)
+        { receive: receive, build: build, deploy: deploy }
+      end
+
+
+      def get_mount_point(mount_point, method)
+        mounts_on(mount_point).active.map(&method).concat(additional_mounts_on(mount_point))
+      end
 
 
       ## User defined MountPoints
