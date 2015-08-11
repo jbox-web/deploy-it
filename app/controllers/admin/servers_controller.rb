@@ -15,41 +15,30 @@
 
 class Admin::ServersController < Admin::DefaultController
 
-  before_action :set_platform
-  before_action :set_server, except: [:index, :new, :create]
-  before_action :find_jbox_role_module, only: [:enable_role, :disable_role]
-  before_action :find_server_role,      only: [:status]
+  include BelongsToPlatform
 
-
-  def index
-    render_404
-  end
-
-
-  def show
-    render_404
-  end
+  before_action :set_server,           except: [:index, :new, :create]
+  before_action :set_jbox_role_module, only: [:enable_role, :disable_role]
+  before_action :set_server_role,      only: [:status]
 
 
   def new
     @server = @platform.servers.new
-    add_crumb t('.title'), '#'
+    add_breadcrumbs(@server)
   end
 
 
   def edit
-    add_crumb @server.host_name, '#'
+    add_breadcrumbs(@server)
   end
 
 
   def create
     @server = @platform.servers.new(server_params)
-
     if @server.save
-      flash[:notice] = t('.notice')
-      redirect_to admin_platforms_path
+      render_success
     else
-      add_crumb t('.title'), '#'
+      add_breadcrumbs(@server)
       render :new
     end
   end
@@ -62,22 +51,16 @@ class Admin::ServersController < Admin::DefaultController
 
 
   def destroy
-    if @server.destroy
-      flash[:notice] = t('.notice')
-    else
-      flash[:alert] = @server.errors.full_messages
-    end
-    redirect_to admin_platforms_path
+    @server.destroy ? render_success : render_failed(@server)
   end
 
 
   def status
+    @errors = false
     result = @server.get_service_status(@server_role)
-    if result.success?
-      @errors = false
-    else
+    if !result.success?
       @errors = true
-      flash[:alert] = result.errors
+      flash[:error] = result.errors
     end
     render_ajax_response
   end
@@ -112,15 +95,6 @@ class Admin::ServersController < Admin::DefaultController
   private
 
 
-    def set_platform
-      @platform = Platform.find(params[:platform_id])
-      add_crumb label_with_icon(Platform.model_name.human(count: 2), 'fa-sitemap', fixed: true), admin_platforms_path
-      add_crumb @platform.name, admin_platforms_path
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
-    end
-
-
     def set_server
       @server = @platform.servers.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
@@ -128,14 +102,14 @@ class Admin::ServersController < Admin::DefaultController
     end
 
 
-    def find_jbox_role_module
+    def set_jbox_role_module
       @jbox_role_module = ServerRole.find_jbox_role_module(params[:role])
     rescue ActiveRecord::RecordNotFound => e
       render_404
     end
 
 
-    def find_server_role
+    def set_server_role
       @server_role = @server.roles.find_by_name(params[:role])
     rescue ActiveRecord::RecordNotFound => e
       render_404
