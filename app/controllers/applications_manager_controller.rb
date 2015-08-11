@@ -24,14 +24,13 @@ class ApplicationsManagerController < ApplicationController
   before_action :set_deployment_action, only: [:manage_application, :manage_container]
 
 
-
   def build_application
-    ApplicationManagementContext.new(self).build_application(@application)
+    ApplicationManagementContext.new(self).build_application(@application, event_options)
   end
 
 
   def manage_application
-    ApplicationManagementContext.new(self).manage_application(@application, @deploy_action)
+    ApplicationManagementContext.new(self).manage_application(@application, @deploy_action, event_options)
   end
 
 
@@ -41,11 +40,16 @@ class ApplicationsManagerController < ApplicationController
 
 
   def manage_container
-    ApplicationManagementContext.new(self).manage_container(@application, @container, @deploy_action)
+    ApplicationManagementContext.new(self).manage_container(@application, @container, @deploy_action, event_options)
   end
 
 
   private
+
+
+    def event_options
+      { event_options: RefreshViewEvent.create(app_id: @application.id, triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
+    end
 
 
     def set_application_by_id

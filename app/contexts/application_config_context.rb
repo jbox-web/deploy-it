@@ -90,9 +90,8 @@ class ApplicationConfigContext < SimpleDelegator
 
 
   def synchronize_repository(application, params = {})
+    event_options = params.fetch(:event_options) { {} }
     repository = application.distant_repo
-    # Call service objects to perform other actions
-    event_options = RefreshViewEvent.create(app_id: application.id, triggers: [repositories_application_path(application)])
     repository.run_async!('resync!', event_options: event_options)
     render_success(locals: { application: application })
   end

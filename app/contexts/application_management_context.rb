@@ -23,7 +23,9 @@ class ApplicationManagementContext < SimpleDelegator
   end
 
 
-  def build_application(application)
+  def build_application(application, opts = {})
+    event_options = opts.fetch(:event_options) { {} }
+
     push = application.pushes.last
     return render_failed(locals: { request_id: nil }, message: t('.unbuildable')) if push.nil?
 
@@ -31,7 +33,6 @@ class ApplicationManagementContext < SimpleDelegator
     request_id = build.request_id
 
     # Call the BuildManager
-    event_options = RefreshViewEvent.create(app_id: application.id, triggers: [toolbar_application_path(application), status_application_path(application)])
     task = BuildManager.new(build, logger: 'console_streamer', event_options: event_options, user: User.current)
 
     if task.runnable?
@@ -43,15 +44,15 @@ class ApplicationManagementContext < SimpleDelegator
   end
 
 
-  def manage_application(application, deploy_action)
-    event_options = RefreshViewEvent.create(app_id: application.id, triggers: [toolbar_application_path(application), status_application_path(application)])
+  def manage_application(application, deploy_action, opts = {})
+    event_options = opts.fetch(:event_options) { {} }
     application.run_async!(deploy_action.to_method, event_options: event_options)
     render_success
   end
 
 
-  def manage_container(application, container, deploy_action)
-    event_options = RefreshViewEvent.create(app_id: application.id, triggers: [toolbar_application_path(application), status_application_path(application)])
+  def manage_container(application, container, deploy_action, opts = {})
+    event_options = opts.fetch(:event_options) { {} }
     container.run_async!(deploy_action.to_method, event_options: event_options, job_options: { update_route: true })
     render_success
   end

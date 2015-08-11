@@ -117,6 +117,8 @@ class ApplicationsConfigController < ApplicationController
         params.require(:ssl_certificate).permit(:ssl_crt, :ssl_key) rescue {}
       when 'database'
         params.require(:application).permit(database_attributes: [:id, :server_id])
+      when 'synchronize_repository'
+        event_options
       else
         {}
       end
@@ -134,6 +136,11 @@ class ApplicationsConfigController < ApplicationController
       else
         action
       end
+    end
+
+
+    def event_options
+      { event_options: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
     end
 
 end
