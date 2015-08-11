@@ -15,6 +15,14 @@
 
 class SshPublicKey < ActiveRecord::Base
 
+  SSH_BASE_DIRECTIVES = [
+    'no-agent-forwarding',
+    'no-port-forwarding',
+    'no-X11-forwarding',
+    'no-pty',
+    'no-user-rc'
+  ]
+
   ## Relations
   belongs_to :user
 
@@ -67,29 +75,24 @@ class SshPublicKey < ActiveRecord::Base
   end
 
 
-  def ssh_config
-    [ssh_directives.join(',').strip, key ].join(' ').strip
-  end
-
-
-  def ssh_directives
-    [
-      "no-agent-forwarding",
-      "no-port-forwarding",
-      "no-X11-forwarding",
-      "no-pty",
-      "no-user-rc",
-      "command=\"#{script_path} #{owner} #{token} #{fingerprint}\""
-    ]
-  end
-
-
-  def script_path
-    File.join(Settings.scripts_path, 'deploy-it-authentifier')
+  def ssh_command(script_path)
+    [build_ssh_comand(script_path), key].compact.join(' ').strip
   end
 
 
   private
+
+
+    def build_ssh_comand(path)
+      args = [path, *ssh_signed_command].compact.join(' ')
+      cmd  = "command=\"#{args}\""
+      SSH_BASE_DIRECTIVES.push(cmd).join(',').strip
+    end
+
+
+    def ssh_signed_command
+      [owner, token, fingerprint].clone
+    end
 
 
     def has_not_been_changed

@@ -19,14 +19,19 @@ module SshPublicKeys
     def execute(opts = {})
       if !ssh_public_key.exists_in_authorized_key_file?
         begin
-          File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_public_key.ssh_config + "\n") }
+          File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
         rescue Errno::ENOENT => e
-          File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_config + "\n") }
+          File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
         rescue => e
           error_message('Error while creating SSH Key!')
           log_exception(e)
         end
       end
+    end
+
+
+    def script_path
+      File.join(Settings.scripts_path, 'deploy-it-authentifier')
     end
 
   end
