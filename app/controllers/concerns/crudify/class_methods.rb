@@ -30,7 +30,7 @@ module Crudify
 
         def index
           @#{plural_name} = #{class_name}.all
-          breadcrumbs_for(:index)
+          add_breadcrumbs
         end
 
 
@@ -41,34 +41,32 @@ module Crudify
 
         def new
           @#{singular_name} = #{class_name}.new
-          breadcrumbs_for(:new)
+          add_breadcrumbs
         end
 
 
         def edit
-          breadcrumbs_for(:edit)
+          add_breadcrumbs
         end
 
 
         def create
           @#{singular_name} = #{class_name}.new(create_#{singular_name}_params)
 
-          breadcrumbs_for(:create)
-
           if @#{singular_name}.save
             successful_create
           else
+            add_breadcrumbs
             failed_create
           end
         end
 
 
         def update
-          breadcrumbs_for(:update)
-
           if @#{singular_name}.update(update_#{singular_name}_params)
             successful_update
           else
+            add_breadcrumbs
             failed_update
           end
         end
@@ -144,17 +142,22 @@ module Crudify
           end
 
 
-          def breadcrumbs_for(type)
-            case type
-            when :index
+          def add_breadcrumbs_for(action)
+            add_breadcrumbs(action: action.to_s)
+          end
+
+
+          def add_breadcrumbs(action: action_name)
+            case action
+            when 'index'
               #{breadcrumbs.render(:index)}
-            when :new
+            when 'new'
               #{breadcrumbs.render(:new)}
-            when :edit
+            when 'edit'
               #{breadcrumbs.render(:edit)}
-            when :create
+            when 'create'
               #{breadcrumbs.render(:create)}
-            when :update
+            when 'update'
               #{breadcrumbs.render(:update)}
             else
               ''

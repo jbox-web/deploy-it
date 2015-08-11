@@ -31,20 +31,18 @@ class Admin::PlatformsController < Admin::DefaultController
 
   def index
     @platforms = Platform.includes(:stages, :servers).all
-    breadcrumbs_for(:index)
+    add_breadcrumbs
   end
 
 
   def create
     @platform = Platform.new(create_platform_params)
-
-    breadcrumbs_for(:create)
-
     if @platform.save
       # Generate a PlatformCredential
       create_platform_credential
       successful_create
     else
+      add_breadcrumbs
       failed_create
     end
   end

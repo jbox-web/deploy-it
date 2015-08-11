@@ -29,14 +29,13 @@ class Admin::ApplicationTypesController < Admin::DefaultController
 
   def index
     @application_types = ApplicationType.by_name_and_version
-    breadcrumbs_for(:index)
+    add_breadcrumbs
   end
 
 
   def clone
     @application_type = ApplicationType.clone_from(params[:id])
-    breadcrumbs_for(:index)
-    add_crumb t('.title'), '#'
+    add_breadcrumbs_for(:new)
     render :new
   end
 

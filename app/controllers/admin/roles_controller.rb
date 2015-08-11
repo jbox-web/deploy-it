@@ -29,7 +29,7 @@ class Admin::RolesController < Admin::DefaultController
 
   def index
     @roles = Role.sorted
-    breadcrumbs_for(:index)
+    add_breadcrumbs
   end
 
 
@@ -37,7 +37,7 @@ class Admin::RolesController < Admin::DefaultController
     @roles = Role.sorted
     @permissions = DeployIt::AccessControl.permissions.select { |p| !p.public? }
 
-    breadcrumbs_for(:index)
+    add_breadcrumbs_for(:index)
     add_crumb t('.permissions_report'), '#'
 
     if request.post?
