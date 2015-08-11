@@ -32,16 +32,13 @@ class CredentialsController < ApplicationController
   def new
     @credential = RepositoryCredential.new
     @credential_form = CredentialCreationForm.new(@credential)
-
-    add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
+    add_breadcrumbs
   end
 
 
   def edit
     @credential_form = CredentialUpdateForm.new(@credential)
-
-    add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
-    add_crumb t('text.edit'), '#'
+    add_breadcrumbs
   end
 
 
@@ -49,39 +46,27 @@ class CredentialsController < ApplicationController
     @credential = type_class.new
     @credential_form = CredentialCreationForm.new(@credential)
     @credential_form.submit(credential_create_params)
-
     if @credential_form.save
-      flash[:notice] = t('.notice')
-      redirect_to applications_path
+      render_success
     else
-      add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
+      add_breadcrumbs
       render :new
     end
   end
 
 
   def update
-    @credential_form = CredentialUpdateForm.new(@credential)
-    @credential_form.submit(credential_update_params)
-
-    if @credential_form.save
-      flash[:notice] = t('.notice')
-      redirect_to applications_path
+    if @credential.update(credential_update_params)
+      render_success
     else
-      add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
-      add_crumb t('text.edit'), '#'
+      add_breadcrumbs
       render :edit
     end
   end
 
 
   def destroy
-    if @credential.destroy
-      flash[:notice] = t('.notice')
-    else
-      flash[:alert] = @credential.errors.full_messages
-    end
-    redirect_to applications_path
+    @credential.destroy ? render_success : render_failed
   end
 
 
@@ -89,7 +74,17 @@ class CredentialsController < ApplicationController
 
 
     def type
-      [ 'RepositoryCredential::BasicAuth', 'RepositoryCredential::SshKey' ].include?(params[:repository_credential][:type]) ? params[:repository_credential][:type] : 'RepositoryCredential'
+      accepted_klasses.include?(params[:repository_credential][:type]) ? params[:repository_credential][:type] : default_klass
+    end
+
+
+    def default_klass
+      'RepositoryCredential'
+    end
+
+
+    def accepted_klasses
+      ['RepositoryCredential::BasicAuth', 'RepositoryCredential::SshKey']
     end
 
 
@@ -112,6 +107,29 @@ class CredentialsController < ApplicationController
 
     def credential_update_params
       params.require(@credential.type.underscore.gsub('/', '_').to_sym).permit(:name, :login, :password)
+    end
+
+
+    def render_success
+      flash[:notice] = t('.notice')
+      redirect_to applications_path
+    end
+
+
+    def render_failed
+      flash[:error] = @credential.errors.full_messages
+      redirect_to applications_path
+    end
+
+
+    def add_breadcrumbs(type: action_name)
+      case type
+      when 'new', 'create'
+        add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
+      when 'edit', 'update'
+        add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
+        add_crumb t('text.edit'), '#'
+      end
     end
 
 end
