@@ -3,3 +3,4 @@ fr:
     account:
       title: Mon compte
       api_key: Clé d'accès API
+      notice: Informations mises à jour avec succès
