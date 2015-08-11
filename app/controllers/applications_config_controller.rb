@@ -22,116 +22,84 @@ class ApplicationsConfigController < ApplicationController
 
 
   def repository
-    repository = @application.distant_repo
-    if repository.update(repository_params)
-      # Destroy Application repository if url has changed.
-      # It will be recloned by service object.
-      repository.destroy_dir! if repository.url_has_changed? || repository.branch_has_changed?
-
-      # Call service objects to perform other actions
-      !repository.exists? ? repository.run_async!('clone!') : repository.run_async!('resync!')
-    end
-    render_ajax_response
+    call_context(:update_repository)
   end
 
 
   def credentials
-    @saved = false
-    if @application.update(credentials_params)
-      @saved = true
-      @application.update_lb_route!
-    end
-    render_ajax_response
+    call_context(:update_credentials)
   end
 
 
   def env_vars
-    @saved = false
-    if @application.update(env_vars_params)
-      @saved = true
-      # Call service objects to perform other actions
-      trigger_async_job!('update_files!')
-    end
-    render_ajax_response
+    call_context(:update_env_vars)
   end
 
 
   def mount_points
-    @saved = false
-    if @application.update(mount_points_params)
-      @saved = true
-      # Call service objects to perform other actions
-      trigger_async_job!('update_files!')
-    end
-    render_ajax_response
+    call_context(:update_mount_points)
   end
 
 
   def domain_names
-    @saved = false
-    if @application.update(domain_names_params)
-      flash[:notice] = t('notice.domain_name.updated')
-      @saved = true
-    end
-    render_ajax_response
-  end
-
-
-  def synchronize_repository
-    repository = @application.distant_repo
-    # Call service objects to perform other actions
-    repository.run_async!('resync!', event_options: async_view_refresh(:repositories))
-    render_ajax_response
-  end
-
-
-  def restore_env_vars
-    @application.restore_env_vars!
-    @saved = true
-    # Call service objects to perform other actions
-    trigger_async_job!('update_files!')
-    render_ajax_response('env_vars')
-  end
-
-
-  def restore_mount_points
-    @application.restore_mount_points!
-    @saved = true
-    # Call service objects to perform other actions
-    trigger_async_job!('update_files!')
-    render_ajax_response('mount_points')
+    call_context(:update_domain_names)
   end
 
 
   def ssl_certificate
-    if @application.ssl_certificate.nil?
-      ssl_certificate = @application.build_ssl_certificate(ssl_certificate_params)
-      flash[:notice] = t('notice.ssl_certificate.created') if ssl_certificate.save
-    else
-      flash[:error] = t('error.ssl_certificate.already_exists')
-    end
-    render_ajax_response
-  end
-
-
-  def reset_ssl_certificate
-    @application.ssl_certificate = nil
-    flash[:notice] = t('notice.ssl_certificate.reseted')
-    render_ajax_response('ssl_certificate')
+    call_context(:ssl_certificate)
   end
 
 
   def database
-    if @application.update(database_params)
-      flash[:notice] = t('notice.application_database.updated')
-    end
-    result = @application.create_physical_database!
-    flash[:error] = result.message_on_errors if !result.success?
-    render_ajax_response
+    call_context(:update_database)
+  end
+
+
+  def synchronize_repository
+    call_context(:synchronize_repository)
+  end
+
+
+  def restore_env_vars
+    call_context(:restore_env_vars)
+  end
+
+
+  def restore_mount_points
+    call_context(:restore_mount_points)
+  end
+
+
+  def reset_ssl_certificate
+    call_context(:reset_ssl_certificate)
+  end
+
+
+  def render_success(message: t('.notice'), template: get_template)
+    @saved = true
+    render_message(message, :notice, template)
+  end
+
+
+  def render_failed(message: t('.error'), template: get_template)
+    @saved = false
+    render_message(message, :error, template)
+  end
+
+
+  def render_message(message, type, template)
+    flash[type] = message
+    render_ajax_response(template)
   end
 
 
   private
+
+
+    def call_context(method)
+      ApplicationConfigContext.new(self).send(method, @application, get_params)
+    end
 
 
     def set_application
@@ -141,43 +109,39 @@ class ApplicationsConfigController < ApplicationController
     end
 
 
-    def repository_params
-      params.require(:application_repository).permit(:url, :branch, :have_credentials, :credential_id)
+    def get_params(action: action_name)
+      case action
+      when 'repository'
+        params.require(:application_repository).permit(:url, :branch, :have_credentials, :credential_id)
+      when 'credentials'
+        params.require(:application).permit(credentials_attributes: [:id, :login, :password, :_destroy])
+      when 'env_vars'
+        params.require(:application).permit(env_vars_attributes: [:id, :key, :value, :step, :masked, :_destroy])
+      when 'mount_points'
+        params.require(:application).permit(mount_points_attributes: [:id, :source, :target, :step, :active, :_destroy])
+      when 'domain_names'
+        params.require(:application).permit(domain_names_attributes: [:id, :domain_name, :mode, :_destroy])
+      when 'ssl_certificate'
+        params.require(:ssl_certificate).permit(:ssl_crt, :ssl_key) rescue {}
+      when 'database'
+        params.require(:application).permit(database_attributes: [:id, :server_id])
+      else
+        {}
+      end
     end
 
 
-    def credentials_params
-      params.require(:application).permit(credentials_attributes: [:id, :login, :password, :_destroy])
-    end
-
-
-    def env_vars_params
-      params.require(:application).permit(env_vars_attributes: [:id, :key, :value, :step, :masked, :_destroy])
-    end
-
-
-    def mount_points_params
-      params.require(:application).permit(mount_points_attributes: [:id, :source, :target, :step, :active, :_destroy])
-    end
-
-
-    def domain_names_params
-      params.require(:application).permit(domain_names_attributes: [:id, :domain_name, :mode, :_destroy])
-    end
-
-
-    def ssl_certificate_params
-      params.require(:ssl_certificate).permit(:ssl_crt, :ssl_key)
-    end
-
-
-    def database_params
-      params.require(:application).permit(database_attributes: [:id, :server_id])
-    end
-
-
-    def trigger_async_job!(job)
-      @application.run_async!(job)
+    def get_template(action: action_name)
+      case action
+      when 'restore_env_vars'
+        'env_vars'
+      when 'restore_mount_points'
+        'mount_points'
+      when 'reset_ssl_certificate'
+        'ssl_certificate'
+      else
+        action
+      end
     end
 
 end
