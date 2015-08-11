@@ -19,9 +19,10 @@ class ApplicationsManagerController < ApplicationController
 
   before_action :set_application_by_id,     only: [:build_application, :manage_application]
   before_action :set_application_by_app_id, only: [:container_infos, :manage_container]
+  before_action :set_container,             only: [:container_infos, :manage_container]
 
-  before_action :set_container,         only: [:container_infos, :manage_container]
-  before_action :set_deployment_action, only: [:manage_application, :manage_container]
+  before_action :set_deployment_action_for_application, only: [:manage_application]
+  before_action :set_deployment_action_for_container,   only: [:manage_container]
 
 
   def build_application
@@ -80,8 +81,18 @@ class ApplicationsManagerController < ApplicationController
     end
 
 
-    def set_deployment_action
-      @deploy_action = @application.find_active_use_case(params[:deploy_action])
+    def set_deployment_action_for_application
+      set_deployment_action(@application)
+    end
+
+
+    def set_deployment_action_for_container
+      set_deployment_action(@container)
+    end
+
+
+    def set_deployment_action(object)
+      @deploy_action = object.find_active_use_case(params[:deploy_action])
     rescue UseCaseNotDefinedError => e
       render_403
     end
