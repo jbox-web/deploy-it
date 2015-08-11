@@ -10,6 +10,7 @@ fr:
     ssl_certificate:
       notice: Certificat SSL créé avec succès
       error: Erreurs lors de l'enregistrement du certificat SSL
+      already_exist: Le certificat SSL existe déjà
     credentials:
       notice: Mots de passe modifiés avec succès
       error: Erreurs lors de l'enregistrement des mots de passe
