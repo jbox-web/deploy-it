@@ -29,13 +29,13 @@ module SshKeysManager
 
 
   def create
-    @ssh_key = SshPublicKey.new(ssh_key_params.merge(user: @user))
-    render_success if @ssh_key.save
+    @ssh_key = SshPublicKey.new(ssh_key_params.merge(user_id: @user.id))
+    @ssh_key.save ? render_success : render_failed
   end
 
 
   def destroy
-    render_success if request.delete? && @ssh_key.destroy
+    request.delete? && @ssh_key.destroy ? render_success : render_failed
   end
 
 
@@ -48,6 +48,13 @@ module SshKeysManager
       call_service_objects
       # Reset form object
       @ssh_key = SshPublicKey.new
+      render_ajax_response(locals: { ssh_keys: @ssh_keys, ssh_key: @ssh_key})
+    end
+
+
+    def render_failed
+      flash[:error] = t('.error')
+      render_ajax_response(locals: { ssh_keys: @ssh_keys, ssh_key: @ssh_key})
     end
 
 
