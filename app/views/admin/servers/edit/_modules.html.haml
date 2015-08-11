@@ -1,4 +1,4 @@
-%h4{ class: 'page-header' }= t('label.server_role.configuration')
+%h4{ class: 'page-header' }= t('.configuration')
 
 .flash-messages
 
@@ -23,7 +23,7 @@
             = ff.text_field :port, required: false
             = ff.text_field :connection_timeout, required: false
 
-            = ff.form_group :default_server, label: { text: t('label.server_role.default_server') }, class: 'shifted' do
+            = ff.form_group :default_server, label: { text: t('.default_server') }, class: 'shifted' do
               = ff.check_box :default_server, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
     %br
@@ -33,4 +33,4 @@
         = button_submit t('button.update')
 
 - else
-  .alert{ class: 'alert-info dont-dismiss' }= t('label.server_role.none_defined')
+  .alert{ class: 'alert-info dont-dismiss' }= t('.none_defined')

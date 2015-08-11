@@ -25,9 +25,6 @@ fr:
               blank: ne peut être nul
             identifier:
               blank: ne peut être nul
+              taken: déjà pris
             platform_id:
               blank: ne peut être nulle
-
-      # portal_url: URL du portail
-      # database_name_prefix: Préfixe du nom de la base de données
-      # domain_name_suffix: Suffixe du nom de domaine

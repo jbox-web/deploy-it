@@ -13,6 +13,13 @@ fr:
           title: Paramètres
         delete:
           destroy: Supprimer le serveur
+        modules:
+          default_server: Serveur par défaut pour ce rôle ?
+          none_defined: Aucun rôle défini
+          configuration: Configuration des rôles
+        roles:
+          enabled: "%{role} activé"
+          disabled: "%{role} désactivé"
       update:
         title: Modifier le serveur
         notice: Serveur modifié avec succès
@@ -24,10 +31,3 @@ fr:
         notice: "%{role} activé"
       disable_role:
         notice: "%{role} désactivé"
-
-
-      # host_name: Nom d'hôte
-      # ip_address: Adresse IP
-
-      # reachable: Connecté
-      # not_assigned: Non assigné

@@ -21,12 +21,6 @@ fr:
       log_service: Service Rsyslog
 
       default: Serveur par défaut
-      default_server: Serveur par défaut pour ce rôle ?
-      none_defined: Aucun rôle défini
-      configuration: Configuration des rôles
-
-      enabled: "%{role} activé"
-      disabled: "%{role} désactivé"
 
       online: "%{service} en ligne"
       offline: "%{service} déconnecté"
