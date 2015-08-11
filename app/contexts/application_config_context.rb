@@ -13,14 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationConfigContext < SimpleDelegator
+class ApplicationConfigContext < ContextBase
 
   include ApplicationCommon
-
-
-  def initialize(context)
-    super(context)
-  end
 
 
   def update_settings(application, params = {})
@@ -40,9 +35,9 @@ class ApplicationConfigContext < SimpleDelegator
 
       # Call service objects to perform other actions
       !repository.exists? ? repository.run_async!('clone!') : repository.run_async!('resync!')
-      render_success(locals: { application: application })
+      context.render_success(locals: { application: application })
     else
-      render_failed(locals: { application: application })
+      context.render_failed(locals: { application: application })
     end
   end
 
@@ -76,9 +71,9 @@ class ApplicationConfigContext < SimpleDelegator
 
 
   def ssl_certificate(application, params = {})
-    return render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
+    return context.render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
     certificate = application.build_ssl_certificate(params)
-    certificate.save ? render_success(locals: { application: application }) : render_failed(locals: { application: application })
+    certificate.save ? context.render_success(locals: { application: application }) : context.render_failed(locals: { application: application })
   end
 
 
@@ -93,7 +88,7 @@ class ApplicationConfigContext < SimpleDelegator
     event_options = params.fetch(:event_options) { {} }
     repository = application.distant_repo
     repository.run_async!('resync!', event_options: event_options)
-    render_success(locals: { application: application })
+    context.render_success(locals: { application: application })
   end
 
 
@@ -113,7 +108,7 @@ class ApplicationConfigContext < SimpleDelegator
 
   def reset_ssl_certificate(application, params = {})
     application.ssl_certificate = nil
-    render_success(locals: { application: application })
+    context.render_success(locals: { application: application })
   end
 
 end

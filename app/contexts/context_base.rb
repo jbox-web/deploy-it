@@ -13,29 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module ApplicationCommon
+class ContextBase
+
+  attr_reader :context
+
+
+  def initialize(context)
+    @context = context
+  end
+
 
   private
 
 
-    def execute_action(application, params = {})
-      result = yield application
-      if result.success?
-        application.run_async!('update_files!')
-        context.render_success(locals: { application: application })
-      else
-        context.render_failed(locals: { application: application }, message: result.message_on_errors)
-      end
+    def t(*args)
+      context.t(*args)
     end
 
-
-    def update_application(application, params = {})
-      if application.update(params)
-        yield application
-        context.render_success(locals: { application: application })
-      else
-        context.render_failed(locals: { application: application })
-      end
-    end
 
 end

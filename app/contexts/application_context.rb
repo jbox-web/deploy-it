@@ -13,14 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationContext < SimpleDelegator
+class ApplicationContext < ContextBase
 
   include ApplicationCommon
-
-
-  def initialize(context)
-    super(context)
-  end
 
 
   def create(wizard_form)
@@ -28,9 +23,9 @@ class ApplicationContext < SimpleDelegator
     if wizard_form.save
       application.create_relations!
       application.run_async!('bootstrap!')
-      render_create_success(application)
+      context.render_create_success(application)
     else
-      render_create_failed(locals: { application: application })
+      context.render_create_failed(locals: { application: application })
     end
   end
 
@@ -39,7 +34,7 @@ class ApplicationContext < SimpleDelegator
     application.marked_for_deletion = true
     application.save!
     application.run_async!('destroy_forever!')
-    render_destroy_success
+    context.render_destroy_success
   end
 
 end
