@@ -1,0 +1,12 @@
+fr:
+
+  use_cases:
+    ssh_public_key:
+      add_to_authorized_keys:
+        error:
+          unknown: Erreur inconnue
+          unwriteable: Fichier inaccessible en écriture
+      remove_from_authorized_keys:
+        error:
+          unknown: Erreur inconnue
+          unwriteable: Fichier inaccessible en écriture

@@ -28,9 +28,11 @@ module SshPublicKeys
         FileUtils.mv(output_file, SshPublicKey.authorized_key_file)
         File.chmod(0644, SshPublicKey.authorized_key_file)
       end
+    rescue Errno::EACCES => e
+      error_message(tt('error.unwriteable'))
     rescue => e
-      error_message("Error while deleting SSH Key!")
       log_exception(e)
+      error_message(tt('error.unknown'))
     end
 
   end

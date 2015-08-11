@@ -22,9 +22,11 @@ module SshPublicKeys
           File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
         rescue Errno::ENOENT => e
           File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
+        rescue Errno::EACCES => e
+          error_message(tt('error.unwriteable'))
         rescue => e
-          error_message('Error while creating SSH Key!')
           log_exception(e)
+          error_message(tt('error.unknown'))
         end
       end
     end
