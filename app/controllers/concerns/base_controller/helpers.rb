@@ -13,11 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationController < ActionController::Base
-  include BaseController::Security
-  include BaseController::Devise
-  include BaseController::UserSettings
-  include BaseController::Ajax
-  include BaseController::Authorizations
-  include BaseController::Helpers
+module BaseController::Helpers
+  extend ActiveSupport::Concern
+
+  ## Will paginate gem
+  require 'will_paginate/array'
+
+
+  def label_with_icon(*args)
+    view_context.label_with_icon(*args)
+  end
+
 end

@@ -13,11 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationController < ActionController::Base
-  include BaseController::Security
-  include BaseController::Devise
-  include BaseController::UserSettings
-  include BaseController::Ajax
-  include BaseController::Authorizations
-  include BaseController::Helpers
+module BaseController::Security
+  extend ActiveSupport::Concern
+
+  included do
+    # Prevent CSRF attacks by raising an exception.
+    protect_from_forgery with: :exception
+
+    # Secure Headers stuff
+    ensure_security_headers
+  end
+
 end

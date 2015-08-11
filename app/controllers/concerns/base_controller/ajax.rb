@@ -13,11 +13,25 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationController < ActionController::Base
-  include BaseController::Security
-  include BaseController::Devise
-  include BaseController::UserSettings
-  include BaseController::Ajax
-  include BaseController::Authorizations
-  include BaseController::Helpers
+module BaseController::Ajax
+  extend ActiveSupport::Concern
+
+  def render_ajax_redirect(url)
+    respond_to do |format|
+      format.js { render js: "window.location = #{url.to_json};" }
+    end
+  end
+
+
+  def render_ajax_response(template = action_name)
+    respond_to do |format|
+      format.js { render "#{get_controller_name}/ajax/#{template}" }
+    end
+  end
+
+
+  def get_controller_name
+    self.class.name.gsub('Controller', '').underscore
+  end
+
 end

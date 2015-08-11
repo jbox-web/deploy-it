@@ -13,11 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationController < ActionController::Base
-  include BaseController::Security
-  include BaseController::Devise
-  include BaseController::UserSettings
-  include BaseController::Ajax
-  include BaseController::Authorizations
-  include BaseController::Helpers
+module BaseController::Devise
+  extend ActiveSupport::Concern
+
+  included do
+    # Devise stuff
+    before_action :configure_permitted_parameters, if: :devise_controller?
+  end
+
+
+  protected
+
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:login) { |u| u.permit(:email, :password, :remember_me) }
+      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:current_password, :password, :password_confirmation) }
+      # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
+    end
+
 end
