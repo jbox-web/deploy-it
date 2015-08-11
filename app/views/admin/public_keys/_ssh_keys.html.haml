@@ -10,13 +10,13 @@
         %h3= get_model_name_for('SshPublicKey')
 
       %ul{ class: 'list-group' }
-        - user.ssh_public_keys.each do |ssh_key|
+        - ssh_keys.each do |ssh_key|
           %li{ class: 'list-group-item ssh-key' }
             %span{ class: 'ssh-key-icon' }
               %span{ class: 'mega-octicon octicon-key' }
 
             %div{ class: 'ssh-key-details' }
-              = button_delete admin_user_public_key_path(user, ssh_key), class: 'btn-sm pull-right', label: t('.delete'), remote: true
+              = button_delete admin_user_public_key_path(ssh_key.user, ssh_key), class: 'btn-sm pull-right', label: t('.delete'), remote: true
               %strong{ class: 'ssh-key-title' }= ssh_key.title
               %code{ class: 'ssh-key-fingerprint' }= ssh_key.fingerprint
 

@@ -48,13 +48,13 @@ module SshKeysManager
       call_service_objects
       # Reset form object
       @ssh_key = SshPublicKey.new
-      render_ajax_response(locals: { ssh_keys: @ssh_keys, ssh_key: @ssh_key})
+      render_ajax_response(locals: { user: @user, ssh_keys: @ssh_keys, ssh_key: @ssh_key})
     end
 
 
     def render_failed
       flash[:error] = t('.error')
-      render_ajax_response(locals: { ssh_keys: @ssh_keys, ssh_key: @ssh_key})
+      render_ajax_response(locals: { user: @user, ssh_keys: @ssh_keys, ssh_key: @ssh_key})
     end
 
 
