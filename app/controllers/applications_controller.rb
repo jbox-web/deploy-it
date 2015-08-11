@@ -106,7 +106,7 @@ class ApplicationsController < ApplicationController
 
 
   def manage
-    @application.run_async!(@deploy_action.to_method, event_options: async_view_refresh(:containers_toolbar))
+    @application.run_async!(@deploy_action.to_method, event_options: event_options)
     render_ajax_response
   end
 
@@ -119,7 +119,7 @@ class ApplicationsController < ApplicationController
       @request_id = build.request_id
 
       # Call the BuildManager
-      task = BuildManager.new(build, logger: 'console_streamer', event_options: async_view_refresh(:containers_toolbar), user: User.current)
+      task = BuildManager.new(build, logger: 'console_streamer', event_options: event_options, user: User.current)
 
       if task.runnable?
         task.run!
@@ -177,6 +177,16 @@ class ApplicationsController < ApplicationController
       when 'destroy'
         @application.run_async!('destroy_forever!')
       end
+    end
+
+
+    def event_options
+      RefreshViewEvent.create(app_id: @application.id, triggers: triggers)
+    end
+
+
+    def triggers
+      [toolbar_application_path(@application), status_application_path(@application)]
     end
 
 end

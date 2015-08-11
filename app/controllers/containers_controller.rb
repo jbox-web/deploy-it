@@ -27,7 +27,7 @@ class ContainersController < ApplicationController
 
 
   def manage
-    @container.run_async!(@deploy_action.to_method, job_options: { update_route: true }, event_options: async_view_refresh(:containers_toolbar))
+    @container.run_async!(@deploy_action.to_method, job_options: { update_route: true }, event_options: event_options)
     render_ajax_response
   end
 
@@ -57,6 +57,16 @@ class ContainersController < ApplicationController
       @deploy_action = @container.find_active_use_case(params[:deploy_action])
     rescue UseCaseNotDefinedError => e
       render_403
+    end
+
+
+    def event_options
+      RefreshViewEvent.create(app_id: @application.id, triggers: triggers)
+    end
+
+
+    def triggers
+      [toolbar_application_path(@application), status_application_path(@application)]
     end
 
 end

@@ -137,55 +137,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def async_containers_toolbar_view_refresh(opts = {})
-    {
-      context: {
-        controller: 'applications',
-        action: 'show',
-        app_id: @application.id
-      },
-      triggers: [
-        "refreshView('#{toolbar_application_path(@application)}');",
-        "refreshView('#{status_application_path(@application)}');"
-      ]
-    }
-  end
-
-
-  def async_repositories_view_refresh(opts = {})
-    {
-      context: {
-        controller: 'applications',
-        action: 'show',
-        app_id: @application.id
-      },
-      triggers: [
-        "refreshView('#{repositories_application_path(@application)}');"
-      ]
-    }
-  end
-
-
-  def async_applications_list_view_refresh(opts = {})
-    {
-      context: {
-        controller: 'admin/applications',
-        action: 'index',
-        app_id: ''
-      },
-      triggers: [
-        "refreshView('#{admin_application_status_path(opts[:app_id], opts)}')"
-      ]
-    }
-  end
-
-
-  def async_view_refresh(view, opts = {})
-   method = "async_#{view}_view_refresh"
-   self.send(method, opts)
-  end
-
-
   protected
 
 

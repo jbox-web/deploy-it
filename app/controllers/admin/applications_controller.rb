@@ -24,10 +24,11 @@ class Admin::ApplicationsController < Admin::DefaultController
   end
 
 
+
   def manage
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
-      options = { event_options: async_view_refresh(:applications_list, app_id: application.id, after_action: true) }
+      options = { event_options: event_options(application) }
       if params[:deploy_action] == 'update_route'
         application.update_lb_route!(options)
       else
@@ -75,6 +76,16 @@ class Admin::ApplicationsController < Admin::DefaultController
 
     def valid_actions
       ['start', 'stop', 'restart', 'update_route']
+    end
+
+
+    def event_options
+      RefreshViewEvent.create(controller: 'admin/applications', action: 'index', triggers: triggers(application))
+    end
+
+
+    def triggers(application)
+      [admin_application_status_path(application, after_action: true)]
     end
 
 end
