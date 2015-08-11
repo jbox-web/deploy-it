@@ -17,9 +17,6 @@ class Admin::UsersController < Admin::DefaultController
 
   before_action :set_user, except: [:index, :new, :create]
 
-  add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true),
-            only: [:show, :new, :edit, :change_password] { |instance| instance.send :admin_users_path }
-
 
   def index
     @users = User.by_email
@@ -34,14 +31,12 @@ class Admin::UsersController < Admin::DefaultController
   def new
     @user = User.new
     @user_form = UserCreationForm.new(@user)
-
-    add_crumb t('.title'), '#'
+    add_breadcrumbs
   end
 
 
   def edit
-    add_crumb @user.full_name, '#'
-    add_crumb t('text.edit'), '#'
+    add_breadcrumbs
   end
 
 
@@ -51,12 +46,9 @@ class Admin::UsersController < Admin::DefaultController
     @user_form.submit(user_create_params)
 
     if @user_form.save
-      flash[:notice] = t('.notice')
-      redirect_to admin_users_path
+      render_success
     else
-      add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true), admin_users_path
-      add_crumb t('.title'), '#'
-
+      add_breadcrumbs
       render :new
     end
   end
@@ -66,41 +58,30 @@ class Admin::UsersController < Admin::DefaultController
     if @user.update(user_update_params)
       # Locales may have changed, reset them before redirect
       reload_user_locales if @user.id == User.current.id
-      flash[:notice] = t('.notice')
       # Call service objects to perform other actions
       call_service_objects
-      redirect_to admin_users_path
+      render_success
     else
-      add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true), admin_users_path
-      add_crumb @user.full_name, '#'
-      add_crumb t('.title'), '#'
-
+      add_breadcrumbs
       render :edit
     end
   end
 
 
   def destroy
-    if @user.destroy
-      flash[:notice] = t('.notice')
-      redirect_to admin_users_path
-    else
-      flash[:alert] = @user.errors.full_messages
-      redirect_to admin_users_path
-    end
+    execute_action(:remove_from_authorized_keys!)
+    @user.destroy ? render_success : render_failed
   end
 
 
   def change_password
-    add_crumb @user.full_name, edit_admin_user_path(@user)
-    add_crumb t('.changing_password'), '#'
-
+    add_breadcrumbs
     @password_form = AdminPasswordForm.new(@user)
     if request.patch?
       @password_form.submit(user_change_password_params)
       if @password_form.save
         sign_in(@user, bypass: true) if @user.id == User.current.id
-        redirect_to admin_users_path, notice: t('.notice')
+        render_success
       end
     end
   end
@@ -173,23 +154,50 @@ class Admin::UsersController < Admin::DefaultController
     end
 
 
+    def render_success
+      redirect_to admin_users_path, notice: t('.notice')
+    end
+
+
+    def render_failed
+      redirect_to admin_users_path, alert: @user.errors.full_messages
+    end
+
+
     def call_service_objects
-      results = []
-      case self.action_name
-      when 'update'
-        if @user.disabled?
-          # @user.ssh_public_keys.each do |ssh_key|
-          #   result = DestroySshKey.new(ssh_key).call
-          #   results = results.concat(result.errors) if !result.success?
-          # end
-        else
-          # @user.ssh_public_keys.each do |ssh_key|
-          #   result = CreateSshKey.new(ssh_key).call
-          #   results = results.concat(result.errors) if !result.success?
-          # end
-        end
+      errors = @user.disabled? ? execute_action(:remove_from_authorized_keys!) : execute_action(:add_to_authorized_keys!)
+      flash[:alert] = errors if !errors.empty?
+    end
+
+
+    def add_breadcrumbs(action: action_name)
+      global_crumbs
+
+      case action
+      when 'new', 'create'
+        add_crumb t('.title'), '#'
+      when 'edit', 'update'
+        add_crumb @user.full_name, '#'
+        add_crumb t('text.edit'), '#'
+      when 'change_password'
+        add_crumb @user.full_name, edit_admin_user_path(@user)
+        add_crumb t('.changing_password'), '#'
       end
-      # flash[:alert] = results
+    end
+
+
+    def global_crumbs
+      add_crumb label_with_icon(User.model_name.human(count: 2), 'fa-user', fixed: true), admin_users_path
+    end
+
+
+    def execute_action(method)
+      errors = []
+      @user.ssh_public_keys.each do |ssh_key|
+        result = ssh_key.send(method)
+        errors += result.errors if !result.success?
+      end
+      errors
     end
 
 end
