@@ -37,50 +37,29 @@ class DeployItController < ApplicationController
       fingerprint = params[:fingerprint] || ''
       repo_name   = params[:repo_name] || ''
 
-      if token.empty?
-        render_error('Error! Missing params : token')
-        return
-      else
-        @token = token
-      end
+      return render_error('Error! Missing params : token') if token.empty?
+      return render_error('Error! Missing params : fingerprint') if fingerprint.empty?
+      return render_error('Error! Missing params : repo_name') if repo_name.empty?
 
-      if fingerprint.empty?
-        render_error('Error! Missing params : fingerprint')
-        return
-      else
-        @fingerprint = fingerprint
-      end
-
-      if repo_name.empty?
-        render_error('Error! Missing params : repo_name')
-        return
-      else
-        @repo_name = repo_name
-      end
+      @token       = token
+      @fingerprint = fingerprint
+      @repo_name   = repo_name
     end
 
 
     def authenticate_user
       # First authenticate user in Deployer
       authentication = Authentifier.new(@token, @fingerprint)
-      if !authentication.passed?
-        render_error(["You don't have any account on this platform !", "Subscribe before : http://www.jbox-cloud.com"])
-        return
-      else
-        @user = authentication.user
-      end
+      return render_error(["You don't have any account on this platform !", "Subscribe before : http://www.jbox-cloud.com"]) if !authentication.passed?
+      @user = authentication.user
     end
 
 
     def authorize_user
       # Then do authorization
       authorization = Authorizer.new(@repo_name, @user)
-      if !authorization.passed?
-        render_error(authorization.errors)
-        return
-      else
-        @application = authorization.application
-      end
+      return render_error(authorization.errors) if !authorization.passed?
+      @application = authorization.application
     end
 
 
