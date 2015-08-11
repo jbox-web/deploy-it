@@ -15,6 +15,9 @@
 
 class ApplicationConfigContext < SimpleDelegator
 
+  include ApplicationCommon
+
+
   def initialize(context)
     super(context)
   end
@@ -105,29 +108,5 @@ class ApplicationConfigContext < SimpleDelegator
     application.ssl_certificate = nil
     render_success
   end
-
-
-  private
-
-
-    def execute_action(application, params = {})
-      result = yield application
-      if result.success?
-        application.run_async!('update_files!')
-        render_success
-      else
-        render_failed(message: result.message_on_errors)
-      end
-    end
-
-
-    def update_application(application, params = {})
-      if application.update(params)
-        yield application
-        render_success
-      else
-        render_failed
-      end
-    end
 
 end
