@@ -15,8 +15,8 @@
 
 module Admin::ServersHelper
 
-  def service_status(server, role, errors)
-    render_role_name(role) + render_default_role(role) + render_service_status(has_errors: errors)
+  def service_status(role, has_errors:)
+    render_role_name(role) + render_default_role(role) + render_service_status(has_errors: has_errors)
   end
 
 
