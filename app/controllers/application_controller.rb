@@ -34,9 +34,6 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
 
-  # Module to render label
-  include Labelable
-
   ## Will paginate gem
   require 'will_paginate/array'
 
@@ -134,6 +131,11 @@ class ApplicationController < ActionController::Base
   # Authorize the user for the requested action outside an application
   def authorize_global(ctrl = params[:controller], action = params[:action], global = true)
     authorize(ctrl, action, global)
+  end
+
+
+  def label_with_icon(*args)
+    view_context.label_with_icon(*args)
   end
 
 
