@@ -43,10 +43,9 @@ class Admin::RolesController < Admin::DefaultController
     if request.post?
       @roles.each do |role|
         role.permissions = params[:permissions][role.id.to_s]
-        role.save
+        role.save!
       end
-      flash[:notice] = t('.notice')
-      redirect_to permissions_admin_roles_path
+      successful_update
     end
   end
 
