@@ -26,34 +26,26 @@ class PublicKeysController < ApplicationController
 
   def create
     set_form_object
-
-    ## Assign new SshKey to @user
     @ssh_key_form.submit(ssh_key_params.merge(user: User.current))
+    render_success if @ssh_key_form.save
+  end
 
-    if @ssh_key_form.save
+
+  def destroy
+    render_success if request.delete? && @ssh_key.destroy
+  end
+
+
+  private
+
+
+    def render_success
       flash[:notice] = t('.notice')
       # Call service objects to perform other actions
       call_service_objects
       # Reset form object
       set_form_object
     end
-  end
-
-
-  def destroy
-    if request.delete?
-      if @ssh_key.destroy
-        flash[:notice] = t('.notice')
-        # Call service objects to perform other actions
-        call_service_objects
-        # Reset form object
-        set_form_object
-      end
-    end
-  end
-
-
-  private
 
 
     def set_form_object
@@ -78,13 +70,13 @@ class PublicKeysController < ApplicationController
 
 
     def call_service_objects
-      case self.action_name
+      case action_name
       when 'create'
         result = @ssh_key.add_to_authorized_keys!
       when 'destroy'
         result = @ssh_key.remove_from_authorized_keys!
       end
-      flash[:alert] = result.errors if !result.success?
+      flash[:error] = result.errors if !result.success?
     end
 
 end
