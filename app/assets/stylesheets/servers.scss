@@ -4,3 +4,12 @@ li.connexion-status {
     margin: 5px;
   }
 }
+
+#server-roles {
+  li.server-module.disabled {
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

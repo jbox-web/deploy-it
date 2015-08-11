@@ -36,11 +36,16 @@ class ServerModuleActivationPresenter < SimpleDelegator
 
 
   def module_status
-    if server.has_role?(role.type)
-      label_with_icon t('label.server_role.enabled', role: role), 'fa-check', fixed: true, color: '#5cb85c'
+    if module_enabled?
+      label_with_icon t('.enabled', role: role), 'fa-check', fixed: true, color: '#5cb85c'
     else
-      label_with_icon t('label.server_role.disabled', role: role), '', fixed: true
+      label_with_icon t('.disabled', role: role), '', fixed: true
     end
+  end
+
+
+  def module_css
+    module_enabled? ? default_css : default_css.push('disabled')
   end
 
 
@@ -48,7 +53,7 @@ class ServerModuleActivationPresenter < SimpleDelegator
 
 
     def link_url
-      if server.has_role?(role.type)
+      if module_enabled?
         disable_role_admin_platform_server_path(server.platform, server, role: role.type)
       else
         enable_role_admin_platform_server_path(server.platform, server, role: role.type)
@@ -56,13 +61,23 @@ class ServerModuleActivationPresenter < SimpleDelegator
     end
 
 
+    def module_enabled?
+      server.has_role?(role.type)
+    end
+
+
     def icons
-      default_css.push(role.to_icon)
+      default_icon_css.push(role.to_icon)
+    end
+
+
+    def default_icon_css
+      ['fa-inverse'].clone
     end
 
 
     def default_css
-      %w[ fa-inverse ]
+      ['server-module'].clone
     end
 
 end
