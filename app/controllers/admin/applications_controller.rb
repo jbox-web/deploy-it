@@ -79,7 +79,7 @@ class Admin::ApplicationsController < Admin::DefaultController
     end
 
 
-    def event_options
+    def event_options(application)
       RefreshViewEvent.create(controller: 'admin/applications', action: 'index', triggers: triggers(application))
     end
 
