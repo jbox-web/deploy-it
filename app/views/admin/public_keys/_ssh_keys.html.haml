@@ -6,6 +6,7 @@
         = link_to t('.new'), 'javascript:void(0)', id: 'btn-add-key',
                                                    class:   'btn btn-default btn-sm minibutton pull-right',
                                                    onclick: "$('#form-add-key').show(); return false;"
+
         %h3= get_model_name_for('SshPublicKey')
 
       %ul{ class: 'list-group' }
@@ -20,18 +21,18 @@
               %code{ class: 'ssh-key-fingerprint' }= ssh_key.fingerprint
 
 
-    #form-add-key{ class: 'panel panel-default', style: ssh_key_form.model.errors.any? ? '' : 'display: none;' }
+    #form-add-key{ class: 'panel panel-default', style: display_on_condition(ssh_key.errors.any?, true) }
       .panel-heading
         %h3= t('.new')
 
       .panel-body
-        = bootstrap_form_for ssh_key_form,
+        = bootstrap_form_for ssh_key,
                              layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10",
                              url:    admin_user_public_keys_path(user),
                              html:   { method: :post, remote: true } do |f|
 
-          = f.text_field :title, required: true, control_col: "col-sm-4"
-          = f.text_area :key, required: true
+          = f.text_field :title, required: true, control_col: 'col-sm-4'
+          = f.text_area :key,    required: true
 
           .form-group
             %div{ class: 'col-sm-offset-2 col-sm-3' }

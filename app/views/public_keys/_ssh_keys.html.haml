@@ -6,7 +6,7 @@
       \:
       %span= t('.explanation')
 
-    .panel{ class: 'panel-default'}
+    .panel{ class: 'panel-default' }
       .panel-heading
         = link_to t('.new'), 'javascript:void(0)', id: 'btn-add-key',
                                                    class:   'btn btn-default btn-sm minibutton pull-right',
@@ -26,18 +26,18 @@
               %strong{ class: 'ssh-key-title' }= ssh_key.title
               %code{ class: 'ssh-key-fingerprint' }= ssh_key.fingerprint
 
-    .panel{ class: 'panel-default', id: 'form-add-key', style: ssh_key_form.model.errors.any? ? '' : 'display: none;' }
+    .panel{ class: 'panel-default', id: 'form-add-key', style: display_on_condition(ssh_key.errors.any?, true) }
       .panel-heading
         %h3= t('.new')
 
       .panel-body
-        = bootstrap_form_for ssh_key_form,
+        = bootstrap_form_for ssh_key,
                              layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10",
                              url:    public_keys_path,
                              html:   { method: :post, remote: true } do |f|
 
-          = f.text_field :title, required: true, control_col: "col-sm-4"
-          = f.text_area :key, required: true
+          = f.text_field :title, required: true, control_col: 'col-sm-4'
+          = f.text_area :key,    required: true
 
           .form-group
             %div{ class: 'col-sm-offset-2 col-sm-10' }

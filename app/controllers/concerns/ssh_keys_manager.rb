@@ -9,14 +9,13 @@ module SshKeysManager
 
 
   def index
-    set_form_object
+    @ssh_key = SshPublicKey.new
   end
 
 
   def create
-    set_form_object
-    @ssh_key_form.submit(ssh_key_params.merge(user: @user))
-    render_success if @ssh_key_form.save
+    @ssh_key = SshPublicKey.new(ssh_key_params.merge(user: @user))
+    render_success if @ssh_key.save
   end
 
 
@@ -33,13 +32,7 @@ module SshKeysManager
       # Call service objects to perform other actions
       call_service_objects
       # Reset form object
-      set_form_object
-    end
-
-
-    def set_form_object
       @ssh_key = SshPublicKey.new
-      @ssh_key_form = PublicKeyCreationForm.new(@ssh_key)
     end
 
 
