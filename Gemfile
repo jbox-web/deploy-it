@@ -87,7 +87,7 @@ gem 'thin',       '~> 1.6.3'
 gem 'faye-redis', '~> 0.2.0'
 
 # External API
-gem 'grape', '~> 0.12.0'
+gem 'grape', '~> 0.13.0'
 gem 'hashie-forbidden_attributes'
 
 ## Documentation gems

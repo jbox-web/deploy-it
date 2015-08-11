@@ -145,7 +145,7 @@ GEM
     database_cleaner (1.4.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.5.1)
+    devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -210,7 +210,7 @@ GEM
       activesupport (>= 4.1.0)
     google-webfonts-rails (0.0.4)
       activesupport (> 3.2.0, < 5.0)
-    grape (0.12.0)
+    grape (0.13.0)
       activesupport
       builder
       hashie (>= 2.1.0)
@@ -220,7 +220,7 @@ GEM
       rack-accept
       rack-mount
       virtus (>= 1.0.0)
-    haml (4.0.6)
+    haml (4.0.7)
       tilt
     haml-rails (0.9.0)
       actionpack (>= 4.0.1)
@@ -489,7 +489,7 @@ DEPENDENCIES
   flog (~> 4.3.0)
   font-awesome-rails (~> 4.4.0)
   google-webfonts-rails (~> 0.0.4)
-  grape (~> 0.12.0)
+  grape (~> 0.13.0)
   haml-rails (~> 0.9.0)
   hashie-forbidden_attributes
   i18n-tasks (~> 0.8.0)
