@@ -15,26 +15,26 @@
 
 class MyController < ApplicationController
 
+  before_action :set_user
+
+
   def account
-    @user = User.current
     if request.patch?
       if @user.update(user_params)
         # Locales may have changed, reset them before redirect
         reload_user_locales
-        redirect_to my_account_path, notice: t('notice.profile.updated')
-        return
+        return redirect_to my_account_path, notice: t('.notice')
       end
     end
   end
 
 
   def notifications
-    render json: User.current.subscribed_channels
+    render json: @user.subscribed_channels
   end
 
 
   def reset_api_key
-    @user = User.current
     if request.patch?
       @user.api_token = DeployIt::Utils.generate_secret(42)
       @user.save!
@@ -47,6 +47,11 @@ class MyController < ApplicationController
 
     def user_params
       params.require(:user).permit(:firstname, :lastname, :email, :language, :time_zone)
+    end
+
+
+    def set_user
+      @user = User.current
     end
 
 end
