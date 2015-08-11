@@ -84,7 +84,7 @@ class ApplicationsConfigController < ApplicationController
 
   def render_failed(message: t('.error'), template: get_template)
     @saved = false
-    render_message(message, :error, template)
+    render_message(message, :alert, template)
   end
 
 
