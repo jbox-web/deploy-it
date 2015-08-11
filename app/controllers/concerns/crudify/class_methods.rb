@@ -137,8 +137,7 @@ module Crudify
 
 
           def failed_delete
-            errors = [ t('.failed') ].concat(@#{singular_name}.errors.full_messages)
-            redirect_to redirect_url, alert: errors
+            redirect_to redirect_url, alert: @#{singular_name}.errors.full_messages
           end
 
 

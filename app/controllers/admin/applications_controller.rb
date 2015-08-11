@@ -24,7 +24,6 @@ class Admin::ApplicationsController < Admin::DefaultController
   end
 
 
-
   def manage
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
@@ -58,17 +57,17 @@ class Admin::ApplicationsController < Admin::DefaultController
 
     def validate_params
       if !params.has_key?(:deploy_action) || params[:deploy_action].blank?
-        flash[:error] = t('.error.action.empty')
+        flash[:alert] = t('.error.action.empty')
         return render_ajax_response
       end
 
       if !params.has_key?(:application_ids) || params[:application_ids].empty?
-        flash[:error] = t('.error.application_ids.empty')
+        flash[:alert] = t('.error.application_ids.empty')
         return render_ajax_response
       end
 
       if !valid_actions.include?(params[:deploy_action])
-        flash[:error] = t('.error.action.invalid')
+        flash[:alert] = t('.error.action.invalid')
         return render_ajax_response
       end
     end

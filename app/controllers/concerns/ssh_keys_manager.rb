@@ -48,7 +48,7 @@ module SshKeysManager
       when 'destroy'
         result = @ssh_key.remove_from_authorized_keys!
       end
-      flash[:error] = result.errors if !result.success?
+      flash[:alert] = result.errors if !result.success?
     end
 
 

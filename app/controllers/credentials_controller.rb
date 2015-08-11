@@ -111,14 +111,12 @@ class CredentialsController < ApplicationController
 
 
     def render_success
-      flash[:notice] = t('.notice')
-      redirect_to applications_path
+      redirect_to applications_path, notice: t('.notice')
     end
 
 
     def render_failed
-      flash[:error] = @credential.errors.full_messages
-      redirect_to applications_path
+      redirect_to applications_path, alert: @credential.errors.full_messages
     end
 
 

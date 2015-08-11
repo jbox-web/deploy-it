@@ -27,14 +27,12 @@ module BelongsToPlatform
 
 
     def render_success
-      flash[:notice] = t('.notice')
-      redirect_to admin_platforms_path
+      redirect_to admin_platforms_path, notice: t('.notice')
     end
 
 
     def render_failed(object)
-      flash[:error] = object.errors.full_messages
-      redirect_to admin_platforms_path
+      redirect_to admin_platforms_path, alert: object.errors.full_messages
     end
 
 

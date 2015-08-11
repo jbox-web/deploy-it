@@ -60,7 +60,7 @@ class Admin::ServersController < Admin::DefaultController
     result = @server.get_service_status(@server_role)
     if !result.success?
       @errors = true
-      flash[:error] = result.errors
+      flash[:alert] = result.errors
     end
     render_ajax_response
   end

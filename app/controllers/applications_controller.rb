@@ -124,10 +124,10 @@ class ApplicationsController < ApplicationController
       if task.runnable?
         task.run!
       else
-        flash[:error] = task.errors
+        flash[:alert] = task.errors
       end
     else
-      flash[:error] = t('label.application.unbuildable')
+      flash[:alert] = t('label.application.unbuildable')
     end
 
     render_ajax_response
