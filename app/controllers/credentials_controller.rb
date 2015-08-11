@@ -37,7 +37,6 @@ class CredentialsController < ApplicationController
 
 
   def edit
-    @credential_form = CredentialUpdateForm.new(@credential)
     add_breadcrumbs
   end
 
