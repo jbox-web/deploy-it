@@ -24,8 +24,8 @@
       .tab-content
 
         #infos{ class: 'tab-pane active' }= render 'applications/show_tabs/infos', application: @application
-        #repositories{ class: 'tab-pane' }= render 'applications/show_tabs/repositories', application: @application
-        #containers{ class: 'tab-pane' }=   render 'applications/show_tabs/containers', application: @application
+        #repositories{ class: 'tab-pane' }
+        #containers{ class: 'tab-pane' }
 
         - if can?(:edit_application, @application)
           #settings{ class: 'tab-pane' }= render template: 'applications/edit', locals: { application: @application }
