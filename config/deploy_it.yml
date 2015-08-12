@@ -8,6 +8,7 @@ ssh_config_file:          <%= ENV['SSH_CONFIG_FILE'] %>
 
 # DeployIt domain name
 access_domain_name:       <%= ENV['ACCESS_DOMAIN_NAME'] %>
+access_url:               <%= ENV['ACCESS_URL'] %>
 
 # Private Docker Registry
 docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>
