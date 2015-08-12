@@ -25,14 +25,14 @@ module Applications
 
 
       def update_file(file, content)
-        File.delete(file) if File.exists?(file)
         begin
-          new_file = File.open(file, 'w')
-          new_file.write content + "\n"
-          new_file.close
-        rescue => e
-          error_message('Error while creating Application config files!')
+          DeployIt::Utils.write_file(file, content)
+        rescue Errno::EACCES => e
           log_exception(e)
+          error_message(tt('errors.unwriteable'))
+        rescue => e
+          log_exception(e)
+          error_message(tt('errors.unknown'))
         end
       end
 

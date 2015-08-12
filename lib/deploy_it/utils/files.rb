@@ -25,12 +25,13 @@ module DeployIt
         file.close!
         # Write file
         write_file(filepath, data.to_yaml)
-        return filepath
+        # Return filepath
+        filepath
       end
 
 
       def write_file(file, content)
-        File.open(file, 'w+') { |f| f.write(content) }
+        File.open(file, 'w+') { |f| f.write(content + "\n\n") }
       end
 
     end

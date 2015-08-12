@@ -81,6 +81,9 @@ fr:
         start: "Mise à jour des fichiers de l'application '%{application}' en cours..."
         success: "Mise à jour des fichiers de l'application '%{application}' réussie !"
         failed: "Echec de la mise à jour des fichiers de l'application '%{application}' : %{errors}"
+        errors:
+          unknown: Erreur inconnue
+          unwriteable: Fichier inaccessible en écriture
 
       create_physical_database:
         start: "Création de la base de données de l'application '%{application}' en cours..."
