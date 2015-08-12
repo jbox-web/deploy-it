@@ -29,6 +29,7 @@ module SshPublicKeys
         File.chmod(0644, SshPublicKey.authorized_key_file)
       end
     rescue Errno::EACCES => e
+      log_exception(e)
       error_message(tt('error.unwriteable'))
     rescue => e
       log_exception(e)
