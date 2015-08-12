@@ -31,5 +31,5 @@ fr:
     synchronize_repository:
       notice: Synchronisation du dépôt mise en file d'attente
     settings:
-      notice: Paramètres modifiés avec succès
+      notice: Paramètres enregistrés avec succès
       error: Erreurs lors de l'enregistrement des paramètres
