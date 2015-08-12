@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'rugged'
+
 module Repositories
   class InitBare < ActiveUseCase::Base
 
@@ -26,10 +28,10 @@ module Repositories
 
       def init_repository
         begin
-          repository.init_me!
+          ::Rugged::Repository.init_at(repository.path, :bare)
         rescue => e
-          error_message("Error while initializing repository !")
           log_exception(e)
+          error_message(tt('errors.initialize'))
         else
           install_hook
         end
@@ -45,8 +47,8 @@ module Repositories
           file.close
           File.chmod(0755, hook_file_path)
         rescue => e
-          error_message("Error while installing hook !")
           log_exception(e)
+          error_message(tt('errors.install_hook'))
         end
       end
 

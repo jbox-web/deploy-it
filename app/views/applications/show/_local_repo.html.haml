@@ -12,17 +12,17 @@
 
     %dt= t('.last_commit') + ' :'
     %dd
-      - if repository.empty?
+      - if repository.rugged_proxy.empty?
         = t('.empty')
       - else
         = t('.commit_id') + ' : '
-        = repository.last_commit
+        = repository.rugged_proxy.last_commit_id
         %br
         = t('.commit_date') + ' : '
-        = l(repository.last_commit_date) rescue ''
+        = l(repository.rugged_proxy.last_commit_info(:time)) rescue ''
         %br
         = t('.commit_author') + ' : '
-        = mail_to repository.last_commit_author_mail, repository.last_commit_author_name
+        = mail_to repository.rugged_proxy.last_commit_info(:email), repository.rugged_proxy.last_commit_info(:name)
         %br
         = t('.commit_message') + ' : '
-        = repository.last_commit_message
+        = repository.rugged_proxy.last_commit_info(:message)

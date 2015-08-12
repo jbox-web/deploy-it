@@ -19,103 +19,25 @@ module ActsAs
   module RuggedRepository
     extend ActiveSupport::Concern
 
-    def empty?
-      rugged_proxy.empty?
-    end
-
-
-    def syncable?
-      rugged_proxy.syncable?
-    end
-
-
-    def synced?
-      rugged_proxy.synced?
-    end
-
-
-    def rugged_errors
-      rugged_proxy.errors
-    end
-
-
-    def commit_distance
-      rugged_proxy.commit_distance
-    end
-
-
     def local_branch
-      rugged_proxy.local_branch
+      "refs/heads/#{branch}"
     end
 
 
-    def remote_branch
-      rugged_proxy.remote_branch
+    def rugged_proxy
+      @rugged_proxy ||= RuggedProxy.new(path, branch, credentials_options)
     end
 
 
-    def last_commit(truncated = true)
-      truncated ? rugged_proxy.last_commit[0..6] : rugged_proxy.last_commit
-    end
-
-
-    def last_commit_author_name
-      rugged_proxy.last_commit_author_name
-    end
-
-
-    def last_commit_author_mail
-      rugged_proxy.last_commit_author_mail
-    end
-
-
-    def last_commit_message
-      rugged_proxy.last_commit_message
-    end
-
-
-    def last_commit_date
-      rugged_proxy.last_commit_date
-    end
-
-
-    def pull_me!
-      rugged_proxy.pull
-    end
-
-
-    def clone_me!
-      rugged_proxy.clone_at(url)
-    end
-
-
-    def init_me!
-      rugged_proxy.init_at
-    end
-
-
-    def archive_me!(revision = 'master')
-      rugged_proxy.archive(revision)
-    end
-
-
-    private
-
-
-      def rugged_proxy
-        @rugged_proxy ||= RuggedProxy.new(path, branch, credentials_options)
+    def credentials_options
+      if credential.nil?
+        {}
+      elsif credential.is_a?(RepositoryCredential::SshKey)
+        { type: :ssh_key, username: username, public_key: credential.public_key, private_key: credential.private_key }
+      elsif credential.is_a?(RepositoryCredential::BasicAuth)
+        { type: :basic_auth, login: credential.login, password: credential.password }
       end
-
-
-      def credentials_options
-        if credential.nil?
-          {}
-        elsif credential.is_a?(RepositoryCredential::SshKey)
-          { type: :ssh_key, username: username, public_key: credential.public_key, private_key: credential.private_key }
-        elsif credential.is_a?(RepositoryCredential::BasicAuth)
-          { type: :basic_auth, login: credential.login, password: credential.password }
-        end
-      end
+    end
 
   end
 end

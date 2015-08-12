@@ -18,9 +18,9 @@ module Repositories
 
     def execute(revision = 'master')
       @path = nil
-      archived = repository.archive_me!(revision)
+      archived = repository.rugged_proxy.archive(revision)
       if archived.nil?
-        @errors += repository.rugged_errors
+        @errors += repository.rugged_proxy.errors
       else
         @path = archived
       end

@@ -14,3 +14,7 @@ fr:
         start: "Création de l'archive du dépôt '%{repository}' en cours..."
         success: "Création de l'archive du dépôt '%{repository}' réussie !"
         failed: "Echec de la création de l'archive du dépôt '%{repository}' : %{errors}"
+      init_bare:
+        errors:
+          initialize:
+          install_hook:

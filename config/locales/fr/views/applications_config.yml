@@ -27,7 +27,8 @@ fr:
       notice: Points de montage enregistrés avec succès
       error: Erreurs lors de l'enregistrement des points de montage
     repository:
-      notice: Modifications enregistrées avec succès
+      notice: Paramètres enregistrés avec succès
+      error: Erreurs lors de l'enregistrement des paramètres
     synchronize_repository:
       notice: Synchronisation du dépôt mise en file d'attente
     settings:

@@ -9,32 +9,32 @@
 
     %dt= t('.state') + ' :'
     %dd
-      - if repository.syncable?
-        - if repository.synced?
+      - if repository.rugged_proxy.syncable?
+        - if repository.rugged_proxy.synced?
           %span{ class: 'label label-success' }= label_with_icon(t('.synced'), 'fa-check', fixed: true)
         - else
           %span{ class: 'label label-warning' }
             = link_to label_with_icon(t('.syncable'), 'fa-refresh', fixed: true),
                       synchronize_repository_application_path(repository.application),
                       remote: true,
-                      title:  render_commit_distance(repository.commit_distance)
+                      title:  render_commit_distance(repository.rugged_proxy.commit_distance)
       - else
         %span{ class: 'label label-danger' }= label_with_icon(t('.not_syncable'), 'fa-exclamation-triangle', fixed: true)
-        %em= repository.rugged_errors.join(' ')
+        %em= repository.rugged_proxy.errors.join(' ')
 
     %dt= t('.last_commit') + ' :'
     %dd
-      - if repository.empty?
+      - if repository.rugged_proxy.empty?
         = t('.empty')
       - else
         = t('.commit_id') + ' : '
-        = repository.last_commit
+        = repository.rugged_proxy.last_commit_id
         %br
         = t('.commit_date') + ' : '
-        = l(repository.last_commit_date) rescue ''
+        = l(repository.rugged_proxy.last_commit_info(:time)) rescue ''
         %br
         = t('.commit_author') + ' : '
-        = mail_to repository.last_commit_author_mail, repository.last_commit_author_name
+        = mail_to repository.rugged_proxy.last_commit_info(:email), repository.rugged_proxy.last_commit_info(:name)
         %br
         = t('.commit_message') + ' : '
-        = repository.last_commit_message
+        = repository.rugged_proxy.last_commit_info(:message)

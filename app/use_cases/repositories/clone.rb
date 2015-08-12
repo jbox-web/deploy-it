@@ -17,8 +17,8 @@ module Repositories
   class Clone < ActiveUseCase::Base
 
     def execute(opts = {})
-      cloned = repository.clone_me!
-      @errors += repository.rugged_errors if !cloned
+      cloned = repository.rugged_proxy.clone_from(repository.url)
+      @errors += repository.rugged_proxy.errors if !cloned
     end
 
   end

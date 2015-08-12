@@ -21,8 +21,8 @@ module Repositories
         begin
           FileUtils.rm_rf(repository.path)
         rescue => e
-          error_message("Error while deleting repository!")
           log_exception(e)
+          error_message(tt('errors.destroy'))
         end
       end
     end

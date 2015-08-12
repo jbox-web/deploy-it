@@ -18,8 +18,8 @@ module Repositories
 
     def execute(opts = {})
       if repository.exists?
-        pulled = repository.pull_me!
-        @errors += repository.rugged_errors if !pulled
+        pulled = repository.rugged_proxy.pull
+        @errors += repository.rugged_proxy.errors if !pulled
       end
     end
 
