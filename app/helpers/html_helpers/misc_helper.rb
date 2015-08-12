@@ -22,6 +22,11 @@ module HtmlHelpers
     end
 
 
+    def disable_on_condition(test, condition)
+      test == condition ? 'disabled' : ''
+    end
+
+
     def html_list(opts = {}, &block)
       opts[:class] = create_array(opts[:class]) if opts.has_key?(:class)
       options = merge_hashes({class: ['list-unstyled']}, opts)

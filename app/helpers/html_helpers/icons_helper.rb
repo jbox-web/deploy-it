@@ -23,11 +23,6 @@ module HtmlHelpers
     end
 
 
-    def bool_to_css_disabled(bool)
-      bool ? '' : 'disabled'
-    end
-
-
     def repository_icon(url)
       return '' if url.empty?
       uri = URI(url)
