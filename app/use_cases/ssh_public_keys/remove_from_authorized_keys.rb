@@ -30,10 +30,10 @@ module SshPublicKeys
       end
     rescue Errno::EACCES => e
       log_exception(e)
-      error_message(tt('error.unwriteable'))
+      error_message(tt('errors.unwriteable'))
     rescue => e
       log_exception(e)
-      error_message(tt('error.unknown'))
+      error_message(tt('errors.unknown'))
     end
 
   end

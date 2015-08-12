@@ -24,10 +24,10 @@ module SshPublicKeys
           File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
         rescue Errno::EACCES => e
           log_exception(e)
-          error_message(tt('error.unwriteable'))
+          error_message(tt('errors.unwriteable'))
         rescue => e
           log_exception(e)
-          error_message(tt('error.unknown'))
+          error_message(tt('errors.unknown'))
         end
       end
     end
