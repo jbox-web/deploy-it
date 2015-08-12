@@ -87,7 +87,7 @@ class UserCreationForm < ActionForm::Base
 
 
     def send_email
-      RegistrationMailer.welcome(user, created_password).deliver
+      RegistrationMailer.welcome(user, created_password).deliver_now
     end
 
 end

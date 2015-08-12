@@ -76,7 +76,7 @@ class AdminPasswordForm < ActionForm::Base
 
 
     def send_email
-      RegistrationMailer.password_changed(user, new_password).deliver
+      RegistrationMailer.password_changed(user, new_password).deliver_now
     end
 
 end
