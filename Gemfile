@@ -86,6 +86,13 @@ gem 'danthes',    '~> 2.0.1', git: 'https://github.com/n-rodriguez/danthes.git',
 gem 'thin',       '~> 1.6.3'
 gem 'faye-redis', '~> 0.2.0'
 
+# Rails Application Logs
+gem 'redis'
+gem 'logster'
+
+# Profiler
+gem 'rack-mini-profiler'
+
 # External API
 gem 'grape', '~> 0.13.0'
 gem 'hashie-forbidden_attributes'

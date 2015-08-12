@@ -13,12 +13,18 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationController < ActionController::Base
-  include BaseController::Security
-  include BaseController::Devise
-  include BaseController::UserSettings
-  include BaseController::Ajax
-  include BaseController::Authorizations
-  include BaseController::Tools
-  include BaseController::Helpers
+module BaseController::Tools
+  extend ActiveSupport::Concern
+
+  included do
+    before_action :set_mini_profiler
+  end
+
+
+  def set_mini_profiler
+    if current_user && current_user.admin?
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
 end
