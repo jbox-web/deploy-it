@@ -1,21 +1,22 @@
-#containers-toolbar
+- cache application do
+  #containers-toolbar
 
-  %div{ class: 'col-md-12' }
+    %div{ class: 'col-md-12' }
 
-    - present application, ApplicationToolbarPresenter do |presenter|
-      = presenter.toolbar if can?(:manage_application, application)
+      - present application, ApplicationToolbarPresenter do |presenter|
+        = presenter.toolbar if can?(:manage_application, application)
 
-  %div{ class: 'col-md-12' }
+    %div{ class: 'col-md-12' }
 
-    - application.containers.includes(:release).in_groups_of(2, false).each do |row_container|
+      - application.containers.includes(:release).in_groups_of(2, false).each do |row_container|
 
-      .row
+        .row
 
-        - row_container.each do |container|
+          - row_container.each do |container|
 
-          %div{ class: 'col-md-6', id: "container-#{container.id}" }
-            - present container do |presenter|
-              %h4{ class: 'page-header' }
-                = presenter.docker_name
-                = presenter.container_actions if can?(:manage_application, application)
-              = presenter.container_infos
+            %div{ class: 'col-md-6', id: "container-#{container.id}" }
+              - present container do |presenter|
+                %h4{ class: 'page-header' }
+                  = presenter.docker_name
+                  = presenter.container_actions if can?(:manage_application, application)
+                = presenter.container_infos

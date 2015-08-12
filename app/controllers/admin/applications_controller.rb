@@ -27,6 +27,7 @@ class Admin::ApplicationsController < Admin::DefaultController
   def manage
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
+      application.touch
       options = { event_options: event_options(application) }
       if params[:deploy_action] == 'update_route'
         application.update_lb_route!(options)
@@ -42,8 +43,8 @@ class Admin::ApplicationsController < Admin::DefaultController
 
   def status
     after_action = params[:after_action] || false
-    @application = Application.find_by_id(params[:application_id])
-    render_ajax_response(locals: { application: @application, after_action: after_action })
+    application = Application.find_by_id(params[:application_id])
+    render_ajax_response(locals: { application: application, after_action: after_action })
   end
 
 

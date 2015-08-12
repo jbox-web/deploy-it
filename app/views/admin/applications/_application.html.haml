@@ -1,11 +1,12 @@
-= content_tag_for(:tr, application, class: 'application-status', data: { refresh_url: admin_application_status_path(application) }) do
-  %td= link_to application.fullname, application_path(application), target: '_blank'
-  %td= link_to_external application.domain_name
-  %td= application.type
-  %td= application.image_type
-  %td= shorten_url application.buildpack
-  %td
-    %span{ class: 'action-status' }= label_with_default_tag :undefined
-    %span{ class: 'action-result', style: 'display: none;' }
-  %td= check_box_tag "application_ids[]", application.id, false, class: 'app-checkbox' unless application.state == :undeployed
-  %td= link_to_icon 'fa-refresh', admin_application_status_path(application), remote: true
+- cache application do
+  = content_tag_for(:tr, application, class: 'application-status', data: { refresh_url: admin_application_status_path(application) }) do
+    %td= link_to application.fullname, application_path(application), target: '_blank'
+    %td= link_to_external application.domain_name
+    %td= application.type
+    %td= application.image_type
+    %td= shorten_url application.buildpack
+    %td
+      %span{ class: 'action-status' }= label_with_default_tag :undefined
+      %span{ class: 'action-result', style: 'display: none;' }
+    %td= check_box_tag "application_ids[]", application.id, false, class: 'app-checkbox' unless application.state == :undeployed
+    %td= link_to_icon 'fa-refresh', admin_application_status_path(application), remote: true

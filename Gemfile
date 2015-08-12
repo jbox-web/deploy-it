@@ -86,6 +86,9 @@ gem 'danthes',    '~> 2.0.1', git: 'https://github.com/n-rodriguez/danthes.git',
 gem 'thin',       '~> 1.6.3'
 gem 'faye-redis', '~> 0.2.0'
 
+# Cache
+gem 'redis-rails'
+
 # Rails Application Logs
 gem 'redis'
 gem 'logster'

@@ -68,6 +68,13 @@ module DeployIt
 
     # https://github.com/plataformatec/devise/issues/3643
     config.relative_url_root = '/'
+
+    # Cache
+    config.cache_store = :redis_store, { host:      ENV['REDIS_HOST'],
+                                         port:      ENV['REDIS_PORT'],
+                                         db:        0,
+                                         namespace: 'deploy-it_cache',
+                                         expires_in: 90.minutes }
   end
 end
 

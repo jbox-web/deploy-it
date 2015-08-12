@@ -33,6 +33,7 @@ module Containers
         log_exception(e)
         error_message(e.message)
       else
+        container.application.touch
         container.application.update_lb_route! if update_route && container.stype == :web
       end
     end
