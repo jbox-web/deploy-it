@@ -17,14 +17,14 @@ module Applications
   module Database
     class DestroyPhysicalDatabase < ActiveUseCase::Base
 
-      include ::Helpers::Ansible
+      include Helpers::Ansible
       include Database::Base
 
 
       def execute(opts = {})
         execute_if_exists(database_server) do
           catch_errors(database_server) do
-            database_server.ansible_proxy.run_playbook(database_destroyer, extra_vars)
+            database_server.ansible_proxy.run_playbook(playbook, extra_vars)
           end
         end
       end
@@ -33,18 +33,18 @@ module Applications
       private
 
 
-        def database_destroyer
-          application.database.db_type == 'mysql' ? mysql_database_destroyer : postgres_database_destroyer
+        def playbook
+          application.database.db_type == 'mysql' ? mysql_playbook : postgres_playbook
         end
 
 
         # Local file to create database on distant server with Ansible
-        def mysql_database_destroyer
+        def mysql_playbook
           Rails.root.join('lib', 'ansible_tasks', 'database', 'mysql-database-destroyer.yml').to_s
         end
 
 
-        def postgres_database_destroyer
+        def postgres_playbook
           Rails.root.join('lib', 'ansible_tasks', 'database', 'postgres-database-destroyer.yml').to_s
         end
 

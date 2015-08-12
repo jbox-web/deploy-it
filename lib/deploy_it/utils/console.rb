@@ -19,11 +19,11 @@ module DeployIt
       extend self
 
       def display_errors_on_console(logger, errors)
-        logger.info ""
+        logger.info ''
         errors.each do |error|
           logger.error error
         end
-        logger.info ""
+        logger.info ''
       end
 
     end

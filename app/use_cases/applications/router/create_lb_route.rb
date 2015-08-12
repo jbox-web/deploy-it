@@ -17,14 +17,14 @@ module Applications
   module Router
     class CreateLbRoute < ActiveUseCase::Base
 
-      include ::Helpers::Ansible
+      include Helpers::Ansible
       include Router::Base
 
 
       def execute(opts = {})
         execute_if_exists(router_server) do
           catch_errors(router_server) do
-            router_server.ansible_proxy.run_playbook(route_creator, extra_vars)
+            router_server.ansible_proxy.run_playbook(playbook, extra_vars)
           end
         end
       end
@@ -33,8 +33,22 @@ module Applications
       private
 
 
-        def route_creator
+        def playbook
           Rails.root.join('lib', 'ansible_tasks', 'router', 'route-creator.yml').to_s
+        end
+
+
+        def extra_vars
+          {
+            application_name:  application.config_id,
+            domain_name:       application.domain_name,
+            domain_aliases:    application.domain_aliases.map(&:domain_name),
+            domain_redirects:  application.domain_redirects.map(&:domain_name),
+            use_ssl:           application.use_ssl?,
+            enable_htpassword: application.use_credentials?,
+            htpassword:        application.active_credentials,
+            backend_urls:      backend_urls
+          }
         end
 
 
@@ -45,20 +59,6 @@ module Applications
 
         def default_backend
           ['127.0.0.1:20000']
-        end
-
-
-        def extra_vars
-          {
-            application_name:  application.config_id,
-            backend_urls:      backend_urls,
-            domain_name:       application.domain_name,
-            domain_aliases:    application.domain_aliases.map(&:domain_name),
-            domain_redirects:  application.domain_redirects.map(&:domain_name),
-            use_ssl:           application.use_ssl?,
-            enable_htpassword: application.use_credentials?,
-            htpassword:        application.active_credentials
-          }
         end
 
     end

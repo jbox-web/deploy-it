@@ -30,7 +30,7 @@ module DeployIt
 
 
       def write_file(file, content)
-        File.open(file, 'w+') {|f| f.write(content) }
+        File.open(file, 'w+') { |f| f.write(content) }
       end
 
     end

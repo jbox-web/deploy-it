@@ -17,14 +17,14 @@ module Applications
   module Router
     class DestroyLbRoute < ActiveUseCase::Base
 
-      include ::Helpers::Ansible
+      include Helpers::Ansible
       include Router::Base
 
 
       def execute(opts = {})
         execute_if_exists(router_server) do
           catch_errors(router_server) do
-            router_server.ansible_proxy.run_playbook(route_destroyer, extra_vars)
+            router_server.ansible_proxy.run_playbook(playbook, extra_vars)
           end
         end
       end
@@ -33,7 +33,7 @@ module Applications
       private
 
 
-        def route_destroyer
+        def playbook
           Rails.root.join('lib', 'ansible_tasks', 'router', 'route-destroyer.yml').to_s
         end
 
