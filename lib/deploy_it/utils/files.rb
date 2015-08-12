@@ -20,9 +20,7 @@ module DeployIt
 
       def write_yaml_file(data)
         # Get random file
-        file = Tempfile.new('temp')
-        filepath = file.path
-        file.close!
+        filepath = get_temp_file
         # Write file
         write_file(filepath, data.to_yaml)
         # Return filepath
@@ -32,6 +30,14 @@ module DeployIt
 
       def write_file(file, content)
         File.open(file, 'w+') { |f| f.write(content + "\n\n") }
+      end
+
+
+      def get_temp_file
+        file = Tempfile.new('temp')
+        filepath = file.path
+        file.close!
+        filepath
       end
 
     end
