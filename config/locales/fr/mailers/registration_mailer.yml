@@ -1,0 +1,6 @@
+fr:
+  registration_mailer:
+    welcome:
+      title: "Welcome to Deploy'It"
+    password_changed:
+      title: "Your Deploy'It password has changed"

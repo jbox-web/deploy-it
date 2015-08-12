@@ -5,9 +5,9 @@ class RegistrationMailer < ActionMailer::Base
   def welcome(user, password)
     @user     = user
     @password = password
-    @url      = 'https://deployer.jbox-web.fr/users/login'
+    @url      = "#{Settings.access_url}/users/login"
     mail(to: @user.email,
-         subject: "Welcome to Deploy'It",
+         subject: t('.title'),
          template_path: 'mailers',
          template_name: 'welcome')
   end
@@ -16,9 +16,9 @@ class RegistrationMailer < ActionMailer::Base
   def password_changed(user, password)
     @user     = user
     @password = password
-    @url      = 'https://deployer.jbox-web.fr/users/login'
+    @url      = "#{Settings.access_url}/users/login"
     mail(to: @user.email,
-         subject: "Your Deploy'It password has changed",
+         subject: t('.title'),
          template_path: 'mailers',
          template_name: 'password_changed')
   end
