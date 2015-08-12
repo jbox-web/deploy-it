@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+
+    .panel{ class: 'panel-default' }
+      .panel-heading
+        = link_to t('.new'), 'javascript:void(0)', id: 'btn-add-key',
+                                                   class:   'btn btn-default btn-sm minibutton pull-right',
+                                                   onclick: "$('#form-add-key').toggle(); return false;"
+        %h3= get_model_name_for('SshPublicKey')
+
+      = render 'ssh_keys_manager/ssh_keys', ssh_keys: ssh_keys, admin: admin
+    = render 'ssh_keys_manager/form', ssh_key: ssh_key, user: user, admin: admin

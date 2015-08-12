@@ -1,10 +1,6 @@
 fr:
   admin:
     public_keys:
-      ssh_keys:
-        help: Aide
-        new: Nouvelle clé SSH
-        delete: Supprimer
       create:
         notice: Clé publique créée avec succès
         error: Erreurs lors de l'enregistrement de la clé publique

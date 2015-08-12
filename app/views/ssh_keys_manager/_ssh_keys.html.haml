@@ -1,0 +1,10 @@
+%ul{ class: 'list-group' }
+  - ssh_keys.each do |ssh_key|
+    %li{ class: 'list-group-item ssh-key' }
+      %span{ class: 'ssh-key-icon' }
+        %span{ class: 'mega-octicon octicon-key' }
+
+      %div{ class: 'ssh-key-details' }
+        = button_delete ssh_key_destroy_path(ssh_key: ssh_key, admin: admin), class: 'btn-sm pull-right', label: t('.delete'), remote: true
+        %strong{ class: 'ssh-key-title' }= ssh_key.title
+        %code{ class: 'ssh-key-fingerprint' }= ssh_key.fingerprint

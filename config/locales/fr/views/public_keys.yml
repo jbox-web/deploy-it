@@ -1,12 +1,11 @@
 fr:
+
   public_keys:
-    ssh_keys:
-      help: Aide
-      new: Nouvelle clé SSH
-      explanation: déclarez vos clés SSH pour pouvoir pousser vos données dans les contenaires.
-      delete: Supprimer
     create:
       notice: Clé publique créée avec succès
       error: Erreurs lors de l'enregistrement de la clé publique
     destroy:
       notice: Clé publique supprimée avec succès
+    index:
+      help: Aide
+      explanation: déclarez vos clés SSH pour pouvoir pousser vos données dans les contenaires.
