@@ -107,12 +107,12 @@ module ActsAs
 
 
     def proxified_containers
-      @proxified_containers ||= all_containers.map(&:docker_proxy)
+      all_containers.map(&:docker_proxy)
     end
 
 
     def all_containers
-      @all_containers ||= containers.includes(:docker_server)
+      containers.includes(:docker_server)
     end
 
 
