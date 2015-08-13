@@ -29,8 +29,6 @@ module Applications
 
         cleanup
         receive(archive_path, docker_options_for(:receive))
-        build(docker_options_for(:build))
-        release(docker_options_for(:release))
       end
 
 
@@ -41,10 +39,18 @@ module Applications
 
       def receive(archive_path, docker_options = {})
         # Push repository data within the container in tar format
-        new_image_from_file(application.image_type, application.image_name, archive_path, docker_options)
-
-        # Remove repository data
-        FileUtils.rm(archive_path)
+        logger.title "Creating a new Docker image with your application"
+        begin
+          new_image_from_file(application.image_type, application.image_name, archive_path, docker_options)
+        rescue ::Docker::Error::TimeoutError => e
+          error_message tt('errors.on_receive.docker_timeout')
+        else
+          build(docker_options_for(:build))
+          release(docker_options_for(:release))
+        ensure
+          # Remove repository data
+          FileUtils.rm(archive_path, force: true) unless archive_path.nil?
+        end
       end
 
 
