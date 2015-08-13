@@ -19,21 +19,21 @@ require_relative '../config/environment'
 user = User.find_by_id(ENV['USER_ID'])
 
 ## SSH_ORIGINAL_COMMAND is available as environment variable
-repo_name   = DeployIt::Utils.parse_repository_from_ssh_command
+repo_name   = DeployIt::Utils::Git.parse_repository_from_ssh_command
 application = Application.find_by_repo_url(repo_name)
 repository  = application.distant_repo
 
 ## Validate pushed data
-valid, build_refs = DeployIt::Utils.ref_is_valid?(repository.local_branch)
+valid, build_refs = DeployIt::Utils::Git.ref_is_valid?(repository.local_branch)
 
 if valid
   # First create push
   push = application.pushes.create(build_refs.merge(author: user))
 
   # Then build application
-  ApplicationManagementContext.new(DeployIt::Cli).build_application(application, user, push, async: false, logger: 'console') do |task|
-    DeployIt::Cli.render_failed(message: task.errors) if !task.success?
+  ApplicationManagementContext.new(DeployIt::Utils::Console).build_application(application, user, push, async: false, logger: 'console') do |task|
+    DeployIt::Utils::Console.render_failed(message: task.errors) if !task.success?
   end
 else
-  DeployIt::Cli.render_failed(message: "Deploy did not complete, you must push to '#{repository.local_branch}' branch !")
+  DeployIt::Utils::Console.render_failed(message: "Deploy did not complete, you must push to '#{repository.local_branch}' branch !")
 end

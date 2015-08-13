@@ -18,12 +18,40 @@ module DeployIt
     module Console
       extend self
 
-      def display_errors_on_console(logger, errors)
-        logger.info ''
-        errors.each do |error|
-          logger.error error
+      def t(*args)
+        I18n.t(*args)
+      end
+
+
+      def render_success(message: '', locals: {})
+        console_log message unless message.empty?
+        exit 0
+      end
+
+
+      def render_failed(message: '', locals: {})
+        console_log message unless message.empty?
+        exit 1
+      end
+
+
+      def console_log(errors)
+        logger.empty_line
+
+        if errors.is_a?(Array)
+          errors.each do |error|
+            logger.error error
+          end
+        else
+          logger.error errors
         end
-        logger.info ''
+
+        logger.empty_line
+      end
+
+
+      def logger
+        DeployIt.console_logger
       end
 
     end
