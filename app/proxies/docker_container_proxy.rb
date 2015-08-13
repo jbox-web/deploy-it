@@ -76,7 +76,12 @@ class DockerContainerProxy < SimpleDelegator
 
 
   def uptime
-    DateTime.parse(info['State']['StartedAt'])
+    DateTime.parse(docker_state['StartedAt'])
+  end
+
+
+  def docker_state
+    info['State']
   end
 
 
@@ -149,12 +154,12 @@ class DockerContainerProxy < SimpleDelegator
 
 
     def is_running?
-      valid_connection? && info['State']['Running'] rescue false
+      valid_connection? && docker_state['Running'] rescue false
     end
 
 
     def is_paused?
-      valid_connection? && info['State']['Paused'] rescue false
+      valid_connection? && docker_state['Paused'] rescue false
     end
 
 
