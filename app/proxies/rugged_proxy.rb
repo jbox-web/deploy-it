@@ -147,7 +147,7 @@ class RuggedProxy
     begin
       DeployIt::Utils.capture('/usr/bin/env', pull_params)
       pulled = true
-    rescue => e
+    rescue DeployIt::Error::IOError => e
       @errors << treat_exception(e)
       pulled = false
     ensure
@@ -159,25 +159,29 @@ class RuggedProxy
 
   def archive(revision = 'master')
     return nil if !pull
-    temp_dir = Dir.mktmpdir
+    archive_file = DeployIt::Utils.get_temp_file + '.tar'
     begin
-      repo = ::Rugged::Repository.clone_at(path, temp_dir)
-      repo.checkout revision, update_submodules: true
-    rescue => e
+      DeployIt::Utils.capture('/usr/bin/env', archive_params(revision, archive_file))
+    rescue DeployIt::Error::IOError => e
       @errors << treat_exception(e)
-      return nil
+      nil
     else
-      File.chmod(0755, temp_dir)
-      FileUtils.rm_rf(File.join(temp_dir, '.git'))
-      %x[ cd #{temp_dir} && tar -cf "#{temp_dir}.tar" . > /dev/null 2>&1 ]
-      return "#{temp_dir}.tar"
-    ensure
-      FileUtils.rm_rf temp_dir
+      if File.exists?(archive_file) && !File.zero?(archive_file)
+        archive_file
+      else
+        @errors << "archive file wasn't correctly generated"
+        nil
+      end
     end
   end
 
 
   private
+
+
+    def archive_params(revision, output_file)
+      ['-i', "GIT_DIR=#{path}/.git", 'git', 'archive', revision, '-o', output_file]
+    end
 
 
     def clone_options
@@ -187,13 +191,8 @@ class RuggedProxy
 
     def pull_params
       [
-        "-i",
-        "PRIVATE_KEY=#{private_key_to_file(credentials[:private_key])}",
-        "GIT_SSH=#{ssh_wrapper}",
-        "git",
-        "-C",
-        "#{path}",
-        "pull"
+        '-i', "PRIVATE_KEY=#{private_key_to_file(credentials[:private_key])}", "GIT_SSH=#{ssh_wrapper}",
+        'git', '-C', path, 'pull'
       ]
     end
 
@@ -278,6 +277,8 @@ class RuggedProxy
         message = "Le dépôt n'existe pas"
       when ::Rugged::SshError
         message = "Vous devez créer une clé d'accès pour ce dépôt"
+      when DeployIt::Error::IOError
+        message = "Erreur lors de l'exécution de la commande"
       else
         message = exception.message
       end
