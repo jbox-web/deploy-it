@@ -18,21 +18,17 @@ class ApplicationManagementContext < ContextBase
   include ApplicationCommon
 
 
-  def build_application(application, opts = {})
-    event_options = opts.fetch(:event_options) { {} }
-
-    push = application.pushes.last
+  def build_application(application, user, push = nil, opts = {})
     return context.render_failed(locals: { request_id: nil }, message: t('.unbuildable')) if push.nil?
 
-    build = application.create_build_request!(push, User.current)
-    request_id = build.request_id
+    build = application.create_build_request!(push, user)
 
     # Call the BuildManager
-    task = BuildManager.new(build, logger: 'console_streamer', event_options: event_options, user: User.current)
+    task = BuildManager.new(build, opts)
 
     if task.runnable?
       task.run!
-      context.render_success(locals: { request_id: request_id })
+      context.render_success(locals: { request_id: build.request_id })
     else
       context.render_failed(locals: { request_id: nil }, message: task.errors)
     end
@@ -40,15 +36,14 @@ class ApplicationManagementContext < ContextBase
 
 
   def manage_application(application, deploy_action, opts = {})
-    event_options = opts.fetch(:event_options) { {} }
-    application.run_async!(deploy_action.to_method, event_options: event_options)
+    application.run_async!(deploy_action.to_method, opts)
     context.render_success
   end
 
 
   def manage_container(application, container, deploy_action, opts = {})
-    event_options = opts.fetch(:event_options) { {} }
-    container.run_async!(deploy_action.to_method, event_options: event_options, job_options: { update_route: true })
+    options = { job_options: { update_route: true } }.merge(opts)
+    container.run_async!(deploy_action.to_method, options)
     context.render_success
   end
 

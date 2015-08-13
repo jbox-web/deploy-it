@@ -26,7 +26,7 @@ class ApplicationsManagerController < ApplicationController
 
 
   def build_application
-    ApplicationManagementContext.new(self).build_application(@application, event_options)
+    ApplicationManagementContext.new(self).build_application(@application, User.current, @application.pushes.last, build_options)
   end
 
 
@@ -46,6 +46,11 @@ class ApplicationsManagerController < ApplicationController
 
 
   private
+
+
+    def build_options
+      event_options.merge(logger: 'console_streamer')
+    end
 
 
     def event_options
