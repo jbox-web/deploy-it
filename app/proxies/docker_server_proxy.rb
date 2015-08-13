@@ -155,12 +155,11 @@ class DockerServerProxy
   end
 
 
-  def inject_file(image_name, source_file, dest_file, perms, opts = {}, docker_options = {})
+  def inject_file(image_name:, source_file:, dest_file:, perms: '644', opts: {}, docker_options: {})
     # Get params
     create_parent_dir = opts.delete(:create_parent_dir){ false }
-    tar_file          = opts.delete(:tar_file){ false }
-    perms             = perms || '644'
-    command           = build_copy_command(dest_file, perms, create_parent_dir, tar_file)
+    from_tar_file     = opts.delete(:from_tar_file){ false }
+    command           = build_copy_command(dest_file, perms, create_parent_dir, from_tar_file)
 
     # Inject!
     do_inject_file(image_name, source_file, command, docker_options)
@@ -193,7 +192,7 @@ class DockerServerProxy
     end
 
 
-    def build_copy_command(dest_file, perms, create_parent_dir, tar_file)
+    def build_copy_command(dest_file, perms, create_parent_dir = false, from_tar_file = false)
       command = []
 
       if create_parent_dir
@@ -204,7 +203,7 @@ class DockerServerProxy
         command = command.concat(['mkdir', '-p', parent_dir, '&&'])
       end
 
-      if tar_file
+      if from_tar_file
         command = command.concat(['tar', '-xC', dest_file])
       else
         command = command.concat(['cat', '>', dest_file, '&&', 'chmod', perms, dest_file])

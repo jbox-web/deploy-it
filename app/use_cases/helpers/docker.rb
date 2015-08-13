@@ -34,13 +34,24 @@ module Helpers
 
 
     def copy_file_to_container(source_file:, dest_file:, perms: '644', opts: {})
-      docker_connection.inject_file(application.image_name, source_file, dest_file, perms, opts)
+      docker_connection.inject_file(
+        image_name:  application.image_name,
+        source_file: source_file,
+        dest_file:   dest_file,
+        perms:       perms,
+        opts:        opts
+      )
     end
 
 
-    def new_image_from_file(image_source:, image_dest:, source_file:, dest_dir: , docker_options: {})
-      docker_options = docker_options.merge(new_image_name: image_dest)
-      docker_connection.inject_file(image_source, source_file, dest_dir, nil, { create_parent_dir: true, tar_file: true }, docker_options)
+    def new_image_from_file(image_source:, image_dest:, source_file:, dest_dir:, docker_options: {})
+      docker_connection.inject_file(
+        image_name:     image_source,
+        source_file:    source_file,
+        dest_file:      dest_dir,
+        opts:           { create_parent_dir: true, from_tar_file: true },
+        docker_options: docker_options.merge(new_image_name: image_dest)
+      )
     end
 
   end
