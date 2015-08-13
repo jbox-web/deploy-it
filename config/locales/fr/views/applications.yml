@@ -99,6 +99,7 @@ fr:
         pause: Mettre en pause le contenaire
         restart: Redémarrer le contenaire
         unpause: Sortir le contenaire de pause
+        destroy_forever: Supprimer le contenaire
         docker_infos: Informations Docker
 
         running: Démarré

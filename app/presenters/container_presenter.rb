@@ -92,6 +92,7 @@ class ContainerPresenter < SimpleDelegator
       manage_link('pause', 'fa-pause') +
       manage_link('stop', 'fa-power-off') +
       manage_link('restart', 'fa-refresh') +
+      manage_link('destroy_forever', 'fa-trash-o') +
       info_link
     end
 
@@ -102,7 +103,8 @@ class ContainerPresenter < SimpleDelegator
 
 
     def links_for_stopped_container
-      manage_link('start', 'fa-power-off')
+      manage_link('start', 'fa-power-off') +
+      manage_link('destroy_forever', 'fa-trash-o')
     end
 
 

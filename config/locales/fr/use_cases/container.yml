@@ -24,3 +24,7 @@ fr:
         start: "Contenaire '%{container}' en cours de sortie de pause ..."
         success: "Sortie de pause du contenaire '%{container}' réussie !"
         failed: "Echec de sortie de pause du contenaire '%{container}' : %{errors}"
+      destroy_forever:
+        start: "Contenaire '%{container}' en cours de destruction ..."
+        success: "Destruction du contenaire '%{container}' réussie !"
+        failed: "Echec de la destruction du contenaire '%{container}' : %{errors}"
