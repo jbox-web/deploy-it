@@ -145,7 +145,7 @@ class RuggedProxy
   def pull
     return false if !syncable?
     begin
-      DeployIt::Utils.capture('/usr/bin/env', pull_params)
+      DeployIt::Utils::Exec.capture('/usr/bin/env', pull_params)
       pulled = true
     rescue DeployIt::Error::IOError => e
       @errors << treat_exception(e)
@@ -159,9 +159,9 @@ class RuggedProxy
 
   def archive(revision = 'master')
     return nil if !pull
-    archive_file = DeployIt::Utils.get_temp_file + '.tar'
+    archive_file = DeployIt::Utils::Files.get_temp_file + '.tar'
     begin
-      DeployIt::Utils.capture('/usr/bin/env', archive_params(revision, archive_file))
+      DeployIt::Utils::Exec.capture('/usr/bin/env', archive_params(revision, archive_file))
     rescue DeployIt::Error::IOError => e
       @errors << treat_exception(e)
       nil

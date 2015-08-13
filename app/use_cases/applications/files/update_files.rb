@@ -26,7 +26,7 @@ module Applications
 
       def update_file(file, content)
         begin
-          DeployIt::Utils.write_file(file, content)
+          DeployIt::Utils::Files.write_file(file, content)
         rescue Errno::EACCES => e
           log_exception(e)
           error_message(tt('errors.unwriteable'))

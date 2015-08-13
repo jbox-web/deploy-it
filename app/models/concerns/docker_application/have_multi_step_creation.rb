@@ -141,7 +141,7 @@ module DockerApplication
         return if stage.nil?
         self.temp_db_name = set_field(identifier, stage.database_name_prefix)
         self.temp_db_user = set_field(identifier, stage.database_name_prefix)
-        self.temp_db_pass = DeployIt::Utils.generate_secret(12)
+        self.temp_db_pass = DeployIt::Utils::Crypto.generate_secret(12)
       end
 
 

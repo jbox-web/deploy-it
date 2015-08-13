@@ -49,7 +49,7 @@ module DockerApplication
       params[:port]            = port
       params[:home]            = '/app'
       params[:log_server]      = find_log_server
-      params[:secret_key_base] = DeployIt::Utils.generate_secret(64)
+      params[:secret_key_base] = DeployIt::Utils::Crypto.generate_secret(64)
       params
     end
 

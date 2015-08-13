@@ -189,7 +189,7 @@ class DockerServerProxy
 
     def docker_command(*args)
       args = [ '-H', @url ].concat(args)
-      DeployIt::Utils.execute('docker', args)
+      DeployIt::Utils::Exec.execute('docker', args)
     end
 
 
@@ -248,12 +248,7 @@ class DockerServerProxy
 
       # Wait for completion
       docker_container.wait
-
-      if docker_container.json['State']['ExitCode'] == 0
-        true
-      else
-        false
-      end
+      docker_container.json['State']['ExitCode'] == 0
     end
 
 end

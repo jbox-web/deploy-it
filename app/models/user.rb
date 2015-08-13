@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
 
     def generate_token_for(type, size = 42)
       loop do
-        token = DeployIt::Utils.generate_secret(size)
+        token = DeployIt::Utils::Crypto.generate_secret(size)
         break token unless User.where(type => token).first
       end
     end

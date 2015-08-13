@@ -76,7 +76,7 @@ module Applications
             if attributes.has_key?(type)
               attributes[type].each do |key, value|
                 if type == 'secrets'
-                  params[key.to_sym] = DeployIt::Utils.generate_secret(value)
+                  params[key.to_sym] = DeployIt::Utils::Crypto.generate_secret(value)
                 else
                   params[key.to_sym] = value
                 end

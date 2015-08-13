@@ -67,11 +67,11 @@ class AnsibleProxy
 
   def run_playbook(playbook, extra_vars)
     extra_vars = extend_vars(extra_vars)
-    vars_file = DeployIt::Utils.write_yaml_file(extra_vars)
+    vars_file = DeployIt::Utils::Files.write_yaml_file(extra_vars)
     params = default_params.concat(["CONTAINER_VARS=#{vars_file}", playbook])
 
     begin
-      output, err, status = DeployIt::Utils.execute('/usr/bin/env', params)
+      output, err, status = DeployIt::Utils::Exec.execute('/usr/bin/env', params)
     rescue DeployIt::Error::IOError => e
       raise e
     else
