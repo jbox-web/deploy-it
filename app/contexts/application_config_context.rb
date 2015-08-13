@@ -84,10 +84,8 @@ class ApplicationConfigContext < ContextBase
   end
 
 
-  def synchronize_repository(application, params = {})
-    event_options = params.fetch(:event_options) { {} }
-    repository = application.distant_repo
-    repository.run_async!('resync!', event_options: event_options)
+  def synchronize_repository(application, opts = {})
+    application.distant_repo.run_async!('resync!', opts)
     context.render_success(locals: { application: application })
   end
 
