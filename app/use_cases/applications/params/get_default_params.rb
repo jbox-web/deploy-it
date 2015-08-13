@@ -51,21 +51,6 @@ module Applications
         end
 
 
-        def get_capacities
-          { cpu: 1, memory: 256 }
-        end
-
-
-        def get_default_servers
-          [:docker, :log, :lb].push(get_db_server_type)
-        end
-
-
-        def get_db_server_type
-          application.db_type == 'mysql' ? :mysql_db : :pg_db
-        end
-
-
         def extract_params(type)
           params = {}
 
