@@ -22,8 +22,8 @@ end
 ## It passes 1 arg :
 ## @argv[0] = repository
 
-## Set current user for this thread
-User.current = User.find_by_id(ENV['USER_ID'])
+## Find user
+user = User.find_by_id(ENV['USER_ID'])
 
 ## SSH_ORIGINAL_COMMAND is available as environment variable
 repo_name   = DeployIt::Utils.parse_repository_from_ssh_command
@@ -35,10 +35,10 @@ valid, build_refs = DeployIt::Utils.ref_is_valid?(repository.local_branch)
 
 if valid
   # First create push
-  push  = application.pushes.create(build_refs.merge(author: User.current))
+  push  = application.pushes.create(build_refs.merge(author: user))
 
   # Create build request
-  build = application.create_build_request!(push, User.current)
+  build = application.create_build_request!(push, user)
 
   # Call the BuildManager
   task = BuildManager.new(build, async: false, logger: 'console')

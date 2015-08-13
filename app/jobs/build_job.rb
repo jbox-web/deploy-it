@@ -18,8 +18,6 @@ class BuildJob < ActiveJob::Base
   queue_as :deploy_it_applications
 
   def perform(build, method, opts = {})
-    User.current = opts.delete(:user)
-
     # Perform job
     build.send(method, opts)
   end
