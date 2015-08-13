@@ -18,16 +18,18 @@ class ApplicationManagementContext < ContextBase
   include ApplicationCommon
 
 
-  def build_application(application, user, push = nil, opts = {})
-    return context.render_failed(locals: { request_id: nil }, message: t('.unbuildable')) if push.nil?
+  def build_application(application, user, push = nil, opts = {}, &block)
+    return context.render_failed(locals: { request_id: nil }, message: I18n.t('errors.deploy_it.unbuildable')) if push.nil?
 
+    # Create a new build, actually a state machine, to handle the request
     build = application.create_build_request!(push, user)
 
-    # Call the BuildManager
+    # Call the BuildManager that performs validation checks and handle the state machine
     task = BuildManager.new(build, opts)
 
     if task.runnable?
       task.run!
+      yield task if block_given?
       context.render_success(locals: { request_id: build.request_id })
     else
       context.render_failed(locals: { request_id: nil }, message: task.errors)

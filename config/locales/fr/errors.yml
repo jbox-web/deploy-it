@@ -14,3 +14,6 @@ fr:
       unavailable_server: Aucun serveur disponible
       server_update_failed: Mise à jour refusée
       unknown_error: Erreur inconnue
+
+    deploy_it:
+      unbuildable: "Reconstruction impossible : vous devez d'abord pousser des données via 'git push'"
