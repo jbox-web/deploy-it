@@ -99,15 +99,23 @@ class DockerServerProxy
   end
 
 
+  def stopped_containers
+    ::Docker::Container.all(all: true).select { |c| c.info['Status'].include?('Exited') || c.info['Status'] == '' }
+  end
+
+
+  def unused_images
+    ::Docker::Image.all().select { |i| i.info['RepoTags'][0] == '<none>:<none>' }
+  end
+
+
   def remove_stopped_containers
-    stopped_containers = ::Docker::Container.all(all: true).select{ |container| container.info['Status'].include?('Exited') || container.info['Status'] == '' }
-    stopped_containers.each{ |container| container.delete(force: true) }
+    stopped_containers.each { |c| c.delete(force: true) }
   end
 
 
   def remove_unused_images
-    unused_images = ::Docker::Image.all().select{ |image| image.info['RepoTags'][0] == '<none>:<none>' }
-    unused_images.each{ |image| image.delete(:force => true) rescue '' }
+    unused_images.each { |i| i.delete(force: true) rescue '' }
   end
 
 
