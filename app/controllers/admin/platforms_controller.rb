@@ -35,32 +35,10 @@ class Admin::PlatformsController < Admin::DefaultController
   end
 
 
-  def create
-    @platform = Platform.new(create_platform_params)
-    if @platform.save
-      # Generate a PlatformCredential
-      create_platform_credential
-      successful_create
-    else
-      add_breadcrumbs
-      failed_create
-    end
-  end
-
-
   # Called from non-admin interface
   #
   def stages
     @stages = @platform.stages.by_name
   end
-
-
-  private
-
-
-    def create_platform_credential
-      data = DeployIt::Utils::Ssh.generate_ssh_key
-      @platform.create_credential(public_key: data[:public_key], private_key: data[:private_key])
-    end
 
 end

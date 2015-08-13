@@ -26,6 +26,9 @@ class Platform < ActiveRecord::Base
   validates :name,       presence: true, uniqueness: true
   validates :identifier, presence: true, uniqueness: { case_sensitive: false }
 
+  ## Callbacks
+  after_create :create_credentials
+
   ## Scopes
   scope :by_name, -> { order(name: :asc) }
 
@@ -62,5 +65,14 @@ class Platform < ActiveRecord::Base
   def servers_with_role(role)
     servers.select{ |s| s.has_role?(role) }
   end
+
+
+  private
+
+
+    def create_credentials
+      data = DeployIt::Utils::Ssh.generate_ssh_key
+      create_credential(public_key: data[:public_key], private_key: data[:private_key])
+    end
 
 end
