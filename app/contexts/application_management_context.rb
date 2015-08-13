@@ -25,7 +25,7 @@ class ApplicationManagementContext < ContextBase
     build = application.create_build_request!(push, user)
 
     # Call the BuildManager that performs validation checks and handle the state machine
-    task  = BuildManager.new(build)
+    task = BuildManager.new(build)
 
     if task.runnable?
       task.run!(opts)
