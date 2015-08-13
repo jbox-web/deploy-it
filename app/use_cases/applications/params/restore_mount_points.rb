@@ -18,22 +18,12 @@ module Applications
     class RestoreMountPoints < ActiveUseCase::Base
 
       def execute(opts = {})
-        get_mount_points_list.each do |step, mount_points|
+        application.get_default_params_for('mount_points').each do |step, mount_points|
           mount_points.each do |source, target|
             mp_db = application.mount_points.find_by_source_and_step(source, step)
-            create_mount_point(source, target, step) if mp_db.nil?
+            application.mount_points.create(source: source, target: target, step: step.to_s) if mp_db.nil?
           end
         end
-      end
-
-
-      def get_mount_points_list
-        application.get_default_params!(:mount_points)
-      end
-
-
-      def create_mount_point(source, target, step)
-        application.mount_points.create(source: source, target: target, step: step.to_s)
       end
 
     end

@@ -13,23 +13,30 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module Applications
-  module Params
-    class RestoreEnvVars < ActiveUseCase::Base
+module DockerApplication
+  module HaveDefaultParams
+    extend ActiveSupport::Concern
 
-      def execute(opts = {})
-        restore_env_vars('env_vars')
-        restore_env_vars('secrets', masked: true)
-      end
+    def get_default_params_for(type)
+      params = {}
 
-
-      def restore_env_vars(type, masked: false)
-        application.get_default_params_for(type).each do |key, value|
-          ev_db = application.env_vars.find_by_key(key)
-          application.env_vars.create(key: key, value: value, masked: masked) if ev_db.nil?
+      if application_type.has_extra_attributes?
+        # Convert JSON attributes to YAML
+        attributes = YAML::load(application_type.extra_attributes.to_yaml)
+        # Parse YAML
+        if attributes.has_key?(type)
+          attributes[type].each do |key, value|
+            if type == 'secrets'
+              params[key.to_sym] = DeployIt::Utils::Crypto.generate_secret(value)
+            else
+              params[key.to_sym] = value
+            end
+          end
         end
       end
 
+      params
     end
+
   end
 end

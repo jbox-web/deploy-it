@@ -18,6 +18,7 @@ module DockerApplication
   include ActsAs::DockerApplication
   include HaveAuthorizations
   include HaveConfigFiles
+  include HaveDefaultParams
   include HaveEnvVars
   include HaveMountPoints
   include HaveMultiStepCreation
