@@ -35,5 +35,5 @@ if valid
     DeployIt::Cli.render_failed(message: task.errors) if !task.success?
   end
 else
-  DeployIt::Cli.render_failed(message: ["Deploy did not complete, you must push to '#{repository.local_branch}' branch !"])
+  DeployIt::Cli.render_failed(message: "Deploy did not complete, you must push to '#{repository.local_branch}' branch !")
 end

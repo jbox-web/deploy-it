@@ -35,7 +35,8 @@ module DeployIt
 
 
     def console_log(errors)
-      logger.info ''
+      logger.empty_line
+
       if errors.is_a?(Array)
         errors.each do |error|
           logger.error error
@@ -43,7 +44,8 @@ module DeployIt
       else
         logger.error errors
       end
-      logger.info ''
+
+      logger.empty_line
     end
 
 
