@@ -17,14 +17,10 @@ require 'docker'
 
 class DockerServerProxy
 
-  attr_reader :url
-  attr_reader :options
-
 
   def initialize(url, opts = {})
-    @url     = url
-    @options = opts
-    init_connexion
+    @url = url
+    init_connexion(url, opts)
   end
 
 
@@ -37,9 +33,9 @@ class DockerServerProxy
   end
 
 
-  def init_connexion
-    ::Docker.url = url
-    ::Docker.options = options
+  def init_connexion(url, opts = {})
+    ::Docker.url     = url
+    ::Docker.options = opts
     ::Docker.validate_version!
   rescue Excon::Errors::SocketError => e
     DeployIt.file_logger.error e.message
@@ -170,7 +166,7 @@ class DockerServerProxy
 
 
     def docker_command(*args)
-      args = [ '-H', url ].concat(args)
+      args = [ '-H', @url ].concat(args)
       DeployIt::Utils.execute('docker', args)
     end
 
