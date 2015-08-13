@@ -47,7 +47,7 @@ class DockerContainerProxy < SimpleDelegator
 
 
   def name
-    info['Name']
+    info['Name'] rescue ''
   end
 
 
@@ -57,16 +57,12 @@ class DockerContainerProxy < SimpleDelegator
 
 
   def backend_port
-    network_settings['HostPort']
-  rescue => e
-    nil
+    network_settings['HostPort'] rescue nil
   end
 
 
   def backend_address
-    network_settings['HostIp']
-  rescue => e
-    nil
+    network_settings['HostIp'] rescue nil
   end
 
 

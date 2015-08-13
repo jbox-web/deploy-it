@@ -20,31 +20,22 @@ module Containers
 
 
     def execute(opts = {})
-      execute_if_exists(container.docker_id) do
-        container_destroy(opts)
-      end
-    end
-
-
-    def container_destroy(opts = {})
       self_destroy = opts.delete(:self_destroy){ true }
-      begin
-        # Stop it first
+
+      # Stop it first
+      catch_errors(container, opts) do
         container.docker_proxy.stop
+      end
+
+      begin
+        # Remove it from Docker
+        container.docker_proxy.delete
       rescue => e
         log_exception(e)
         error_message(e.message)
       ensure
-        begin
-          # Remove from Docker
-          container.docker_proxy.delete
-        rescue => e
-          log_exception(e)
-          error_message("Erreurs lors de la suppression du contenaire '#{container.short_id}'")
-        ensure
-          # Remove from database
-          container.destroy! if self_destroy
-        end
+        # Remove from database
+        container.destroy! if self_destroy
       end
     end
 
