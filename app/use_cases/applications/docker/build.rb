@@ -19,6 +19,7 @@ module Applications
 
       attr_reader :log_to
       attr_reader :build_id
+      attr_reader :author_id
       attr_reader :request_id
       attr_reader :revision
 
@@ -64,7 +65,7 @@ module Applications
 
         def release
           logger.banner tt('notice.on_release')
-          result = application.release!(logger, build_id)
+          result = application.release!(logger, build_id, author_id)
           if result.success?
             publish
           else
@@ -98,6 +99,7 @@ module Applications
         def set_options(opts)
           @log_to     = opts[:logger]
           @build_id   = opts[:build_id]
+          @author_id  = opts[:author_id]
           @request_id = opts[:request_id]
           @revision   = opts[:revision]
         end

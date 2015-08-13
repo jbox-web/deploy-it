@@ -17,16 +17,16 @@ module Applications
   module Docker
     class Release < ActiveUseCase::Base
 
-      def execute(logger, build_id)
+      def execute(logger, build_id, author_id)
         logger.title("Creating new release ...")
-        release = create_release(build_id)
+        release = create_release(build_id, author_id)
         logger.padded("Release 'v#{release.version}' created !")
       end
 
 
-      def create_release(build_id)
+      def create_release(build_id, author_id)
         config = application.configs.create(values: get_values)
-        application.releases.create(build_id: build_id, author: User.current, config_id: config.id)
+        application.releases.create(build_id: build_id, author_id: author_id, config_id: config.id)
       end
 
 

@@ -64,6 +64,7 @@ module Builds
       def set_options(opts)
         options = opts.symbolize_keys
         options = options.merge(build_id:   build.id)
+        options = options.merge(author_id:  build.author_id)
         options = options.merge(request_id: build.request_id)
         options = options.merge(revision:   build.push.new_revision)
         options
