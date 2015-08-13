@@ -25,7 +25,7 @@ module Database
       return if !file_exists_in_container?('/app/Procfile')
 
       logger.title('Injecting Task Runner ...')
-      copy_file_to_container(task_runner_path, '/build/task-runner', '755')
+      copy_file_to_container(source_file: task_runner_path, dest_file: '/build/task-runner', perms: '755')
 
       logger.title('Running additionnal tasks ...')
       run_command('/build/task-runner', docker_options)

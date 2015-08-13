@@ -42,7 +42,13 @@ module Applications
         # Push repository data within the container in tar format
         logger.title "Creating a new Docker image with your application"
         begin
-          new_image_from_file(application.image_type, application.image_name, archive_path, docker_options)
+          new_image_from_file(
+            image_source:   application.image_type,
+            image_dest:     application.image_name,
+            source_file:    archive_path,
+            dest_dir:       '/app',
+            docker_options: docker_options
+          )
         rescue ::Docker::Error::TimeoutError => e
           error_message tt('errors.on_receive.docker_timeout')
         else
@@ -88,7 +94,7 @@ module Applications
         def install_build_vars
           if File.exists? application.env_file_for(:build)
             logger.title "Adding environment variables to build environment"
-            copy_file_to_container application.env_file_for(:build), '/app/.env', '644'
+            copy_file_to_container source_file: application.env_file_for(:build), dest_file: '/app/.env'
           end
         end
 
@@ -96,7 +102,7 @@ module Applications
         def install_app_vars
           if File.exists? application.env_file_for(:deploy)
             logger.title "Adding environment variables to runtime environment"
-            copy_file_to_container application.env_file_for(:deploy), '/app/.profile.d/app-env.sh', '644', create_parent_dir: true
+            copy_file_to_container source_file: application.env_file_for(:deploy), dest_file: '/app/.profile.d/app-env.sh', opts: { create_parent_dir: true }
           end
         end
 
@@ -104,7 +110,7 @@ module Applications
         def install_db_vars
           if File.exists? application.env_file_for(:database)
             logger.title 'Pushing database variables within the container'
-            copy_file_to_container application.env_file_for(:database), '/app/.profile.d/db-env.sh', '640'
+            copy_file_to_container source_file: application.env_file_for(:database), dest_file: '/app/.profile.d/db-env.sh', perms: '640'
           end
         end
 
