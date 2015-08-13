@@ -18,8 +18,8 @@ require 'docker'
 class DockerServerProxy
 
   CONNECT_TIMEOUT = 5
-  READ_TIMEOUT    = 5
-  WRITE_TIMEOUT   = 5
+  READ_TIMEOUT    = 15
+  WRITE_TIMEOUT   = 30
   TCP_NODELAY     = true
 
 
