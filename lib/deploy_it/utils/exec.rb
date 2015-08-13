@@ -20,8 +20,8 @@ module DeployIt
     module Exec
       extend self
 
-      def capture(command, args = [])
-        output, err, code = execute(command, args)
+      def capture(command, args = [], opts = {})
+        output, err, code = execute(command, args, opts)
         if code != 0
           raise DeployIt::Error::IOError, "Non-zero exit code #{code} for `#{command} #{args.join(" ")}`"
         end
@@ -29,8 +29,8 @@ module DeployIt
       end
 
 
-      def execute(command, args = [])
-        Open3.capture3(command, *args)
+      def execute(command, args = [], opts = {})
+        Open3.capture3(command, *args, opts)
       rescue => e
         raise DeployIt::Error::IOError, "Exception occured executing `#{command} #{args.join(" ")}` : #{e.message}"
       end
