@@ -27,13 +27,14 @@ module Applications
       def execute(logger, archive_path)
         @logger = logger
 
-        cleanup
+        cleanup(application.image_name)
         receive(archive_path, docker_options_for(:receive))
       end
 
 
-      def cleanup
-        docker_connection.cleanup
+      def cleanup(image)
+        logger.title "Cleaning up the room"
+        docker_connection.remove_stopped_containers_by_name(image)
       end
 
 

@@ -119,6 +119,11 @@ class DockerServerProxy
   end
 
 
+  def remove_stopped_containers_by_name(name)
+    stopped_containers.select { |c| c.info['Image'] == name }.each { |c| c.delete(force: true) }
+  end
+
+
   def file_exists?(image_name, file, opts = {})
     docker_test(image_name, "test -f #{file};", opts)
   end
