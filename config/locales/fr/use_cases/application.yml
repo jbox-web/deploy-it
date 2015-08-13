@@ -29,11 +29,11 @@ fr:
           on_receive: "Vous devez d'abord pousser vers le dépôt principal"
 
         errors:
-          on_receive: "Erreurs lors de la réception des données de l'application '#{application}' : %{errors}"
-          on_compile: "Erreurs lors de la construction de l'application '#{application}'"
-          on_release: "Erreurs lors de la création de la nouvelle version de l'application '#{application}'"
-          on_publish: "Erreurs lors de la publication de l'application '#{application}'"
-          on_scale: "Erreurs lors du déploiement de l'application '#{application}'"
+          on_receive: "Erreurs lors de la réception des données de l'application '%{application}' : %{errors}"
+          on_compile: "Erreurs lors de la construction de l'application '%{application}' : %{errors}"
+          on_release: "Erreurs lors de la création de la nouvelle version de l'application '%{application}' : %{errors}"
+          on_publish: "Erreurs lors de la publication de l'application '%{application}' : %{errors}"
+          on_scale: "Erreurs lors du déploiement de l'application '%{application}' : %{errors}"
 
       scale:
         notice:
