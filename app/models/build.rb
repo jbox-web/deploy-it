@@ -67,7 +67,6 @@ class Build < ActiveRecord::Base
     event :cancel do
       transitions from: [:new, :pending], to: :canceled
     end
-
   end
 
 
