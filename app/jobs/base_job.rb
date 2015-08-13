@@ -16,29 +16,7 @@
 class BaseJob < ActiveJob::Base
 
   def perform(object, method, opts = {})
-    job_options   = opts.delete(:job_options){ {} }
-    event_options = opts.delete(:event_options){ {} }
-
-    # Build people_to_notify list
-    channels = object.notification_channels
-
-    # Get UseCase
-    use_case = object.find_active_use_case(method)
-
-    # Send job start notification
-    AsyncEvents::Notification.info(channels, use_case.message_on_start)
-
-    # Perform job
-    result = use_case.call(job_options)
-
-    # Send job end notification
-    if result.success?
-      AsyncEvents::Notification.success(channels, result.message_on_success)
-    else
-      AsyncEvents::Notification.error(channels, result.message_on_errors)
-    end
-
-    AsyncEvents::ViewRefresh.call(channels, event_options) unless event_options.empty?
+    DeployItTask.perform(object, method, opts)
   end
 
 end

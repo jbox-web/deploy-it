@@ -54,7 +54,7 @@ class ApplicationsManagerController < ApplicationController
 
 
     def event_options
-      { event_options: RefreshViewEvent.create(app_id: @application.id, triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
     end
 
 

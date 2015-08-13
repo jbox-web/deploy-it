@@ -13,22 +13,34 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module Builds
-  class PerformTask < ActiveUseCase::Base
+module DeployItTask
+  extend self
 
-    def execute(opts = {})
-      DeployItTask.perform(build.application, 'build', opts) do |result|
-        if result.success?
-          # Update state machine
-          build.finish!
-        else
-          # Follow up errors from use case
-          @errors.concat(result.errors)
-          # Update state machine
-          build.fail!
-        end
-      end
+  def perform(object, method, opts = {}, &block)
+    async_view_refresh = opts.delete(:async_view_refresh){ {} }
+
+    # Build people_to_notify list
+    channels = object.notification_channels
+
+    # Get UseCase
+    use_case = object.find_active_use_case(method)
+
+    # Send job start notification
+    AsyncEvents::Notification.info(channels, use_case.message_on_start)
+
+    # Perform job
+    result = use_case.call(opts)
+
+    yield result if block_given?
+
+    # Send job end notification
+    if result.success?
+      AsyncEvents::Notification.success(channels, result.message_on_success)
+    else
+      AsyncEvents::Notification.error(channels, result.message_on_errors)
     end
 
+    AsyncEvents::ViewRefresh.call(channels, async_view_refresh)
   end
+
 end

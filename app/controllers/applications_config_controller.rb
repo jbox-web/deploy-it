@@ -140,7 +140,7 @@ class ApplicationsConfigController < ApplicationController
 
 
     def event_options
-      { event_options: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
     end
 
 end

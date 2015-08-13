@@ -27,8 +27,11 @@ class ApplicationManagementContext < ContextBase
     # Call the BuildManager that performs validation checks and handle the state machine
     task = BuildManager.new(build)
 
+    options = { build_id: build.id, author_id: build.author_id, request_id: build.request_id, revision: build.push.new_revision }
+    options = opts.merge(options)
+
     if task.runnable?
-      task.run!(opts)
+      task.run!(options)
       yield task if block_given?
       context.render_success(locals: { request_id: build.request_id })
     else
@@ -44,7 +47,7 @@ class ApplicationManagementContext < ContextBase
 
 
   def manage_container(application, container, deploy_action, opts = {})
-    options = { job_options: { update_route: true } }.merge(opts)
+    options = { update_route: true }.merge(opts)
     container.run_async!(deploy_action.to_method, options)
     context.render_success
   end

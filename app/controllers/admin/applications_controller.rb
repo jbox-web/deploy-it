@@ -28,7 +28,7 @@ class Admin::ApplicationsController < Admin::DefaultController
     params[:application_ids].each do |id|
       application = Application.find_by_id(id)
       application.touch
-      options = { event_options: event_options(application) }
+      options = event_options(application)
       if params[:deploy_action] == 'update_route'
         application.update_lb_route!(options)
       else
@@ -80,7 +80,7 @@ class Admin::ApplicationsController < Admin::DefaultController
 
 
     def event_options(application)
-      RefreshViewEvent.create(controller: 'admin/applications', action: 'index', triggers: triggers(application))
+      { async_view_refresh: RefreshViewEvent.create(controller: 'admin/applications', action: 'index', triggers: triggers(application)) }
     end
 
 
