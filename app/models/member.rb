@@ -28,6 +28,7 @@ class Member < ActiveRecord::Base
 
 
   class << self
+
     # Finds or initilizes a Member for the given application and user
     def find_or_new(application, user)
       application_id = application.is_a?(Application) ? application.id : application
@@ -39,6 +40,7 @@ class Member < ActiveRecord::Base
 
       member
     end
+
   end
 
 
