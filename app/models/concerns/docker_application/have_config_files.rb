@@ -38,5 +38,19 @@ module DockerApplication
       end
     end
 
+
+    def env_file_available_for?(step)
+      env_files_available[step]
+    end
+
+
+    def env_files_available
+      data = {}
+      data[:build]    = File.exists?(env_file_for(:build))
+      data[:deploy]   = File.exists?(env_file_for(:deploy))
+      data[:database] = File.exists?(env_file_for(:database))
+      data
+    end
+
   end
 end

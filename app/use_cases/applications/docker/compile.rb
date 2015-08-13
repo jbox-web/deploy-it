@@ -19,6 +19,35 @@ module Applications
   module Docker
     class Compile < ActiveUseCase::Base
 
+      DEFAULT_SETTINGS = {
+        # The directory within the container which will contain our app
+        app_dir:         '/app',
+
+        # The script to run to build our app
+        builder_script:  '/build/builder',
+
+        ## Environment variables files
+
+        # on build :
+        build: {
+          dest_file: '/app/.env'
+        },
+
+        # on deploy :
+        deploy: {
+          dest_file: '/app/.profile.d/app-env.sh',
+          opts:      { create_parent_dir: true }
+        },
+
+        # for database :
+        database: {
+          dest_file: '/app/.profile.d/db-env.sh',
+          opts:      { create_parent_dir: true },
+          perms:     '640'
+        }
+      }
+
+
       include Helpers::Docker
 
       attr_reader :logger
@@ -33,20 +62,20 @@ module Applications
 
 
       def cleanup(image)
-        logger.title "Cleaning up the room"
+        logger.title 'Cleaning up the room'
         docker_connection.remove_stopped_containers_by_name(image)
       end
 
 
       def receive(archive_path, docker_options = {})
         # Push repository data within the container in tar format
-        logger.title "Creating a new Docker image with your application"
+        logger.title 'Creating a new Docker image with your application'
         begin
           new_image_from_file(
             image_source:   application.image_type,
             image_dest:     application.image_name,
             source_file:    archive_path,
-            dest_dir:       '/app',
+            dest_dir:       DEFAULT_SETTINGS[:app_dir],
             docker_options: docker_options
           )
         rescue ::Docker::Error::TimeoutError => e
@@ -69,7 +98,7 @@ module Applications
         execute_plugins(:pre_build, docker_options)
 
         # Run BuildStep builder script
-        run_command('/build/builder', docker_options)
+        run_command(DEFAULT_SETTINGS[:builder_script], docker_options)
 
         # Execute plugins
         execute_plugins(:post_build, docker_options)
@@ -92,25 +121,30 @@ module Applications
 
 
         def install_build_vars
-          if File.exists? application.env_file_for(:build)
+          install_var_file(:build) do
             logger.title "Adding environment variables to build environment"
-            copy_file_to_container source_file: application.env_file_for(:build), dest_file: '/app/.env'
           end
         end
 
 
         def install_app_vars
-          if File.exists? application.env_file_for(:deploy)
+          install_var_file(:deploy) do
             logger.title "Adding environment variables to runtime environment"
-            copy_file_to_container source_file: application.env_file_for(:deploy), dest_file: '/app/.profile.d/app-env.sh', opts: { create_parent_dir: true }
           end
         end
 
 
         def install_db_vars
-          if File.exists? application.env_file_for(:database)
+          install_var_file(:database) do
             logger.title 'Pushing database variables within the container'
-            copy_file_to_container source_file: application.env_file_for(:database), dest_file: '/app/.profile.d/db-env.sh', perms: '640'
+          end
+        end
+
+
+        def install_var_file(step, &block)
+          if application.env_file_available_for?(step)
+            yield
+            copy_file_to_container source_file: application.env_file_for(step), **DEFAULT_SETTINGS[step]
           end
         end
 
