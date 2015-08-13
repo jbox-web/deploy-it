@@ -17,6 +17,11 @@ require 'docker'
 
 class DockerServerProxy
 
+  CONNECT_TIMEOUT = 5
+  READ_TIMEOUT    = 5
+  WRITE_TIMEOUT   = 5
+  TCP_NODELAY     = true
+
 
   def initialize(url, opts = {})
     @url = url
@@ -26,8 +31,12 @@ class DockerServerProxy
 
   class << self
 
-    def local_server
-      @local_docker_server ||= new('unix:///var/run/docker.sock')
+    def local_server(opts = {})
+      @local_docker_server ||= new('unix:///var/run/docker.sock', opts.merge(docker_options))
+    end
+
+    def docker_options
+      { connect_timeout: CONNECT_TIMEOUT, read_timeout: READ_TIMEOUT, write_timeout: WRITE_TIMEOUT, tcp_nodelay: TCP_NODELAY }
     end
 
   end
