@@ -155,29 +155,13 @@ class Application < ActiveRecord::Base
   end
 
 
-  def create_build_request!(push, user = User.current)
+  def create_build_request!(push, user)
     builds.create(
       author_id:  user.id,
       push_id:    push.id,
       request_id: SecureRandom.uuid,
       state:      'new'
     )
-  end
-
-
-  def create_new_release!(opts = nil)
-    opts = default_build_refs if opts.nil?
-    releases.create(opts)
-  end
-
-
-  def default_build_refs
-    {
-      ref_name:     distant_repo.local_branch,
-      old_revision: distant_repo.last_commit(false),
-      new_revision: distant_repo.last_commit(false),
-      author:       User.current
-    }
   end
 
 
