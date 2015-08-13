@@ -17,21 +17,21 @@ module Contextable
   extend ActiveSupport::Concern
 
 
-  def render_success(message: t('.notice'), template: get_template, locals: {})
+  def render_success(message: t('.notice'), locals: {})
     locals = locals.merge(saved: true)
-    render_message(message, :notice, template, locals)
+    render_message(message, :notice, locals)
   end
 
 
-  def render_failed(message: t('.error'), template: get_template, locals: {})
+  def render_failed(message: t('.error'), locals: {})
     locals = locals.merge(saved: false)
-    render_message(message, :alert, template, locals)
+    render_message(message, :alert, locals)
   end
 
 
-  def render_message(message, type, template, locals = {})
+  def render_message(message, type, locals = {})
     flash[type] = message
-    render_ajax_response(template: template, locals: locals)
+    render_ajax_response(template: get_template, locals: locals)
   end
 
 
