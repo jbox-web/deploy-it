@@ -15,15 +15,11 @@
 
 class BuildManager
 
-  attr_reader :task
-  attr_reader :async
-  attr_reader :opts
+  attr_reader :build
 
 
-  def initialize(task, opts = {})
-    @task   = task
-    @async  = opts.delete(:async){ true }
-    @opts   = opts
+  def initialize(build)
+    @build  = build
     @errors = []
   end
 
@@ -39,15 +35,19 @@ class BuildManager
   end
 
 
-  def run!
-    # Actually it just gets the lock.
+  def run!(opts = {})
+    # Grab option
+    async = opts.delete(:async){ true }
+
+    # Change build state
+    build.run!
+
     # The real job is done here so we can grab
     # errors in synchronous mode (console)
-    task.run!
     if async
-      task.run_async!('perform_task!', opts)
+      build.run_async!('perform_task!', opts)
     else
-      result = task.perform_task!(opts)
+      result = build.perform_task!(opts)
       @errors.concat(result.errors) if !result.success?
     end
   end
@@ -61,22 +61,22 @@ class BuildManager
   private
 
 
+    # Check that build is valid
+    #
     def perform_validation
-      if task_lockable?
-        true
-      else
-        false
-      end
+      locked?
     end
 
 
-    def task_lockable?
-      if task.may_put_in_stack?
-        task.put_in_stack!
+    # Get build lock
+    #
+    def locked?
+      if build.may_put_in_stack?
+        build.put_in_stack!
         true
       else
-        @errors.concat(task.errors.full_messages)
-        task.cancel!
+        @errors.concat(build.errors.full_messages)
+        build.cancel!
         false
       end
     end

@@ -25,10 +25,10 @@ class ApplicationManagementContext < ContextBase
     build = application.create_build_request!(push, user)
 
     # Call the BuildManager that performs validation checks and handle the state machine
-    task = BuildManager.new(build, opts)
+    task  = BuildManager.new(build)
 
     if task.runnable?
-      task.run!
+      task.run!(opts)
       yield task if block_given?
       context.render_success(locals: { request_id: build.request_id })
     else
