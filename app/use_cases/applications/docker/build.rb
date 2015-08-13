@@ -39,58 +39,58 @@ module Applications
         # RECEIVE (create archive) --> COMPILE --> RELEASE --> PUBLISH --> SCALE
 
         def receive
-          logger.banner(tt('notice.on_receive'))
+          logger.banner tt('notice.on_receive')
           result = application.distant_repo.create_archive!(revision)
           if result.success?
             logger.padded('Done !')
             compile(result.path)
           else
-            error_message(tt('errors.on_receive', errors: result.errors.to_sentence))
-            error_message(tt('warning.on_receive'))
+            error_message tt('errors.on_receive', errors: result.errors.to_sentence)
+            error_message tt('warning.on_receive')
           end
         end
 
 
         def compile(archive_path)
-          logger.banner(tt('notice.on_compile'))
+          logger.banner tt('notice.on_compile')
           result = application.compile!(logger, archive_path)
           if result.success?
             release
           else
-            error_message(tt('errors.on_compile'))
+            error_message tt('errors.on_compile', errors: result.errors.to_sentence)
           end
         end
 
 
         def release
-          logger.banner(tt('notice.on_release'))
+          logger.banner tt('notice.on_release')
           result = application.release!(logger, build_id)
           if result.success?
             publish
           else
-            error_message(tt('errors.on_release'))
+            error_message tt('errors.on_release', errors: result.errors.to_sentence)
           end
         end
 
 
         def publish
-          logger.banner(tt('notice.on_publish'))
+          logger.banner tt('notice.on_publish')
           result = application.publish!(logger)
           if result.success?
             scale
           else
-            error_message(tt('errors.on_publish'))
+            error_message tt('errors.on_publish', errors: result.errors.to_sentence)
           end
         end
 
 
         def scale
-          logger.banner(tt('notice.on_scale'))
+          logger.banner tt('notice.on_scale')
           result = application.scale!(logger)
           if result.success?
             goodbye_banner
           else
-            error_message(tt('errors.on_scale'))
+            error_message tt('errors.on_scale', errors: result.errors.to_sentence)
           end
         end
 
