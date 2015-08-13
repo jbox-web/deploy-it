@@ -18,7 +18,7 @@ module Applications
     class CreateRelations < ActiveUseCase::Base
 
       def execute(opts = {})
-        create_member_record
+        create_member_record(opts)
         create_distant_repository_record
         create_local_repository_record
         create_application_database_record
@@ -29,10 +29,13 @@ module Applications
       private
 
 
-        def create_member_record
-          role = Role.givable.first
-          member = Member.new(enrolable: User.current, roles: [role])
-          application.members << member
+        def create_member_record(opts = {})
+          user = opts.fetch(:user) { nil }
+          unless user.nil?
+            role = Role.givable.first
+            member = Member.new(enrolable: user, roles: [role])
+            application.members << member
+          end
         end
 
 

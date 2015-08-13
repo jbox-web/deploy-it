@@ -45,7 +45,7 @@ class ApplicationsController < ApplicationController
 
 
   def create
-    ApplicationContext.new(self).create(@wizard_form)
+    ApplicationContext.new(self).create(@wizard_form, User.current)
   end
 
 

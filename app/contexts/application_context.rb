@@ -18,10 +18,10 @@ class ApplicationContext < ContextBase
   include ApplicationCommon
 
 
-  def create(wizard_form)
+  def create(wizard_form, user)
     application = wizard_form.object
     if wizard_form.save
-      application.create_relations!
+      application.create_relations!(user: user)
       application.run_async!('bootstrap!')
       context.render_create_success(application)
     else
