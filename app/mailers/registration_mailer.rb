@@ -1,6 +1,6 @@
 class RegistrationMailer < ActionMailer::Base
 
-  default from: "no-reply@jbox-web.com"
+  default from: Settings.mail_from
 
   def welcome(user, password)
     render_template('welcome', user, password)
