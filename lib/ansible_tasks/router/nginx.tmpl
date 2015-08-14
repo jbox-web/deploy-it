@@ -13,14 +13,14 @@ server {
   listen        0.0.0.0:443;
 
   ssl on;
-  ssl_certificate           /etc/nginx/ssl-certificates/{{ APPLICATION_NAME }}/server.crt;
-  ssl_certificate_key       /etc/nginx/ssl-certificates/{{ APPLICATION_NAME }}/server.key;
+  ssl_certificate           {{ SSL_DIR }}/server.crt;
+  ssl_certificate_key       {{ SSL_DIR }}/server.key;
 {% endif %}
 
 {% if HTPASSWORD is defined and HTPASSWORD != None and HTPASSWORD|length != 0 %}
 {% if ENABLE_HTPASSWORD is defined and ENABLE_HTPASSWORD != None and ENABLE_HTPASSWORD == True %}
   auth_basic "Restricted";
-  auth_basic_user_file {{ NGINX_PASSWORD_DIR }}/{{ APPLICATION_NAME }}.htpasswd;
+  auth_basic_user_file {{ NGINX_PASSWORD_FILE }};
 {% endif %}
 {% endif %}
 
