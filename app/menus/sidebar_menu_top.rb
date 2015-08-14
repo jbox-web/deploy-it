@@ -43,6 +43,7 @@ class SidebarMenuTop < BaseMenu
         menu.item :locks,             label_with_icon(get_model_name_for('Lock'), 'fa-lock'), admin_locks_path
         menu.item :settings,          label_with_icon(t('.settings'), 'fa-info-circle'), admin_settings_path
         menu.item :sidekiq,           label_with_icon(t('.sidekiq'), 'fa-gears'), sidekiq_web_path
+        menu.item :logster,           label_with_icon(t('.logster'), 'fa-book'), logster_web_path
       end
     end
 

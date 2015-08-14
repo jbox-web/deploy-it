@@ -18,3 +18,4 @@ fr:
       sidekiq: Sidekiq
       settings: Paramètres
       new_credentials: Nouvelle clé d'accès
+      logster: Logster
