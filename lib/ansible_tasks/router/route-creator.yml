@@ -9,34 +9,45 @@
 
   vars:
 
-    NGINX_SITES_DIR:    '/etc/nginx/sites-enabled'
-    NGINX_SOURCE_FILE:  'nginx.tmpl'
+    CONFIG_DIR_BASE:  '/etc/nginx/sites-enabled'
 
-    SITE_DIR:            "{{ NGINX_SITES_DIR }}/{{ APPLICATION_NAME }}"
-    SSL_DIR:             "{{ SITE_DIR }}/ssl"
-    NGINX_TARGET_FILE:   "{{ SITE_DIR }}/nginx.conf"
-    NGINX_PASSWORD_FILE: "{{ SITE_DIR }}/htpassword"
+    CONFIG_FILE_TMPL: 'nginx.tmpl'
+    SSL_KEY_TMPL:     'ssl_key.tmpl'
+    SSL_CERT_TMP:     'ssl_cert.tmpl'
+
+    CONFIG_DIR:    "{{ CONFIG_DIR_BASE }}/{{ APPLICATION_NAME }}"
+    SSL_DIR:       "{{ CONFIG_DIR }}/ssl"
+    CONFIG_FILE:   "{{ CONFIG_DIR }}/nginx.conf"
+    PASSWORD_FILE: "{{ CONFIG_DIR }}/htpassword"
+    SSL_KEY_FILE:  "{{ SSL_DIR }}/server.key"
+    SSL_CERT_FILE: "{{ SSL_DIR }}/server.crt"
 
   tasks:
 
     - name: "Create htpasswords dir"
       file: path={{ item }} owner=root group=root state=directory
       with_items:
-      - "{{ SITE_DIR }}"
+      - "{{ CONFIG_DIR }}"
       - "{{ SSL_DIR }}"
 
-    - name: "Install Nginx config file : {{ NGINX_TARGET_FILE }}"
-      template: src={{ NGINX_SOURCE_FILE }} dest={{ NGINX_TARGET_FILE }}
+    - name: "Install Nginx config file"
+      template: src={{ CONFIG_FILE_TMPL }} dest={{ CONFIG_FILE }}
       notify:
         - reload nginx
 
+    - name: "Install SSL key"
+      template: src={{ SSL_KEY_TMPL }} dest={{ SSL_KEY_FILE }} owner=root group=www-data mode=0640
+      when: SSL_KEY is defined and SSL_KEY != None and SSL_KEY != ''
+
+    - name: "Install SSL certificate"
+      template: src={{ SSL_CERT_TMP }} dest={{ SSL_CERT_FILE }} owner=root group=www-data mode=0640
+      when: SSL_CERT is defined and SSL_CERT != None and SSL_CERT != ''
+
     - name: "Delete htpassword file"
-      file: path={{ NGINX_PASSWORD_FILE }} state=absent
-      tags:
-        - install_apache
+      file: path={{ PASSWORD_FILE }} state=absent
 
     - name: "Populate htpassword file"
-      htpasswd: path={{ NGINX_PASSWORD_FILE }} name={{ item['login'] }} password={{ item['password'] }} owner=root group=www-data mode=0640
+      htpasswd: path={{ PASSWORD_FILE }} name={{ item['login'] }} password={{ item['password'] }} owner=root group=www-data mode=0640
       when: HTPASSWORD is defined and HTPASSWORD|length != 0
       with_items: HTPASSWORD
 

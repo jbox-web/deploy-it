@@ -5,22 +5,22 @@ upstream {{ APPLICATION_NAME }} {
 }
 
 server {
-  server_name   {{ DOMAIN_NAME }} {% if DOMAIN_ALIASES != None %}{% for item in DOMAIN_ALIASES -%} {{ item.strip() }} {% endfor %}{% endif %};
+  server_name {{ DOMAIN_NAME }} {% if DOMAIN_ALIASES != None %}{% for item in DOMAIN_ALIASES -%} {{ item.strip() }} {% endfor %}{% endif %};
 
 {% if USE_SSL == False %}
-  listen        0.0.0.0:80;
+  listen      0.0.0.0:80;
 {% else %}
-  listen        0.0.0.0:443;
+  listen      0.0.0.0:443;
 
   ssl on;
-  ssl_certificate           {{ SSL_DIR }}/server.crt;
-  ssl_certificate_key       {{ SSL_DIR }}/server.key;
+  ssl_certificate      {{ SSL_CERT_FILE }};
+  ssl_certificate_key  {{ SSL_KEY_FILE }};
 {% endif %}
 
 {% if HTPASSWORD is defined and HTPASSWORD != None and HTPASSWORD|length != 0 %}
 {% if ENABLE_HTPASSWORD is defined and ENABLE_HTPASSWORD != None and ENABLE_HTPASSWORD == True %}
   auth_basic "Restricted";
-  auth_basic_user_file {{ NGINX_PASSWORD_FILE }};
+  auth_basic_user_file {{ PASSWORD_FILE }};
 {% endif %}
 {% endif %}
 

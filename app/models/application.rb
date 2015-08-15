@@ -175,6 +175,18 @@ class Application < ActiveRecord::Base
   end
 
 
+  def ssl_cert
+    return '' if ssl_certificate.nil?
+    ssl_certificate.ssl_crt
+  end
+
+
+  def ssl_key
+    return '' if ssl_certificate.nil?
+    ssl_certificate.ssl_key
+  end
+
+
   private
 
 

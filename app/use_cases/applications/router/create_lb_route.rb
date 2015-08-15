@@ -47,6 +47,8 @@ module Applications
             use_ssl:           application.use_ssl?,
             enable_htpassword: application.use_credentials?,
             htpassword:        application.active_credentials,
+            ssl_cert:          application.ssl_cert,
+            ssl_key:           application.ssl_key,
             backend_urls:      backend_urls
           }
         end

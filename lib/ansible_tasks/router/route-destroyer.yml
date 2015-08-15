@@ -9,14 +9,14 @@
 
   vars:
 
-    NGINX_SITES_DIR:    '/etc/nginx/sites-enabled'
-    SITE_DIR:           "{{ NGINX_SITES_DIR }}/{{ APPLICATION_NAME }}"
+    CONFIG_DIR_BASE:  '/etc/nginx/sites-enabled'
+    CONFIG_DIR:       "{{ CONFIG_DIR_BASE }}/{{ APPLICATION_NAME }}"
 
   tasks:
 
     ## Frontend : standard configuration (80)
-    - name: "Remove Nginx config dir : {{ SITE_DIR }}"
-      file: state=absent dest={{ SITE_DIR }}
+    - name: "Remove Nginx config dir : {{ CONFIG_DIR }}"
+      file: state=absent dest={{ CONFIG_DIR }}
       notify:
         - reload nginx
 
