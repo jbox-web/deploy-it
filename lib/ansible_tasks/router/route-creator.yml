@@ -11,29 +11,22 @@
 
     CONFIG_DIR_BASE:  '/etc/nginx/sites-enabled'
 
-    CONFIG_FILE_TMPL: 'nginx.tmpl'
     SSL_KEY_TMPL:     'ssl_key.tmpl'
     SSL_CERT_TMP:     'ssl_cert.tmpl'
 
     CONFIG_DIR:    "{{ CONFIG_DIR_BASE }}/{{ APPLICATION_NAME }}"
     SSL_DIR:       "{{ CONFIG_DIR }}/ssl"
-    CONFIG_FILE:   "{{ CONFIG_DIR }}/nginx.conf"
     PASSWORD_FILE: "{{ CONFIG_DIR }}/htpassword"
     SSL_KEY_FILE:  "{{ SSL_DIR }}/server.key"
     SSL_CERT_FILE: "{{ SSL_DIR }}/server.crt"
 
   tasks:
 
-    - name: "Create htpasswords dir"
+    - name: "Create site directories"
       file: path={{ item }} owner=root group=root state=directory
       with_items:
       - "{{ CONFIG_DIR }}"
       - "{{ SSL_DIR }}"
-
-    - name: "Install Nginx config file"
-      template: src={{ CONFIG_FILE_TMPL }} dest={{ CONFIG_FILE }}
-      notify:
-        - reload nginx
 
     - name: "Install SSL key"
       template: src={{ SSL_KEY_TMPL }} dest={{ SSL_KEY_FILE }} owner=root group=www-data mode=0640
@@ -50,8 +43,3 @@
       htpasswd: path={{ PASSWORD_FILE }} name={{ item['login'] }} password={{ item['password'] }} owner=root group=www-data mode=0640
       when: HTPASSWORD is defined and HTPASSWORD|length != 0
       with_items: HTPASSWORD
-
-  handlers:
-
-    - name: reload nginx
-      command: /etc/init.d/nginx reload

@@ -41,26 +41,10 @@ module Applications
         def extra_vars
           {
             application_name:  application.config_id,
-            domain_name:       application.domain_name,
-            domain_aliases:    application.domain_aliases.map(&:domain_name),
-            domain_redirects:  application.domain_redirects.map(&:domain_name),
-            use_ssl:           application.use_ssl?,
-            enable_htpassword: application.use_credentials?,
             htpassword:        application.active_credentials,
             ssl_cert:          application.ssl_cert,
-            ssl_key:           application.ssl_key,
-            backend_urls:      backend_urls
+            ssl_key:           application.ssl_key
           }
-        end
-
-
-        def backend_urls
-          application.backend_urls.empty? ? default_backend : application.backend_urls
-        end
-
-
-        def default_backend
-          ['127.0.0.1:20000']
         end
 
     end

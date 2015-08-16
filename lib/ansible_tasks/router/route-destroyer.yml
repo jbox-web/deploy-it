@@ -17,10 +17,3 @@
     ## Frontend : standard configuration (80)
     - name: "Remove Nginx config dir : {{ CONFIG_DIR }}"
       file: state=absent dest={{ CONFIG_DIR }}
-      notify:
-        - reload nginx
-
-  handlers:
-
-    - name: reload nginx
-      command: /etc/init.d/nginx reload
