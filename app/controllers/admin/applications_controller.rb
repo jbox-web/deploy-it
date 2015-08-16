@@ -29,12 +29,8 @@ class Admin::ApplicationsController < Admin::DefaultController
       application = Application.find_by_id(id)
       application.touch
       options = event_options(application)
-      if params[:deploy_action] == 'update_route'
-        application.update_lb_route!(options)
-      else
-        deploy_action = application.find_active_use_case(params[:deploy_action])
-        application.run_async!(deploy_action.to_method, options)
-      end
+      deploy_action = application.find_active_use_case(params[:deploy_action])
+      application.run_async!(deploy_action.to_method, options)
     end
     flash[:notice] = t('.success.action.enqueue')
     render_ajax_response(locals: { applications: @applications })

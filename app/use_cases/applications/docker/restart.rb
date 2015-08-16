@@ -21,9 +21,7 @@ module Applications
 
 
       def execute(opts = {})
-        call_containers(:restart!, opts) do
-          application.update_lb_route!(opts.dup)
-        end
+        call_containers(:restart!, opts)
       end
 
     end

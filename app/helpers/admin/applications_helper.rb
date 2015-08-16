@@ -35,8 +35,7 @@ module Admin::ApplicationsHelper
     [
       [t('.select.options.start'), 'start'],
       [t('.select.options.stop'), 'stop'],
-      [t('.select.options.restart'), 'restart'],
-      [t('.select.options.update_route'), 'update_route']
+      [t('.select.options.restart'), 'restart']
     ]
   end
 

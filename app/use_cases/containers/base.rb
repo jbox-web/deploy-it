@@ -26,7 +26,6 @@ module Containers
 
 
     def catch_errors(container, opts = {}, &block)
-      update_route = opts.delete(:update_route){ false }
       begin
         yield
       rescue => e
@@ -34,7 +33,6 @@ module Containers
         error_message(e.message)
       else
         container.application.touch
-        container.application.update_lb_route! if update_route && container.stype == :web
       end
     end
 

@@ -43,11 +43,6 @@ module Applications
           error_message(tt('errors.no_instance_started', type: type))
         else
           application.switch_containers!(type: type, version: release.version)
-          if type == :web
-            logger.banner(tt('notice.notifying_router'))
-            application.update_lb_route!
-            logger.padded('Done !')
-          end
         end
       end
 

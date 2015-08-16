@@ -21,7 +21,6 @@ class ApplicationConfigContext < ContextBase
   def update_settings(application, params = {})
     update_application(application, params) do |application|
       application.run_async!('update_files!')
-      application.update_lb_route! if application.domain_name_has_changed? || application.use_credentials_has_changed?
     end
   end
 
@@ -43,15 +42,13 @@ class ApplicationConfigContext < ContextBase
 
 
   def update_domain_names(application, params = {})
-    update_application(application, params) do |application|
-      application.update_lb_route!
-    end
+    update_application(application, params)
   end
 
 
   def update_credentials(application, params = {})
     update_application(application, params) do |application|
-      application.update_lb_route! if application.use_credentials?
+      application.update_lb_route!
     end
   end
 
@@ -73,7 +70,12 @@ class ApplicationConfigContext < ContextBase
   def ssl_certificate(application, params = {})
     return context.render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
     certificate = application.build_ssl_certificate(params)
-    certificate.save ? context.render_success(locals: { application: application }) : context.render_failed(locals: { application: application })
+    if certificate.save
+      application.update_lb_route!
+      context.render_success(locals: { application: application })
+    else
+      context.render_failed(locals: { application: application })
+    end
   end
 
 

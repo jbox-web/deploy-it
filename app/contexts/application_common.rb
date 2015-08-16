@@ -18,7 +18,7 @@ module ApplicationCommon
   private
 
 
-    def execute_action(application, params = {})
+    def execute_action(application, params = {}, &block)
       result = yield application
       if result.success?
         application.run_async!('update_files!')
@@ -29,9 +29,9 @@ module ApplicationCommon
     end
 
 
-    def update_application(application, params = {})
+    def update_application(application, params = {}, &block)
       if application.update(params)
-        yield application
+        yield application if block_given?
         context.render_success(locals: { application: application })
       else
         context.render_failed(locals: { application: application })
