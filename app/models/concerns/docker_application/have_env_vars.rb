@@ -42,14 +42,18 @@ module DockerApplication
 
     def application_params
       params = {}
-      params[:buildpack_url]   = buildpack
-      params[:buildpack_debug] = debug_mode? ? 'true' : ''
-      params[:site_dns]        = domain_name
-      params[:use_ssl]         = use_ssl?
-      params[:port]            = port
-      params[:home]            = '/app'
-      params[:log_server]      = find_log_server
-      params[:secret_key_base] = DeployIt::Utils::Crypto.generate_secret(64)
+      params[:buildpack_url]     = buildpack
+      params[:buildpack_debug]   = debug_mode? ? 'true' : ''
+      params[:site_dns]          = domain_name
+      params[:use_ssl]           = use_ssl?
+      params[:port]              = port
+      params[:home]              = '/app'
+      params[:log_server]        = find_log_server
+      params[:secret_key_base]   = DeployIt::Utils::Crypto.generate_secret(64)
+      params[:app_id]            = config_id
+      params[:domain_aliases]    = domain_aliases.map(&:domain_name).join(',')
+      params[:domain_redirects]  = domain_redirects.map(&:domain_name).join(',')
+      params[:enable_htpassword] = use_credentials?
       params
     end
 
