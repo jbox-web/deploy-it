@@ -25,13 +25,11 @@ module DeployIt
 
       def render_success(message: '', locals: {})
         console_log message unless message.empty?
-        exit 0
       end
 
 
       def render_failed(message: '', locals: {})
         console_log message unless message.empty?
-        exit 1
       end
 
 
