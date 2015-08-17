@@ -65,7 +65,7 @@ module DockerApplication
         when :build
           [ "#{build_cache_path}:/cache" ]
         when :deploy
-          [ '/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock' ]
+          []
         end
       end
 
