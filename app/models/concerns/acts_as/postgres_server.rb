@@ -31,10 +31,5 @@ module ActsAs
       role_postgres.port
     end
 
-
-    def postgres_socket
-      "/var/run/postgresql/.s.PGSQL.#{postgres_port}"
-    end
-
   end
 end

@@ -31,10 +31,5 @@ module ActsAs
       role_mysql.port
     end
 
-
-    def mysql_socket
-      '/var/run/mysqld/mysqld.sock'
-    end
-
   end
 end

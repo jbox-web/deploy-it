@@ -39,10 +39,4 @@ class ApplicationDatabase < ActiveRecord::Base
     server.send("#{db_type}_port")
   end
 
-
-  def db_socket
-    return '' if server.nil?
-    server.send("#{db_type}_socket")
-  end
-
 end

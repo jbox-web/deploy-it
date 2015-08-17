@@ -35,7 +35,6 @@ module DockerApplication
       params[:db_name]   = database.db_name
       params[:db_user]   = database.db_user
       params[:db_pass]   = database.db_pass
-      params[:db_socket] = database.db_socket
       params
     end
 
