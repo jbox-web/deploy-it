@@ -30,7 +30,7 @@ module DockerApplication
     def database_params
       params = {}
       params[:db_type]   = database.db_type
-      params[:db_host]   = db_host
+      params[:db_host]   = database.db_host
       params[:db_port]   = database.db_port
       params[:db_name]   = database.db_name
       params[:db_user]   = database.db_user
@@ -63,15 +63,6 @@ module DockerApplication
 
       def find_log_server
         find_server_with_role(:log).try(:logger_url) || ''
-      end
-
-
-      def db_host
-        if database.db_host == '127.0.0.1' && application_type.name.downcase == 'joomla'
-          "localhost:#{database.db_socket}"
-        else
-          database.db_host
-        end
       end
 
   end
