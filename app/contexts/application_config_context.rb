@@ -48,7 +48,7 @@ class ApplicationConfigContext < ContextBase
 
   def update_credentials(application, params = {})
     update_application(application, params) do |application|
-      application.update_lb_route!
+      application.create_lb_route!
     end
   end
 
@@ -71,7 +71,7 @@ class ApplicationConfigContext < ContextBase
     return context.render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
     certificate = application.build_ssl_certificate(params)
     if certificate.save
-      application.update_lb_route!
+      application.create_lb_route!
       context.render_success(locals: { application: application })
     else
       context.render_failed(locals: { application: application })

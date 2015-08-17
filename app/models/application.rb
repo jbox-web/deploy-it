@@ -170,11 +170,6 @@ class Application < ActiveRecord::Base
   end
 
 
-  def update_lb_route!(opts = {})
-    RouterJob.perform_later(self, 'create_lb_route!', opts)
-  end
-
-
   def ssl_cert
     return '' if ssl_certificate.nil?
     ssl_certificate.ssl_crt
