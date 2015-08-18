@@ -47,7 +47,7 @@ module DockerApplication
 
 
       def get_mount_point(mount_point, method)
-        mounts_on(mount_point).active.map(&method).concat(additional_mounts_on(mount_point))
+        mounts_on(mount_point).active.map(&method)
       end
 
 
@@ -55,18 +55,6 @@ module DockerApplication
       def mounts_on(type)
         method = "on_#{type}"
         mount_points.send(method)
-      end
-
-
-      def additional_mounts_on(type)
-        case type
-        when :receive
-          []
-        when :build
-          [ "#{build_cache_path}:/cache" ]
-        when :deploy
-          []
-        end
       end
 
   end
