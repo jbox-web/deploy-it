@@ -14,5 +14,5 @@
     ignore_errors: True
 
   - name: "Destroy MySQL database user : {{ DB_USER }}"
-    mysql_user: login_host=localhost name={{ DB_USER }} state=absent
+    mysql_user: login_host=localhost host=% name={{ DB_USER }} state=absent
     ignore_errors: True
