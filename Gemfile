@@ -115,10 +115,10 @@ group :test, :development do
 
   gem 'factory_girl', '~> 4.5.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.4.2'
-  gem 'database_cleaner', '~> 1.4.1'
+  gem 'faker', '~> 1.5.0'
+  gem 'database_cleaner', '~> 1.5.0'
 
-  gem 'capybara', '~> 2.4.4'
+  gem 'capybara', '~> 2.5.0'
 
   # Code coverage
   gem 'simplecov', '~> 0.10.0'
