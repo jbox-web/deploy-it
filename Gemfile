@@ -13,7 +13,7 @@ gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodrig
 gem 'rails',          '~> 4.2.3'
 gem 'bcrypt',         '~> 3.1.10'
 gem 'devise',         '~> 3.5.1'
-gem 'puma',           '~> 2.12.0'
+gem 'puma',           '~> 2.13.0'
 gem 'secure_headers', '~> 2.2.1'
 
 ## Database
@@ -38,14 +38,14 @@ gem 'google-webfonts-rails', '~> 0.0.4'
 # CSS
 gem 'sass-rails',         '~> 5.0.3'
 gem 'bootstrap-sass',     '~> 3.3.4'
-gem 'autoprefixer-rails', '~> 5.2.1'
+gem 'autoprefixer-rails', '~> 6.0.0'
 
 # View rendering
 gem 'crummy',                      '~> 1.8.0'
 gem 'bootstrap_form',              '~> 2.3.0'
 gem 'bootstrap-growl-rails',       '~> 3.0.0'
 gem 'bootstrap-switch-rails',      '~> 3.3.2'
-gem 'codemirror-rails',            '~> 5.5.0'
+gem 'codemirror-rails',            '~> 5.6.0'
 gem 'haml-rails',                  '~> 0.9.0'
 gem 'select2-rails',               '~> 3.5.9'
 gem 'simple-navigation',           '~> 4.0.0'
@@ -77,7 +77,7 @@ gem 'net-ssh', '~> 2.9.2'
 gem 'aasm', '~> 4.2.0'
 
 # Async Jobs
-gem 'sidekiq', '~> 3.4.1'
+gem 'sidekiq', '~> 3.5.0'
 gem 'sinatra', require: false
 gem 'slim'
 
