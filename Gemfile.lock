@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/dotpromo/danthes.git
+  revision: f24670a68755607175587c16bc8fc6a37d346e1e
+  specs:
+    danthes (2.0.1)
+      faye (>= 1.0.1)
+      faye-redis
+      yajl-ruby (~> 1.2.0)
+
+GIT
   remote: https://github.com/jbox-web/active_use_case.git
   revision: 721322f3838026e21440e4c127fcd267310abb41
   specs:
@@ -25,15 +34,6 @@ GIT
   submodules: true
   specs:
     rugged (0.22.2)
-
-GIT
-  remote: https://github.com/n-rodriguez/danthes.git
-  revision: 4eda8c6f505ad176a0b158c17b490d856bc28414
-  branch: feat_add_options
-  specs:
-    danthes (2.0.1)
-      faye (>= 1.0.1)
-      yajl-ruby (~> 1.2.0)
 
 GIT
   remote: https://github.com/n-rodriguez/simple_navigation_renderers.git
@@ -93,7 +93,7 @@ GEM
       activerecord (>= 3.0)
     addressable (2.3.8)
     arel (6.0.3)
-    autoprefixer-rails (6.0.0)
+    autoprefixer-rails (6.0.1)
       execjs
       json
     axiom-types (0.1.1)
