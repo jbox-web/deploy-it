@@ -23,9 +23,10 @@ GIT
 
 GIT
   remote: https://github.com/jbox-web/async_notifications.git
-  revision: c501494d733394259c54049ecff786a26480e989
+  revision: e6e98a3f2906b84f00b7a99fdd87b7759d31c10b
+  tag: 1.0.0
   specs:
-    async_notifications (0.1.0)
+    async_notifications (1.0.0)
 
 GIT
   remote: https://github.com/libgit2/rugged.git
@@ -525,7 +526,7 @@ DEPENDENCIES
   active_use_case (~> 1.0.3)!
   acts_as_list (~> 0.7.0)
   async_model (~> 1.0.0)!
-  async_notifications (~> 0.1.0)!
+  async_notifications (~> 1.0.0)!
   autoprefixer-rails (~> 6.0.0)
   bcrypt (~> 3.1.10)
   bootstrap-growl-rails (~> 3.0.0)

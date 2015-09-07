@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rugged',                '~> 0.22.2', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.22.2', submodules: true
 gem 'actionform',            '~> 0.0.1',  git: 'https://github.com/rails/actionform.git', require: 'action_form'
 
-gem 'async_notifications',   '~> 0.1.0',  git: 'https://github.com/jbox-web/async_notifications.git'
+gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
 gem 'active_use_case',       '~> 1.0.3',  git: 'https://github.com/jbox-web/active_use_case.git'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
