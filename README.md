@@ -6,3 +6,7 @@
 [![Dependency Status](https://gemnasium.com/jbox-web/deploy-it.svg)](https://gemnasium.com/jbox-web/deploy-it)
 
 ### Host your own private Heroku, easy ;)
+
+## Installation
+
+Checkout [Deploy'It - Dockerized](http://jbox-web.github.io/deploy-it-dockerized/) to install Deploy'It.
