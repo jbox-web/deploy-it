@@ -1,4 +1,4 @@
-## DeployIt
+## Deploy'It
 
 [![GitHub license](https://img.shields.io/github/license/jbox-web/deploy-it.svg)](https://github.com/jbox-web/deploy-it/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/jbox-web/deploy-it.svg)](https://github.com/jbox-web/deploy-it/releases/latest)
