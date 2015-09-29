@@ -30,11 +30,11 @@ GIT
 
 GIT
   remote: https://github.com/libgit2/rugged.git
-  revision: e5de8acfbaf159c043444804260f9ade753267a4
-  tag: v0.22.2
+  revision: 51eb13f1fb9ba17969fb62380c67741d3d8841ea
+  tag: v0.23.2
   submodules: true
   specs:
-    rugged (0.22.2)
+    rugged (0.23.2)
 
 GIT
   remote: https://github.com/n-rodriguez/simple_navigation_renderers.git
@@ -574,7 +574,7 @@ DEPENDENCIES
   request_store (~> 1.2.0)
   rspec (~> 3.3.0)
   rspec-rails (~> 3.3.0)
-  rugged (~> 0.22.2)!
+  rugged (~> 0.23.2)!
   sass-rails (~> 5.0.3)
   sdoc (~> 0.4.0)
   secure_headers (~> 2.2.1)
