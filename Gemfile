@@ -17,7 +17,7 @@ gem 'puma',           '~> 2.14.0'
 gem 'secure_headers', '~> 2.2.1'
 
 ## Database
-gem 'mysql2', '~> 0.3.19'
+gem 'mysql2', '~> 0.3.20'
 gem 'pg',     '~> 0.18.2'
 
 ## Interface gems
@@ -129,7 +129,7 @@ group :test, :development do
 end
 
 group :development do
-  gem 'spring',                '~> 1.3.1'
+  gem 'spring',                '~> 1.4.0'
   gem 'spring-commands-rspec', '~> 1.0.4'
 
   gem 'turbulence',   '~> 1.2.4'
