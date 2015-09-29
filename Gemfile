@@ -13,7 +13,7 @@ gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodrig
 gem 'rails',          '~> 4.2.3'
 gem 'bcrypt',         '~> 3.1.10'
 gem 'devise',         '~> 3.5.1'
-gem 'puma',           '~> 2.13.0'
+gem 'puma',           '~> 2.14.0'
 gem 'secure_headers', '~> 2.2.1'
 
 ## Database
@@ -47,7 +47,7 @@ gem 'bootstrap-growl-rails',       '~> 3.0.0'
 gem 'bootstrap-switch-rails',      '~> 3.3.2'
 gem 'codemirror-rails',            '~> 5.6.0'
 gem 'haml-rails',                  '~> 0.9.0'
-gem 'select2-rails',               '~> 3.5.9'
+gem 'select2-rails',               '~> 4.0.0'
 gem 'simple-navigation',           '~> 4.0.0'
 gem 'will_paginate',               '~> 3.0.7'
 gem 'will_paginate-bootstrap',     '~> 1.0.1'
@@ -71,10 +71,10 @@ gem 'docker-api', '~> 1.22.2'
 gem 'sshkey', '~> 1.7.0'
 
 # Presence check over SSH
-gem 'net-ssh', '~> 2.9.2'
+gem 'net-ssh', '~> 3.0.1'
 
 # Docker builds are state machines
-gem 'aasm', '~> 4.2.0'
+gem 'aasm', '~> 4.3.0'
 
 # Async Jobs
 gem 'sidekiq', '~> 3.5.0'
