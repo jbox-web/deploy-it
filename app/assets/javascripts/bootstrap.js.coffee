@@ -19,6 +19,13 @@ root.setLightBox = ->
     $(this).ekkoLightbox()
 
 
+root.setModalBox = ->
+  $(document).delegate 'a[data-toggle="ajax-modal"]', 'click', (event) ->
+    event.preventDefault()
+    $.get $(this).attr('href'), (data) ->
+      $('#modal-holder').html(data).find('.modal').modal().draggable()
+
+
 root.setPopOver = ->
   $('[data-toggle="popover"]').popover(
     trigger:   $(this).data('trigger'),

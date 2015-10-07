@@ -14,6 +14,7 @@
 #= require jquery_ujs
 #= require jquery-ui/effect
 #= require jquery-ui/effect-highlight
+#= require jquery-ui/draggable
 #= require jquery-ui/sortable
 #= require bootstrap-sprockets
 #= require bootstrap-switch
@@ -32,6 +33,7 @@ Turbolinks.enableProgressBar()
 onFirstLoad = ->
   setAsyncNotifications()
   setLightBox()
+  setModalBox()
 
 onTurboLoad = ->
   # Common helper to set interface
