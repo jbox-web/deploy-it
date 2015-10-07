@@ -76,11 +76,13 @@ module HtmlHelpers
 
       def build_icon_css_class(opts)
         # Treat opts hash
-        inverse = opts.delete(:inverse){ false }
-        fixed   = opts.delete(:fixed){ false }
-        aligned = opts.delete(:aligned){ true }
+        inverse = opts.delete(:inverse) { false }
+        fixed   = opts.delete(:fixed)   { false }
+        aligned = opts.delete(:aligned) { true }
+        bigger  = opts.delete(:bigger)  { true }
 
-        css_class = ['fa', 'fa-lg']
+        css_class = ['fa']
+        css_class.push('fa-lg') if bigger
         css_class.push('fa-align') if aligned
         css_class.push('fa-inverse') if inverse
         css_class.delete('fa-lg') if fixed
