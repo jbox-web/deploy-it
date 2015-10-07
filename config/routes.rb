@@ -130,6 +130,7 @@ Rails.application.routes.draw do
 
     resources :groups
     resources :docker_images
+    resources :addons
     resources :buildpacks
     resources :reserved_names
 
