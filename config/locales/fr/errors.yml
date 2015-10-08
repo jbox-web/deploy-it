@@ -15,5 +15,11 @@ fr:
       server_update_failed: Mise à jour refusée
       unknown_error: Erreur inconnue
 
+    docker:
+      unknown_error: "Unknown error : %{error}"
+      timeout: Docker has timed out
+      image_not_found: "Docker image not found '%{image}'"
+      connection_refused: Docker connection refused
+
     deploy_it:
       unbuildable: "Reconstruction impossible : vous devez d'abord pousser des données via 'git push'"

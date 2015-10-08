@@ -36,9 +36,9 @@ fr:
           on_scale: "Erreurs lors du déploiement de l'application '%{application}' : %{errors}"
 
       compile:
-        errors:
-          on_receive:
-            docker_timeout: Docker has timed out
+        notice:
+          on_cleanup: Cleaning up the room
+          on_receive: Creating a new Docker image with your application
 
       scale:
         notice:

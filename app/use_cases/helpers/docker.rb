@@ -54,5 +54,24 @@ module Helpers
       )
     end
 
+
+    def catch_error_or_next_method(method = nil, be_sure = nil, &block)
+      begin
+        yield
+      rescue ::Docker::Error::TimeoutError
+        error_message I18n.t('errors.docker.timeout')
+      rescue ::Docker::Error::NotFoundError
+        error_message I18n.t('errors.docker.image_not_found', image: application.image_type)
+      rescue EOFError, Excon::Errors::SocketError
+        error_message I18n.t('errors.docker.connection_refused')
+      rescue => e
+        error_message I18n.t('errors.docker.unknown_error', error: e.message)
+      else
+        self.send(method, docker_options_for(method)) if method
+      ensure
+        be_sure.call if be_sure
+      end
+    end
+
   end
 end

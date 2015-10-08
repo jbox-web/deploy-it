@@ -51,26 +51,33 @@ module Applications
       include Helpers::Docker
 
       attr_reader :logger
+      attr_reader :archive_path
 
 
       def execute(logger, archive_path)
-        @logger = logger
+        @logger       = logger
+        @archive_path = archive_path
 
-        cleanup(application.image_name)
-        receive(archive_path, docker_options_for(:receive))
+        cleanup
       end
 
 
-      def cleanup(image)
-        logger.title 'Cleaning up the room'
-        docker_connection.remove_stopped_containers_by_name(image)
+      def cleanup
+        logger.title tt('notice.on_cleanup')
+
+        catch_error_or_next_method(:receive) do
+          docker_connection.remove_stopped_containers_by_name(application.image_name)
+        end
       end
 
 
-      def receive(archive_path, docker_options = {})
+      def receive(docker_options = {})
         # Push repository data within the container in tar format
-        logger.title 'Creating a new Docker image with your application'
-        begin
+        logger.title tt('notice.on_receive')
+
+        be_sure = -> { FileUtils.rm(archive_path, force: true) unless archive_path.nil? }
+
+        catch_error_or_next_method(:build, be_sure) do
           new_image_from_file(
             image_source:   application.image_type,
             image_dest:     application.image_name,
@@ -78,42 +85,38 @@ module Applications
             dest_dir:       DEFAULT_SETTINGS[:app_dir],
             docker_options: docker_options
           )
-        rescue ::Docker::Error::TimeoutError => e
-          error_message tt('errors.on_receive.docker_timeout')
-        else
-          build(docker_options_for(:build))
-          release(docker_options_for(:release))
-        ensure
-          # Remove repository data
-          FileUtils.rm(archive_path, force: true) unless archive_path.nil?
         end
       end
 
 
       def build(docker_options = {})
-        # Inject BUILD_ENV file if exists
-        install_build_vars
+        catch_error_or_next_method(:release) do
+          # Inject BUILD_ENV file if exists
+          install_build_vars
 
-        # Execute plugins
-        execute_plugins(:pre_build, docker_options)
+          # Execute plugins
+          execute_plugins(:pre_build, docker_options)
 
-        # Run BuildStep builder script
-        run_command(DEFAULT_SETTINGS[:builder_script], docker_options)
+          # Run BuildStep builder script
+          run_command(DEFAULT_SETTINGS[:builder_script], docker_options)
 
-        # Execute plugins
-        execute_plugins(:post_build, docker_options)
+          # Execute plugins
+          execute_plugins(:post_build, docker_options)
+        end
       end
 
 
       def release(docker_options = {})
-        # Inject ENV file if exists
-        install_app_vars
+        catch_error_or_next_method do
+          # Inject ENV file if exists
+          install_app_vars
 
-        # Inject DATABASE file if exists
-        install_db_vars
+          # Inject DATABASE file if exists
+          install_db_vars
 
-        # Execute plugins
-        execute_plugins(:pre_deploy, docker_options)
+          # Execute plugins
+          execute_plugins(:pre_deploy, docker_options)
+        end
       end
 
 
