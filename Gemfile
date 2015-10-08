@@ -11,11 +11,11 @@ gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/asyn
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git', branch: 'fix_rails4'
 
 # Base gems
-gem 'rails', '~> 4.2.3'
+gem 'rails', '~> 4.2.4'
 
 # Server
 gem 'puma',           '~> 2.14.0'
-gem 'secure_headers', '~> 2.2.1'
+gem 'secure_headers', '~> 2.4.0'
 
 # Database
 gem 'mysql2', '~> 0.3.20'
