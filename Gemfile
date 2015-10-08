@@ -142,6 +142,7 @@ group :development do
   gem 'mina',         '~> 0.3.4'
   gem 'mina-puma',    require: false
   gem 'mina-sidekiq', require: false
+  gem 'mina-scp',     require: false
 
   # gem 'brakeman', '~> 2.6.3'
   # gem 'bullet',   '~> 4.14.7'
