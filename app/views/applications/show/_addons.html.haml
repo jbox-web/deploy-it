@@ -4,7 +4,7 @@
   %ul{ class: 'list-group' }
     - application.addons.each do |addon|
       %li{ class: 'list-group-item' }
-        %span{ class: 'mount-point' }= label_with_image(addon.name, addon.type)
+        %span{ class: 'mount-point' }= render_addon_with_icon(addon.name, addon.type)
 
 - else
   = render_no_data

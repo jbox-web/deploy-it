@@ -165,4 +165,16 @@ module ApplicationsHelper
     application_id
   end
 
+
+  def render_addon_with_icon(addon_name, addon_type)
+    image_name =
+      case addon_type
+      when 'redis'
+        'redis.svg'
+      when 'memcached'
+        'memcached.png'
+      end
+    label_with_image(addon_name, image_name)
+  end
+
 end
