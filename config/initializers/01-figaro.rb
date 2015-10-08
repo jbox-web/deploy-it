@@ -25,7 +25,6 @@ RAILS_REQUIRED_KEYS = [
 
 DEPLOY_IT_REQUIRED_KEYS = [
   # Logs
-  'LOG_DIR',
   'LOG_LEVEL',
 
   # Redis (Sidekiq / Faye)

@@ -22,7 +22,7 @@ module DeployIt
       class << self
 
         def init_logs!
-          logfile = File.join(Settings.log_dir, 'deploy-it.log')
+          logfile = Rails.root.join('log', 'deploy-it.log')
           logger = new(logfile)
           logger.progname = 'DeployIt'
           return logger

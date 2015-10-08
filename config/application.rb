@@ -56,7 +56,6 @@ module DeployIt
 
     # Log Level
     config.log_level = :info
-    config.paths['log'] = File.join(ENV['LOG_DIR'], "#{ENV['RAILS_ENV']}.log")
 
     # Generators
     config.generators do |g|

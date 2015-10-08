@@ -1,6 +1,5 @@
 ---
 # Logs
-log_dir:                  <%= ENV['LOG_DIR'] %>
 log_level:                <%= ENV['LOG_LEVEL'] %>
 
 # SSH authorized_keys file
