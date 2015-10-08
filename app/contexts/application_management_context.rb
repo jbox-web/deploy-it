@@ -35,6 +35,7 @@ class ApplicationManagementContext < ContextBase
       yield task if block_given?
       context.render_success(locals: { request_id: build.request_id })
     else
+      yield task if block_given?
       context.render_failed(locals: { request_id: nil }, message: task.errors)
     end
   end
