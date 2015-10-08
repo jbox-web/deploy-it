@@ -4,7 +4,7 @@ STDOUT.sync = true
 STDERR.sync = true
 
 ## Include Libs
-RAILS_ENV = ENV["RAILS_ENV"] ||= "production"
+RAILS_ENV = ENV['RAILS_ENV'] ||= 'production'
 require_relative '../config/environment'
 
 #########
