@@ -3,6 +3,10 @@
 STDOUT.sync = true
 STDERR.sync = true
 
+## Load environment variables
+require 'dotenv'
+Dotenv.load
+
 ## Include Libs
 require_relative '../lib/deploy_it/utils/git'
 require_relative '../lib/deploy_it/utils/http'
