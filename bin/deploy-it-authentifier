@@ -60,4 +60,5 @@ else
     $stderr.puts "[ERROR] #{message}"
   end
   $stderr.puts ''
+  exit 1
 end
