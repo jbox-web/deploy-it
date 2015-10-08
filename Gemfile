@@ -54,7 +54,7 @@ gem 'will_paginate-bootstrap',     '~> 1.0.1'
 gem 'zeroclipboard-rails',         '~> 0.1.1'
 
 ## Utils gems
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 gem 'figaro',        '~> 1.1.0'
 
 gem 'acts_as_list',  '~> 0.7.0'
@@ -141,6 +141,7 @@ group :development do
 
   gem 'mina',      '~> 0.3.4'
   gem 'mina-puma', require: false
+  gem 'mina-faye', require: false
 
   # gem 'brakeman', '~> 2.6.3'
   # gem 'bullet',   '~> 4.14.7'
