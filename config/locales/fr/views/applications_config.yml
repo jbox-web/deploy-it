@@ -34,3 +34,9 @@ fr:
     settings:
       notice: Paramètres enregistrés avec succès
       error: Erreurs lors de l'enregistrement des paramètres
+    add_addon:
+      title: Nouvel addon
+      notice: Addon ajouté avec succès
+      error: Erreurs lors de la création du nouvel addon
+    addons:
+      notice: Addons modifiés avec succès

@@ -1,0 +1,8 @@
+<% if saved %>
+$('#mainModal').modal('hide');
+<%= js_render_partial('#addons', 'applications/edit/addons', method: :replace, locals: { application: application }) %>
+<%= render_flash_messages_as_js('#addons .flash-messages') %>
+<% else %>
+<%= js_render_partial('#new_application_addon', 'applications_config/add_addon', method: :replace, locals: { application: application, addon: addon }) %>
+<%= render_flash_messages_as_js('#new_application_addon .flash-messages') %>
+<% end %>

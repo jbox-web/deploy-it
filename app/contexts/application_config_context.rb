@@ -41,6 +41,11 @@ class ApplicationConfigContext < ContextBase
   end
 
 
+  def update_addons(application, params = {})
+    update_application(application, params)
+  end
+
+
   def update_domain_names(application, params = {})
     update_application(application, params)
   end
@@ -109,6 +114,16 @@ class ApplicationConfigContext < ContextBase
   def reset_ssl_certificate(application, params = {})
     application.ssl_certificate = nil
     context.render_success(locals: { application: application })
+  end
+
+
+  def add_addon(application, params = {})
+    addon = application.addons.new(params)
+    if addon.save
+      context.render_success(locals: { application: application })
+    else
+      context.render_failed(locals: { application: application, addon: addon })
+    end
   end
 
 end

@@ -1,0 +1,11 @@
+= content_for :title, t('.title')
+
+= bootstrap_form_for addon,
+                     url:    add_addon_application_path(application),
+                     html:   { method: :post, remote: true } do |f|
+
+  .flash-messages
+
+  = f.collection_select :addon_id, Addon.by_name, :id, :name, prompt: true
+
+  = button_submit t('button.save')

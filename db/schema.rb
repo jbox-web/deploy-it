@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809044327) do
+ActiveRecord::Schema.define(version: 20151007211911) do
+
+  create_table "addons", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "image",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "application_addons", force: :cascade do |t|
+    t.integer  "application_id", limit: 4
+    t.integer  "addon_id",       limit: 4
+    t.text     "params",         limit: 65535
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "application_addons", ["application_id", "addon_id"], name: "index_application_addons_on_application_id_and_addon_id", unique: true, using: :btree
 
   create_table "application_credentials", force: :cascade do |t|
     t.integer  "application_id", limit: 4

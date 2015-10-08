@@ -120,6 +120,8 @@ fr:
       mount_points:
         add: Ajouter un point de montage
         restore_defaults: Restaurer les points de montage par défaut
+      addons:
+        add: Ajouter un addon
       members:
         none_defined: Aucun membre
       domain_names:

@@ -22,6 +22,11 @@ module HtmlHelpers
     end
 
 
+    def label_with_image(label, image_name, image_opts = {})
+      image_tag(image_name, image_opts.merge(class: 'addon-icon', size: '24x24')) + label
+    end
+
+
     ## Labels
     def label_with_icon(label, icon_name, icon_opts = {})
       icon_name = icon_name.join(' ') if icon_name.is_a?(Array)

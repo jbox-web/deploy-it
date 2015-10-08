@@ -1,0 +1,20 @@
+fr:
+
+  activerecord:
+    models:
+      application_addon:
+        one: Addon
+        other: Addons
+
+    attributes:
+      application_addon:
+        addon: Addon
+        params: Paramètres
+
+    errors:
+      models:
+        application_addon:
+          attributes:
+            addon_id:
+              blank: ne peut être nul
+              taken: déjà utilisé

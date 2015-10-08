@@ -100,8 +100,10 @@ Rails.application.routes.draw do
       patch 'credentials'
       patch 'env_vars'
       patch 'mount_points'
+      patch 'addons'
       patch 'repository'
       patch 'ssl_certificate'
+      match 'add_addon', via: [:get, :post]
     end
   end
 

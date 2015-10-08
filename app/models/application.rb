@@ -35,6 +35,7 @@ class Application < ActiveRecord::Base
   has_many   :mount_points,    dependent: :destroy
   has_many   :domain_names,    dependent: :destroy
   has_many   :credentials,     dependent: :destroy, class_name: 'ApplicationCredential'
+  has_many   :addons,          dependent: :destroy, class_name: 'ApplicationAddon'
 
   has_many   :configs,    dependent: :destroy
   has_many   :pushes,     dependent: :destroy
@@ -51,6 +52,7 @@ class Application < ActiveRecord::Base
   accepts_nested_attributes_for :mount_points, allow_destroy: true
   accepts_nested_attributes_for :domain_names, allow_destroy: true
   accepts_nested_attributes_for :credentials,  allow_destroy: true
+  accepts_nested_attributes_for :addons,       allow_destroy: true
 
   ## Basic Validations
   validates :domain_name, presence: true, on: :update

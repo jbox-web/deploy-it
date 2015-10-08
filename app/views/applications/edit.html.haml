@@ -26,6 +26,9 @@
 .row
   %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/mount_points', { application: application }
 
+.row
+  %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/addons', { application: application }
+
 - if can?(:delete_application, application)
   .row
     %div{ class: 'col-md-10 col-md-offset-1' }= render 'applications/edit/delete', { application: application }
