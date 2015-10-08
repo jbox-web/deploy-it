@@ -72,7 +72,7 @@ required_lib_dirs = [
 
 required_lib_dirs.each do |regex|
   Dir.glob(regex).each do |file|
-    require file
+    require file unless File.dirname(file).split('/').last == 'foreman'
   end
 end
 

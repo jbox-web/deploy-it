@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'foreman/cli'
+require_relative '../lib/deploy_it/core_ext/foreman/engine_patch'
+
+Foreman::CLI.start
