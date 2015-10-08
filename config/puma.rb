@@ -3,12 +3,11 @@ threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
 rackup      DefaultRackup
-port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'development'
+environment ENV['RAILS_ENV'] || 'development'
 
 preload_app!
 
-if ENV['RACK_ENV'] == 'production'
+if ENV['RAILS_ENV'] == 'production'
   daemonize       true
   pidfile         File.join(Dir.pwd, 'tmp', 'pids', 'puma.pid')
   state_path      File.join(Dir.pwd, 'tmp', 'sockets', 'puma.state')
@@ -18,4 +17,6 @@ if ENV['RACK_ENV'] == 'production'
   on_worker_boot do
     ActiveRecord::Base.establish_connection
   end
+else
+  port ENV['PORT'] || 3000
 end
