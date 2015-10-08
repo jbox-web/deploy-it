@@ -24,9 +24,7 @@
 # Gems in development
 /vendor/gems
 
-# Mina files
-/config/deploy.rb
-
 # Dotenv file
+/.domain
 /.env
 /deploy-it.conf
