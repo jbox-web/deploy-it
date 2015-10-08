@@ -7,4 +7,4 @@
         %span{ class: 'mount-point' }= link_to_external domain_redirect.domain_name
 
 - else
-  .alert{ class: 'alert-info dont-dismiss' }= t('.none_defined')
+  = render_no_data

@@ -26,7 +26,7 @@
               = render partial: 'applications/edit/member', collection: sorted['User'], locals: { application: application }
 
         - else
-          .alert{ class: 'alert alert-warning dont-dismiss' }= t('.none_defined')
+          = render_no_data(type: :warning)
 
       .col-md-4
         - member = Member.new

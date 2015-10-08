@@ -8,4 +8,4 @@
         %dt= role.to_s + ' :'
         %dd= application.users_by_role[role].uniq.sort.join(", ")
   - else
-    .alert{ class: 'alert-warning dont-dismiss' }= t('.none_defined')
+    = render_no_data(type: :warning)

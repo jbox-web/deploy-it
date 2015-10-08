@@ -47,7 +47,7 @@
                               remote: true,
                               confirm: false if membership.deletable?
   - else
-    .alert{ class: 'alert-warning dont-dismiss' }= t('.none_defined')
+    = render_no_data
 
 
 %div{ class: 'col-md-6' }

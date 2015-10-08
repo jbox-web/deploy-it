@@ -56,6 +56,11 @@ module HtmlHelpers
     end
 
 
+    def render_no_data(type: :info)
+      content_tag(:div, t('.none_defined'), class: "alert alert-#{type} dont-dismiss")
+    end
+
+
     def merge_css_class(opts = {}, default_class = [])
       css_class = opts.delete(:class){ '' }
       css_class = css_class.split(' ')
