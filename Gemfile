@@ -126,17 +126,17 @@ group :doc do
 end
 
 group :test, :development do
-  gem 'rspec', '~> 3.3.0'
+  gem 'rspec',       '~> 3.3.0'
   gem 'rspec-rails', '~> 3.3.0'
 
-  gem 'shoulda', '~> 3.5.0'
+  gem 'shoulda',          '~> 3.5.0'
   gem 'shoulda-matchers', '~> 2.8.0'
-  gem 'shoulda-context', '~> 1.2.1'
+  gem 'shoulda-context',  '~> 1.2.1'
 
-  gem 'factory_girl', '~> 4.5.0'
+  gem 'factory_girl',       '~> 4.5.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.5.0'
-  gem 'database_cleaner', '~> 1.5.0'
+  gem 'faker',              '~> 1.5.0'
+  gem 'database_cleaner',   '~> 1.5.0'
 
   gem 'capybara', '~> 2.5.0'
 
