@@ -142,10 +142,6 @@ group :test, :development do
 
   # Code coverage
   gem 'simplecov', '~> 0.10.0'
-  gem 'simplecov-rcov', '~> 0.2.3'
-
-  # Junit results
-  gem 'ci_reporter_rspec', '~> 1.0.0'
 end
 
 group :development do
