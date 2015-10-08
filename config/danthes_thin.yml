@@ -3,3 +3,5 @@ address: 127.0.0.1
 port: 9393
 environment: production
 rackup: danthes.ru
+pid: tmp/pids/faye.pid
+tag: deploy-it-faye

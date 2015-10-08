@@ -139,8 +139,9 @@ group :development do
   gem 'flog',         '~> 4.3.0'
   gem 'quiet_assets', '~> 1.1.0'
 
-  gem 'mina',      '~> 0.3.4'
-  gem 'mina-puma', require: false
+  gem 'mina',         '~> 0.3.4'
+  gem 'mina-puma',    require: false
+  gem 'mina-sidekiq', require: false
 
   # gem 'brakeman', '~> 2.6.3'
   # gem 'bullet',   '~> 4.14.7'
