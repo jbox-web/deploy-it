@@ -24,61 +24,92 @@ class ApplicationsConfigController < ApplicationController
 
 
   def settings
+    required_params = [:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack, :use_credentials, :use_cron, :use_ssl, :debug_mode]
+    set_required_params({ application: required_params })
     call_context(:update_settings)
   end
 
 
   def repository
+    set_required_params({ application_repository: [:url, :branch, :have_credentials, :credential_id] })
     call_context(:update_repository)
   end
 
 
   def credentials
+    set_required_params({ application: { credentials_attributes: [:id, :login, :password, :_destroy] } })
     call_context(:update_credentials)
   end
 
 
   def env_vars
+    set_required_params({ application: { env_vars_attributes: [:id, :key, :value, :step, :masked, :_destroy] } })
     call_context(:update_env_vars)
   end
 
 
   def mount_points
+    set_required_params({ application: { mount_points_attributes: [:id, :source, :target, :step, :active, :_destroy] } })
     call_context(:update_mount_points)
   end
 
 
   def domain_names
+    set_required_params({ application: { domain_names_attributes: [:id, :domain_name, :mode, :_destroy] } })
     call_context(:update_domain_names)
   end
 
 
+  def addons
+    set_required_params({ application: { addons_attributes: [:id, :params, :_destroy] } })
+    call_context(:update_addons)
+  end
+
+
   def ssl_certificate
+    set_required_params({ ssl_certificate: [:ssl_crt, :ssl_key], rescue: true })
     call_context(:ssl_certificate)
   end
 
 
   def database
+    set_required_params({ application: { database_attributes: [:id, :server_id] } })
     call_context(:update_database)
   end
 
 
   def synchronize_repository
+    set_required_params(event_options.merge(strong_params: false))
     call_context(:synchronize_repository)
   end
 
 
+  def add_addon
+    set_required_params({ application_addon: [:addon_id], rescue: true })
+
+    if request.post?
+      call_context(:add_addon)
+    else
+      @addon = @application.addons.new
+      render layout: modal_or_application_layout
+    end
+  end
+
+
   def restore_env_vars
+    set_required_params({ strong_params: false })
     call_context(:restore_env_vars)
   end
 
 
   def restore_mount_points
+    set_required_params({ strong_params: false })
     call_context(:restore_mount_points)
   end
 
 
   def reset_ssl_certificate
+    set_required_params({ strong_params: false })
     call_context(:reset_ssl_certificate)
   end
 
@@ -87,7 +118,7 @@ class ApplicationsConfigController < ApplicationController
 
 
     def call_context(method)
-      ApplicationConfigContext.new(self).send(method, @application, get_params)
+      ApplicationConfigContext.new(self).send(method, @application, get_required_params)
     end
 
 
@@ -95,33 +126,6 @@ class ApplicationsConfigController < ApplicationController
       @application = Application.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       render_404
-    end
-
-
-    def get_params(action: action_name)
-      case action
-      when 'settings'
-        params.require(:application).permit(:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack,
-          :use_credentials, :use_cron, :use_ssl, :debug_mode)
-      when 'repository'
-        params.require(:application_repository).permit(:url, :branch, :have_credentials, :credential_id)
-      when 'credentials'
-        params.require(:application).permit(credentials_attributes: [:id, :login, :password, :_destroy])
-      when 'env_vars'
-        params.require(:application).permit(env_vars_attributes: [:id, :key, :value, :step, :masked, :_destroy])
-      when 'mount_points'
-        params.require(:application).permit(mount_points_attributes: [:id, :source, :target, :step, :active, :_destroy])
-      when 'domain_names'
-        params.require(:application).permit(domain_names_attributes: [:id, :domain_name, :mode, :_destroy])
-      when 'ssl_certificate'
-        params.require(:ssl_certificate).permit(:ssl_crt, :ssl_key) rescue {}
-      when 'database'
-        params.require(:application).permit(database_attributes: [:id, :server_id])
-      when 'synchronize_repository'
-        event_options
-      else
-        {}
-      end
     end
 
 
@@ -141,6 +145,11 @@ class ApplicationsConfigController < ApplicationController
 
     def event_options
       { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
+    end
+
+
+    def modal_or_application_layout
+      request.xhr? ? 'modal' : 'application'
     end
 
 end

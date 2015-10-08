@@ -38,6 +38,27 @@ module Contextable
   private
 
 
+    def set_required_params(required_params)
+      @required_params = required_params
+    end
+
+
+    def get_required_params
+      rescue_from_error = @required_params.delete(:rescue) { false }
+      strong_params     = @required_params.delete(:strong_params) { true }
+
+      if strong_params
+        if rescue_from_error
+          params.require(@required_params.keys.first).permit(@required_params.values.first) rescue {}
+        else
+          params.require(@required_params.keys.first).permit(@required_params.values.first)
+        end
+      else
+        @required_params
+      end
+    end
+
+
     def get_template(action: action_name)
       action
     end
