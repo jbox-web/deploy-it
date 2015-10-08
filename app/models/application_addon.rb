@@ -24,8 +24,18 @@ class ApplicationAddon < ActiveRecord::Base
   validates :addon_id,       presence: true, uniqueness: { scope: :application_id }
 
 
-  def to_s
+  def name
     addon.name
+  end
+
+
+  def to_s
+    name
+  end
+
+
+  def type
+    name.downcase
   end
 
 end

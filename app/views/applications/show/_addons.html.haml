@@ -1,0 +1,10 @@
+%h4{ class: 'page-header' }= label_with_icon(get_model_name_for('ApplicationAddon'), 'fa-cubes', fixed: true)
+
+- if application.addons.any?
+  %ul{ class: 'list-group' }
+    - application.addons.each do |addon|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'mount-point' }= label_with_image(addon.name, addon.type)
+
+- else
+  = render_no_data

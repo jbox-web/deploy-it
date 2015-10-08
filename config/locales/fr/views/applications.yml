@@ -17,6 +17,9 @@ fr:
       members:
         none_defined: Aucun membre
 
+      addons:
+        none_defined: Aucun addon
+
       domain_aliases:
         title: Alias
         none_defined: Aucun alias défini

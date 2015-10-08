@@ -24,7 +24,7 @@
 
         %fieldset
           %legend
-            = label_with_image(ff.object.to_s, ff.object.to_s.downcase)
+            = label_with_image(ff.object.name, ff.object.type)
             %small.pull-right= ff.link_to_remove icon('fa-trash-o', bigger: false)
 
           = ff.text_field :params

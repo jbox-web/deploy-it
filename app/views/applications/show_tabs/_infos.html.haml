@@ -14,5 +14,6 @@
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
     .row
-      %div{ class: 'col-md-8' }= render 'applications/show/mount_points', application: application
+      %div{ class: 'col-md-4' }= render 'applications/show/mount_points', application: application
       %div{ class: 'col-md-4' }= render 'applications/show/credentials', application: application
+      %div{ class: 'col-md-4' }= render 'applications/show/addons', application: application
