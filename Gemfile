@@ -10,18 +10,27 @@ gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/asyn
 
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git', branch: 'fix_rails4'
 
-## Base gems
-gem 'rails',          '~> 4.2.3'
-gem 'bcrypt',         '~> 3.1.10'
-gem 'devise',         '~> 3.5.1'
+# Base gems
+gem 'rails', '~> 4.2.3'
+
+# Server
 gem 'puma',           '~> 2.14.0'
 gem 'secure_headers', '~> 2.2.1'
 
-## Database
+# Database
 gem 'mysql2', '~> 0.3.20'
 gem 'pg',     '~> 0.18.2'
 
-## Interface gems
+# Authentication
+gem 'bcrypt',        '~> 3.1.10'
+gem 'devise',        '~> 3.5.1'
+gem 'request_store', '~> 1.2.0'
+
+# Configuration
+gem 'dotenv-rails'
+gem 'figaro',        '~> 1.1.0'
+gem 'settingslogic', '~> 2.0.9'
+
 # Javascript
 gem 'coffee-rails',    '~> 4.1.0'
 gem 'jquery-rails',    '~> 4.0.3'
@@ -41,33 +50,39 @@ gem 'sass-rails',         '~> 5.0.3'
 gem 'bootstrap-sass',     '~> 3.3.4'
 gem 'autoprefixer-rails', '~> 6.0.0'
 
+# Forms
+gem 'bootstrap_form',         '~> 2.3.0'
+gem 'bootstrap-switch-rails', '~> 3.3.2'
+gem 'nested_form',            '~> 0.3.2'
+
 # View rendering
-gem 'crummy',                      '~> 1.8.0'
-gem 'bootstrap_form',              '~> 2.3.0'
-gem 'bootstrap-growl-rails',       '~> 3.0.0'
-gem 'bootstrap-switch-rails',      '~> 3.3.2'
-gem 'codemirror-rails',            '~> 5.6.0'
-gem 'haml-rails',                  '~> 0.9.0'
-gem 'select2-rails',               '~> 4.0.0'
-gem 'simple-navigation',           '~> 4.0.0'
-gem 'will_paginate',               '~> 3.0.7'
-gem 'will_paginate-bootstrap',     '~> 1.0.1'
-gem 'zeroclipboard-rails',         '~> 0.1.1'
+gem 'haml-rails', '~> 0.9.0'
 
-## Utils gems
-gem 'dotenv-rails'
-gem 'figaro',        '~> 1.1.0'
+# Pagination
+gem 'will_paginate',           '~> 3.0.7'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
 
-gem 'acts_as_list',  '~> 0.7.0'
-gem 'carrierwave',   '~> 0.10.0'
+# Breadcrumbs
+gem 'crummy', '~> 1.8.0'
 
-gem 'i18n-tasks',    '~> 0.8.0'
-gem 'nested_form',   '~> 0.3.2'
-gem 'request_store', '~> 1.2.0'
-gem 'settingslogic', '~> 2.0.9'
-gem 'whenever',      '~> 0.9.4'
+# Code edition
+gem 'codemirror-rails', '~> 5.6.0'
 
-## Business required gems
+# Copy/Past
+gem 'zeroclipboard-rails', '~> 0.1.1'
+
+# Select2
+gem 'select2-rails', '~> 4.0.0'
+
+# Menus
+gem 'simple-navigation', '~> 4.0.0'
+
+# Sortable lists
+gem 'acts_as_list', '~> 0.7.0'
+
+# Translations
+gem 'i18n-tasks', '~> 0.8.0'
+
 # Docker connection
 gem 'docker-api', '~> 1.22.2'
 
@@ -89,6 +104,7 @@ gem 'slim'
 gem 'danthes',    '~> 2.0.1', git: 'https://github.com/dotpromo/danthes.git'
 gem 'thin',       '~> 1.6.3'
 gem 'faye-redis', '~> 0.2.0'
+gem 'bootstrap-growl-rails', '~> 3.0.0'
 
 # Cache
 gem 'redis-rails'
