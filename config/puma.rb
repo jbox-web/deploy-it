@@ -6,9 +6,9 @@ rackup      DefaultRackup
 port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'development'
 
-if ENV['RACK_ENV'] == 'production'
-  preload_app!
+preload_app!
 
+if ENV['RACK_ENV'] == 'production'
   daemonize       true
   pidfile         File.join(Dir.pwd, 'tmp', 'pids', 'puma.pid')
   state_path      File.join(Dir.pwd, 'tmp', 'sockets', 'puma.state')
