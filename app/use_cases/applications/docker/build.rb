@@ -43,7 +43,7 @@ module Applications
           logger.banner tt('notice.on_receive')
           result = application.distant_repo.create_archive!(revision)
           if result.success?
-            logger.padded('Done !')
+            logger.padded(I18n.t('text.done'))
             compile(result.path)
           else
             error_message tt('errors.on_receive', errors: result.errors.to_sentence)
