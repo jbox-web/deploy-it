@@ -134,8 +134,12 @@ group :development do
 
   gem 'turbulence',   '~> 1.2.4'
   gem 'flog',         '~> 4.3.0'
-  gem 'mina',         '~> 0.3.4'
   gem 'quiet_assets', '~> 1.1.0'
+
+  gem 'mina',      '~> 0.3.4'
+  gem 'mina-puma', require: false
+
+  gem 'dotenv'
 
   # gem 'brakeman', '~> 2.6.3'
   # gem 'bullet',   '~> 4.14.7'
