@@ -21,4 +21,66 @@ class ApplicationController < ActionController::Base
   include BaseController::Authorizations
   include BaseController::Tools
   include BaseController::Helpers
+
+  include DCI::Contexts::Controller
+
+
+  def set_application
+    set_application_by(params[:id])
+  end
+
+
+  def set_application_by(param)
+    begin
+      @application = Application.find(param)
+    rescue ActiveRecord::RecordNotFound => e
+      render_404
+    end
+  end
+
+
+  def set_container_by(param)
+    begin
+      @container = @application.containers.find(param)
+    rescue ActiveRecord::RecordNotFound => e
+      render_404
+    end
+  end
+
+
+  def set_deployment_action_for(object)
+    @deploy_action = object.find_active_use_case(params[:deploy_action])
+  rescue UseCaseNotDefinedError => e
+    render_403
+  end
+
+
+  def set_member_by(param)
+    @member = Member.find(param)
+  rescue ActiveRecord::RecordNotFound => e
+    render_404
+  end
+
+
+  def event_options_for(method)
+    case method
+    when :synchronize_repository
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
+    when :toolbar
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
+    else
+      {}
+    end
+  end
+
+
+  def render_modal_box(locals: {})
+    render layout: modal_or_application_layout, locals: locals
+  end
+
+
+  def modal_or_application_layout
+    request.xhr? ? 'modal' : 'application'
+  end
+
 end

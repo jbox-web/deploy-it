@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsConfigController < DCIController
+class ApplicationsConfigController < ApplicationController
 
+  include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationConfigManager'
 
   before_action :set_application
@@ -103,11 +104,6 @@ class ApplicationsConfigController < DCIController
 
 
   private
-
-
-    def set_application
-      set_application_by(params[:id])
-    end
 
 
     def get_template(action: action_name)

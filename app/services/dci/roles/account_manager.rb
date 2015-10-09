@@ -13,33 +13,25 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsManagerController < ApplicationController
+module DCI
+  module Roles
+    class AccountManager < Base
 
-  include DCI::Controllers::Application
-  set_dci_role 'DCI::Roles::ApplicationManager'
-
-  before_action :set_application
-  before_action :set_deployment_action, only: [:manage_application]
-
-
-
-  def build_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
-    call_dci_role(:build_application, User.current, @application.pushes.last)
-  end
+      def update_account(user, params = {})
+        if user.update(params)
+          # Locales may have changed, reset them before redirect
+          context.reload_user_locales
+          context.render_success(locals: { user: user })
+        end
+      end
 
 
-  def manage_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
-    call_dci_role(:manage_application, @deploy_action)
-  end
+      def reset_api_key(user)
+        user.api_token = DeployIt::Utils::Crypto.generate_secret(42)
+        user.save!
+        context.render_success(locals: { user: user })
+      end
 
-
-  private
-
-
-    def set_deployment_action
-      set_deployment_action_for(@application)
     end
-
+  end
 end

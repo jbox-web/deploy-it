@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ContainersManagerController < DCIController
+class ContainersManagerController < ApplicationController
 
+  include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationManager'
 
   before_action :set_application

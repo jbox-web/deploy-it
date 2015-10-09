@@ -20,13 +20,13 @@ module DCI
 
       def render_success(message: t('.notice'), locals: {})
         locals = locals.merge(saved: true)
-        render_message(message, :notice, locals)
+        render_message(message, :success, locals)
       end
 
 
       def render_failed(message: t('.error'), locals: {})
         locals = locals.merge(saved: false)
-        render_message(message, :alert, locals)
+        render_message(message, :error, locals)
       end
 
 

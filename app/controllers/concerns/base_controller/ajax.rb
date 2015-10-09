@@ -25,13 +25,18 @@ module BaseController::Ajax
 
   def render_ajax_response(template: action_name, locals: {})
     respond_to do |format|
-      format.js { render "#{get_controller_name}/ajax/#{template}", locals: locals }
+      format.js { render ajax_template_path(template), locals: locals }
     end
   end
 
 
   def get_controller_name
     self.class.name.gsub('Controller', '').underscore
+  end
+
+
+  def ajax_template_path(template, dir = 'ajax')
+    File.join(get_controller_name, dir, template)
   end
 
 end

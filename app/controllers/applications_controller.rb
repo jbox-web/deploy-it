@@ -15,6 +15,8 @@
 
 class ApplicationsController < ApplicationController
 
+  set_dci_role 'DCI::Roles::ApplicationManager'
+
   before_action :set_application,  except: [:index, :new, :create]
   before_action :authorize,        except: [:index, :new, :create]
   before_action :authorize_global, only:   [:new, :create]
@@ -22,20 +24,20 @@ class ApplicationsController < ApplicationController
 
 
   def index
+    add_breadcrumbs
     @applications = Application.visible.all
-    add_crumb label_with_icon(Application.model_name.human(count: 2), 'fa-desktop', fixed: true), '#'
   end
 
 
   def show
-    add_crumb label_with_icon(@application.fullname, 'fa-desktop', fixed: true), application_path(@application)
+    add_breadcrumbs
   end
 
 
   def new
-    @application = @wizard_form.object
-    add_crumb label_with_icon(t('.title'), 'fa-desktop', fixed: true), '#'
-    render :new, locals: { application: @application }
+    add_breadcrumbs
+    self.render_flash_message = false
+    render locals: { application: @wizard_form.object }
   end
 
 
@@ -45,64 +47,18 @@ class ApplicationsController < ApplicationController
 
 
   def create
-    DCI::Roles::ApplicationManager.new(self).create(@wizard_form, User.current)
+    add_breadcrumbs
+    self.render_flash_message = false
+    call_dci_role(:create, @wizard_form, User.current)
   end
 
 
   def destroy
-    DCI::Roles::ApplicationManager.new(self).destroy(@application)
-  end
-
-
-  def infos
-    render_ajax_response(locals: { application: @application })
-  end
-
-
-  def containers
-    render_ajax_response(locals: { application: @application })
-  end
-
-
-  def repositories
-    render_ajax_response(locals: { application: @application })
-  end
-
-
-  def status
-    render_ajax_response(locals: { application: @application })
-  end
-
-
-  def toolbar
-    render_ajax_response(locals: { application: @application })
-  end
-
-
-  def render_create_success(application)
-    render_ajax_redirect application_path(application)
-  end
-
-
-  def render_create_failed(locals: {})
-    add_crumb label_with_icon(t('.title'), 'fa-desktop', fixed: true), '#'
-    render_ajax_response(locals: locals)
-  end
-
-
-  def render_destroy_success
-    redirect_to applications_path
+    call_dci_role(:destroy, @application)
   end
 
 
   private
-
-
-    def set_application
-      @application = Application.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
-    end
 
 
     def load_wizard_form
@@ -112,6 +68,37 @@ class ApplicationsController < ApplicationController
       elsif action_name.in? %w[create]
         @wizard_form.process
       end
+    end
+
+
+    def render_dci_response(template: action_name, locals: {}, type:, &block)
+      if destroy?
+        super { redirect_to applications_path }
+      elsif success_create?(type)
+        super { render_ajax_redirect application_path(locals[:application]) }
+      else
+        super
+      end
+    end
+
+
+    def render_message(message, type, locals = {})
+      self.render_flash_message = success_create?(type)
+      super
+    end
+
+
+    def add_breadcrumbs(action: action_name)
+      label, url =
+        case action
+        when 'index'
+          [Application.model_name.human(count: 2), '#']
+        when 'show'
+          [@application.fullname, application_path(@application)]
+        when 'new', 'create'
+          [t('.title'), '#']
+        end
+      add_breadcrumb label, 'fa-desktop', url
     end
 
 end

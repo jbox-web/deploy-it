@@ -21,6 +21,9 @@ module DCI
       include Base
 
       included do
+        class_attribute :render_flash_message
+        self.render_flash_message = true
+
         class << self
 
           def set_dci_role(role)
@@ -36,8 +39,9 @@ module DCI
 
 
       def render_message(message, type, locals = {})
-        flash[type] = message
-        render_ajax_response(template: get_template, locals: locals)
+        flash_type = type == :success ? :notice : :alert
+        flash[flash_type] = message if render_flash_message?
+        render_dci_response(template: get_template, locals: locals, type: type)
       end
 
 
@@ -81,6 +85,28 @@ module DCI
 
         def get_template(action: action_name)
           action
+        end
+
+
+        def destroy?
+          action_name == 'destroy'
+        end
+
+
+        def success_create?(type)
+          action_name == 'create' && type == :success
+        end
+
+
+        def render_dci_response(template: action_name, locals: {}, type:, &block)
+          if block_given?
+            yield
+          else
+            respond_to do |format|
+              format.html { render template }
+              format.js   { render ajax_template_path(template), locals: locals }
+            end
+          end
         end
 
     end

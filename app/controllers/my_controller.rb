@@ -15,17 +15,22 @@
 
 class MyController < ApplicationController
 
+  include DCI::Controllers::Account
+  set_dci_role 'DCI::Roles::AccountManager'
+
   before_action :set_user
 
 
   def account
     if request.patch?
-      if @user.update(user_params)
-        # Locales may have changed, reset them before redirect
-        reload_user_locales
-        return redirect_to my_account_path, notice: t('.notice')
-      end
+      set_dci_data({ user: [:firstname, :lastname, :email, :language, :time_zone] })
+      call_dci_role(:update_account)
     end
+  end
+
+
+  def reset_api_key
+    call_dci_role(:reset_api_key) if request.patch?
   end
 
 
@@ -34,20 +39,7 @@ class MyController < ApplicationController
   end
 
 
-  def reset_api_key
-    if request.patch?
-      @user.api_token = DeployIt::Utils::Crypto.generate_secret(42)
-      @user.save!
-    end
-  end
-
-
   private
-
-
-    def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :language, :time_zone)
-    end
 
 
     def set_user

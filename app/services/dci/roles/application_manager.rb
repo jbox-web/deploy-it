@@ -25,9 +25,9 @@ module DCI
         if wizard_form.save
           application.create_relations!(user: user)
           application.run_async!('bootstrap!')
-          context.render_create_success(application)
+          context.render_success(locals: { application: application })
         else
-          context.render_create_failed(locals: { application: application })
+          context.render_failed(locals: { application: application })
         end
       end
 
@@ -36,7 +36,7 @@ module DCI
         application.marked_for_deletion = true
         application.save!
         application.run_async!('destroy_forever!')
-        context.render_destroy_success
+        context.render_success
       end
 
 

@@ -13,33 +13,47 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsManagerController < ApplicationController
-
-  include DCI::Controllers::Application
-  set_dci_role 'DCI::Roles::ApplicationManager'
+class AjaxController < ApplicationController
 
   before_action :set_application
-  before_action :set_deployment_action, only: [:manage_application]
+  before_action :authorize
 
 
-
-  def build_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
-    call_dci_role(:build_application, User.current, @application.pushes.last)
+  def infos
+    render_common_response
   end
 
 
-  def manage_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
-    call_dci_role(:manage_application, @deploy_action)
+  def containers
+    render_common_response
+  end
+
+
+  def repositories
+    render_common_response
+  end
+
+
+  def status
+    render_common_response
+  end
+
+
+  def toolbar
+    render_common_response
   end
 
 
   private
 
 
-    def set_deployment_action
-      set_deployment_action_for(@application)
+    def render_common_response
+      render_ajax_response(locals: { application: @application })
+    end
+
+
+    def ajax_template_path(template, dir = 'ajax')
+      super template, ''
     end
 
 end

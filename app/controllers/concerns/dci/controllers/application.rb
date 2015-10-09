@@ -13,33 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsManagerController < ApplicationController
+module DCI
+  module Controllers
+    module Application
 
-  include DCI::Controllers::Application
-  set_dci_role 'DCI::Roles::ApplicationManager'
+      def call_dci_role(method, *args)
+        super method, @application, *args
+      end
 
-  before_action :set_application
-  before_action :set_deployment_action, only: [:manage_application]
-
-
-
-  def build_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
-    call_dci_role(:build_application, User.current, @application.pushes.last)
-  end
-
-
-  def manage_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
-    call_dci_role(:manage_application, @deploy_action)
-  end
-
-
-  private
-
-
-    def set_deployment_action
-      set_deployment_action_for(@application)
     end
-
+  end
 end

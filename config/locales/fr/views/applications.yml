@@ -4,8 +4,10 @@ fr:
     new:
       title: Nouvelle application
       current_step: Etape
+
     create:
       title: Nouvelle application
+      notice: Application créée avec succès
 
     show:
       env_vars:
@@ -139,3 +141,6 @@ fr:
         have_credentials: Utilise une clé d'accès
       credential:
         desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"
+
+    destroy:
+      notice: Application en cours de destruction

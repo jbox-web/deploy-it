@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class MembersController < DCIController
+class MembersController < ApplicationController
 
+  include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationMembershipManager'
+  self.render_flash_message = false
 
   before_action :set_application
   before_action :authorize

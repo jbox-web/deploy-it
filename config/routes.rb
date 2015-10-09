@@ -61,16 +61,18 @@ Rails.application.routes.draw do
 
   # Applications base
   resources :applications, except: [:edit, :update] do
-    # Ajax rendering
-    member do
-      get   'clone'
-      get   'infos'
-      get   'containers'
-      get   'repositories'
-      get   'status'
-      get   'toolbar'
-    end
     resources :members, only: [:create, :update, :destroy]
+  end
+
+  # Ajax controller
+  resources :applications, only: [], controller: 'ajax' do
+    member do
+      get 'infos'
+      get 'containers'
+      get 'repositories'
+      get 'status'
+      get 'toolbar'
+    end
   end
 
   # Applications Manager

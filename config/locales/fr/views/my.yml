@@ -4,3 +4,6 @@ fr:
       title: Mon compte
       api_key: Clé d'accès API
       notice: Informations mises à jour avec succès
+
+    reset_api_key:
+      notice: Clé d'accès API réinitialisée avec succès

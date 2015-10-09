@@ -24,4 +24,9 @@ module BaseController::Helpers
     view_context.label_with_icon(*args)
   end
 
+
+  def add_breadcrumb(label, icon, url)
+    add_crumb label_with_icon(label, icon, fixed: true), url
+  end
+
 end
