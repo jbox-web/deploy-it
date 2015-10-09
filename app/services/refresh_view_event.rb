@@ -19,14 +19,11 @@ class RefreshViewEvent
 
   def initialize(opts = {})
     @data = {}
-
     @data[:context] = {}
-    @data[:context][:controller] = opts.fetch(:controller) { 'applications' }
-    @data[:context][:action]     = opts.fetch(:action) { 'show' }
-    @data[:context][:app_id]     = opts.fetch(:app_id) { '' }
-
-    triggers         = opts.fetch(:triggers) { [] }
-    @data[:triggers] = triggers.map { |t| refresh_view_trigger(t) }
+    @data[:context][:controller] = opts.fetch(:controller, 'applications')
+    @data[:context][:action]     = opts.fetch(:action, 'show')
+    @data[:context][:app_id]     = opts.fetch(:app_id, '')
+    @data[:triggers]             = opts.fetch(:triggers, []).map { |t| refresh_view_trigger(t) }
   end
 
 
@@ -44,11 +41,8 @@ class RefreshViewEvent
   end
 
 
-  private
-
-
-    def refresh_view_trigger(url)
-      "refreshView('#{url}');"
-    end
+  def refresh_view_trigger(url)
+    "refreshView('#{url}');"
+  end
 
 end
