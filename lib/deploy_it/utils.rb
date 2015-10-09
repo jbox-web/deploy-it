@@ -15,7 +15,6 @@
 
 module DeployIt
   module Utils
-    extend Utils::Console
     extend Utils::Crypto
     extend Utils::Exec
     extend Utils::Files

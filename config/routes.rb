@@ -79,7 +79,7 @@ Rails.application.routes.draw do
       post  'build',  action: 'build_application'
       post  'manage', action: 'manage_application'
     end
-    resources :containers, only: [], controller: 'applications_manager' do
+    resources :containers, only: [], controller: 'containers_manager' do
       member do
         get  'infos',  action: 'container_infos'
         post 'manage', action: 'manage_container'

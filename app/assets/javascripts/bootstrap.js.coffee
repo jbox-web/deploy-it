@@ -13,17 +13,18 @@ root.setAlertDismiss = ->
   $('.alert:not(.dont-dismiss)').delay(3000).slideUp(200, -> $(this).alert('close'))
 
 
-root.setLightBox = ->
-  $(document).delegate '*[data-toggle="lightbox"]', 'click', (event) ->
-    event.preventDefault()
-    $(this).ekkoLightbox()
-
-
 root.setModalBox = ->
   $(document).delegate 'a[data-toggle="ajax-modal"]', 'click', (event) ->
     event.preventDefault()
+    draggable = $(this).data('draggable')
+    size      = $(this).data('modal-size')
     $.get $(this).attr('href'), (data) ->
-      $('#modal-holder').html(data).find('.modal').modal().draggable()
+      if draggable
+        $('#modal-holder').html(data).find('.modal').modal().draggable()
+      else
+        $('#modal-holder').html(data).find('.modal').modal()
+      if size
+        $('.modal-dialog').addClass('modal-' + size)
 
 
 root.setPopOver = ->

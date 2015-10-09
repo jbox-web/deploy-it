@@ -13,37 +13,40 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsManagerController < DCIController
-
-  set_dci_role 'DCI::Roles::ApplicationManager'
-
-  before_action :set_application
-  before_action :set_deployment_action, only: [:manage_application]
-
+module DCI
+  module Contexts
+    module Console
+      extend self
+      include Base
 
 
-  def build_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
-    call_dci_role(:build_application, User.current, @application.pushes.last)
-  end
+      def render_message(message, type, locals = {})
+        console_log message unless message.empty?
+      end
 
 
-  def manage_application
-    set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
-    call_dci_role(:manage_application, @deploy_action)
-  end
+      private
 
 
-  private
+        def t(*args)
+          I18n.t(*args)
+        end
 
 
-    def set_application
-      set_application_by(params[:id])
+        def console_log(errors)
+          logger.empty_line
+
+          if errors.is_a?(Array)
+            errors.each do |error|
+              logger.error error
+            end
+          else
+            logger.error errors
+          end
+
+          logger.empty_line
+        end
+
     end
-
-
-    def set_deployment_action
-      set_deployment_action_for(@application)
-    end
-
+  end
 end

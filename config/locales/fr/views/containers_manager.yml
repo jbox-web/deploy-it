@@ -1,0 +1,6 @@
+fr:
+  containers_manager:
+    manage_container:
+      notice: Demande mise en file d'attente
+    container_infos:
+      title: Informations Docker

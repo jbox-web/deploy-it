@@ -37,7 +37,7 @@ class BuildManager
 
   def run!(opts = {})
     # Grab option
-    async = opts.delete(:async){ true }
+    async = opts.fetch(:async, true)
 
     # Change build state
     build.run!

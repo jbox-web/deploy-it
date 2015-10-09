@@ -13,55 +13,42 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class MembersController < ApplicationController
+class MembersController < DCIController
 
-  include DCI::Context
+  set_dci_role 'DCI::Roles::ApplicationMembershipManager'
 
   before_action :set_application
   before_action :authorize
-
   before_action :set_member, only: [:update, :destroy]
 
 
   def create
-    set_required_params({ member: { user_ids: [], group_ids: [], role_ids: [] } })
-    call_context(:add_members)
+    set_dci_data({ member: { user_ids: [], group_ids: [], role_ids: [] } })
+    call_dci_role(:add_members)
   end
 
 
   def update
-    set_required_params({ member: { user_ids: [], group_ids: [], role_ids: [] } })
-    call_context(:update_member, @member)
+    set_dci_data({ member: { user_ids: [], group_ids: [], role_ids: [] } })
+    call_dci_role(:update_member, @member)
   end
 
 
   def destroy
-    if request.delete?
-      set_required_params({ strong_params: false })
-      call_context(:delete_member, @member)
-    end
+    call_dci_role(:delete_member, @member) if request.delete?
   end
 
 
   private
 
 
-    def call_context(method, *args)
-      DCI::Roles::ApplicationMembershipManager.new(self).send(method, @application, *args, get_required_params)
-    end
-
-
     def set_application
-      @application = Application.find(params[:application_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
+      set_application_by(params[:application_id])
     end
 
 
     def set_member
-      @member = Member.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
+      set_member_by(params[:id])
     end
 
 end

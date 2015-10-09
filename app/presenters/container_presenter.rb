@@ -119,7 +119,7 @@ class ContainerPresenter < SimpleDelegator
 
 
     def info_options
-      { title: t('.docker_infos'), data: { title: t('.docker_infos'), toggle: 'lightbox', width: 1000 } }
+      { title: t('.docker_infos'), remote: true, data: { toggle: 'ajax-modal', draggable: false, modal_size: 'lg' } }
     end
 
 

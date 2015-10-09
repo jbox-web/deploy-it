@@ -32,7 +32,6 @@ Turbolinks.enableProgressBar()
 
 onFirstLoad = ->
   setAsyncNotifications()
-  setLightBox()
   setModalBox()
 
 onTurboLoad = ->

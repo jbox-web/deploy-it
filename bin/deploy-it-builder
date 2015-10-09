@@ -31,15 +31,15 @@ if valid
   push = application.pushes.create(build_refs.merge(author: user))
 
   # Then build application
-  ApplicationManagementContext.new(DeployIt::Utils::Console).build_application(application, user, push, async: false, logger: 'console') do |task|
+  DCI::Roles::ApplicationManager.new(DCI::Contexts::Console).build_application(application, user, push, async: false, logger: 'console') do |task|
     if !task.success?
-      DeployIt::Utils::Console.render_failed(message: task.errors)
+      DCI::Contexts::Console.render_failed(message: task.errors)
       exit 1
     else
       exit 0
     end
   end
 else
-  DeployIt::Utils::Console.render_failed(message: "Deploy did not complete, you must push to '#{repository.local_branch}' branch !")
+  DCI::Contexts::Console.render_failed(message: "Deploy did not complete, you must push to '#{repository.local_branch}' branch !")
   exit 1
 end

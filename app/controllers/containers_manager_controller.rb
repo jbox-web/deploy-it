@@ -13,45 +13,46 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module DeployIt
-  module Utils
-    module Console
-      extend self
+class ContainersManagerController < DCIController
 
-      def t(*args)
-        I18n.t(*args)
-      end
+  set_dci_role 'DCI::Roles::ApplicationManager'
 
-
-      def render_success(message: '', locals: {})
-        console_log message unless message.empty?
-      end
+  before_action :set_application
+  before_action :set_container
+  before_action :set_deployment_action, only: [:manage_container]
 
 
-      def render_failed(message: '', locals: {})
-        console_log message unless message.empty?
-      end
-
-
-      def console_log(errors)
-        logger.empty_line
-
-        if errors.is_a?(Array)
-          errors.each do |error|
-            logger.error error
-          end
-        else
-          logger.error errors
-        end
-
-        logger.empty_line
-      end
-
-
-      def logger
-        DeployIt.console_logger
-      end
-
-    end
+  def manage_container
+    set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
+    call_dci_role(:manage_container, @container, @deploy_action)
   end
+
+
+  def container_infos
+    render_modal_box
+  end
+
+
+  private
+
+
+    def set_application
+      set_application_by(params[:application_id])
+    end
+
+
+    def set_container
+      set_container_by(params[:id])
+    end
+
+
+    def set_deployment_action
+      set_deployment_action_for(@container)
+    end
+
+
+    def render_modal_box(locals: {})
+      super(locals: { container: @container })
+    end
+
 end
