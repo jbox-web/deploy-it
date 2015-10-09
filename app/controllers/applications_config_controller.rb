@@ -15,7 +15,7 @@
 
 class ApplicationsConfigController < ApplicationController
 
-  include Contextable
+  include DCI::Context
 
   before_action :set_application
 
@@ -118,7 +118,7 @@ class ApplicationsConfigController < ApplicationController
 
 
     def call_context(method)
-      ApplicationConfigContext.new(self).send(method, @application, get_required_params)
+      DCI::Roles::ApplicationConfigManager.new(self).send(method, @application, get_required_params)
     end
 
 

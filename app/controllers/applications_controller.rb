@@ -45,12 +45,12 @@ class ApplicationsController < ApplicationController
 
 
   def create
-    ApplicationContext.new(self).create(@wizard_form, User.current)
+    DCI::Roles::ApplicationManager.new(self).create(@wizard_form, User.current)
   end
 
 
   def destroy
-    ApplicationContext.new(self).destroy(@application)
+    DCI::Roles::ApplicationManager.new(self).destroy(@application)
   end
 
 

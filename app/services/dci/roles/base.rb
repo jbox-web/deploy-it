@@ -13,22 +13,26 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ContextBase
+module DCI
+  module Roles
+    class Base
 
-  attr_reader :context
-
-
-  def initialize(context)
-    @context = context
-  end
+      attr_reader :context
 
 
-  private
+      def initialize(context)
+        @context = context
+      end
 
 
-    def t(*args)
-      context.t(*args)
+      private
+
+
+        def t(*args)
+          context.t(*args)
+        end
+
+
     end
-
-
+  end
 end

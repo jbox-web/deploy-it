@@ -15,7 +15,7 @@
 
 class ApplicationsManagerController < ApplicationController
 
-  include Contextable
+  include DCI::Context
 
   before_action :set_application_by_id,     only: [:build_application, :manage_application]
   before_action :set_application_by_app_id, only: [:container_infos, :manage_container]
@@ -26,12 +26,17 @@ class ApplicationsManagerController < ApplicationController
 
 
   def build_application
-    ApplicationManagementContext.new(self).build_application(@application, User.current, @application.pushes.last, build_options)
+    call_context(:build_application, User.current, @application.pushes.last, build_options)
   end
 
 
   def manage_application
-    ApplicationManagementContext.new(self).manage_application(@application, @deploy_action, event_options)
+    call_context(:manage_application, @deploy_action, event_options)
+  end
+
+
+  def manage_container
+    call_context(:manage_container, @container, @deploy_action, event_options)
   end
 
 
@@ -40,12 +45,12 @@ class ApplicationsManagerController < ApplicationController
   end
 
 
-  def manage_container
-    ApplicationManagementContext.new(self).manage_container(@application, @container, @deploy_action, event_options)
-  end
-
-
   private
+
+
+    def call_context(method, *args)
+      DCI::Roles::ApplicationManager.new(self).send(method, @application, *args)
+    end
 
 
     def build_options

@@ -15,6 +15,8 @@
 
 class MembersController < ApplicationController
 
+  include DCI::Context
+
   before_action :set_application
   before_action :authorize
 
@@ -22,29 +24,31 @@ class MembersController < ApplicationController
 
 
   def create
-    members = []
-    members += build_members('User', member_params[:user_ids], member_params[:role_ids])
-    members += build_members('Group', member_params[:group_ids], member_params[:role_ids])
-    @application.members << members
-    member_ids = members.map(&:id)
-    render_ajax_response(locals: { application: @application, member_ids: member_ids })
+    set_required_params({ member: { user_ids: [], group_ids: [], role_ids: [] } })
+    call_context(:add_members)
   end
 
 
   def update
-    @member.role_ids = member_params[:role_ids]
-    @member.save
-    render_ajax_response(locals: { application: @application, member: @member })
+    set_required_params({ member: { user_ids: [], group_ids: [], role_ids: [] } })
+    call_context(:update_member, @member)
   end
 
 
   def destroy
-    @member.destroy if request.delete? && @member.deletable?
-    render_ajax_response(locals: { application: @application })
+    if request.delete?
+      set_required_params({ strong_params: false })
+      call_context(:delete_member, @member)
+    end
   end
 
 
   private
+
+
+    def call_context(method, *args)
+      DCI::Roles::ApplicationMembershipManager.new(self).send(method, @application, *args, get_required_params)
+    end
 
 
     def set_application
@@ -58,21 +62,6 @@ class MembersController < ApplicationController
       @member = Member.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       render_404
-    end
-
-
-    def member_params
-      params.require(:member).permit(user_ids: [], group_ids: [], role_ids: [])
-    end
-
-
-    def build_members(type, list_ids = [], role_ids = [])
-      list_ids.select { |id| !id.empty? }.map{ |id| build_member(id, type, role_ids) }
-    end
-
-
-    def build_member(id, type, role_ids = [])
-      Member.new(enrolable_id: id, enrolable_type: type, role_ids: role_ids)
     end
 
 end
