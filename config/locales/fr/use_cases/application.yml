@@ -39,6 +39,10 @@ fr:
         notice:
           on_cleanup: Cleaning up the room
           on_receive: Creating a new Docker image with your application
+          on_build: Adding environment variables to build environment
+          on_release:
+            add_runtime_variables: Adding environment variables to runtime environment
+            add_database_variables: Pushing database variables within the container
 
       scale:
         notice:

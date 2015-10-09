@@ -125,21 +125,21 @@ module Applications
 
         def install_build_vars
           install_var_file(:build) do
-            logger.title "Adding environment variables to build environment"
+            logger.title tt('notice.on_build')
           end
         end
 
 
         def install_app_vars
           install_var_file(:deploy) do
-            logger.title "Adding environment variables to runtime environment"
+            logger.title tt('notice.on_release.add_runtime_variables')
           end
         end
 
 
         def install_db_vars
           install_var_file(:database) do
-            logger.title 'Pushing database variables within the container'
+            logger.title tt('notice.on_release.add_database_variables')
           end
         end
 
