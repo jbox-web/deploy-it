@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ContainersManagerController < ApplicationController
+class ContainersManagerController < DCIController
 
   include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationManager'
@@ -30,7 +30,7 @@ class ContainersManagerController < ApplicationController
 
 
   def container_infos
-    render_modal_box
+    render_modal_box(locals: { container: @container })
   end
 
 
@@ -49,11 +49,6 @@ class ContainersManagerController < ApplicationController
 
     def set_deployment_action
       set_deployment_action_for(@container)
-    end
-
-
-    def render_modal_box(locals: {})
-      super(locals: { container: @container })
     end
 
 end

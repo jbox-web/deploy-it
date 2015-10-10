@@ -13,37 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class MyController < DCIController
-
-  include DCI::Controllers::Account
-  set_dci_role 'DCI::Roles::AccountManager'
-
-  before_action :set_user
-
-
-  def account
-    if request.patch?
-      set_dci_data({ user: [:firstname, :lastname, :email, :language, :time_zone] })
-      call_dci_role(:update_account)
-    end
-  end
-
-
-  def reset_api_key
-    call_dci_role(:reset_api_key) if request.patch?
-  end
-
-
-  def notifications
-    render json: @user.subscribed_channels
-  end
-
-
-  private
-
-
-    def set_user
-      @user = User.current
-    end
-
+class DCIController < ApplicationController
+  include DCI::Contexts::Controller
 end

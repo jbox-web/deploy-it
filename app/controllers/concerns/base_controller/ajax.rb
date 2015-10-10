@@ -39,4 +39,14 @@ module BaseController::Ajax
     File.join(get_controller_name, dir, template)
   end
 
+
+  def render_modal_box(locals: {})
+    render layout: modal_or_application_layout, locals: locals
+  end
+
+
+  def modal_or_application_layout
+    request.xhr? ? 'modal' : 'application'
+  end
+
 end

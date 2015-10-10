@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationsConfigController < ApplicationController
+class ApplicationsConfigController < DCIController
 
   include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationConfigManager'
@@ -84,7 +84,7 @@ class ApplicationsConfigController < ApplicationController
 
   def add_addon
     set_dci_data({ application_addon: [:addon_id], rescue: true })
-    request.post? ? call_dci_role(:add_addon) : render_modal_box
+    request.post? ? call_dci_role(:add_addon) : render_modal_box(locals: { application: @application, addon: @application.addons.new })
   end
 
 
@@ -117,11 +117,6 @@ class ApplicationsConfigController < ApplicationController
       else
         super
       end
-    end
-
-
-    def render_modal_box(locals: {})
-      super(locals: { application: @application, addon: @application.addons.new })
     end
 
 end
