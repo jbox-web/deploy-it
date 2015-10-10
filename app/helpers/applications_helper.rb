@@ -71,8 +71,8 @@ module ApplicationsHelper
   end
 
 
-  def available_databases_type
-    DeployIt::AVAILABLE_DATABASES.collect { |p| [p, p] }
+  def available_database_types
+    ApplicationDatabase.available_database_types.collect { |p| [p, p] }
   end
 
 

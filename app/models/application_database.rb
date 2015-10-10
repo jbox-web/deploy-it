@@ -27,6 +27,14 @@ class ApplicationDatabase < ActiveRecord::Base
   validates :db_user,        presence: true
   validates :db_pass,        presence: true
 
+  class << self
+
+    def available_database_types
+      DeployIt::AVAILABLE_DATABASES
+    end
+
+  end
+
 
   def db_host
     return '' if server.nil?
