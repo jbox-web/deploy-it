@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+require 'dotenv'
 require 'foreman'
 require 'foreman/engine'
 
@@ -27,6 +28,11 @@ module DeployIt
 
 
         module InstanceMethods
+
+          def load_env(filename)
+            @env.update Dotenv::Environment.new(filename)
+          end
+
 
           def terminate_gracefully
             return if @terminating
