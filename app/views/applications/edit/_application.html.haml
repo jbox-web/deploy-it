@@ -22,6 +22,8 @@
 
       = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8'
 
+      = f.select :max_memory, max_memory_available, required: true
+
       = f.select :instance_number, max_instances_available, required: true
 
       = f.form_group :use_credentials, label: { text: Application.human_attribute_name('enable_credentials') }, class: 'shifted' do

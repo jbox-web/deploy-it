@@ -22,7 +22,7 @@ class ApplicationsConfigController < DCIController
 
 
   def settings
-    dci_data = [:name, :domain_name, :application_type_id, :instance_number, :image_type, :buildpack, :use_credentials, :use_cron, :use_ssl, :debug_mode]
+    dci_data = [:name, :domain_name, :application_type_id, :max_memory, :instance_number, :image_type, :buildpack, :use_credentials, :use_cron, :use_ssl, :debug_mode]
     set_dci_data({ application: dci_data })
     call_dci_role(:update_settings)
   end

@@ -55,7 +55,8 @@ class Application < ActiveRecord::Base
   accepts_nested_attributes_for :addons,       allow_destroy: true
 
   ## Basic Validations
-  validates :domain_name, presence: true, on: :update
+  validates :domain_name,     presence: true, on: :update
+  validates :max_memory,      presence: true, inclusion: { in: DeployIt::MAX_MEMORY_AVAILABLE }
   validates :instance_number, presence: true, inclusion: { in: (1..DeployIt::MAX_INSTANCES_NUMBER).to_a }
 
   ## Scopes
@@ -89,6 +90,10 @@ class Application < ActiveRecord::Base
 
     def max_instances_number
       (1..DeployIt::MAX_INSTANCES_NUMBER).to_a
+    end
+
+    def max_memory_available
+      DeployIt::MAX_MEMORY_AVAILABLE
     end
 
     def find_by_repo_url(url)

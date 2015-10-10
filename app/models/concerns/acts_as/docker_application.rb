@@ -140,12 +140,7 @@ module ActsAs
     def create_container!(type:, release_id:)
       container_type = type == :cron ? 'Container::Cron' : 'Container::Web'
       server = find_server_with_role(:docker)
-      containers.create(server_id: server.id, release_id: release_id, type: container_type, memory: app_memory)
-    end
-
-
-    def app_memory
-      language == 'ruby' ? 512 : 256
+      containers.create(server_id: server.id, release_id: release_id, type: container_type, memory: max_memory)
     end
 
 

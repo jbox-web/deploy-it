@@ -19,6 +19,7 @@ module DeployIt
   AVAILABLE_LANGUAGES  = %w(php ruby python)
   AVAILABLE_DATABASES  = %w(mysql postgres)
   EXCLUDED_APP_NAME    = %w(mysql information_schema performance_schema)
+  MAX_MEMORY_AVAILABLE = [128, 256, 512, 1024]
 
   MANAGER_PERMS = [
     :view_application,

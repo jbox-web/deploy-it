@@ -24,6 +24,8 @@ fr:
 
         repository_url: URL du dépôt
         repository_branch: Branche
+
+        max_memory: Maximum de mémoire utilisable
         instance_number: Nombre d'instance
 
         platform: Plateforme
@@ -83,3 +85,6 @@ fr:
               blank: ne peut être nul
             instance_number:
               blank: ne peut être nul
+            max_memory:
+              blank: ne peut être nul
+              inclusion: entrée invalide

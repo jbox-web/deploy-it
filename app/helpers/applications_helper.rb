@@ -62,17 +62,17 @@ module ApplicationsHelper
 
 
   def available_docker_images
-    DockerImage.all.collect { |p| [ p, p ] }
+    DockerImage.all.collect { |p| [p, p] }
   end
 
 
   def available_buildpacks
-    Buildpack.all.collect { |p| [ p, p.url ] }
+    Buildpack.all.collect { |p| [p, p.url] }
   end
 
 
   def available_databases_type
-    DeployIt::AVAILABLE_DATABASES.collect { |p| [ p, p ] }
+    DeployIt::AVAILABLE_DATABASES.collect { |p| [p, p] }
   end
 
 
@@ -82,7 +82,12 @@ module ApplicationsHelper
 
 
   def max_instances_available
-    Application.max_instances_number.collect { |p| [ p, p ] }
+    Application.max_instances_number.collect { |p| [p, p] }
+  end
+
+
+  def max_memory_available
+    Application.max_memory_available.collect { |p| ["#{p}M", p] }
   end
 
 

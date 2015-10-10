@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007211911) do
+ActiveRecord::Schema.define(version: 20151010155128) do
 
   create_table "addons", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20151007211911) do
     t.string   "image_type",          limit: 255
     t.string   "buildpack",           limit: 255
     t.integer  "instance_number",     limit: 4,     default: 1
+    t.integer  "max_memory",          limit: 4
     t.boolean  "use_cron",                          default: false
     t.boolean  "use_ssl",                           default: false
     t.boolean  "debug_mode",                        default: false
