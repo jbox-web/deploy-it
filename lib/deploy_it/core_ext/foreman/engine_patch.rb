@@ -29,11 +29,15 @@ module DeployIt
 
         module InstanceMethods
 
+          # Fix https://github.com/ddollar/foreman/issues/561
+          #
           def load_env(filename)
             @env.update Dotenv::Environment.new(filename)
           end
 
 
+          # Fix https://github.com/ddollar/foreman/issues/553
+          #
           def terminate_gracefully
             return if @terminating
             restore_default_signal_handlers
