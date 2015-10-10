@@ -21,7 +21,12 @@ module SshPublicKeys
         begin
           File.open(SshPublicKey.authorized_key_file, 'a') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
         rescue Errno::ENOENT => e
-          File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
+          begin
+            File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
+          rescue Errno::ENOENT => e
+            log_exception(e)
+            error_message(tt('errors.unwriteable'))
+          end
         rescue Errno::EACCES => e
           log_exception(e)
           error_message(tt('errors.unwriteable'))
