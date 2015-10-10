@@ -23,7 +23,12 @@ module HtmlHelpers
 
 
     def disable_on_condition(test, condition)
-      test == condition ? 'disabled' : ''
+      add_class_on_condition(test, condition, 'disabled')
+    end
+
+
+    def add_class_on_condition(test, condition, css)
+      test == condition ? css : ''
     end
 
 

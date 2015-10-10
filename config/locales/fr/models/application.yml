@@ -27,6 +27,8 @@ fr:
 
         max_memory: Maximum de mémoire utilisable
         instance_number: Nombre d'instance
+        memory: mémoire
+        instance: instance
 
         platform: Plateforme
         stage: Stage

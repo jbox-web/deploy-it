@@ -1,6 +1,14 @@
 %div{ class: 'col-md-6' }
 
-  %h4{ class: 'page-header' }= label_with_icon(t('.settings'), 'fa-sliders', fixed: true)
+  %h4{ class: 'page-header' }
+    = label_with_icon(t('.settings'), 'fa-sliders', fixed: true)
+    %small.pull-right
+      = icon 'fa-clock-o', title: Application.human_attribute_name('cron_enabled'),        class: add_class_on_condition(application.use_cron?, true, 'fa-success')
+      = icon 'fa-shield',  title: Application.human_attribute_name('ssl_enabled'),         class: add_class_on_condition(application.use_ssl?, true, 'fa-success')
+      = icon 'fa-eye',     title: Application.human_attribute_name('credentials_enabled'), class: add_class_on_condition(application.use_credentials?, true, 'fa-success')
+      = icon 'fa-gear',    title: Application.human_attribute_name('debug_enabled'),       class: add_class_on_condition(application.debug_mode?, true, 'fa-success')
+      = label_with_success_tag "#{Application.human_attribute_name('instance').capitalize} #{application.instance_number}"
+      = label_with_success_tag "#{Application.human_attribute_name('memory').capitalize} #{application.max_memory}M"
 
   %dl{ class: 'dl-horizontal dl-big' }
     %dt= Application.human_attribute_name('identifier') + ' :'
@@ -17,18 +25,3 @@
 
     %dt= Application.human_attribute_name('domain_name') + ' :'
     %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'
-
-    %dt= Application.human_attribute_name('credentials_enabled') + ' :'
-    %dd= bool_to_icon application.use_credentials?
-
-    %dt= Application.human_attribute_name('cron_enabled') + ' :'
-    %dd= bool_to_icon application.use_cron?
-
-    %dt= Application.human_attribute_name('ssl_enabled') + ' :'
-    %dd= bool_to_icon application.use_ssl?
-
-    %dt= Application.human_attribute_name('debug_enabled') + ' :'
-    %dd= bool_to_icon application.debug_mode?
-
-    %dt= Application.human_attribute_name('instance_number') + ' :'
-    %dd= label_with_success_tag application.instance_number
