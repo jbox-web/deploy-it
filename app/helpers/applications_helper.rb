@@ -92,30 +92,11 @@ module ApplicationsHelper
 
 
   def show_application_links(application)
-    [
-      { id: 'app_infos', label: label_with_icon(t('.informations'), 'fa-info-circle'), url: infos_application_path(application), opts: application_links_options },
-      { id: 'app_repositories', label: label_with_icon(t('.code'), 'fa-code'), url: repositories_application_path(application), opts: application_links_options },
-      { id: 'app_containers', label: label_with_icon(get_model_name_for('Container'), 'fa-rocket'), url: containers_application_path(application), opts: application_links_options },
-      { id: 'app_settings', label: label_with_icon(get_model_name_for('Settings'), 'fa-sliders'), url: settings_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_members', label: label_with_icon(get_model_name_for('Member'), 'fa-users'), url: application_members_path(application), opts: application_links_options.merge(if: -> { can?(:manage_members, application) }) },
-      { id: 'app_repository', label: label_with_icon(get_model_name_for('Repository'), 'fa-git'), url: repository_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_domain_names', label: label_with_icon(get_model_name_for('DomainName'), 'fa-random'), url: domain_names_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_env_vars', label: label_with_icon(get_model_name_for('EnvVar'), 'fa-list-ul'), url: env_vars_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_mount_points', label: label_with_icon(get_model_name_for('MountPoint'), 'fa-download'), url: mount_points_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_credentials', label: label_with_icon(get_model_name_for('ApplicationCredential'), 'fa-eye'), url: credentials_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_addons', label: label_with_icon(get_model_name_for('Addon'), 'fa-cube'), url: addons_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_ssl_certificate', label: label_with_icon(get_model_name_for('SslCertificate'), 'fa-shield'), url: ssl_certificate_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-      { id: 'app_database', label: label_with_icon(get_model_name_for('ApplicationDatabase'), 'fa-database'), url: database_application_path(application), opts: application_links_options.merge(if: -> { can?(:edit_application, application) }) },
-    ]
+    menu_items_for(application, nil, { link_html: { data: { remote: true } } }).render_links
   end
 
 
   ### PRIVATE ###
-
-
-  def application_links_options
-    { link_html: { data: { remote: true } } }
-  end
 
 
   def render_member_form(type, opts = {})

@@ -68,6 +68,14 @@ module NavigationHelper
   end
 
 
+  def menu_items_for(object, klass = nil, *args)
+    klass ||= "#{object.class.base_class}MenuItems".constantize
+    presenter = klass.new(object, self, *args)
+    yield presenter if block_given?
+    presenter
+  end
+
+
   def sidebar_menu(&block)
     proc do |menu|
       menu.dom_class = 'nav navmenu-nav'
