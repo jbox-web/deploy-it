@@ -116,31 +116,5 @@ fr:
         stopped_containers: Contenaires arrêtés
         paused_containers: Contenaires en pause
 
-    edit:
-      application:
-        settings: Paramètres Globaux
-      env_vars:
-        add: Ajouter une variable d'environnement
-        restore_defaults: Restaurer les variables d'environnement par défaut
-      mount_points:
-        add: Ajouter un point de montage
-        restore_defaults: Restaurer les points de montage par défaut
-      addons:
-        add: Ajouter un addon
-      members:
-        none_defined: Aucun membre
-      domain_names:
-        add: Ajouter un alias / une redirection
-      ssl_certificate:
-        reset: Réinitialiser le certificat SSL
-      credentials:
-        add: Ajouter un mot de passe
-      delete:
-        destroy: Détruire l'application
-      repository:
-        have_credentials: Utilise une clé d'accès
-      credential:
-        desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"
-
     destroy:
       notice: Application en cours de destruction

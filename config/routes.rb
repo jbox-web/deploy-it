@@ -61,30 +61,21 @@ Rails.application.routes.draw do
 
   # Applications base
   resources :applications, except: [:edit, :update] do
-    resources :members, only: [:create, :update, :destroy]
-  end
-
-  # Ajax controller
-  resources :applications, only: [], controller: 'ajax' do
-    member do
-      get 'infos'
-      get 'containers'
-      get 'repositories'
-      get 'status'
-      get 'toolbar'
-    end
+    resources :members, only: [:index, :create, :update, :destroy]
   end
 
   # Applications Manager
   resources :applications, only: [], controller: 'applications_manager' do
     member do
-      post  'build',  action: 'build_application'
-      post  'manage', action: 'manage_application'
+      get   'status'
+      get   'toolbar'
+      post  'build'
+      post  'manage'
     end
     resources :containers, only: [], controller: 'containers_manager' do
       member do
-        get  'infos',  action: 'container_infos'
-        post 'manage', action: 'manage_container'
+        get  'infos'
+        post 'manage'
       end
     end
   end
@@ -92,20 +83,24 @@ Rails.application.routes.draw do
   # Applications Config
   resources :applications, only: [], controller: 'applications_config' do
     member do
-      get   'restore_env_vars'
-      get   'restore_mount_points'
-      get   'reset_ssl_certificate'
-      get   'synchronize_repository'
-      patch 'settings'
-      patch 'database'
-      patch 'domain_names'
-      patch 'credentials'
-      patch 'env_vars'
-      patch 'mount_points'
-      patch 'addons'
-      patch 'repository'
-      patch 'ssl_certificate'
-      match 'add_addon', via: [:get, :post]
+      get 'infos'
+      get 'containers'
+      get 'repositories'
+      get 'restore_env_vars'
+      get 'restore_mount_points'
+      get 'reset_ssl_certificate'
+      get 'synchronize_repository'
+
+      match 'addons',          via: [:get, :patch]
+      match 'add_addon',       via: [:get, :post]
+      match 'credentials',     via: [:get, :patch]
+      match 'database',        via: [:get, :patch]
+      match 'domain_names',    via: [:get, :patch]
+      match 'env_vars',        via: [:get, :patch]
+      match 'mount_points',    via: [:get, :patch]
+      match 'repository',      via: [:get, :patch]
+      match 'settings',        via: [:get, :patch]
+      match 'ssl_certificate', via: [:get, :patch]
     end
   end
 

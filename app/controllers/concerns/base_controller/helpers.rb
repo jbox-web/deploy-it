@@ -29,4 +29,15 @@ module BaseController::Helpers
     add_crumb label_with_icon(label, icon, fixed: true), url
   end
 
+
+  def get_model_name_for(klass, pluralize: true)
+    count = pluralize ? 2 : 1
+    klass.constantize.model_name.human(count: count)
+  end
+
+
+  included do
+    helper_method :get_model_name_for
+  end
+
 end

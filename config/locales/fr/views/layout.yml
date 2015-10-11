@@ -1,9 +1,9 @@
 fr:
 
   layouts:
-    application:
-      my_account: Mon compte
+    topbar:
       admin: Admin
+      my_account: Mon compte
       help: Aide
       login: Connexion
       logout: Déconnexion
@@ -19,3 +19,5 @@ fr:
       settings: Paramètres
       new_credentials: Nouvelle clé d'accès
       logster: Logster
+      informations: Informations
+      code: Code

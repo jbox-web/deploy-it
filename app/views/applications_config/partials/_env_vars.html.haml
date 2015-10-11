@@ -1,0 +1,41 @@
+= render 'common/application_partial'
+
+#env-vars{ class: 'settings' }
+
+  %span{ class: 'pull-right'}
+    = link_to label_with_icon(t('.restore_defaults'), 'fa-refresh', fixed: true), restore_env_vars_application_path(application),
+              remote: true
+
+  %br
+  %br
+
+  .flash-messages
+
+  = bootstrap_nested_form_for application,
+                              url:    env_vars_application_path(application),
+                              html:   { method: :patch, remote: true } do |f|
+
+    %table{ class: 'table table-hover', id: 'env_vars_list' }
+      %thead
+        %tr
+          %th= EnvVar.human_attribute_name('key')
+          %th= EnvVar.human_attribute_name('value')
+          %th{ class: 'text-center' }= EnvVar.human_attribute_name('masked')
+          %th
+
+      %tbody
+        = f.fields_for :env_vars, wrapper: false do |ff|
+
+          %tr{ class: 'fields' }
+            %td{ class: 'vert-align' }= ff.text_field :key, hide_label: true
+            %td{ class: 'vert-align' }= ff.text_field :value, hide_label: true
+            %td{ class: 'vert-align shifted text-center' }= ff.check_box :masked, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+            %td{ class: 'vert-align' }= ff.link_to_remove icon('fa-trash')
+
+    .form-group
+      %div{ class: 'col-sm-12' }
+        = button_submit t('button.save')
+        %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :env_vars, data: { target: "#env_vars_list" }
+
+= javascript_tag do
+  setBootstrapSwitch('#env-vars');

@@ -26,6 +26,10 @@ fr:
     mount_points:
       notice: Points de montage enregistrés avec succès
       error: Erreurs lors de l'enregistrement des points de montage
+    repositories:
+      title: Code
+    infos:
+      title: Informations
     repository:
       notice: Paramètres enregistrés avec succès
       error: Erreurs lors de l'enregistrement des paramètres
@@ -40,3 +44,24 @@ fr:
       error: Erreurs lors de la création du nouvel addon
     addons:
       notice: Addons modifiés avec succès
+    partials:
+      settings:
+        destroy: Détruire l'application
+      repository:
+        have_credentials: Utilise une clé d'accès
+      credential:
+        desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"
+      domain_names:
+        add: Ajouter un alias / une redirection
+      env_vars:
+        add: Ajouter une variable d'environnement
+        restore_defaults: Restaurer les variables d'environnement par défaut
+      mount_points:
+        add: Ajouter un point de montage
+        restore_defaults: Restaurer les points de montage par défaut
+      ssl_certificate:
+        reset: Réinitialiser le certificat SSL
+      credentials:
+        add: Ajouter un mot de passe
+      addons:
+        add: Ajouter un addon

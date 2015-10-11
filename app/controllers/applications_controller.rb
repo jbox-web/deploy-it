@@ -15,6 +15,8 @@
 
 class ApplicationsController < DCIController
 
+  layout 'application'
+
   set_dci_role 'DCI::Roles::ApplicationManager'
 
   before_action :set_application,  except: [:index, :new, :create]
@@ -24,20 +26,21 @@ class ApplicationsController < DCIController
 
 
   def index
-    add_breadcrumbs
+    add_breadcrumb Application.model_name.human(count: 2), 'fa-desktop', ''
     @applications = Application.visible.all
+    render layout: 'base'
   end
 
 
   def show
-    add_breadcrumbs
+    add_breadcrumb @application.fullname, 'fa-desktop', ''
   end
 
 
   def new
-    add_breadcrumbs
+    add_breadcrumb t('.title'), 'fa-desktop', ''
     self.render_flash_message = false
-    render locals: { application: @wizard_form.object }
+    render layout: 'base', locals: { application: @wizard_form.object }
   end
 
 
@@ -47,7 +50,7 @@ class ApplicationsController < DCIController
 
 
   def create
-    add_breadcrumbs
+    add_breadcrumb t('.title'), 'fa-desktop', ''
     self.render_flash_message = false
     call_dci_role(:create, @wizard_form, User.current)
   end
@@ -85,20 +88,6 @@ class ApplicationsController < DCIController
     def render_message(message, type, locals = {})
       self.render_flash_message = success_create?(type)
       super
-    end
-
-
-    def add_breadcrumbs(action: action_name)
-      label, url =
-        case action
-        when 'index'
-          [Application.model_name.human(count: 2), '#']
-        when 'show'
-          [@application.fullname, application_path(@application)]
-        when 'new', 'create'
-          [t('.title'), '#']
-        end
-      add_breadcrumb label, 'fa-desktop', url
     end
 
 end

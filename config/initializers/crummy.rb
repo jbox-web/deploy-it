@@ -14,5 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 Crummy.configure do |config|
+  config.format            = :html_list
+  config.ul_class          = 'breadcrumb'
   config.last_crumb_linked = false
 end

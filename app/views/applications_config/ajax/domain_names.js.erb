@@ -1,4 +1,4 @@
-<%= js_render_partial('#domain-names', 'applications/edit/domain_names', locals: { application: application }) %>
+<%= js_render_partial('#application-content', 'applications_config/partials/domain_names', locals: { application: application }) %>
 <%= render_flash_messages_as_js('#domain-names .flash-messages') %>
 <% if saved %>
 highlight('#domain-names table > tbody');

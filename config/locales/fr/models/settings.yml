@@ -1,0 +1,7 @@
+fr:
+
+  activemodel:
+    models:
+      settings:
+        one: Paramètre
+        other: Paramètres

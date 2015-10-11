@@ -1,0 +1,3 @@
+<%= js_render_partial('#application-content', partial, locals: locals) %>
+$('#left-menu-applications ul.nav.navmenu-nav li').removeClass('active');
+$("#app_<%= partial.split('/').last %>").addClass('active');

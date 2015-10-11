@@ -1,0 +1,4 @@
+#application-status{ class: 'contextual contextual-h3', data: { 'refresh-url' => status_application_path(@application) } }
+  = render 'applications/show/status', application: @application
+
+%h3{ class: 'page-header' }= render_crumbs

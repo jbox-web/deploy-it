@@ -1,2 +1,2 @@
-<%= js_render_partial('#repository', 'applications/edit/repository', locals: { application: application, repository: application.distant_repo }) %>
+<%= js_render_partial('#application-content', 'applications_config/partials/repository', locals: { application: application, repository: application.distant_repo }) %>
 <%= render_flash_messages_as_js('#repository .flash-messages') %>

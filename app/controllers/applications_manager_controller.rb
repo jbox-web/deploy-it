@@ -19,19 +19,29 @@ class ApplicationsManagerController < DCIController
   set_dci_role 'DCI::Roles::ApplicationManager'
 
   before_action :set_application
-  before_action :set_deployment_action, only: [:manage_application]
+  before_action :set_deployment_action, only: [:manage]
 
 
 
-  def build_application
+  def build
     set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
     call_dci_role(:build_application, User.current, @application.pushes.last)
   end
 
 
-  def manage_application
+  def manage
     set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
     call_dci_role(:manage_application, @deploy_action)
+  end
+
+
+  def toolbar
+    render_ajax_response(locals: { application: @application })
+  end
+
+
+  def status
+    render_ajax_response(locals: { application: @application })
   end
 
 

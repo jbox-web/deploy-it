@@ -15,11 +15,18 @@
 
 class BaseMenu < SimpleDelegator
 
-  USER_CONTROLLERS = [ 'MyController', 'PublicKeysController', 'RegistrationsController' ]
+  USER_CONTROLLERS        = %w(MyController PublicKeysController RegistrationsController)
+  APPLICATION_CONTROLLERS = {
+    'ApplicationsController'       => %w(index new),
+    'ApplicationsConfigController' => %w(),
+    'MembersController'            => %w()
+  }
 
+  attr_reader :prefix
 
-  def initialize(view)
+  def initialize(view, prefix = nil)
     super(view)
+    @prefix = prefix
   end
 
 
@@ -37,22 +44,6 @@ class BaseMenu < SimpleDelegator
 
 
   private
-
-
-    def sidebar_menu(&block)
-      proc do |menu|
-        menu.dom_class = 'nav navmenu-nav'
-        yield menu
-      end
-    end
-
-
-    def topbar_right_menu(&block)
-      proc do |menu|
-        menu.dom_class = 'nav navbar-nav navbar-right'
-        yield menu
-      end
-    end
 
 
     def render_menu(opts = {}, &block)
@@ -88,7 +79,12 @@ class BaseMenu < SimpleDelegator
 
 
     def application_section?
-      controller.class.name == 'ApplicationsController'
+      controller.class.name == 'ApplicationsController' && (action_name == 'index' || action_name == 'new')
+    end
+
+
+    def show_application_section?
+      APPLICATION_CONTROLLERS.keys.include?(controller.class.name) && !APPLICATION_CONTROLLERS[controller.class.name].include?(action_name)
     end
 
 

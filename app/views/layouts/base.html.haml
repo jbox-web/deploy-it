@@ -1,0 +1,18 @@
+!!! 5
+%html(lang="en")
+  %head= render 'layouts/head'
+
+  %body{ data: { controller: controller.controller_path, action: controller.action_name } }
+
+    #header= render 'layouts/topbar'
+
+    #main-content{ class: 'container-fluid' }
+      .row-fluid
+
+        - if User.current.logged?
+          = render_page_content(class: "col-md-9 col-sm-9")
+
+        - else
+          = render 'layouts/page'
+
+    = render 'layouts/footer'

@@ -17,11 +17,12 @@ class SidebarMenuTop < BaseMenu
 
   def render
     menu = ''
-    menu += render_application_select_box if application_section? || credential_section?
+    menu += render_application_select_box if application_section? || credential_section? || show_application_section?
     menu += render_menu(&admin_menu_items) if User.current.admin? && admin_section?
     menu += render_menu(&user_account_menu_items) if profile_section?
     menu += render_menu(&welcome_menu_items) if welcome_section?
     menu += render_menu(&application_menu_items) if application_section? || credential_section?
+    menu += render_menu(&show_application_menu_items) if show_application_section?
     menu.html_safe
   end
 
@@ -77,8 +78,24 @@ class SidebarMenuTop < BaseMenu
     end
 
 
+    def show_application_menu_items
+      links = menu_for(:sidebar_menu_top)
+      links = links.nil? ? [] : links.call
+      sidebar_menu do |menu|
+        links.each do |link|
+          menu.item prefixed_id(link[:id]), link[:label], link[:url], link[:opts]
+        end if links.any?
+      end
+    end
+
+
     def render_application_select_box
       content_tag(:div, build_application_select_box, class: 'navbar-form')
+    end
+
+
+    def prefixed_id(id)
+      prefix ? "#{prefix}_#{id}".to_sym : id.to_sym
     end
 
 end

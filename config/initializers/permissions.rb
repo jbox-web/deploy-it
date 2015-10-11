@@ -17,21 +17,21 @@
 DeployIt::AccessControl.map do |map|
   map.permission :view_application,    {
                                           applications: [:show],
-                                          ajax: [:infos, :repositories, :containers, :status]
+                                          applications_config: [:infos, :repositories, :containers, :status]
                                         }, require: :loggedin
 
   map.permission :create_application,  { applications: [:new, :create] }, require: :loggedin
 
   map.permission :edit_application,    {
-                                          applications: [:edit, :update],
-                                          applications_config: [:repository, :env_vars, :mount_points, :domain_names, :database]
+                                          applications_config: [:settings, :repository, :credentials, :env_vars, :mount_points, :addons, :ssl_certificate, :domain_names, :database]
                                         }, require: :member
 
   map.permission :delete_application,  { applications: [:destroy] },                 require: :member
-  map.permission :build_application,   { applications: [:build], ajax: [:toolbar] }, require: :member
+  map.permission :build_application,   { applications_manager: [:build, :toolbar] }, require: :member
 
-  map.permission :manage_application,  { applications: [:manage], containers: [:manage] }, require: :member
-  map.permission :manage_members,      { members:      [:create, :update, :destroy] },     require: :member
+  map.permission :manage_application,  { applications_manager: [:manage], containers_manager: [:manage] }, require: :member
+
+  map.permission :manage_members,      { members: [:index, :create, :update, :destroy] }, require: :member
 
   map.permission :create_credential,   { credentials: [:new, :create] },  require: :loggedin
   map.permission :edit_credential,     { credentials: [:edit, :update] }, require: :loggedin

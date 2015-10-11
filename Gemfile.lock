@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/n-rodriguez/simple_navigation_renderers.git
-  revision: c2ceb988721896c2cf23c9008b1820c1272970d3
+  revision: 4040de66da57ea0c46165e12e0bdc52ea3f327bc
   branch: fix_rails4
   specs:
     simple_navigation_renderers (1.0.2)

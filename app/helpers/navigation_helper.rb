@@ -27,15 +27,15 @@ module NavigationHelper
   end
 
 
-  def render_sidebar_menu_top
+  def render_sidebar_menu_top(prefix: nil)
     return '' if !User.current.logged?
-    SidebarMenuTop.new(self).render
+    SidebarMenuTop.new(self, prefix).render
   end
 
 
-  def render_sidebar_menu_bottom
+  def render_sidebar_menu_bottom(prefix: nil)
     return '' if !User.current.logged?
-    SidebarMenuBottom.new(self).render
+    SidebarMenuBottom.new(self, prefix).render
   end
 
 
@@ -54,6 +54,32 @@ module NavigationHelper
       content_tag(:div, class: 'col-md-12 col-sm-12') do
         render 'layouts/page'
       end
+    end
+  end
+
+
+  def menu_for(menu, &block)
+    @menu_for ||= {}
+    if block_given?
+      @menu_for[menu] = block
+    else
+      @menu_for[menu]
+    end
+  end
+
+
+  def sidebar_menu(&block)
+    proc do |menu|
+      menu.dom_class = 'nav navmenu-nav'
+      yield menu
+    end
+  end
+
+
+  def topbar_right_menu(&block)
+    proc do |menu|
+      menu.dom_class = 'nav navbar-nav navbar-right'
+      yield menu
     end
   end
 

@@ -1,0 +1,46 @@
+= render 'common/application_partial'
+
+#mount-points{ class: 'settings' }
+
+  %span{ class: 'pull-right'}
+    = link_to label_with_icon(t('.restore_defaults'), 'fa-refresh', fixed: true), restore_mount_points_application_path(application),
+              remote: true
+
+  %br
+  %br
+
+  .flash-messages
+
+  = bootstrap_nested_form_for application,
+                              url:    mount_points_application_path(application),
+                              html:   { method: :patch, remote: true } do |f|
+
+    %table{ class: 'table table-hover', id: 'mount_points_list' }
+      %thead
+        %tr
+          %th= MountPoint.human_attribute_name('source')
+          %th= MountPoint.human_attribute_name('target')
+          %th= MountPoint.human_attribute_name('step')
+          %th{ class: 'text-center' }= MountPoint.human_attribute_name('active')
+          %th
+
+      %tbody
+        = f.fields_for :mount_points, wrapper: false do |ff|
+
+          - next if ff.object.source == '/run/mysqld/mysqld.sock'
+          - next if ff.object.source == 'log-files'
+
+          %tr{ class: 'fields' }
+            %td{ class: 'vert-align' }= ff.text_field :source, hide_label: true
+            %td{ class: 'vert-align' }= ff.text_field :target, hide_label: true
+            %td{ class: 'vert-align' }= ff.collection_select :step, MountPoint::MOUNTPOINT_STEPS, :first, :last, prompt: true, hide_label: true
+            %td{ class: 'vert-align shifted text-center' }= ff.check_box :active, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+            %td{ class: 'vert-align' }= ff.link_to_remove icon('fa-trash')
+
+    .form-group
+      %div{ class: 'col-sm-12' }
+        = button_submit t('button.save')
+        %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :mount_points, data: { target: "#mount_points_list" }
+
+= javascript_tag do
+  setBootstrapSwitch('#mount-points');

@@ -19,9 +19,17 @@ class MembersController < DCIController
   set_dci_role 'DCI::Roles::ApplicationMembershipManager'
   self.render_flash_message = false
 
+  layout 'application'
+
   before_action :set_application
   before_action :authorize
   before_action :set_member, only: [:update, :destroy]
+  before_action :add_global_crumb
+
+
+  def index
+    render_ajax_response(locals: { application: @application })
+  end
 
 
   def create
@@ -51,6 +59,12 @@ class MembersController < DCIController
 
     def set_member
       set_member_by(params[:id])
+    end
+
+
+    def add_global_crumb
+      super
+      add_breadcrumb get_model_name_for('Member'), 'fa-users', ''
     end
 
 end

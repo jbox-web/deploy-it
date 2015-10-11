@@ -1,36 +1,27 @@
 !!! 5
 %html(lang="en")
-  %head
-    %meta(charset="utf-8")
-    %title= yield(:title)
-    = csrf_meta_tags
-    = google_webfonts_init({google: ['Ubuntu','Pacifico']})
-    = stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  %head= render 'layouts/head'
 
-  %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: get_application_id } }
+  %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: @application.id } }
 
-    #header
-      = responsive_nav_bar(brand: t('the_jbox_deployer')) do
-        = render_topbar_menu
+    #header= render 'layouts/topbar'
 
     #main-content{ class: 'container-fluid' }
       .row-fluid
 
         - if User.current.logged?
-          = render_page_content(class: "col-md-9 col-sm-9")
+
+          = render 'layouts/sidebar'
+
+          .col-md-9.col-sm-9
+            .container-fluid
+              #flash-messages= render_flash_messages
+              .row
+                %div{ class: 'col-md-12' }
+                  #application-content{ class: @application.marked_for_deletion? ? 'disabled marked-for-deletion' : '' }= yield
 
         - else
+
           = render 'layouts/page'
 
-    - if User.current.logged?
-      #notifications{ style: 'display: none;', data: { url: my_notifications_path } }= render_user_subscribed_channels
-
-    #modal-holder
-
-    #footer{ class: 'footer' }
-      .container
-        %p{ class: 'text-muted' }
-          &copy;
-          = link_to 'JBox Web', 'http://www.jbox-web.com'
-          2015
+    = render 'layouts/footer'

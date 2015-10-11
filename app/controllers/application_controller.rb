@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   include BaseController::Tools
   include BaseController::Helpers
 
+  layout 'base'
+
 
   def set_application
     set_application_by(params[:id])

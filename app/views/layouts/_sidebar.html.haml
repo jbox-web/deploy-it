@@ -1,8 +1,8 @@
 = responsive_nav_menu('left-menu-applications-small', navbar_name: current_menu_name, navbar_id: 'applications-navbar-sm') do
-  = render_sidebar_menu_top
+  = render_sidebar_menu_top(prefix: :sm)
 
 = responsive_nav_menu('left-menu-features-small', navbar_name: 'Extras', navbar_id: 'features-navbar-sm') do
-  = render_sidebar_menu_bottom
+  = render_sidebar_menu_bottom(prefix: :sm)
 
 = static_sidebar(class: 'col-md-3 col-sm-3 hidden-xs') do
 

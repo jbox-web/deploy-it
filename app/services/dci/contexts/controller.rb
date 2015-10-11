@@ -68,7 +68,7 @@ module DCI
         def get_dci_data
           return @dci_data if @dci_data.nil?
 
-          rescue_from_error = @dci_data.delete(:rescue) { false }
+          rescue_from_error = @dci_data.delete(:rescue) { true }
           strong_params     = @dci_data.delete(:strong_params) { true }
 
           if strong_params

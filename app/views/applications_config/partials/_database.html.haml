@@ -1,0 +1,26 @@
+= render 'common/application_partial'
+
+#database{ class: 'settings' }
+
+  .flash-messages
+
+  = bootstrap_form_for application,
+                       layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-5 col-md-4',
+                       url:    database_application_path(application),
+                       html:   { method: :patch, remote: true } do |f|
+
+    = f.fields_for :database do |ff|
+      = ff.text_field :db_type, disabled: true
+      = ff.text_field :db_name, disabled: true
+      = ff.text_field :db_user, disabled: true
+      = ff.text_field :db_pass, disabled: true
+      = ff.select     :server_id, available_database_servers, {}, disabled: !application.database.server.nil?
+
+      .form-group
+        %label{ class: 'control-label col-sm-3', for: 'application_database_attributes_db_created' }= ApplicationDatabase.human_attribute_name('db_created')
+        %div{ class: 'col-sm-5 col-md-4' }
+          %span{ id: 'application_database_attributes_db_created' }= bool_to_icon application.database.db_created?
+
+    .form-group
+      %div{ class: 'col-sm-offset-3 col-sm-3' }
+        = button_submit t('button.save')

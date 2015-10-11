@@ -1,3 +1,2 @@
-<%= js_render_partial('#application', 'applications/edit/application', method: :replace, locals: { application: application }) %>
-<%= render_flash_messages_as_js('#application .flash-messages') %>
-setBootstrapSwitch('#application');
+<%= js_render_partial('#application-content', 'applications_config/partials/settings', locals: { application: application }) %>
+<%= render_flash_messages_as_js('#settings .flash-messages') %>

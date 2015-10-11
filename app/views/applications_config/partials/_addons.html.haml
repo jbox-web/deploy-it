@@ -1,0 +1,29 @@
+= render 'common/application_partial'
+
+#addons{ class: 'settings' }
+
+  %span{ class: 'pull-right'}
+    = link_to label_with_icon(t('.add'), 'fa-plus', fixed: true), add_addon_application_path(application),
+              remote: true, data: { toggle: 'ajax-modal', draggable: true }
+
+  %br
+  %br
+
+  .flash-messages
+
+  = bootstrap_nested_form_for application, layout: :horizontal,
+                              url:    addons_application_path(application),
+                              html:   { method: :patch, remote: true } do |f|
+
+    = f.fields_for :addons do |ff|
+
+      %fieldset
+        %legend
+          = render_addon_with_icon(ff.object.name, ff.object.type)
+          %small.pull-right= ff.link_to_remove icon('fa-trash-o', bigger: false)
+
+        = ff.text_field :params
+
+    .form-group
+      %div{ class: 'col-sm-12' }
+        = button_submit t('button.save')

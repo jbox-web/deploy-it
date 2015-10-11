@@ -49,4 +49,12 @@ module BaseController::Ajax
     request.xhr? ? 'modal' : 'application'
   end
 
+
+  def render_multi_responses(template: action_name, locals: {})
+    respond_to do |format|
+      format.html { render template, locals: locals }
+      format.js   { render 'common/ajax', locals: {}.merge(locals: locals, partial: template) }
+    end
+  end
+
 end

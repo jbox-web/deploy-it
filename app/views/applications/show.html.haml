@@ -1,31 +1,6 @@
-- html_title @application
+= render 'common/application_template'
+= render 'applications_config/partials/infos', application: @application
 
-.row
-  %div{ class: 'col-md-12' }
-
-    #application-status{ class: 'contextual contextual-h3', data: { 'refresh-url' => status_application_path(@application) } }
-      = render 'applications/show/status', application: @application
-
-    %h3{ class: 'page-header' }= render_crumbs
-
-    %div{ class: 'overlay marked-for-deletion' }
-      = label_with_icon t('.destroying'), 'fa-spinner', fixed: true, class: 'fa-spin' if @application.marked_for_deletion?
-
-    %div{ class: @application.marked_for_deletion? ? 'disabled marked-for-deletion' : '' }
-
-      %ul{ class: 'nav nav-tabs centered', role: 'tablist' }
-        = navigation_tab label_with_icon(t('.informations'), 'fa-info-circle'), infos_application_path(@application), '#infos', active: true, remote: true
-        = navigation_tab label_with_icon(t('.code'), 'fa-code'), repositories_application_path(@application), '#repositories', remote: true
-        = navigation_tab label_with_icon(get_model_name_for('Container'), 'fa-cubes'), containers_application_path(@application), '#containers', remote: true
-
-        - if can?(:edit_application, @application)
-          = navigation_tab label_with_icon(t('.settings'), 'fa-sliders'), '#settings', '#settings'
-
-      .tab-content
-
-        #infos{ class: 'tab-pane active' }= render 'applications/show_tabs/infos', application: @application
-        #repositories{ class: 'tab-pane' }= render 'applications/show_tabs/repositories', application: @application
-        #containers{ class: 'tab-pane' }=   render 'applications/show_tabs/containers', application: @application
-
-        - if can?(:edit_application, @application)
-          #settings{ class: 'tab-pane' }= render template: 'applications/edit', locals: { application: @application }
+= javascript_tag do
+  $('#left-menu-applications ul.nav.navmenu-nav li').removeClass('active');
+  $('#app_infos').addClass('active');

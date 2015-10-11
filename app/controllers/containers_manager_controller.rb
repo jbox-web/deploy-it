@@ -20,16 +20,16 @@ class ContainersManagerController < DCIController
 
   before_action :set_application
   before_action :set_container
-  before_action :set_deployment_action, only: [:manage_container]
+  before_action :set_deployment_action, only: [:manage]
 
 
-  def manage_container
+  def manage
     set_dci_data(event_options_for(:toolbar).merge(strong_params: false))
     call_dci_role(:manage_container, @container, @deploy_action)
   end
 
 
-  def container_infos
+  def infos
     render_modal_box(locals: { container: @container })
   end
 

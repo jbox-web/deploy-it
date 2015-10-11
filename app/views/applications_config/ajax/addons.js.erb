@@ -1,3 +1,5 @@
-<%= js_render_partial('#addons', 'applications/edit/addons', method: :replace, locals: { application: application }) %>
+<%= js_render_partial('#application-content', 'applications_config/partials/addons', locals: { application: application }) %>
 <%= render_flash_messages_as_js('#addons .flash-messages') %>
+<% if saved %>
 highlight('#addons fieldset > legend');
+<% end %>
