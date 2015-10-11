@@ -23,7 +23,22 @@ DeployIt::AccessControl.map do |map|
   map.permission :create_application,  { applications: [:new, :create] }, require: :loggedin
 
   map.permission :edit_application,    {
-                                          applications_config: [:settings, :repository, :credentials, :env_vars, :mount_points, :addons, :ssl_certificate, :domain_names, :database]
+                                          applications_config: [
+                                            :settings,
+                                            :repository,
+                                            :credentials,
+                                            :env_vars,
+                                            :mount_points,
+                                            :addons,
+                                            :ssl_certificate,
+                                            :domain_names,
+                                            :database,
+                                            :synchronize_repository,
+                                            :restore_env_vars,
+                                            :restore_mount_points,
+                                            :reset_ssl_certificate,
+                                            :add_addon
+                                          ]
                                         }, require: :member
 
   map.permission :delete_application,  { applications: [:destroy] },                 require: :member
