@@ -38,12 +38,11 @@ fr:
     settings:
       notice: Paramètres enregistrés avec succès
       error: Erreurs lors de l'enregistrement des paramètres
-    add_addon:
-      title: Nouvel addon
-      notice: Addon ajouté avec succès
-      error: Erreurs lors de la création du nouvel addon
     addons:
       notice: Addons modifiés avec succès
+    add_addon:
+      notice: Addon ajouté avec succès
+      error: Erreurs lors de la création du nouvel addon
     partials:
       settings:
         destroy: Détruire l'application
@@ -65,3 +64,5 @@ fr:
         add: Ajouter un mot de passe
       addons:
         add: Ajouter un addon
+      add_addon:
+        title: Nouvel addon
