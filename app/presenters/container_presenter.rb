@@ -129,7 +129,7 @@ class ContainerPresenter < SimpleDelegator
 
 
     def icon_options
-      { fixed: true }
+      { fixed: true, bigger: false }
     end
 
 end
