@@ -18,14 +18,14 @@ class Repository < ActiveRecord::Base
   ## Rugged methods (exits?, empty? ...)
   include ActsAs::RuggedRepository
 
-  GIT_USER_REGEX = /\A(ssh:\/\/)([a-z\-]+)@([a-z0-9\.\-]+)(\/[a-z0-9\-\/]+\.git)\z/i
+  GIT_USER_REGEX = /\A(ssh:\/\/)?([a-z\-]+)@([a-z0-9\.\-]+):?([0-9]+)?:?([a-z0-9\-\/]+\.git)\z/i
 
   ## Relations
   belongs_to :application
   belongs_to :credential, class_name: 'RepositoryCredential'
 
   ## Basic Validations
-  validates :url,           presence: true
+  validates :url,           presence: true, format: { with: GIT_USER_REGEX }
   validates :relative_path, presence: true
   validates :type,          uniqueness: { scope: :application_id }
   validates :credential_id, presence: true, if: :have_credentials?
