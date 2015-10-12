@@ -54,38 +54,24 @@ fr:
       informations: Infos
       destroying: En cours de destruction
 
-      local_repo:
-        title: Dépôt local
-
-        empty: Le dépôt est vide
-        syncable: Synchronisable
-        not_syncable: Non synchronisable
-        synced: Synchronisé
-
-        state: Etat
+      repo_common:
         last_commit: Dernier commit
+        empty: Le dépôt est vide
         commit_id: ID
+        commit_date: Date
         commit_author: Auteur
         commit_message: Message
-        commit_date: Date
+
+      local_repo:
+        title: Dépôt local
 
       distant_repo:
         title: Dépôt distant
         resync: Resynchroniser le dépôt
-
-        empty: Le dépôt est vide
         syncable: Synchronisable
         not_syncable: Non synchronisable
         synced: Synchronisé
-
         state: Etat
-        last_commit: Dernier commit
-        commit_id: ID
-        commit_author: Auteur
-        commit_message: Message
-        commit_date: Date
-
-        settings: Paramètres du dépôt
 
       containers:
         app_start: Démarrer l'application

@@ -1,8 +1,6 @@
-%div{ class: 'col-md-12' }
+%h4{ class: 'page-header' }= label_with_icon(t('.text'), 'fa-info', fixed: true)
 
-  %h4{ class: 'page-header' }= label_with_icon(t('.text'), 'fa-info', fixed: true)
-
-  %pre
-    = "user@desktop:~$ git remote add #{application.stage_identifier} #{application.push_url}"
-    &#x000A;
-    = "user@desktop:~$ git push #{application.stage_identifier} master"
+%pre
+  = "user@desktop:~$ git remote add #{application.stage_identifier} #{application.push_url}"
+  &#x000A;
+  = "user@desktop:~$ git push #{application.stage_identifier} master"

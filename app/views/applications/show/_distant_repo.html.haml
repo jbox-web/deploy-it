@@ -1,40 +1,18 @@
-%div{ class: 'col-md-6' }
+%h4{ class: 'page-header' }
+  = label_with_icon(t('.title'), 'fa-cloud-download', fixed: true)
 
-  %h4{ class: 'page-header' }= label_with_icon(t('.title'), 'fa-cloud-download', fixed: true)
-
-  %dl{ class: 'dl-horizontal' }
-
-    %dt= Repository.human_attribute_name('url') + ' :'
-    %dd= link_to_repository repository.url
-
-    %dt= t('.state') + ' :'
-    %dd
-      - if repository.rugged_proxy.syncable?
-        - if repository.rugged_proxy.synced?
-          %span{ class: 'label label-success' }= label_with_icon(t('.synced'), 'fa-check', fixed: true)
-        - else
-          %span{ class: 'label label-warning' }
-            = link_to label_with_icon(t('.syncable'), 'fa-refresh', fixed: true),
-                      synchronize_repository_application_path(repository.application),
-                      remote: true,
-                      title:  render_commit_distance(repository.rugged_proxy.commit_distance)
+  %small.pull-right
+    - if repository.rugged_proxy.syncable?
+      - if repository.rugged_proxy.synced?
+        %span{ class: 'label label-success' }= label_with_icon(t('.synced'), 'fa-check')
       - else
-        %span{ class: 'label label-danger' }= label_with_icon(t('.not_syncable'), 'fa-exclamation-triangle', fixed: true)
-        %em= repository.rugged_proxy.errors.join(' ')
+        %span{ class: 'label label-warning' }
+          = link_to label_with_icon(t('.syncable'), 'fa-refresh'),
+                    synchronize_repository_application_path(repository.application),
+                    remote: true,
+                    title:  render_commit_distance(repository.rugged_proxy.commit_distance)
+    - else
+      %span{ class: 'label label-danger' }= label_with_icon(t('.not_syncable'), 'fa-exclamation-triangle')
+      %em= repository.rugged_proxy.errors.join(' ')
 
-    %dt= t('.last_commit') + ' :'
-    %dd
-      - if repository.rugged_proxy.empty?
-        = t('.empty')
-      - else
-        = t('.commit_id') + ' : '
-        = repository.rugged_proxy.last_commit_id
-        %br
-        = t('.commit_date') + ' : '
-        = l(repository.rugged_proxy.last_commit_info(:time)) rescue ''
-        %br
-        = t('.commit_author') + ' : '
-        = mail_to repository.rugged_proxy.last_commit_info(:email), repository.rugged_proxy.last_commit_info(:name)
-        %br
-        = t('.commit_message') + ' : '
-        = repository.rugged_proxy.last_commit_info(:message)
+= render 'applications/show/repo_common', repository: repository, url: link_to_repository(repository.url)

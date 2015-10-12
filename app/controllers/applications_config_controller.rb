@@ -69,7 +69,7 @@ class ApplicationsConfigController < DCIController
 
 
   def addons
-    add_breadcrumb get_model_name_for('Addon'), 'fa-cubes', ''
+    add_breadcrumb get_model_name_for('Addon'), 'fa-cube', ''
     set_dci_data({ application: { addons_attributes: [:id, :params, :_destroy] } })
     wrapped_response { call_dci_role(:update_addons) }
   end
@@ -96,7 +96,7 @@ class ApplicationsConfigController < DCIController
 
 
   def add_addon
-    add_breadcrumb get_model_name_for('Addon'), 'fa-cubes', ''
+    add_breadcrumb get_model_name_for('Addon'), 'fa-cube', ''
     set_dci_data({ application_addon: [:addon_id], rescue: true })
     request.post? ? call_dci_role(:add_addon) : render_modal_box(locals: { application: @application, addon: @application.addons.new })
   end

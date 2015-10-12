@@ -1,21 +1,19 @@
-%div{ class: 'col-md-12' }
+%h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Release'), 'fa-history', fixed: true)
 
-  %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Release'), 'fa-history', fixed: true)
+- unless smart_listing.empty?
 
-  - unless smart_listing.empty?
+  %ul{ class: 'list-unstyled list-group' }
+    - smart_listing.collection.each do |release|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'release_date' }= l(release.created_at)
+        %span= t('.from')
+        %span{ class: 'release_version' }= release.old_revision[0..6]
+        %span= t('.to')
+        %span{ class: 'release_version' }= release.new_revision[0..6]
 
-    %ul{ class: 'list-unstyled list-group' }
-      - smart_listing.collection.each do |release|
-        %li{ class: 'list-group-item' }
-          %span{ class: 'release_date' }= l(release.created_at)
-          %span= t('.from')
-          %span{ class: 'release_version' }= release.old_revision[0..6]
-          %span= t('.to')
-          %span{ class: 'release_version' }= release.new_revision[0..6]
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links
 
-    = smart_listing.paginate
-    = smart_listing.pagination_per_page_links
+- else
 
-  - else
-
-    = render_no_data
+  = render_no_data

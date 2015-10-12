@@ -46,5 +46,12 @@ module DeployIt
     FONT_AWESOME_DEFAULT_CLASS    = ['fa', 'fa-align']
     BOOTSTRAP_ALERT_DEFAULT_CLASS = ['alert', 'fade', 'in']
 
+    MEMORY_ICONS_MAPPING = {
+      128  => 'fa-battery-1',
+      256  => 'fa-battery-2',
+      512  => 'fa-battery-3',
+      1024 => 'fa-battery-4'
+    }
+
   end
 end

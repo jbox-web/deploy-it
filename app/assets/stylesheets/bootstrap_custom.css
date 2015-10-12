@@ -131,3 +131,7 @@ tt, code, pre {
   margin: 0;
   padding: 8px 15px 0;
 }
+
+.row.padded {
+  margin-bottom: 10px;
+}

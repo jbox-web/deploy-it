@@ -1,5 +1,5 @@
 - cache application do
   %ul{ id: 'status', class: 'list-unstyled list-inline' }
-    %li= label_with_success_tag "#{t('.running_containers')} : #{application.running_containers}"
-    %li= label_with_warning_tag "#{t('.paused_containers')} : #{application.paused_containers}"
-    %li= label_with_danger_tag  "#{t('.stopped_containers')} : #{application.stopped_containers}"
+    %li= label_with_success_tag label_with_icon("#{t('.running_containers')} : #{application.running_containers}", 'fa-rocket')
+    %li= label_with_warning_tag label_with_icon("#{t('.paused_containers')} : #{application.paused_containers}", 'fa-rocket')
+    %li= label_with_danger_tag  label_with_icon("#{t('.stopped_containers')} : #{application.stopped_containers}", 'fa-rocket')

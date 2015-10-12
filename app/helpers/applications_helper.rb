@@ -96,6 +96,11 @@ module ApplicationsHelper
   end
 
 
+  def render_memory_icon(memory)
+    DeployIt::Theme::MEMORY_ICONS_MAPPING[memory]
+  end
+
+
   ### PRIVATE ###
 
 
