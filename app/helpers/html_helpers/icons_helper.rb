@@ -85,7 +85,7 @@ module HtmlHelpers
         css_class.push('fa-lg') if bigger
         css_class.push('fa-align') if aligned
         css_class.push('fa-inverse') if inverse
-        css_class.delete('fa-lg') if fixed
+        css_class.push('fa-fw') if fixed
         css_class
       end
 

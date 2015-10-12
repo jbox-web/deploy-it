@@ -3,7 +3,7 @@
 #ssl-certificate{ class: 'settings' }
 
   %span{ class: 'pull-right'}
-    = link_to label_with_icon(t('.reset'), 'fa-trash', fixed: true),
+    = link_to label_with_icon(t('.reset'), 'fa-trash-o', fixed: true),
               reset_ssl_certificate_application_path(application),
               remote: true,
               data:   { confirm: t('text.are_you_sure') }

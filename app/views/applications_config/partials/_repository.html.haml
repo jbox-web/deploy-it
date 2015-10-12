@@ -9,8 +9,8 @@
                        url:    repository_application_path(application),
                        html:   { method: :patch, remote: true } do |f|
 
-    = f.text_field :url, required: true, control_col: 'col-sm-8'
-    = f.text_field :branch, required: false
+    = f.text_field :url, required: true, control_col: 'col-sm-8', prepend: button_with_icon('fa-git')
+    = f.text_field :branch, required: false, prepend: button_with_icon('fa-code-fork')
 
     = f.form_group :have_credentials, label: { text: t('.have_credentials') }, class: 'shifted' do
       = f.check_box :have_credentials, data: { size: 'small' }, label: ''

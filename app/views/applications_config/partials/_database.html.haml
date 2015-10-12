@@ -10,10 +10,10 @@
                        html:   { method: :patch, remote: true } do |f|
 
     = f.fields_for :database do |ff|
-      = ff.text_field :db_type, disabled: true
-      = ff.text_field :db_name, disabled: true
-      = ff.text_field :db_user, disabled: true
-      = ff.text_field :db_pass, disabled: true
+      = ff.text_field :db_type, disabled: true, prepend: button_with_icon('fa-database')
+      = ff.text_field :db_name, disabled: true, prepend: button_with_icon('fa-book')
+      = ff.text_field :db_user, disabled: true, prepend: button_with_icon('fa-user')
+      = ff.text_field :db_pass, disabled: true, prepend: button_with_icon('fa-eye')
       = ff.select     :server_id, available_database_servers, {}, disabled: !application.database.server.nil?
 
       .form-group

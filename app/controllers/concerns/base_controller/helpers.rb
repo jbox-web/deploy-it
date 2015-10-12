@@ -25,7 +25,7 @@ module BaseController::Helpers
 
 
   def add_breadcrumb(label, icon, url)
-    add_crumb label_with_icon(label, icon, fixed: true), url
+    add_crumb label_with_icon(label, icon, fixed: true, bigger: false), url
   end
 
 

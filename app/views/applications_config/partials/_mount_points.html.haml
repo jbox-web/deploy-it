@@ -35,7 +35,7 @@
             %td{ class: 'vert-align' }= ff.text_field :target, hide_label: true
             %td{ class: 'vert-align' }= ff.collection_select :step, MountPoint::MOUNTPOINT_STEPS, :first, :last, prompt: true, hide_label: true
             %td{ class: 'vert-align shifted text-center' }= ff.check_box :active, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
-            %td{ class: 'vert-align' }= ff.link_to_remove icon('fa-trash')
+            %td{ class: 'vert-align' }= ff.link_to_remove icon('fa-trash-o')
 
     .form-group
       %div{ class: 'col-sm-12' }

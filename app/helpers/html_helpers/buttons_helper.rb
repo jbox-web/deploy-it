@@ -190,5 +190,10 @@ module HtmlHelpers
       ['btn', 'btn-default'].clone
     end
 
+
+    def button_with_icon(icon)
+      content_tag(:button, icon(icon, aligned: false, fixed: true), type: 'button', class: button_default_css_class)
+    end
+
   end
 end
