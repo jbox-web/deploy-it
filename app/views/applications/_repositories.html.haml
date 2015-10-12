@@ -1,8 +1,12 @@
 = render 'common/application_partial'
 
 - if can?(:build_application, application)
-  .row
+  .row.padded
     %div{ class: 'col-md-12' }= render 'applications/show/instructions', application: application, repository: application.local_repo
 
-.row
+.row.padded
+  %div{ class: 'col-md-6' }= render 'applications/show/distant_repo', repository: application.distant_repo
+  %div{ class: 'col-md-6' }= render 'applications/show/local_repo',   repository: application.local_repo
+
+.row.padded
   %div{ class: 'col-md-12' }= smart_listing_render(:releases)

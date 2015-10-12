@@ -5,17 +5,14 @@
   %div{ class: 'col-md-6' }= render 'applications/show/members',  application: application
 
 .row.padded
-  %div{ class: 'col-md-6' }= render 'applications/show/distant_repo', repository: application.distant_repo
-  %div{ class: 'col-md-6' }= render 'applications/show/local_repo',   repository: application.local_repo
-
-.row.padded
   %div{ class: 'col-md-6' }= render 'applications/show/domain_aliases',   application: application
   %div{ class: 'col-md-6' }= render 'applications/show/domain_redirects', application: application
 
 .row.padded
+  %div{ class: 'col-md-6' }= render 'applications/show/env_vars',     application: application
   %div{ class: 'col-md-6' }= render 'applications/show/credentials', application: application
-  %div{ class: 'col-md-6' }= render 'applications/show/addons',      application: application
+
 
 .row.padded
-  %div{ class: 'col-md-6' }= render 'applications/show/env_vars',     application: application
   %div{ class: 'col-md-6' }= render 'applications/show/mount_points', application: application
+  %div{ class: 'col-md-6' }= render 'applications/show/addons',      application: application
