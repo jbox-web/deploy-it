@@ -71,6 +71,7 @@ class ApplicationsController < DCIController
 
   def repositories
     add_breadcrumb t('.title'), 'fa-code', ''
+    @releases = smart_listing_create(:releases, @application.releases.includes(build: [:push]), partial: 'applications/show/releases', default_sort: { created_at: 'desc' })
     render_multi_responses(locals: { application: @application })
   end
 

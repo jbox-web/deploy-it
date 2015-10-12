@@ -16,8 +16,7 @@
 module BaseController::Helpers
   extend ActiveSupport::Concern
 
-  ## Will paginate gem
-  require 'will_paginate/array'
+  include SmartListing::Helper::ControllerExtensions
 
 
   def label_with_icon(*args)
@@ -38,6 +37,7 @@ module BaseController::Helpers
 
   included do
     helper_method :get_model_name_for
+    helper SmartListing::Helper
   end
 
 end

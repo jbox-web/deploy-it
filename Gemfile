@@ -38,7 +38,6 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'turbolinks',      '~> 2.5.3'
 gem 'uglifier',        '~> 2.7.1'
 
-
 # Fonts
 gem 'font-awesome-rails',    '~> 4.4.0'
 gem 'octicons-rails',        '~> 2.1.1'
@@ -58,8 +57,7 @@ gem 'nested_form',            '~> 0.3.2'
 gem 'haml-rails', '~> 0.9.0'
 
 # Pagination
-gem 'will_paginate',           '~> 3.0.7'
-gem 'will_paginate-bootstrap', '~> 1.0.1'
+gem 'smart_listing', '~> 1.1.2'
 
 # Breadcrumbs
 gem 'crummy', '~> 1.8.0'

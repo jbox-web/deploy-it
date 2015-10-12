@@ -23,6 +23,7 @@
 #= require codemirror/modes/javascript
 #= require danthes
 #= require select2
+#= require smart_listing
 #= require zeroclipboard
 #= require turbolinks
 #= require_tree .

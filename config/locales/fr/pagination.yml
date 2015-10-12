@@ -1,0 +1,10 @@
+fr:
+  views:
+    pagination:
+      first: '&laquo;'
+      previous: '&lsaquo;'
+      next: '&rsaquo;'
+      last: '&raquo;'
+      truncate: '&hellip;'
+      total: Total
+      per_page: Par page
