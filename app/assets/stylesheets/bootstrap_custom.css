@@ -135,3 +135,12 @@ tt, code, pre {
 .padded {
   margin-bottom: 10px;
 }
+
+
+.toggle-switch {
+  margin-bottom: 25px;
+}
+
+.toggle-switch label {
+  font-weight: normal;
+}

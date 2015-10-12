@@ -1,5 +1,17 @@
 fr:
   applications_config:
+    toggle_credentials:
+      error: "Aucun mot de passe défini. Commencez par ajouter un nouveau mot de passe."
+      notice:
+        enabled: Authentification par mot de passe activée
+        disabled: Authentification par mot de passe désactivée
+
+    toggle_ssl:
+      error: "Aucun certificat SSL trouvé. Commencez par ajouter un certificat SSL."
+      notice:
+        enabled: SSL activé
+        disabled: SSL désactivé
+
     database:
       notice: Base de données modifiée avec succès
     reset_ssl_certificate:
@@ -42,6 +54,8 @@ fr:
     partials:
       settings:
         destroy: Détruire l'application
+        containers: Paramètres des contenaires
+        application: Application
       credential:
         desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"
       domain_names:

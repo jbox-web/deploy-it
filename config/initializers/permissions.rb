@@ -32,7 +32,9 @@ DeployIt::AccessControl.map do |map|
                                             :restore_env_vars,
                                             :restore_mount_points,
                                             :reset_ssl_certificate,
-                                            :add_addon
+                                            :add_addon,
+                                            :toggle_credentials,
+                                            :toggle_ssl
                                           ]
                                         }, require: :member
 

@@ -40,6 +40,42 @@ module DCI
           end
         end
 
+
+        def update_boolean_field_if_allowed(condition, application, field, params)
+          if condition
+            value, message = values_for_boolean(params[:checked])
+            application.update_attribute(field, value)
+            context.render_success(locals: { application: application }, message: message)
+          else
+            context.render_failed(locals: { application: application })
+          end
+        end
+
+
+        def values_for_boolean(param)
+          [extract_boolean_value(param), boolean_message(param)]
+        end
+
+
+        def extract_boolean_value(param)
+          param == 'true' ? true : false
+        end
+
+
+        def boolean_message(param)
+          param == 'true' ? t('.notice.enabled') : t('.notice.disabled')
+        end
+
+
+        def disable_ssl(application)
+          application.update_attribute(:use_ssl, false)
+        end
+
+
+        def disable_credentials(application)
+          application.update_attribute(:use_credentials, false)
+        end
+
     end
   end
 end

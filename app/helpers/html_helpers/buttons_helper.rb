@@ -195,5 +195,15 @@ module HtmlHelpers
       content_tag(:button, icon(icon, aligned: false, fixed: true), type: 'button', class: button_default_css_class)
     end
 
+
+    def remote_toggle_button(url:, label:, id:, value:, checked:, field:, opts: {})
+      options = { class: 'bootstrap-switch', data: { switch_callback: 'callToggleUrl(event, checked)', size: 'small', url: url, field: field } }.deep_merge(opts)
+      content_tag(:div, id: "switch_#{id}", class: 'toggle-switch') do
+        label_tag(id) do
+          check_box_tag(id, value, checked, options) + "&nbsp;&nbsp; #{label}".html_safe
+        end
+      end
+    end
+
   end
 end

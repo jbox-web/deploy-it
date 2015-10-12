@@ -55,6 +55,7 @@ module DCI
 
       def update_credentials(application, params = {})
         update_application(application, params) do |application|
+          disable_credentials(application) if application.credentials.empty?
           application.create_lb_route!
         end
       end
@@ -81,6 +82,7 @@ module DCI
           application.create_lb_route!
           context.render_success(locals: { application: application })
         else
+          disable_ssl(application)
           context.render_failed(locals: { application: application })
         end
       end
@@ -115,6 +117,7 @@ module DCI
 
       def reset_ssl_certificate(application, params = {})
         application.ssl_certificate = nil
+        disable_ssl(application)
         context.render_success(locals: { application: application })
       end
 
@@ -126,6 +129,16 @@ module DCI
         else
           context.render_failed(locals: { application: application, addon: addon })
         end
+      end
+
+
+      def toggle_credentials(application, params = {})
+        update_boolean_field_if_allowed(application.credentials.any?, application, :use_credentials, params)
+      end
+
+
+      def toggle_ssl(application, params = {})
+        update_boolean_field_if_allowed(!application.ssl_certificate.nil?, application, :use_ssl, params)
       end
 
     end

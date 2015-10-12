@@ -93,6 +93,9 @@ Rails.application.routes.draw do
       get 'reset_ssl_certificate'
       get 'synchronize_repository'
 
+      post 'toggle_ssl'
+      post 'toggle_credentials'
+
       match 'addons',          via: [:get, :patch]
       match 'add_addon',       via: [:get, :post]
       match 'credentials',     via: [:get, :patch]

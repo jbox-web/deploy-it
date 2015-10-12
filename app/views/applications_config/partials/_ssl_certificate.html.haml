@@ -2,18 +2,18 @@
 
 #ssl-certificate{ class: 'settings' }
 
-  %span{ class: 'pull-right'}
-    = link_to label_with_icon(t('.reset'), 'fa-trash-o', fixed: true),
-              reset_ssl_certificate_application_path(application),
-              remote: true,
-              data:   { confirm: t('text.are_you_sure') }
+  = remote_toggle_button url: toggle_ssl_application_path(application),
+                         label: Application.human_attribute_name('enable_ssl'),
+                         id: 'toggle_enable_ssl',
+                         value: application.use_ssl?,
+                         checked: application.use_ssl?,
+                         field: 'use_ssl'
 
-  %br
-  %br
+  .clearfix
 
   .flash-messages
 
-  = bootstrap_form_for (application.ssl_certificate || SslCertificate.new),
+  = bootstrap_form_for (application.ssl_certificate || application.build_ssl_certificate),
                        layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8",
                        url:    ssl_certificate_application_path(application),
                        html:   { method: :patch, remote: true } do |f|
@@ -26,3 +26,11 @@
     .form-group
       %div{ class: 'col-sm-offset-2 col-sm-3' }
         = button_submit t('button.save')
+      %span{ class: 'pull-right'}
+        = link_to label_with_icon(t('.reset'), 'fa-trash-o', fixed: true),
+                  reset_ssl_certificate_application_path(application),
+                  remote: true,
+                  data:   { confirm: t('text.are_you_sure') }
+
+= javascript_tag do
+  setBootstrapSwitch('#ssl-certificate');

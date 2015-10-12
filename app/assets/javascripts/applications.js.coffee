@@ -8,5 +8,12 @@ root.toggleCredentials = (event, checked) ->
     $('#select-credential').hide()
     $('#in-use-credential').hide()
 
+
 root.showSettings = (element) ->
   $(element).slideToggle('fast')
+
+
+root.callToggleUrl = (event, checked) ->
+  url   = $(event.target).data('url')
+  field = $(event.target).data('field')
+  $.ajax url: url, method: 'post', dataType: 'script', data: { toggle: { field: field, checked: checked } }

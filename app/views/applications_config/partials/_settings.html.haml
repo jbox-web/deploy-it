@@ -9,31 +9,25 @@
                        url:    settings_application_path(application),
                        html:   { method: :patch, remote: true } do |f|
 
-    = f.text_field :name, required: true
-    = f.text_field :identifier,  required: true, disabled: true
-    = f.text_field :domain_name, required: true
+    %fieldset.padded
+      %legend= label_with_icon(t('.application'), 'fa-pencil', bigger: false)
+      = f.text_field :name, required: true, prepend: button_with_icon('fa-globe')
+      = f.text_field :identifier,  required: true, disabled: true, prepend: button_with_icon('fa-tag')
+      = f.text_field :domain_name, required: true, prepend: button_with_icon('fa-external-link')
 
-    = f.collection_select :application_type_id, ApplicationType.all, :id, :to_s, prompt: true
+    %fieldset.padded
+      %legend= label_with_icon(t('.containers'), 'fa-rocket', bigger: false)
+      = f.collection_select :application_type_id, ApplicationType.all, :id, :to_s, prompt: true
+      = f.select :image_type, available_docker_images
+      = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8', prepend: button_with_icon('fa-gear')
+      = f.text_field :max_memory, required: true, data: slider_options_for_max_memory(application)
+      = f.text_field :instance_number, required: true, disabled: !application.instance_number_editable?, data: slider_options_for_instance_number(application)
 
-    = f.select :image_type, available_docker_images
+      = f.form_group :use_cron, label: { text: Application.human_attribute_name('enable_cron') }, class: 'shifted' do
+        = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
-    = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8'
-
-    = f.text_field :max_memory, required: true, data: slider_options_for_max_memory(application)
-
-    = f.text_field :instance_number, required: true, disabled: !application.instance_number_editable?, data: slider_options_for_instance_number(application)
-
-    = f.form_group :use_credentials, label: { text: Application.human_attribute_name('enable_credentials') }, class: 'shifted' do
-      = f.check_box :use_credentials, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
-
-    = f.form_group :use_cron, label: { text: Application.human_attribute_name('enable_cron') }, class: 'shifted' do
-      = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
-
-    = f.form_group :use_ssl, label: { text: Application.human_attribute_name('enable_ssl') }, class: 'shifted' do
-      = f.check_box :use_ssl, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
-
-    = f.form_group :debug_mode, label: { text: Application.human_attribute_name('enable_debug') }, class: 'shifted' do
-      = f.check_box :debug_mode, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+      = f.form_group :debug_mode, label: { text: Application.human_attribute_name('enable_debug') }, class: 'shifted' do
+        = f.check_box :debug_mode, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
     .form-group
       %div{ class: 'col-sm-offset-3 col-sm-3' }
