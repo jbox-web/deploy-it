@@ -28,7 +28,7 @@ class MembersController < DCIController
 
 
   def index
-    render_ajax_response(locals: { application: @application })
+    render_multi_responses(locals: { application: @application })
   end
 
 

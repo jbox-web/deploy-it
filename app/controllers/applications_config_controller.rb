@@ -146,8 +146,8 @@ class ApplicationsConfigController < DCIController
     end
 
 
-    def render_multi_responses(template: action_name, locals: {})
-      super(template: "applications_config/partials/#{template}", locals: { application: @application })
+    def render_multi_responses(template: action_name, partial: action_name, locals: {})
+      super(template: "applications_config/#{template}", partial: "applications_config/partials/#{partial}", locals: { application: @application })
     end
 
 

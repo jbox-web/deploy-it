@@ -103,7 +103,7 @@ module DCI
             yield
           else
             respond_to do |format|
-              format.html { render template }
+              format.html { render template, locals: locals }
               format.js   { render ajax_template_path(template), locals: locals }
             end
           end

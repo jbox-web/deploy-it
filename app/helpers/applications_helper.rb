@@ -92,7 +92,7 @@ module ApplicationsHelper
 
 
   def show_application_links(application)
-    menu_items_for(application, nil, { link_html: { data: { remote: true } } }).render_links
+    menu_items_for(application).render_links
   end
 
 

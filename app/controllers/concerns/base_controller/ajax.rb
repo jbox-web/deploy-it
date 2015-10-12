@@ -50,10 +50,10 @@ module BaseController::Ajax
   end
 
 
-  def render_multi_responses(template: action_name, locals: {})
+  def render_multi_responses(template: action_name, partial: action_name, locals: {})
     respond_to do |format|
       format.html { render template, locals: locals }
-      format.js   { render 'common/ajax', locals: {}.merge(locals: locals, partial: template) }
+      format.js   { render 'common/ajax', locals: {}.merge(locals: locals, partial: partial) }
     end
   end
 
