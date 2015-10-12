@@ -57,7 +57,7 @@ class Application < ActiveRecord::Base
   ## Basic Validations
   validates :domain_name,     presence: true, on: :update
   validates :max_memory,      presence: true, inclusion: { in: DeployIt::MAX_MEMORY_AVAILABLE }
-  validates :instance_number, presence: true, inclusion: { in: (1..DeployIt::MAX_INSTANCES_NUMBER).to_a }
+  validates :instance_number, presence: true, inclusion: { in: DeployIt::MAX_INSTANCES_NUMBER }
 
   ## Scopes
   scope :visible, lambda { |*args| where(Application.visible_condition(args.shift || User.current, *args)) }
@@ -89,7 +89,7 @@ class Application < ActiveRecord::Base
   class << self
 
     def max_instances_number
-      (1..DeployIt::MAX_INSTANCES_NUMBER).to_a
+      DeployIt::MAX_INSTANCES_NUMBER
     end
 
     def max_memory_available

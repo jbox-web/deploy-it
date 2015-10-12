@@ -15,7 +15,7 @@
 
 module DeployIt
 
-  MAX_INSTANCES_NUMBER = 4
+  MAX_INSTANCES_NUMBER = (1..4).to_a
   AVAILABLE_LANGUAGES  = %w(php ruby python)
   AVAILABLE_DATABASES  = %w(mysql postgres)
   EXCLUDED_APP_NAME    = %w(mysql information_schema performance_schema)
