@@ -11,6 +11,7 @@ fr:
         url: URL du dépôt
         branch: Branche
         credential_id: Clé d'accès
+        have_credentials: Utilise une clé d'accès
 
     errors:
       models:

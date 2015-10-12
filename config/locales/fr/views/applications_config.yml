@@ -42,8 +42,6 @@ fr:
     partials:
       settings:
         destroy: Détruire l'application
-      repository:
-        have_credentials: Utilise une clé d'accès
       credential:
         desc: "Le dépôt doit donner les droits de lecture à la clé publique suivante"
       domain_names:

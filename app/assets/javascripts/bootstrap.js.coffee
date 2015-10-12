@@ -6,7 +6,12 @@ root.setNavigationSelector = ->
 
 root.setBootstrapSwitch = (parent) ->
   elements = parent + ' .bootstrap-switch'
-  $(elements).bootstrapSwitch()
+  $(elements).each (index, element) ->
+    callback = $(element).data('switch-callback')
+    if callback
+      $(element).bootstrapSwitch(onSwitchChange: (event, checked) -> eval(callback))
+    else
+      $(element).bootstrapSwitch()
 
 
 root.setAlertDismiss = ->
