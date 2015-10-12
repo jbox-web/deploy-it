@@ -1,4 +1,5 @@
-%h4{ class: 'page-header' }= label_with_icon(t('.title'), 'fa-random', fixed: true)
+%h4{ class: 'page-header' }
+  = link_to_if can?(:edit_application, application), label_with_icon(t('.title'), 'fa-random', fixed: true), domain_names_application_path(application)
 
 - if application.domain_redirects.any?
   %ul{ class: 'list-group' }

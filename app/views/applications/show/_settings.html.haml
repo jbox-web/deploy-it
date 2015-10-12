@@ -1,5 +1,5 @@
 %h4{ class: 'page-header' }
-  = label_with_icon(get_model_name_for('Settings'), 'fa-sliders', fixed: true)
+  = link_to_if can?(:edit_application, application), label_with_icon(get_model_name_for('Settings'), 'fa-sliders', fixed: true), settings_application_path(application)
 
   %small.pull-right
     = icon 'fa-clock-o', title: Application.human_attribute_name('cron_enabled'),        class: add_class_on_condition(application.use_cron?, true, 'fa-success')
