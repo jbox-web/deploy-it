@@ -19,9 +19,9 @@
 
     = f.text_field :buildpack, control_col: 'col-sm-9 col-md-8'
 
-    = f.select :max_memory, max_memory_available, required: true
+    = f.text_field :max_memory, required: true, data: slider_options_for_max_memory(application)
 
-    = f.select :instance_number, max_instances_available, {}, disabled: (application.running? || application.paused?)
+    = f.text_field :instance_number, required: true, disabled: !application.instance_number_editable?, data: slider_options_for_instance_number(application)
 
     = f.form_group :use_credentials, label: { text: Application.human_attribute_name('enable_credentials') }, class: 'shifted' do
       = f.check_box :use_credentials, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
@@ -51,3 +51,5 @@
 
 = javascript_tag do
   setBootstrapSwitch('#settings');
+  $("#application_max_memory").slider();
+  $("#application_instance_number").slider();

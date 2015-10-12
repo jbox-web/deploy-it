@@ -19,6 +19,7 @@
 #= require bootstrap-sprockets
 #= require bootstrap-switch
 #= require bootstrap-notify
+#= require bootstrap-slider
 #= require codemirror
 #= require codemirror/modes/javascript
 #= require danthes

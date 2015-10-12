@@ -101,6 +101,21 @@ module ApplicationsHelper
   end
 
 
+  def slider_options_for_max_memory(application)
+    slider_options(list: Application.max_memory_available, value: application.max_memory, step: 128)
+  end
+
+
+  def slider_options_for_instance_number(application)
+    slider_options(list: Application.max_instances_number, value: application.instance_number, enabled: application.instance_number_editable?)
+  end
+
+
+  def slider_options(list:, value:, step: 1, enabled: true)
+    { slider_min: list.min, slider_max: list.max, slider_step: step, slider_value: value, slider_enabled: enabled }
+  end
+
+
   ### PRIVATE ###
 
 

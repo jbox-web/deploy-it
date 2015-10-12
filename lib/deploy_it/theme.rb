@@ -48,8 +48,12 @@ module DeployIt
 
     MEMORY_ICONS_MAPPING = {
       128  => 'fa-battery-1',
-      256  => 'fa-battery-2',
-      512  => 'fa-battery-3',
+      256  => 'fa-battery-1',
+      384  => 'fa-battery-2',
+      512  => 'fa-battery-2',
+      640  => 'fa-battery-3',
+      768  => 'fa-battery-3',
+      896  => 'fa-battery-4',
       1024 => 'fa-battery-4'
     }
 

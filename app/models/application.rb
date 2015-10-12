@@ -189,6 +189,11 @@ class Application < ActiveRecord::Base
   end
 
 
+  def instance_number_editable?
+    !(running? || paused?)
+  end
+
+
   private
 
 
