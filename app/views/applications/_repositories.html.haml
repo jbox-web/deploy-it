@@ -19,4 +19,4 @@
 
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
-    .row= render 'applications/show/releases', application: application
+    .row= smart_listing_render(:releases)

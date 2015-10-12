@@ -22,25 +22,7 @@ class ApplicationsConfigController < DCIController
 
   before_action :set_application
   before_action :authorize
-  before_action :add_global_crumb, except: [:status, :toolbar]
-
-
-  def infos
-    add_breadcrumb t('.title'), 'fa-info-circle', ''
-    render_multi_responses
-  end
-
-
-  def containers
-    add_breadcrumb get_model_name_for('Container'), 'fa-rocket', ''
-    render_multi_responses
-  end
-
-
-  def repositories
-    add_breadcrumb t('.title'), 'fa-code', ''
-    render_multi_responses
-  end
+  before_action :add_global_crumb
 
 
   def settings

@@ -77,7 +77,7 @@ module BaseController::Authorizations
 
 
   def error_layout
-    request.xhr? ? false : 'application'
+    request.xhr? ? false : 'base'
   end
 
 end

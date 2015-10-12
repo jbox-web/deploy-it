@@ -1,11 +1,9 @@
-%div{ class: 'col-md-6' }
+%h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Member'), 'fa-users', fixed: true)
 
-  %h4{ class: 'page-header' }= label_with_icon(get_model_name_for('Member'), 'fa-users', fixed: true)
-
-  - if application.users_by_role.any?
-    %dl{ class: 'dl-horizontal' }
-      - application.users_by_role.keys.sort.each do |role|
-        %dt= role.to_s + ' :'
-        %dd= application.users_by_role[role].uniq.sort.join(", ")
-  - else
-    = render_no_data(type: :warning)
+- if application.users_by_role.any?
+  %dl{ class: 'dl-horizontal' }
+    - application.users_by_role.keys.sort.each do |role|
+      %dt= role.to_s + ' :'
+      %dd= application.users_by_role[role].uniq.sort.join(", ")
+- else
+  = render_no_data(type: :warning)

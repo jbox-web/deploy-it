@@ -1,0 +1,25 @@
+%h4{ class: 'page-header' }
+  = label_with_icon(get_model_name_for('Settings'), 'fa-sliders', fixed: true)
+  %small.pull-right
+    = icon 'fa-clock-o', title: Application.human_attribute_name('cron_enabled'),        class: add_class_on_condition(application.use_cron?, true, 'fa-success')
+    = icon 'fa-shield',  title: Application.human_attribute_name('ssl_enabled'),         class: add_class_on_condition(application.use_ssl?, true, 'fa-success')
+    = icon 'fa-eye',     title: Application.human_attribute_name('credentials_enabled'), class: add_class_on_condition(application.use_credentials?, true, 'fa-success')
+    = icon 'fa-gear',    title: Application.human_attribute_name('debug_enabled'),       class: add_class_on_condition(application.debug_mode?, true, 'fa-success')
+    = label_with_success_tag "#{Application.human_attribute_name('instance').capitalize} #{application.instance_number}"
+    = label_with_success_tag "#{Application.human_attribute_name('memory').capitalize} #{application.max_memory}M"
+
+%dl{ class: 'dl-horizontal dl-big' }
+  %dt= Application.human_attribute_name('identifier') + ' :'
+  %dd= application.identifier
+
+  %dt= Application.human_attribute_name('type') + ' :'
+  %dd= application.type
+
+  %dt= Application.human_attribute_name('image_type') + ' :'
+  %dd= application.image_type
+
+  %dt= Application.human_attribute_name('buildpack') + ' :'
+  %dd= shorten_url application.buildpack
+
+  %dt= Application.human_attribute_name('domain_name') + ' :'
+  %dd= link_to application.domain_name, "http://#{application.domain_name}", target: '_blank'

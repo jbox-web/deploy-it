@@ -147,7 +147,7 @@ module ApplicationsHelper
     grouped_options = []
     grouped_options << [ t('helpers.select.prompt'), '' ]
     Application.visible.includes(:stage).sorted_by_identifier.all.each do |application|
-      grouped_options << [ application.fullname, application_path(application) ]
+      grouped_options << [ application.fullname, infos_application_path(application) ]
     end
     grouped_options
   end

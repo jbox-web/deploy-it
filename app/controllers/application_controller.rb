@@ -73,4 +73,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def add_global_crumb
+    add_breadcrumb @application.fullname, 'fa-desktop', infos_application_path(@application)
+  end
+
 end

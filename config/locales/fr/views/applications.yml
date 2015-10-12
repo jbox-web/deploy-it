@@ -10,6 +10,8 @@ fr:
       notice: Application créée avec succès
 
     show:
+      title: Informations
+
       env_vars:
         none_defined: Aucune variable d'environnement définie
 
@@ -45,6 +47,7 @@ fr:
       releases:
         from: De
         to: à
+        none_defined: Aucune release trouvée
 
       settings: Paramètres
       code: Code
@@ -118,3 +121,6 @@ fr:
 
     destroy:
       notice: Application en cours de destruction
+
+    repositories:
+      title: Code

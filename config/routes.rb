@@ -61,6 +61,11 @@ Rails.application.routes.draw do
 
   # Applications base
   resources :applications, except: [:edit, :update] do
+    member do
+      get 'infos', action: 'show'
+      get 'containers'
+      get 'repositories'
+    end
     resources :members, only: [:index, :create, :update, :destroy]
   end
 
@@ -83,9 +88,6 @@ Rails.application.routes.draw do
   # Applications Config
   resources :applications, only: [], controller: 'applications_config' do
     member do
-      get 'infos'
-      get 'containers'
-      get 'repositories'
       get 'restore_env_vars'
       get 'restore_mount_points'
       get 'reset_ssl_certificate'

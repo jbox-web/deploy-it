@@ -3,8 +3,8 @@
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }
     .row
-      = render 'applications/show/infos',   application: application
-      = render 'applications/show/members', application: application
+      %div{ class: 'col-md-6' }= render 'applications/show/settings', application: application
+      %div{ class: 'col-md-6' }= render 'applications/show/members',  application: application
 
 .row
   %div{ class: 'col-sm-12 col-md-10 col-md-offset-1' }

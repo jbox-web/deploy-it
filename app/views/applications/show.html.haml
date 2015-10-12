@@ -1,6 +1,2 @@
 = render 'common/application_template'
-= render 'applications_config/partials/infos', application: @application
-
-= javascript_tag do
-  $('#left-menu-applications ul.nav.navmenu-nav li').removeClass('active');
-  $('#app_infos').addClass('active');
+= render 'applications/show', application: @application

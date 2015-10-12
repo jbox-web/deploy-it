@@ -26,10 +26,6 @@ fr:
     mount_points:
       notice: Points de montage enregistrés avec succès
       error: Erreurs lors de l'enregistrement des points de montage
-    repositories:
-      title: Code
-    infos:
-      title: Informations
     repository:
       notice: Paramètres enregistrés avec succès
       error: Erreurs lors de l'enregistrement des paramètres
