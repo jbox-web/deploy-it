@@ -65,9 +65,9 @@ class ApplicationController < ActionController::Base
   def event_options_for(method)
     case method
     when :synchronize_repository
-      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [repositories_application_path(@application)]) }
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'repositories', triggers: [repositories_application_path(@application)]) }
     when :toolbar
-      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
+      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'containers', triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
     else
       {}
     end
