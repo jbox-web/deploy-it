@@ -30,12 +30,12 @@ module Applications
 
         # Destroy application's repositories
         log_message "Destroy application repository : #{application.name}"
-        application.distant_repo.destroy_forever!
-        application.local_repo.destroy_forever!
+        application.distant_repo.destroy_forever! if application.distant_repo
+        application.local_repo.destroy_forever! if application.local_repo
 
         # Destroy application database
         log_message "Destroy application database : #{application.name}"
-        application.destroy_physical_database!
+        application.destroy_physical_database! if application.database
 
         # Then destroy database object
         log_message "Destroy application : #{application.name}"
