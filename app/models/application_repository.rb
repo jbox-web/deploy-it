@@ -15,6 +15,10 @@
 
 class ApplicationRepository < Repository
 
+  ## Basic Validations
+  validates :url, presence: true, format: { with: GIT_USER_REGEX }
+
+
   def path
     File.join(Settings.applications_clones_dir, relative_path)
   end

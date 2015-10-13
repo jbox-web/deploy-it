@@ -25,7 +25,6 @@ class Repository < ActiveRecord::Base
   belongs_to :credential, class_name: 'RepositoryCredential'
 
   ## Basic Validations
-  validates :url,           presence: true, format: { with: GIT_USER_REGEX }
   validates :relative_path, presence: true
   validates :type,          uniqueness: { scope: :application_id }
   validates :credential_id, presence: true, if: :have_credentials?

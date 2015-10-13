@@ -15,6 +15,10 @@
 
 class ContainerRepository < Repository
 
+  ## Basic Validations
+  validates :url, presence: true
+
+
   def path
     File.join(Settings.applications_repos_dir, relative_path)
   end
