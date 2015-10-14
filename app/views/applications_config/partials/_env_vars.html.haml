@@ -26,7 +26,7 @@
       %tbody
         = f.fields_for :env_vars, wrapper: false do |ff|
 
-          %tr{ class: 'fields' }
+          %tr{ class: 'fields', data: { toggle: 'switch' } }
             %td{ class: 'vert-align' }= ff.text_field :key, hide_label: true
             %td{ class: 'vert-align' }= ff.text_field :value, hide_label: true
             %td{ class: 'vert-align shifted text-center' }= ff.check_box :masked, class: 'bootstrap-switch', data: { size: 'small' }, label: ''

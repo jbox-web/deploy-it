@@ -30,7 +30,7 @@
           - next if ff.object.source == '/run/mysqld/mysqld.sock'
           - next if ff.object.source == 'log-files'
 
-          %tr{ class: 'fields' }
+          %tr{ class: 'fields', data: { toggle: 'switch' } }
             %td{ class: 'vert-align' }= ff.text_field :source, hide_label: true
             %td{ class: 'vert-align' }= ff.text_field :target, hide_label: true
             %td{ class: 'vert-align' }= ff.collection_select :step, MountPoint::MOUNTPOINT_STEPS, :first, :last, prompt: true, hide_label: true
