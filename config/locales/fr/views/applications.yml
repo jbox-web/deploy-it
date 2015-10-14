@@ -49,7 +49,9 @@ fr:
         to: à
         none_defined: Aucune release trouvée
 
-      settings: Paramètres
+      settings:
+        database: BDD
+
       code: Code
       informations: Infos
       destroying: En cours de destruction

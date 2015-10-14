@@ -65,6 +65,7 @@ class Application < ActiveRecord::Base
 
   ## Delegations to Stage
   delegate :platform, to: :stage
+  delegate :db_type, to: :database
   delegate :version, :language, to: :application_type
 
   ## Virtual attribute
