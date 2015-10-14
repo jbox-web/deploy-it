@@ -28,17 +28,34 @@ module DCI
 
 
       def update_repository(application, params = {})
-        repository = application.distant_repo
-        if repository.update(params)
-          # Destroy Application repository if url has changed.
-          # It will be recloned by service object.
-          repository.destroy_dir! if repository.url_has_changed? || repository.branch_has_changed?
+        distant_repo = application.distant_repo
+        local_repo   = application.local_repo
+
+        if distant_repo.update(params)
+          if distant_repo.url_has_changed? || distant_repo.branch_has_changed?
+            reset_repository(distant_repo)
+            reset_repository(local_repo)
+          else
+            !distant_repo.exists? ? distant_repo.run_async!('clone!') : distant_repo.run_async!('resync!')
+          end
 
           # Call service objects to perform other actions
-          !repository.exists? ? repository.run_async!('clone!') : repository.run_async!('resync!')
+          application.run_async!('update_files!')
+
           context.render_success(locals: { application: application })
         else
           context.render_failed(locals: { application: application })
+        end
+      end
+
+
+      def reset_repository(repository)
+        if repository.is_a?(ApplicationRepository)
+          repository.destroy_dir!
+          repository.run_async!('clone!')
+        elsif repository.is_a?(ContainerRepository)
+          repository.destroy_dir!
+          repository.init_bare!
         end
       end
 
