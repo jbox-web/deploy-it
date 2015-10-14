@@ -55,7 +55,7 @@ class Application < ActiveRecord::Base
   accepts_nested_attributes_for :addons,       allow_destroy: true
 
   ## Basic Validations
-  validates :domain_name,     presence: true, on: :update
+  validates :domain_name,     presence: true, on: :update, uniqueness: true
   validates :max_memory,      presence: true, inclusion: { in: DeployIt::MAX_MEMORY_AVAILABLE }
   validates :instance_number, presence: true, inclusion: { in: DeployIt::MAX_INSTANCES_NUMBER }
 

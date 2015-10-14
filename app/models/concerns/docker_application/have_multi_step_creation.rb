@@ -28,7 +28,7 @@ module DockerApplication
 
       ## Second step
       validates :deploy_url,     presence: true,    if: lambda { |o| o.second_step_or_last_step? }
-      validates :domain_name,    presence: true,    if: lambda { |o| o.second_step_or_last_step? }
+      validates :domain_name,    presence: true,    if: lambda { |o| o.second_step_or_last_step? }, uniqueness: true
       validates :repository_url, presence: true,    if: lambda { |o| o.second_step_or_last_step? }, format: { with: VALID_REPO_REGEX }
       validates :temp_db_name,   presence: true,    if: lambda { |o| o.second_step_or_last_step? }
       validates :temp_db_user,   presence: true,    if: lambda { |o| o.second_step_or_last_step? }
