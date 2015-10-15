@@ -166,7 +166,7 @@ module ApplicationsHelper
   def application_select_box_content
     grouped_options = []
     grouped_options << [ t('helpers.select.prompt'), '' ]
-    Application.visible.includes(:stage).sorted_by_identifier.all.each do |application|
+    Application.visible.includes(:stage).sorted_by_fullname.each do |application|
       grouped_options << [ application.fullname, infos_application_path(application) ]
     end
     grouped_options

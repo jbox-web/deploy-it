@@ -63,6 +63,7 @@ class Application < ActiveRecord::Base
   ## Scopes
   scope :visible, lambda { |*args| where(Application.visible_condition(args.shift || User.current, *args)) }
   scope :sorted_by_identifier, -> { order(:identifier) }
+  scope :sorted_by_fullname,   -> { all.sort_by(&:fullname) }
 
   ## Delegations to Stage
   delegate :platform, to: :stage

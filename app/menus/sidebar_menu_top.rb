@@ -71,7 +71,7 @@ class SidebarMenuTop < BaseMenu
     def application_menu_items
       sidebar_menu do |menu|
         menu.item :new_application, label_with_icon(t('.new_application'), 'fa-plus'), new_application_path if can?(:create_application, nil, global: true)
-        Application.visible.includes(:stage).all.sort_by(&:fullname).each do |application|
+        Application.visible.includes(:stage).sorted_by_fullname.each do |application|
           menu.item "application_#{application.id}", label_with_icon(application.fullname, 'fa-desktop'), application_path(application)
         end
       end
