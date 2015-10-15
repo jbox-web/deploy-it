@@ -27,5 +27,14 @@ class DomainName < ActiveRecord::Base
   validates :application_id, presence: true
   validates :domain_name,    presence: true, uniqueness: true
   validates :mode,           presence: true, inclusion: { in: [ 'alias', 'redirect' ] }
+  validate  :uniqueness_with_main_domains
+
+
+  private
+
+
+    def uniqueness_with_main_domains
+      errors.add(:domain_name, :taken) if Application.all.pluck(:domain_name).include?(domain_name)
+    end
 
 end

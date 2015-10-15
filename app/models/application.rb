@@ -58,6 +58,7 @@ class Application < ActiveRecord::Base
   validates :domain_name,     presence: true, on: :update, uniqueness: true
   validates :max_memory,      presence: true, inclusion: { in: DeployIt::MAX_MEMORY_AVAILABLE }
   validates :instance_number, presence: true, inclusion: { in: DeployIt::MAX_INSTANCES_NUMBER }
+  validate  :uniqueness_with_domains_aliases
 
   ## Scopes
   scope :visible, lambda { |*args| where(Application.visible_condition(args.shift || User.current, *args)) }
@@ -217,6 +218,11 @@ class Application < ActiveRecord::Base
       else
         self.use_credentials_has_changed = false
       end
+    end
+
+
+    def uniqueness_with_domains_aliases
+      errors.add(:domain_name, :taken) if DomainName.all.pluck(:domain_name).include?(domain_name)
     end
 
 end
