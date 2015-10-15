@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   resources :applications, except: [:edit, :update] do
     member do
       get 'infos', action: 'show'
+      get 'activities'
       get 'containers'
       get 'repositories'
     end
@@ -83,6 +84,11 @@ Rails.application.routes.draw do
         post 'manage'
       end
     end
+  end
+
+  # Applications Charts
+  resources :applications, only: [], controller: 'charts' do
+    member { get 'charts' }
   end
 
   # Applications Config

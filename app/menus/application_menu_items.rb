@@ -41,6 +41,11 @@ class ApplicationMenuItems < SimpleDelegator
   end
 
 
+  def item_app_activities
+    create_hash t('text.activities'), 'fa-dashboard', activities_application_path(application)
+  end
+
+
   def item_app_settings
     create_hash get_model_name_for('Settings'), 'fa-sliders', settings_application_path(application), permission_option(:edit_application)
   end

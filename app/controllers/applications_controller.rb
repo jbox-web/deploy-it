@@ -20,7 +20,7 @@ class ApplicationsController < DCIController
   set_dci_role 'DCI::Roles::ApplicationManager'
 
   before_action :set_application,  except: [:index, :new, :create]
-  before_action :authorize,        except: [:index, :new, :create]
+  before_action :authorize,        except: [:index, :new, :create, :pushes, :releases]
   before_action :authorize_global, only:   [:new, :create]
   before_action :load_wizard_form, only:   [:new, :create]
   before_action :add_global_crumb, only:   [:show, :containers, :repositories]
@@ -71,7 +71,13 @@ class ApplicationsController < DCIController
 
   def repositories
     add_breadcrumb t('.title'), 'fa-code', ''
-    @releases = smart_listing_create(:releases, @application.releases.includes(build: [:push]), partial: 'applications/show/releases', default_sort: { created_at: 'desc' })
+    smart_listing_create(:releases, @application.releases.includes(build: [:push]), partial: 'applications/show/releases', default_sort: { created_at: 'desc' })
+    render_multi_responses(locals: { application: @application })
+  end
+
+
+  def activities
+    add_breadcrumb t('text.activities'), 'fa-dashboard', ''
     render_multi_responses(locals: { application: @application })
   end
 

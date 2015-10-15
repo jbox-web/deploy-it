@@ -44,6 +44,17 @@ fr:
         enable_ssl: Activer SSL
         enable_debug: Activer le mode debug
 
+        pushes: Nombre de push
+        releases: Nombre de version
+
+        pushes_by_day: Nombre de push Git par jour
+        pushes_by_month: Nombre de push Git par mois
+        pushes_by_day_of_week: Nombre de push Git par jour de la semaine
+
+        releases_by_day: Nombre de versions par jour
+        releases_by_month: Nombre de versions par mois
+        releases_by_day_of_week: Nombre de versions par jour de la semaine
+
     errors:
       models:
         application:

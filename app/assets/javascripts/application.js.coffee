@@ -23,6 +23,8 @@
 #= require codemirror
 #= require codemirror/modes/javascript
 #= require danthes
+#= require datetimepicker
+#= require highstock-release
 #= require select2
 #= require smart_listing
 #= require zeroclipboard

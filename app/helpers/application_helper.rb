@@ -29,4 +29,9 @@ module ApplicationHelper
     I18n.available_locales.map { |l| [t("language.name.#{l}"), l] }
   end
 
+
+  def stock_chart(data_source, options = {})
+    chartkick_chart 'StockChart', data_source, options
+  end
+
 end

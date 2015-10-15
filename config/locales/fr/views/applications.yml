@@ -9,6 +9,9 @@ fr:
       title: Nouvelle application
       notice: Application créée avec succès
 
+    activities:
+      title: Activité récente
+
     show:
       title: Informations
 

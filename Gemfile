@@ -13,6 +13,17 @@ gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodrig
 # Base gems
 gem 'rails', '~> 4.2.4'
 
+# Bundler for Rails Assets
+gem 'bundler', '>= 1.8.4'
+
+source 'https://rails-assets.org' do
+  # HighCharts
+  gem 'rails-assets-highstock-release'
+
+  # DateTime Picker
+  gem 'rails-assets-datetimepicker'
+end
+
 # Server
 gem 'puma',           '~> 2.14.0'
 gem 'secure_headers', '~> 2.4.0'
@@ -71,6 +82,10 @@ gem 'zeroclipboard-rails', '~> 0.1.1'
 
 # Select2
 gem 'select2-rails', '~> 4.0.0'
+
+# Statistics
+gem 'chartkick', '~> 1.4.1'
+gem 'groupdate', '~> 2.5.0'
 
 # Menus
 gem 'simple-navigation', '~> 4.0.0'

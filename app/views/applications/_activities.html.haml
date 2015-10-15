@@ -1,0 +1,51 @@
+- content_for :header_tags do
+  :javascript
+    GlobalLang = {
+      fr: {
+        months: #{I18n.t(:month_names, scope: :date).to_json},
+        weekdays: #{I18n.t(:day_names, scope: :date).to_json},
+        shortMonths: #{I18n.t(:abbr_month_names, scope: :date).to_json}
+      }
+    };
+    Highcharts.setOptions({lang: GlobalLang.fr});
+
+%h4{ class: 'page-header' }= label_with_icon(t('.title'), 'fa-dashboard', fixed: true)
+
+.row
+  .col-md-6
+    = line_chart charts_application_path(application, type: :pushes, group_by: :month),
+                 xtitle:  t('text.time'),
+                 ytitle:  Application.human_attribute_name('pushes'),
+                 library: { title: { text: Application.human_attribute_name('pushes_by_month') } }
+
+  .col-md-6
+    = line_chart charts_application_path(application, type: :releases, group_by: :month),
+                 xtitle:  t('text.time'),
+                 ytitle:  Application.human_attribute_name('releases'),
+                 library: { title: { text: Application.human_attribute_name('releases_by_month') } }
+
+.row
+  .col-md-6
+    = column_chart charts_application_path(application, type: :pushes, group_by: :day_of_week),
+                   xtitle:  t('text.time'),
+                   ytitle:  Application.human_attribute_name('pushes'),
+                   library: { title: { text: Application.human_attribute_name('pushes_by_day_of_week') } }
+
+  .col-md-6
+    = column_chart charts_application_path(application, type: :releases, group_by: :day_of_week),
+                   xtitle:  t('text.time'),
+                   ytitle:  Application.human_attribute_name('releases'),
+                   library: { title: { text: Application.human_attribute_name('releases_by_day_of_week') } }
+
+.row
+  .col-md-6
+    = stock_chart charts_application_path(application, type: :pushes, group_by: :day),
+                  xtitle:  t('text.time'),
+                  ytitle:  Application.human_attribute_name('releases'),
+                  library: { lang: 'fr', title: { text: Application.human_attribute_name('pushes_by_day') } }
+
+  .col-md-6
+    = stock_chart charts_application_path(application, type: :releases, group_by: :day),
+                  xtitle:  t('text.time'),
+                  ytitle:  Application.human_attribute_name('releases'),
+                  library: { lang: 'fr', title: { text: Application.human_attribute_name('releases_by_day') } }
