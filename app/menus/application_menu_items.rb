@@ -82,7 +82,7 @@ class ApplicationMenuItems < SimpleDelegator
 
 
   def item_app_ssl_certificate
-    create_hash get_model_name_for('SslCertificate'), 'fa-shield', ssl_certificate_application_path(application), permission_option(:edit_application)
+    create_hash get_model_name_for('SslCertificate', pluralize: false), 'fa-shield', ssl_certificate_application_path(application), permission_option(:edit_application)
   end
 
 
