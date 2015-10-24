@@ -386,7 +386,7 @@
         new Highcharts.StockChart(options, function(chart) {
           // apply the date pickers
           setTimeout(function() {
-            $('input.highcharts-range-selector', $('#' + chart.options.chart.renderTo)).datetimepicker({lang: options.lang, timepicker: false, format: 'd.m.Y'})
+            $('input.highcharts-range-selector', $('#' + chart.options.chart.renderTo)).datetimepicker({lang: options.lang, timepicker: false, format: 'd.m.Y'});
           }, 0)
         });
       };
@@ -588,7 +588,7 @@
       var setXtitle = function (options, title) {
         options.hAxis.title = title;
         options.hAxis.titleTextStyle.italic = false;
-      }
+      };
 
       var setYtitle = function (options, title) {
         options.vAxis.title = title;
