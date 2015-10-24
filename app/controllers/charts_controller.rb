@@ -16,7 +16,7 @@
 class ChartsController < ApplicationController
 
   ALLOWED_TYPES  = ['pushes', 'releases']
-  ALLOWED_GROUPS = ['month', 'day_of_week', 'day']
+  ALLOWED_GROUPS = ['month_of_year', 'day_of_week', 'day']
 
   before_action :set_application
   before_action :authorize
@@ -27,8 +27,8 @@ class ChartsController < ApplicationController
   def charts
     result =
       case @group_by
-      when 'month'
-        @application.send(@type).group_by_month(:created_at).count
+      when 'month_of_year'
+        @application.send(@type).group_by_month_of_year(:created_at, format: '%b').count
       when 'day_of_week'
         @application.send(@type).group_by_day_of_week(:created_at, format: '%A').count
       when 'day'

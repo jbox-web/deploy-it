@@ -1,28 +1,36 @@
 - content_for :header_tags do
   :javascript
-    GlobalLang = {
-      fr: {
-        months: #{I18n.t(:month_names, scope: :date).to_json},
-        weekdays: #{I18n.t(:day_names, scope: :date).to_json},
-        shortMonths: #{I18n.t(:abbr_month_names, scope: :date).to_json}
-      }
-    };
-    Highcharts.setOptions({lang: GlobalLang.fr});
+    Highcharts.setOptions({lang: #{render_highcharts_translations}});
 
 %h4{ class: 'page-header' }= label_with_icon(t('.title'), 'fa-dashboard', fixed: true)
 
 .row
   .col-md-6
-    = line_chart charts_application_path(application, type: :pushes, group_by: :month),
-                 xtitle:  t('text.time'),
-                 ytitle:  Application.human_attribute_name('pushes'),
-                 library: { title: { text: Application.human_attribute_name('pushes_by_month') } }
+    = column_chart charts_application_path(application, type: :pushes, group_by: :month_of_year),
+                   xtitle:  t('text.time'),
+                   ytitle:  Application.human_attribute_name('pushes'),
+                   library: { title: { text: Application.human_attribute_name('pushes_by_month') } }
 
   .col-md-6
-    = line_chart charts_application_path(application, type: :releases, group_by: :month),
-                 xtitle:  t('text.time'),
-                 ytitle:  Application.human_attribute_name('releases'),
-                 library: { title: { text: Application.human_attribute_name('releases_by_month') } }
+    = column_chart charts_application_path(application, type: :releases, group_by: :month_of_year),
+                   xtitle:  t('text.time'),
+                   ytitle:  Application.human_attribute_name('releases'),
+                   library: { title: { text: Application.human_attribute_name('releases_by_month') } }
+
+.row
+  .col-md-6
+    = line_chart charts_application_path(application, type: :pushes, group_by: :month_of_year),
+                 xtitle:   t('text.time'),
+                 ytitle:   Application.human_attribute_name('pushes'),
+                 discrete: true,
+                 library:  { chart: { zoomType: 'x' }, title: { text: Application.human_attribute_name('pushes_by_month') } }
+
+  .col-md-6
+    = line_chart charts_application_path(application, type: :releases, group_by: :month_of_year),
+                 xtitle:   t('text.time'),
+                 ytitle:   Application.human_attribute_name('releases'),
+                 discrete: true,
+                 library:  { chart: { zoomType: 'x' }, title: { text: Application.human_attribute_name('releases_by_month') } }
 
 .row
   .col-md-6
@@ -39,10 +47,10 @@
 
 .row
   .col-md-6
-    = stock_chart charts_application_path(application, type: :pushes, group_by: :day),
+    = line_chart  charts_application_path(application, type: :pushes, group_by: :day),
                   xtitle:  t('text.time'),
                   ytitle:  Application.human_attribute_name('releases'),
-                  library: { lang: 'fr', title: { text: Application.human_attribute_name('pushes_by_day') } }
+                  library: { chart: { zoomType: 'x' }, title: { text: Application.human_attribute_name('pushes_by_day') } }
 
   .col-md-6
     = stock_chart charts_application_path(application, type: :releases, group_by: :day),
