@@ -23,7 +23,7 @@ class ApplicationsController < DCIController
   before_action :authorize,        except: [:index, :new, :create, :pushes, :releases]
   before_action :authorize_global, only:   [:new, :create]
   before_action :load_wizard_form, only:   [:new, :create]
-  before_action :add_global_crumb, only:   [:show, :containers, :repositories]
+  before_action :add_global_crumb, only:   [:show, :containers, :repositories, :activities]
 
 
   def index
@@ -77,7 +77,7 @@ class ApplicationsController < DCIController
 
 
   def activities
-    add_breadcrumb t('text.activities'), 'fa-dashboard', ''
+    add_breadcrumb t('.title'), 'fa-dashboard', ''
     render_multi_responses(locals: { application: @application })
   end
 

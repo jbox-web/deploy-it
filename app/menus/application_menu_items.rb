@@ -42,7 +42,7 @@ class ApplicationMenuItems < SimpleDelegator
 
 
   def item_app_activities
-    create_hash t('text.activities'), 'fa-dashboard', activities_application_path(application)
+    create_hash t('.activities'), 'fa-dashboard', activities_application_path(application)
   end
 
 
