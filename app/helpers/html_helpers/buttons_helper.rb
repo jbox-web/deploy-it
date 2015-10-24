@@ -95,11 +95,11 @@ module HtmlHelpers
 
 
     def button_submit(label, opts = {})
-      css_class = opts.delete(:class){ '' }
-      new_class = [ 'btn', 'btn-success' ].push(css_class).compact
+      css_class = opts.delete(:class){ nil }
+      new_class = ['btn', 'btn-success'].push(css_class).compact
       icon      = opts.delete(:icon){ 'fa-check' }
 
-      button_tag(class: new_class) do
+      button_tag(opts.merge(class: new_class)) do
         label_with_icon(label, icon, fixed: true)
       end
     end
