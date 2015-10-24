@@ -1,0 +1,10 @@
+fr:
+
+  highcharts:
+    print: Imprimer
+    menu: Menu
+    download:
+      jpeg: Télécharger au format JPG
+      pdf: Télécharger au format PDF
+      png: Télécharger au format PNG
+      svg: Télécharger au format SVG
