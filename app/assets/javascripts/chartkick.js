@@ -365,12 +365,14 @@
           };
         }
 
-        var lang = chart.options.library.lang || 'en';
+        var lang    = chart.options.library.lang || 'en';
+        var format  = chart.options.library.format || 'Y-m-d';
         var options = jsOptions(chart.data, chart.options, chartOptions), data, i, j;
         options.xAxis.type = chart.options.discrete ? "category" : "datetime";
         options.chart.type = chartType;
         options.chart.renderTo = chart.element.id;
         options.lang = lang;
+        options.format = format;
 
         var series = chart.data;
         for (i = 0; i < series.length; i++) {
@@ -386,7 +388,7 @@
         new Highcharts.StockChart(options, function(chart) {
           // apply the date pickers
           setTimeout(function() {
-            $('input.highcharts-range-selector', $('#' + chart.options.chart.renderTo)).datetimepicker({lang: options.lang, timepicker: false, format: 'd.m.Y'});
+            $('input.highcharts-range-selector', $('#' + chart.options.chart.renderTo)).datetimepicker({lang: options.lang, format: options.format, timepicker: false});
           }, 0)
         });
       };
