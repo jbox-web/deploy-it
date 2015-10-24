@@ -176,7 +176,7 @@ module ApplicationsHelper
   def application_select_box_selected
     selected =
       begin
-        application_path(@application)
+        infos_application_path(@application)
       rescue => e
         @application = nil
         ''
