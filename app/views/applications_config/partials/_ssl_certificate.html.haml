@@ -16,21 +16,31 @@
   = bootstrap_form_for (application.ssl_certificate || application.build_ssl_certificate),
                        layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8",
                        url:    ssl_certificate_application_path(application),
-                       html:   { method: :patch, remote: true } do |f|
+                       html:   { method: :patch, multipart: true } do |f|
 
     = f.errors_on :base
 
-    = f.text_area :ssl_crt, required: true, rows: '6', disabled: !f.object.new_record?
-    = f.text_area :ssl_key, required: true, rows: '6', disabled: !f.object.new_record?
+    - if f.object.new_record?
 
-    .form-group
-      %div{ class: 'col-sm-offset-2 col-sm-3' }
-        = button_submit t('button.save')
-      %span{ class: 'pull-right'}
-        = link_to label_with_icon(t('.reset'), 'fa-trash-o', fixed: true),
-                  reset_ssl_certificate_application_path(application),
-                  remote: true,
-                  data:   { confirm: t('text.are_you_sure') }
+      = f.file_field :ssl_crt, required: true
+      = f.file_field :ssl_key, required: true
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-3' }
+          = button_submit t('button.save'), data: { disable_with: t('text.save_in_progress') }
+
+    - else
+
+      = f.text_area :ssl_crt, rows: '6', disabled: true, class: 'code'
+      = f.text_area :ssl_key, rows: '6', disabled: true, class: 'code'
+
+      .form-group
+        %div{ class: 'col-sm-offset-2 col-sm-3' }
+          = link_to label_with_icon(t('.reset'), 'fa-trash-o', fixed: true),
+                    reset_ssl_certificate_application_path(application),
+                    remote: true,
+                    class:  'btn btn-danger',
+                    data:   { confirm: t('text.are_you_sure') }
 
 = javascript_tag do
   setBootstrapSwitch('#ssl-certificate');

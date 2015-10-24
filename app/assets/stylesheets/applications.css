@@ -80,3 +80,7 @@ div.settings-head h4 {
 .addon-icon {
   margin: 5px;
 }
+
+.code {
+  font-family: monospace;
+}

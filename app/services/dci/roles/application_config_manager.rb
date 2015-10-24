@@ -73,7 +73,7 @@ module DCI
       def update_credentials(application, params = {})
         update_application(application, params) do |application|
           disable_credentials(application) if application.credentials.empty?
-          application.create_lb_route!
+          application.run_async!('create_lb_route!')
         end
       end
 
@@ -94,9 +94,10 @@ module DCI
 
       def ssl_certificate(application, params = {})
         return context.render_failed(locals: { application: application }, message: t('.already_exist')) unless application.ssl_certificate.nil?
+        params = extract_ssl_certificate(params)
         certificate = application.build_ssl_certificate(params)
         if certificate.save
-          application.create_lb_route!
+          application.run_async!('create_lb_route!')
           context.render_success(locals: { application: application })
         else
           disable_ssl(application)
@@ -156,6 +157,21 @@ module DCI
 
       def toggle_ssl(application, params = {})
         update_boolean_field_if_allowed(!application.ssl_certificate.nil?, application, :use_ssl, params)
+      end
+
+
+      def extract_ssl_certificate(params)
+        params = read_file_param(params, :ssl_crt)
+        params = read_file_param(params, :ssl_key)
+        params
+      end
+
+
+      def read_file_param(params, param)
+        if params[param] && params[param].is_a?(ActionDispatch::Http::UploadedFile)
+          params[param] = params[param].read
+        end
+        params
       end
 
     end
