@@ -8,29 +8,6 @@ fr:
     formats:
       default: "%d/%m/%Y"
 
-    abbr_day_names:
-    - Dim
-    - Lun
-    - Mar
-    - Mer
-    - Jeu
-    - Ven
-    - Sam
-
-    abbr_month_names:
-    - Jan
-    - Fev
-    - Mar
-    - Avr
-    - Mai
-    - Juin
-    - Juil
-    - Aout
-    - Sept
-    - Oct
-    - Nov
-    - Dec
-
     day_names:
     - Dimanche
     - Lundi
@@ -40,7 +17,18 @@ fr:
     - Vendredi
     - Samedi
 
+    abbr_day_names:
+    - Dim
+    - Lun
+    - Mar
+    - Mer
+    - Jeu
+    - Ven
+    - Sam
+
+
     month_names:
+    -
     - Janvier
     - Février
     - Mars
@@ -53,6 +41,21 @@ fr:
     - Octobre
     - Novembre
     - Décembre
+
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Avr
+    - Mai
+    - Juin
+    - Juil
+    - Aout
+    - Sept
+    - Oct
+    - Nov
+    - Dec
 
     order:
     - :year
