@@ -34,7 +34,7 @@ class TopbarMenu < BaseMenu
         menu.item :applications, get_model_name_for('Application'), applications_path
         menu.item :admin,        t('.admin'), admin_root_path if User.current.admin?
 
-        menu.item :logged, User.current.email, my_account_path, highlights_on: %r(/my), link_html: { data: { toggle: 'dropdown' } }, class: 'dropdown' do |sub_menu|
+        menu.item :logged, User.current.email, my_account_path, highlights_on: %r(/my), class: 'dropdown' do |sub_menu|
           sub_menu.auto_highlight = false
           sub_menu.item :my_account, t('.my_account'), my_account_path, highlights_on: %r(/my)
           sub_menu.item :help,       t('.help'), help_path, highlights_on: :subpath
