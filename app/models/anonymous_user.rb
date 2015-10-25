@@ -41,6 +41,11 @@ class AnonymousUser < User
   end
 
 
+  def language
+    I18n.default_locale
+  end
+
+
   # Anonymous user can not be destroyed
   def destroy
     false
