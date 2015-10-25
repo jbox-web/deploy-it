@@ -35,15 +35,16 @@
 
 - if can?(:delete_application, application)
   #delete
-    %hr
-    %h4{ class: 'page-header' }= t('.destroy')
-    = link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
-                application_path(application),
-                method: :delete,
-                data: { confirm: t('text.are_you_sure') },
-                class: "btn btn-danger"
+    %fieldset.padded
+      %legend= label_with_icon(t('.destroy'), 'fa-warning', bigger: false)
+      = link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
+                  application_path(application),
+                  method: :delete,
+                  class:  'btn btn-danger',
+                  data:   { confirm: t('text.are_you_sure') }
+
 
 = javascript_tag do
   setBootstrapSwitch('#settings');
-  $("#application_max_memory").slider();
-  $("#application_instance_number").slider();
+  $('#application_max_memory').slider();
+  $('#application_instance_number').slider();
