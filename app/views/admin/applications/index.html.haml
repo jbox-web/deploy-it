@@ -5,10 +5,10 @@
 
     %h3{ class: 'page-header' }
       = render_crumbs
-      %small
-        (
-        = button_refresh('getApplicationsStatus(); return false;')
-        )
-      %span{ class: 'pull-right' }= @applications.size
+      .contextual.contextual-header
+        %span= @applications.size
+        %small
+          = surround '(', ')' do
+            = button_refresh('getApplicationsStatus(); return false;')
 
     #manage_applications= render 'list', applications: @applications

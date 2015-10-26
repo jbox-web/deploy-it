@@ -17,74 +17,85 @@ module HtmlHelpers
   module ButtonsHelper
 
     ## Buttons
-    def button_add(url, opts = {})
+    def button_add(url, link_opts = {}, icon_opts = {})
       ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = [].push(css_class).compact
+      css_class = link_opts.delete(:class){ nil }
+      css_class = [].push(css_class).compact
 
       ## Set options
-      opts = {title: t('button.add')}.merge(opts)
+      link_opts = { title: t('button.add'), class: css_class }.merge(link_opts)
+      icon_opts = { bigger: false }.merge(icon_opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-plus', new_class, opts)
+      link_to_icon('fa-plus', url, link_opts, icon_opts)
     end
 
 
-    def button_clone(url, opts = {})
+    def button_clone(url, link_opts = {}, icon_opts = {})
       ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = button_default_css_class.push(css_class).compact
+      css_class = link_opts.delete(:class){ nil }
+      css_class = button_default_css_class.push(css_class).compact
 
       ## Set options
-      opts = {title: t('button.clone')}.merge(opts)
+      link_opts = { title: t('button.clone'), class: css_class }.merge(link_opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-clone', new_class, opts)
+      link_to_icon('fa-clone', url, link_opts, icon_opts)
     end
 
 
-    def button_edit(url, opts = {})
+    def button_edit(url, link_opts = {}, icon_opts = {})
       ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = button_default_css_class.push(css_class).compact
+      css_class = link_opts.delete(:class){ nil }
+      css_class = button_default_css_class.push(css_class).compact
 
       ## Set options
-      opts = {title: t('button.edit')}.merge(opts)
+      link_opts = { title: t('button.edit'), class: css_class }.merge(link_opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-edit', new_class, opts)
+      link_to_icon('fa-edit', url, link_opts, icon_opts)
     end
 
 
-    def button_delete(url, opts = {})
+    def button_refresh(function, link_opts = {}, icon_opts = {})
       ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = button_default_css_class.push(css_class).compact
-      new_class = new_class.push('btn-danger')
+      css_class = link_opts.delete(:class){ nil }
+      css_class = [].push(css_class).compact
+
+      ## Set options
+      link_opts = { title: t('button.refresh'), onclick: function, class: css_class }.merge(link_opts)
+
+      link_to_icon('fa-refresh', '#', link_opts, icon_opts)
+    end
+
+
+    def button_delete(url, link_opts = {}, icon_opts = {})
+      ## Get css options
+      css_class = link_opts.delete(:class){ nil }
+      css_class = button_default_css_class.push(css_class).push('btn-danger').compact
 
       ## Get html options
-      confirm = opts.delete(:confirm){ true }
+      confirm = link_opts.delete(:confirm){ true }
       data = confirm ? { confirm: t('text.are_you_sure') } : {}
 
       ## Set options
-      opts = opts.merge(method: :delete, data: data)
-      opts = opts.merge(title: t('button.delete'))
+      link_opts = { title: t('button.delete'), class: css_class, method: :delete, data: data }.merge(link_opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-trash-o', new_class, opts)
+      link_to_icon('fa-trash-o', url, link_opts, icon_opts)
     end
 
 
-    def button_cancel(url, opts = {})
+    def button_cancel(url, link_opts = {}, icon_opts = {})
       ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = button_default_css_class.push(css_class).compact
+      css_class = link_opts.delete(:class){ nil }
+      css_class = button_default_css_class.push(css_class).compact
 
       ## Set options
-      opts = opts.merge(label: t('button.cancel'), icon: false) if !opts.has_key?(:label)
+      link_opts = { title: t('button.cancel'), label: t('button.cancel'), class: css_class }.merge(link_opts)
 
       ## Return link
-      link_to_with_options(url, 'fa-close', new_class, opts)
+      link_to_icon('fa-close', url, link_opts, icon_opts)
     end
 
 
@@ -105,78 +116,6 @@ module HtmlHelpers
     end
 
 
-    def button_deploy(container, type, label, opts = {})
-      options = {
-        method: :post,
-        data: {
-          remote: true,
-          confirm: t('text.are_you_sure')
-        }
-      }
-
-      wrapper_class = opts.delete(:wrapper_class){ '' }
-      wrapper_class = [ 'btn-group' ].push(wrapper_class).compact
-
-      new_class = opts.delete(:class){ '' }.split(' ')
-      css_class = [ 'btn', 'btn-default' ].push(new_class).compact
-
-      content_tag(:div, class: wrapper_class) do
-        button_with_form(deploy_path(container), options) do
-          hidden_field_tag(:type, type.to_s) +
-          button_tag(class: css_class) do
-            label
-          end
-        end
-      end
-    end
-
-
-    def button_with_form(url, opts = {}, &block)
-      form_tag(url, opts) do
-         yield if block_given?
-      end
-    end
-
-
-    def button_refresh(function, opts = {})
-      ## Get css options
-      css_class = opts.delete(:class){ nil }
-      new_class = [].push(css_class).compact
-
-      ## Set options
-      opts = {title: t('button.refresh'), label: t('button.refresh'), onclick: function}.merge(opts)
-
-      link_to_with_options('#', 'fa-refresh', new_class, opts)
-    end
-
-
-    def link_to_with_options(url, icon_name, css_class = [], opts = {})
-      text_label = opts.delete(:label){ false }
-      show_icon  = opts.delete(:icon){ true }
-
-      if text_label
-        icon_opts = { aligned: true }
-      else
-        icon_opts = { aligned: false }
-      end
-
-      if show_icon
-        label = text_label ? label_with_icon(text_label, icon_name, icon_opts) : icon(icon_name, icon_opts)
-      else
-        label = text_label
-      end
-
-      opts[:class] = css_class.join(' ')
-
-      link_to label, url, opts
-    end
-
-
-    def button_default_css_class
-      ['btn', 'btn-default'].clone
-    end
-
-
     def button_with_icon(icon)
       content_tag(:button, icon(icon, aligned: false, fixed: true), type: 'button', class: button_default_css_class)
     end
@@ -189,6 +128,11 @@ module HtmlHelpers
           check_box_tag(id, value, checked, options) + "&nbsp;&nbsp; #{label}".html_safe
         end
       end
+    end
+
+
+    def button_default_css_class
+      ['btn', 'btn-default']
     end
 
   end
