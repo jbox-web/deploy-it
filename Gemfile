@@ -117,7 +117,7 @@ gem 'slim'
 gem 'danthes',    '~> 2.0.1', git: 'https://github.com/dotpromo/danthes.git'
 gem 'thin',       '~> 1.6.3'
 gem 'faye-redis', '~> 0.2.0'
-gem 'bootstrap-growl-rails', '~> 3.0.0'
+gem 'bootstrap-growl-rails', '~> 3.1.3'
 
 # Cache
 gem 'redis-rails'
