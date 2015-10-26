@@ -7,12 +7,12 @@
 
     %ul{ class: 'nav nav-tabs', role: 'tablist' }
       = navigation_tab label_with_icon(t('.settings'), 'fa-gear'), '#user-settings', '#user-settings', active: true
-      = navigation_tab label_with_icon(get_model_name_for('Application'), 'fa-desktop'), '#user-applications', '#user-applications'
+      = navigation_tab label_with_icon(get_model_name_for('Application'), 'fa-desktop'), admin_user_memberships_path(@user), '#user-applications', remote: true
       = navigation_tab label_with_icon(get_model_name_for('SshPublicKey'), 'octicon octicon-key'), admin_user_public_keys_path(@user), '#user-ssh-keys', remote: true, class: 'buggy'
 
     %div{ class: 'tab-content' }
       #user-settings{ class: 'tab-pane active' }= render 'admin/users/edit_tabs/settings', user: @user
-      #user-applications{ class: 'tab-pane' }= render 'admin/memberships/index', user: @user
+      #user-applications{ class: 'tab-pane' }
       #user-ssh-keys{ class: 'tab-pane' }
 
 = javascript_tag do

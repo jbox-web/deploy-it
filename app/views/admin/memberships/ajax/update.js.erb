@@ -1,3 +1,3 @@
-<%= js_render_partial('#user-applications', 'admin/memberships/index', locals: { user: user }) %>
+<%= smart_listing_item :memberships, :update, @member,
+                       @member.valid? ? 'admin/memberships/membership' : 'admin/memberships/form' %>
 highlight("#member-<%= member.id %>");
-reloadSmartListing();

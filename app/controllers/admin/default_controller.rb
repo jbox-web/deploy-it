@@ -15,10 +15,4 @@
 
 class Admin::DefaultController < ApplicationController
   before_action :require_admin
-
-
-  def set_smart_listing
-    smart_listing_create(:memberships, @user.memberships.includes(:application, :roles, :member_roles), partial: 'admin/memberships/listing')
-  end
-
 end

@@ -9,7 +9,10 @@
     %tbody
       - smart_listing.collection.each do |membership|
         %tr.editable{ id: "member-#{membership.id}", data: { id: membership.id } }
-          = smart_listing.render partial: 'admin/memberships/membership', locals: { membership: membership }
+          = smart_listing.render partial: 'admin/memberships/membership', locals: { object: membership }
+
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links
 
 - else
   = render_no_data(type: :warning)

@@ -36,7 +36,6 @@ class Admin::UsersController < Admin::DefaultController
 
 
   def edit
-    set_smart_listing
     add_breadcrumbs
   end
 

@@ -128,7 +128,7 @@ Rails.application.routes.draw do
       resources :public_keys, only: [:index, :create, :destroy]
 
       ## Administrators can also manage memberships for users
-      resources :memberships, except: [:index, :new, :show]
+      resources :memberships, except: [:new, :show]
 
       member do
         ## Administrators can change password for users

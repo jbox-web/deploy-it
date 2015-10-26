@@ -22,6 +22,11 @@ class Admin::MembershipsController < Admin::DCIController
   before_action :set_member, only: [:edit, :update, :destroy]
 
 
+  def index
+    set_smart_listing
+  end
+
+
   def edit
   end
 
@@ -54,6 +59,11 @@ class Admin::MembershipsController < Admin::DCIController
     def render_dci_response(template: action_name, locals: {}, type:, &block)
       set_smart_listing
       super
+    end
+
+
+    def set_smart_listing
+      smart_listing_create(:memberships, @user.memberships.includes(:application, :roles, :member_roles), partial: 'admin/memberships/listing')
     end
 
 end

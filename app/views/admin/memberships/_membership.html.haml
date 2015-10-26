@@ -1,5 +1,5 @@
-%td= link_to membership.application, application_path(membership.application)
-%td= membership.roles.uniq.sort.collect(&:to_s).join(', ')
+%td= link_to object.application, application_path(object.application)
+%td= object.roles.uniq.sort.collect(&:to_s).join(', ')
 %td.actions
-  = smart_listing_item_actions [ { name: :edit, url: edit_admin_user_membership_path(membership.enrolable, membership), icon: 'fa fa-lg fa-fw fa-pencil' },
-    { name: :destroy, url: admin_user_membership_path(membership.enrolable, membership), if: membership.deletable?, icon: 'fa fa-lg fa-fw fa-trash-o', confirmation: t('text.are_you_sure') } ]
+  = smart_listing_item_actions [ { name: :edit, url: edit_admin_user_membership_path(object.enrolable, object), icon: 'fa fa-lg fa-fw fa-pencil' },
+    { name: :destroy, url: admin_user_membership_path(object.enrolable, object), if: object.deletable?, icon: 'fa fa-lg fa-fw fa-trash-o', confirmation: t('text.are_you_sure') } ]
