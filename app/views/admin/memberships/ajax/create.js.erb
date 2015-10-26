@@ -1,0 +1,5 @@
+<%= js_render_partial('#user-applications', 'admin/memberships/index', locals: { user: user }) %>
+<% if !member.nil? %>
+highlight("#member-<%= member.id %>");
+<% end %>
+reloadSmartListing();

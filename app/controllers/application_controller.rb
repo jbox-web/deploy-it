@@ -30,12 +30,36 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def set_user
+    set_user_by(params[:id])
+  end
+
+
+  def set_member
+    set_member_by(params[:id])
+  end
+
+
+  def set_user_by(param)
+    @user = User.find(param)
+  rescue ActiveRecord::RecordNotFound => e
+    render_404
+  end
+
+
   def set_application_by(param)
     begin
       @application = Application.find(param)
     rescue ActiveRecord::RecordNotFound => e
       render_404
     end
+  end
+
+
+  def set_member_by(param)
+    @member = Member.find(param)
+  rescue ActiveRecord::RecordNotFound => e
+    render_404
   end
 
 
@@ -52,13 +76,6 @@ class ApplicationController < ActionController::Base
     @deploy_action = object.find_active_use_case(params[:deploy_action])
   rescue UseCaseNotDefinedError => e
     render_403
-  end
-
-
-  def set_member_by(param)
-    @member = Member.find(param)
-  rescue ActiveRecord::RecordNotFound => e
-    render_404
   end
 
 

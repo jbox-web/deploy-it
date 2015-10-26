@@ -36,6 +36,7 @@ class Admin::UsersController < Admin::DefaultController
 
 
   def edit
+    set_smart_listing
     add_breadcrumbs
   end
 
@@ -87,39 +88,7 @@ class Admin::UsersController < Admin::DefaultController
   end
 
 
-  def create_membership
-    if !membership_create_params[:application_id].blank?
-      application = Application.find(membership_create_params[:application_id])
-      @member = Member.new(role_ids: membership_create_params[:role_ids], enrolable_type: 'User',  enrolable_id: @user.id)
-      application.members << @member
-    end
-    render_ajax_response(locals: { user: @user, member: @member })
-  end
-
-
-  def update_membership
-    @member = Member.find(params[:membership_id])
-    @member.role_ids = membership_update_params[:role_ids]
-    @member.save!
-    render_ajax_response(locals: { user: @user, member: @member })
-  end
-
-
-  def destroy_membership
-    @member = Member.find(params[:membership_id])
-    @member.destroy if request.delete? && @member.deletable?
-    render_ajax_response(locals: { user: @user })
-  end
-
-
   private
-
-
-    def set_user
-      @user = User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
-    end
 
 
     def user_create_params
@@ -135,16 +104,6 @@ class Admin::UsersController < Admin::DefaultController
 
     def user_change_password_params
       params.require(:user).permit(:new_password, :new_password_confirmation, :send_by_mail, :create_options)
-    end
-
-
-    def membership_create_params
-      params.require(:membership).permit(:application_id, role_ids: [])
-    end
-
-
-    def membership_update_params
-      params.require(:membership).permit(role_ids: [])
     end
 
 

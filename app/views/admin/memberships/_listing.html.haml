@@ -1,0 +1,15 @@
+- unless smart_listing.empty?
+
+  %table{ class: 'table table-hover' }
+    %thead
+      %tr
+        %th= Application.model_name.human(count: 2)
+        %th= Role.model_name.human(count: 2)
+        %th
+    %tbody
+      - smart_listing.collection.each do |membership|
+        %tr.editable{ id: "member-#{membership.id}", data: { id: membership.id } }
+          = smart_listing.render partial: 'admin/memberships/membership', locals: { membership: membership }
+
+- else
+  = render_no_data(type: :warning)

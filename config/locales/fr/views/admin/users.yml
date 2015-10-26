@@ -18,7 +18,7 @@ fr:
         notice: Utilisateur supprimé avec succès
 
       edit_tabs:
-        memberships:
+        memberships_listing:
           none_defined: Aucune application associée
         settings:
           change_password: Changer de mot de passe

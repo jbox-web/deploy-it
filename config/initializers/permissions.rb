@@ -46,7 +46,7 @@ DeployIt::AccessControl.map do |map|
 
   map.permission :manage_application,  { applications_manager: [:manage], containers_manager: [:manage] }, require: :member
 
-  map.permission :manage_members,      { members: [:index, :create, :update, :destroy] }, require: :member
+  map.permission :manage_members,      { members: [:index, :create, :edit, :update, :destroy] }, require: :member
 
   map.permission :create_credential,   { credentials: [:new, :create] },  require: :loggedin
   map.permission :edit_credential,     { credentials: [:edit, :update] }, require: :loggedin

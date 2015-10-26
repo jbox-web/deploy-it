@@ -12,7 +12,7 @@
 
     %div{ class: 'tab-content' }
       #user-settings{ class: 'tab-pane active' }= render 'admin/users/edit_tabs/settings', user: @user
-      #user-applications{ class: 'tab-pane' }= render 'admin/users/edit_tabs/memberships', user: @user
+      #user-applications{ class: 'tab-pane' }= render 'admin/memberships/index', user: @user
       #user-ssh-keys{ class: 'tab-pane' }
 
 = javascript_tag do

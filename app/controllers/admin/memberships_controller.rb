@@ -13,23 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class MembersController < DCIController
+class Admin::MembershipsController < Admin::DCIController
 
-  include DCI::Controllers::Application
-  set_dci_role 'DCI::Roles::ApplicationMembershipManager'
+  set_dci_role 'DCI::Roles::UserMembershipManager'
   self.render_flash_message = false
 
-  layout 'application'
-
-  before_action :set_application
-  before_action :authorize
+  before_action :set_user
   before_action :set_member, only: [:edit, :update, :destroy]
-  before_action :add_global_crumb
-
-
-  def index
-    set_smart_listing
-  end
 
 
   def edit
@@ -37,44 +27,33 @@ class MembersController < DCIController
 
 
   def create
-    set_dci_data({ member: { user_ids: [], group_ids: [], role_ids: [] } })
-    call_dci_role(:add_members)
+    set_dci_data({ membership: [:application_id, role_ids: []] })
+    call_dci_role(:create_membership, @user)
   end
 
 
   def update
-    set_dci_data({ member: { user_ids: [], group_ids: [], role_ids: [] } })
-    call_dci_role(:update_member, @member)
+    set_dci_data({ membership: { role_ids: [] } })
+    call_dci_role(:update_membership, @user, @member)
   end
 
 
   def destroy
-    call_dci_role(:delete_member, @member) if request.delete?
+    call_dci_role(:destroy_membership, @user, @member) if request.delete?
   end
 
 
   private
 
 
-    def set_application
-      set_application_by(params[:application_id])
-    end
-
-
-    def add_global_crumb
-      super
-      add_breadcrumb get_model_name_for('Member'), 'fa-users', ''
+    def set_user
+      set_user_by(params[:user_id])
     end
 
 
     def render_dci_response(template: action_name, locals: {}, type:, &block)
       set_smart_listing
       super
-    end
-
-
-    def set_smart_listing
-      smart_listing_create(:members, @application.members.includes(:enrolable, :roles), partial: 'members/members')
     end
 
 end

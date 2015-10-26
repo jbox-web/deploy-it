@@ -8,3 +8,8 @@ fr:
       truncate: '&hellip;'
       total: Total
       per_page: Par page
+
+  smart_listing:
+    actions:
+      edit: Modifier
+      destroy: Supprimer

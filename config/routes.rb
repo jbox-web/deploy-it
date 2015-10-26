@@ -67,7 +67,7 @@ Rails.application.routes.draw do
       get 'containers'
       get 'repositories'
     end
-    resources :members, only: [:index, :create, :update, :destroy]
+    resources :members, except: [:new, :show]
   end
 
   # Applications Manager
@@ -127,14 +127,12 @@ Rails.application.routes.draw do
       ## Administrators can create SSH keys for users
       resources :public_keys, only: [:index, :create, :destroy]
 
+      ## Administrators can also manage memberships for users
+      resources :memberships, except: [:index, :new, :show]
+
       member do
         ## Administrators can change password for users
         match 'change_password', as: 'change_password', via: [:get, :patch]
-
-        ## Administrators can also manage memberships for users
-        patch  'memberships/:membership_id', action: 'update_membership', as: 'user_membership'
-        delete 'memberships/:membership_id', action: 'destroy_membership'
-        post   'memberships',                action: 'create_membership', as: 'user_memberships'
       end
     end
 

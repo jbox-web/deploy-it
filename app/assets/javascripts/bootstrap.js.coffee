@@ -17,8 +17,14 @@ root.createBootstrapSwitch = (element) ->
   else
     $(element).bootstrapSwitch()
 
+
 root.setAlertDismiss = ->
   $('.alert:not(.dont-dismiss)').delay(3000).slideUp(200, -> $(this).alert('close'))
+
+
+root.reloadSmartListing = ->
+  $(SmartListing.config.class_name('main')).smart_listing()
+  $(SmartListing.config.class_name('controls')).smart_listing_controls()
 
 
 root.setModalBox = ->

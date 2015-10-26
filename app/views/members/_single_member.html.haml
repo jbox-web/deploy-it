@@ -1,0 +1,5 @@
+%td= render_enroblable(member)
+%td= member.roles.uniq.sort.collect(&:to_s).join(', ')
+%td.actions
+  = smart_listing_item_actions [ { name: :edit, url: edit_application_member_path(member.application, member), icon: 'fa fa-lg fa-fw fa-pencil' },
+    { name: :destroy, url: application_member_path(member.application, member), if: member.deletable?, icon: 'fa fa-lg fa-fw fa-trash-o', confirmation: t('text.are_you_sure') } ]

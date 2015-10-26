@@ -13,12 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Admin::DefaultController < ApplicationController
-  before_action :require_admin
-
-
-  def set_smart_listing
-    smart_listing_create(:memberships, @user.memberships.includes(:application, :roles, :member_roles), partial: 'admin/memberships/listing')
-  end
-
+class Admin::DCIController < Admin::DefaultController
+  include DCI::Contexts::Controller
 end

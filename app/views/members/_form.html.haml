@@ -1,0 +1,17 @@
+%td{ colspan: 3 }
+  = bootstrap_form_for object,
+                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10',
+                       url:    application_member_path(object.application, object),
+                       html:   { method: :patch, remote: true } do |f|
+
+    %p
+      - Role.givable.each do |role|
+        %label
+          = check_box_tag 'member[role_ids][]', role.id, object.roles.include?(role), id: nil, disabled: object.member_roles.detect { |mr| mr.role_id == role.id && !mr.inherited_from.nil? }
+          = role
+        %br
+
+    = hidden_field_tag "member[role_ids][]", ''
+
+    = f.success
+    %button.btn.btn-default.cancel= t('button.cancel')

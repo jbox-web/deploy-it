@@ -1,0 +1,21 @@
+.row
+  .col-md-6
+    = smart_listing_render(:memberships)
+
+  .col-md-6
+    - applications = Application.all
+    - if applications.any?
+      = bootstrap_form_for Member.new,
+                           as: :membership,
+                           layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10',
+                           url:    admin_user_memberships_path(user),
+                           html:   { method: :post, remote: true } do |f|
+
+        = f.select :application_id, options_for_membership_application_select(user, applications)
+
+        = f.collection_check_boxes(:role_ids, Role.givable.all, :id, :name) do |b|
+          = content_tag :div, class: 'checkbox' do
+            = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+        = f.form_group do
+          = f.success nil, icon: 'fa-plus', class: 'btn-sm'
