@@ -1,6 +1,6 @@
 fr:
   applications_manager:
-    manage_application:
+    manage:
       notice: Demande mise en file d'attente
-    build_application:
+    build:
       notice: Reconstruction mise en file d'attente
