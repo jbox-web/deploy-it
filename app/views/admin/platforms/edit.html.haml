@@ -5,12 +5,16 @@
 
     %h3{ class: 'page-header' }= render_crumbs
 
-    = bootstrap_form_for @platform,
-                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4 col-md-4",
-                         url:    admin_platform_path(@platform),
-                         html:   { method: :patch } do |f|
+    %fieldset.padded
+      %legend= label_with_icon get_model_name_for('Settings'), 'fa-sliders', bigger: false
 
-      = render 'form', f: f, platform: @platform
+      = bootstrap_form_for @platform,
+                           layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4 col-md-4',
+                           url:    admin_platform_path(@platform),
+                           html:   { method: :patch } do |f|
+
+        = render 'form', f: f
 
 .row
-  %div{ class: 'col-md-offset-1 col-md-10' }= render 'delete', platform: @platform
+  %div{ class: 'col-md-offset-1 col-md-10' }
+    = render 'delete', platform: @platform

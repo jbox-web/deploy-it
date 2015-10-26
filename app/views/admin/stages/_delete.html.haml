@@ -1,7 +1,3 @@
-%hr
-%h4{ class: 'page-header' }= t('.destroy')
-= link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
-          admin_platform_stage_path(stage.platform, stage),
-          method: :delete,
-          data: { confirm: t('text.are_you_sure') },
-          class: "btn btn-danger"
+%fieldset.padded
+  %legend= label_with_icon t('.destroy'), 'fa-warning', bigger: false
+  = button_delete admin_platform_stage_path(stage.platform, stage), label: t('button.delete')

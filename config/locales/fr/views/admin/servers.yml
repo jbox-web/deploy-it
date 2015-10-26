@@ -18,6 +18,7 @@ fr:
           none_defined: Aucun rôle défini
           configuration: Configuration des rôles
         roles:
+          title: Rôles
           enabled: "%{role} activé"
           disabled: "%{role} désactivé"
       update:

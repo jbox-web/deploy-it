@@ -23,13 +23,17 @@ module HtmlHelpers
     end
 
 
-    def link_to_icon(icon, url, link_opts = {}, icon_opts = {})
-      label = link_opts.delete(:label) { nil }
+    def link_to_icon(icon_name, url, link_opts = {}, icon_opts = {})
+      label     = link_opts.delete(:label) { nil }
+      hide_icon = icon_opts.delete(:hide_icon) { false }
+
       link_to(url, link_opts) do
-        if label
+        if label && hide_icon
           label
+        elsif label
+          label_with_icon(label, icon_name, icon_opts)
         else
-          icon(icon, { aligned: false }.merge(icon_opts))
+          icon(icon_name, { aligned: false }.merge(icon_opts))
         end
       end
     end

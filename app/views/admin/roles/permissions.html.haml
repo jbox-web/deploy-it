@@ -40,4 +40,4 @@
                       = check_box_tag "permissions[#{role.id}][]", permission.name, (role.permissions.include? permission.name), id: nil, class: "role-#{role.id}"
 
       = button_submit t('button.save')
-      = button_cancel admin_roles_path
+      = button_cancel admin_roles_path, {}, hide_icon: true

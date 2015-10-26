@@ -1,14 +1,15 @@
-%h4{ class: 'page-header' }= t('.title')
+%fieldset.padded
+  %legend= label_with_icon get_model_name_for('Settings'), 'fa-sliders', bigger: false
 
-= bootstrap_form_for @server,
-                     layout: :horizontal, label_col: 'col-sm-4 col-md-4', control_col: 'col-sm-4 col-md-6',
-                     url:    admin_platform_server_path(@platform, @server),
-                     html:   { method: :patch, remote: true } do |f|
+  = bootstrap_form_for @server,
+                       layout: :horizontal, label_col: 'col-sm-4 col-md-4', control_col: 'col-sm-4 col-md-6',
+                       url:    admin_platform_server_path(@platform, @server),
+                       html:   { method: :patch, remote: true } do |f|
 
-  = f.text_field :host_name,  required: true
-  = f.text_field :ip_address, required: true
-  = f.text_field :ssh_user,   required: true
-  = f.text_field :ssh_port,   required: true
+    = f.text_field :host_name,  required: true
+    = f.text_field :ip_address, required: true
+    = f.text_field :ssh_user,   required: true
+    = f.text_field :ssh_port,   required: true
 
-  = f.form_group do
-    = f.success
+    = f.form_group do
+      = f.success

@@ -36,12 +36,7 @@
   #delete
     %fieldset.padded
       %legend= label_with_icon(t('.destroy'), 'fa-warning', bigger: false)
-      = link_to label_with_icon(t('button.delete'), 'fa-trash-o'),
-                  application_path(application),
-                  method: :delete,
-                  class:  'btn btn-danger',
-                  data:   { confirm: t('text.are_you_sure') }
-
+      = button_delete application_path(application), label: t('button.delete')
 
 = javascript_tag do
   setBootstrapSwitch('#settings');
