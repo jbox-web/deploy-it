@@ -11,8 +11,3 @@
                          html:   { method: :post } do |f|
 
       = render 'form', f: f
-
-      .form-group
-        %div{ class: 'col-sm-offset-2 col-sm-4' }
-          = button_submit t('button.create')
-          = button_cancel admin_buildpacks_path

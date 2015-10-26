@@ -1,3 +1,7 @@
 = f.text_field :name, required: true
 = f.text_field :url,  required: true, control_col: "col-sm-4 col-md-8"
 = f.text_area  :description
+
+= f.form_group do
+  = f.success
+  = f.cancel admin_buildpacks_path

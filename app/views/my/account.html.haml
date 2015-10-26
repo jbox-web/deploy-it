@@ -9,7 +9,7 @@
       %div{ class: 'col-md-7' }
 
         = bootstrap_form_for @user,
-                             layout: :horizontal, label_col: "col-sm-4 col-md-4", control_col: "col-sm-5 col-md-6",
+                             layout: :horizontal, label_col: 'col-sm-4 col-md-4', control_col: 'col-sm-5 col-md-6',
                              url:    my_account_path,
                              html:   { method: :patch } do |f|
 
@@ -22,17 +22,15 @@
 
           = f.time_zone_select :time_zone, nil, { default: 'Paris' }
 
-          .form-group
-            %div{ class: "col-sm-offset-4 col-sm-5 col-md-offset-4 col-md-4" }
-              = button_submit t('button.update')
+          = f.form_group do
+            = f.success nil, data: { disable_with: t('text.save_in_progress') }
 
       %div{ class: 'col-md-5' }
 
         %h5{ class: 'page-header' }
           = t('.api_key')
           %span{ class: 'pull-right' }
-            (
-            = link_to t('button.reset'), reset_api_key_path, remote: true, method: :patch, data: { confirm: t('text.are_you_sure') }
-            )
+            = surround '(', ')' do
+              = link_to t('button.reset'), reset_api_key_path, remote: true, method: :patch, data: { confirm: t('text.are_you_sure') }
 
         %pre{ id: 'authentication-token' }= @user.api_token

@@ -39,6 +39,7 @@ class SidebarMenuTop < BaseMenu
         menu.item :platforms,         label_with_icon(get_model_name_for('Platform'), 'fa-sitemap'), admin_platforms_path
         menu.item :docker_images,     label_with_icon(get_model_name_for('DockerImage'), 'fa-cubes'), admin_docker_images_path
         menu.item :buildpacks,        label_with_icon(get_model_name_for('Buildpack'), 'fa-rocket'), admin_buildpacks_path
+        menu.item :addons,            label_with_icon(get_model_name_for('Addon'), 'fa-cube'), admin_addons_path
         menu.item :reserved_names,    label_with_icon(get_model_name_for('ReservedName'), 'fa-shield'), admin_reserved_names_path
         menu.item :applications,      label_with_icon(get_model_name_for('Application'), 'fa-desktop'), admin_applications_path
         menu.item :locks,             label_with_icon(get_model_name_for('Lock'), 'fa-lock'), admin_locks_path

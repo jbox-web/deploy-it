@@ -1,7 +1,7 @@
 %h4{ class: 'page-header' }= t('.title')
 
 = bootstrap_form_for @server,
-                     layout: :horizontal, label_col: "col-sm-4 col-md-4", control_col: "col-sm-4 col-md-6",
+                     layout: :horizontal, label_col: 'col-sm-4 col-md-4', control_col: 'col-sm-4 col-md-6',
                      url:    admin_platform_server_path(@platform, @server),
                      html:   { method: :patch, remote: true } do |f|
 
@@ -10,6 +10,5 @@
   = f.text_field :ssh_user,   required: true
   = f.text_field :ssh_port,   required: true
 
-  .form-group
-    %div{ class: 'col-sm-offset-4 col-sm-5 col-md-offset-4 col-md-6' }
-      = button_submit t('button.update')
+  = f.form_group do
+    = f.success

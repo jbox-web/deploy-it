@@ -1,14 +1,7 @@
 %h4{ class: 'page-header' }
   = link_to_if can?(:edit_application, application), label_with_icon(get_model_name_for('Settings'), 'fa-sliders', fixed: true), settings_application_path(application)
 
-  %small.pull-right
-    = icon 'fa-clock-o', title: Application.human_attribute_name('cron_enabled'),        class: add_class_on_condition(application.use_cron?, true, 'fa-success')
-    = icon 'fa-shield',  title: Application.human_attribute_name('ssl_enabled'),         class: add_class_on_condition(application.use_ssl?, true, 'fa-success')
-    = icon 'fa-eye',     title: Application.human_attribute_name('credentials_enabled'), class: add_class_on_condition(application.use_credentials?, true, 'fa-success')
-    = icon 'fa-gear',    title: Application.human_attribute_name('debug_enabled'),       class: add_class_on_condition(application.debug_mode?, true, 'fa-success')
-    = label_with_success_tag label_with_icon("#{Application.human_attribute_name('instance').capitalize} #{application.instance_number}", 'fa-rocket')
-    = label_with_success_tag label_with_icon("#{Application.human_attribute_name('memory').capitalize} #{application.max_memory}M", render_memory_icon(application.max_memory))
-    = label_with_success_tag label_with_icon("#{t('.database')} #{application.db_type}", 'fa-database')
+  %small.pull-right= render 'applications/show/settings_status', application: application
 
 %dl{ class: 'dl-horizontal' }
   %dt= Application.human_attribute_name('identifier') + ' :'

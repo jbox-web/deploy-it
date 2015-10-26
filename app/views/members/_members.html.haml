@@ -24,8 +24,7 @@
         = render_no_data(type: :warning)
 
     .col-md-4
-      - member = Member.new
-      = bootstrap_form_for member,
+      = bootstrap_form_for Member.new,
                            layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8",
                            url:    application_members_path(application),
                            html:   { method: :post, remote: true } do |f|
@@ -42,9 +41,8 @@
           = content_tag :div, class: 'checkbox' do
             = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
-        .form-group
-          %div{ class: 'col-sm-offset-4 col-sm-8' }
-            = button_submit t('button.create'), class: 'btn-sm', icon: 'fa-plus'
+        = f.form_group do
+          = f.success nil, icon: 'fa-plus', class: 'btn-sm'
 
-  :javascript
-    setHideOnLoad()
+:javascript
+  setHideOnLoad()

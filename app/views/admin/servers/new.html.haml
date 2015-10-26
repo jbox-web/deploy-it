@@ -6,7 +6,7 @@
     %h3{ class: 'page-header' }= render_crumbs
 
     = bootstrap_form_for @server,
-                         layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-4 col-md-4",
+                         layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4 col-md-4',
                          url:    admin_platform_servers_path(@platform),
                          html:   { method: :post } do |f|
 
@@ -15,7 +15,6 @@
       = f.text_field :ssh_user,   required: true
       = f.text_field :ssh_port,   required: true
 
-      .form-group
-        %div{ class: 'col-sm-offset-2 col-sm-4' }
-          = button_submit t('button.create')
-          = button_cancel admin_platforms_path
+      = f.form_group do
+        = f.success
+        = f.cancel admin_platforms_path

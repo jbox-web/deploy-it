@@ -105,20 +105,6 @@ module HtmlHelpers
     end
 
 
-    def button_continue
-      button_tag(name: 'continue', class: 'btn btn-primary') do
-        t('button.continue')
-      end
-    end
-
-
-    def button_back
-      button_tag(name: 'back_button', class: 'btn btn-default') do
-        t('button.back')
-      end
-    end
-
-
     def button_deploy(container, type, label, opts = {})
       options = {
         method: :post,
@@ -169,9 +155,9 @@ module HtmlHelpers
       show_icon  = opts.delete(:icon){ true }
 
       if text_label
-        icon_opts = { fixed: true, aligned: true }
+        icon_opts = { aligned: true }
       else
-        icon_opts = { fixed: true, aligned: false }
+        icon_opts = { aligned: false }
       end
 
       if show_icon

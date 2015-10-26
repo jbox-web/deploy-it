@@ -53,8 +53,7 @@
 %div{ class: 'col-md-6' }
   - applications = Application.all
   - if applications.any?
-    - member = Member.new
-    = bootstrap_form_for member,
+    = bootstrap_form_for Member.new,
                          as: :membership,
                          layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10",
                          url:    user_memberships_admin_user_path(user),
@@ -66,9 +65,8 @@
         = content_tag :div, class: 'checkbox' do
           = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
-      .form-group
-        %div{ class: 'col-sm-offset-2 col-sm-10' }
-          = button_submit t('button.create'), class: 'btn-sm', icon: 'fa-plus'
+      = f.form_group do
+        = f.success nil, icon: 'fa-plus', class: 'btn-sm'
 
 :javascript
   setHideOnLoad()

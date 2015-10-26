@@ -3,3 +3,7 @@
 = f.collection_check_boxes(:user_ids, User.all, :id, :to_s) do |b|
   = content_tag :div, class: 'checkbox' do
     = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+= f.form_group do
+  = f.success
+  = f.cancel admin_groups_path

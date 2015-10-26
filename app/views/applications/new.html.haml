@@ -21,9 +21,8 @@
 
             = render "applications/creation_steps/#{application.current_step}", f: f, application: application
 
-            .form-group
-              %div{ class: 'col-sm-offset-3 col-sm-7 col-md-offset-4 col-md-7 col-lg-offset-3 col-lg-4' }
-                = button_continue unless application.last_step?
-                = button_submit t('button.create') if application.last_step?
-                = button_back unless application.first_step?
-                = button_cancel applications_path if application.first_step?
+            = f.form_group do
+              = f.continue unless application.last_step?
+              = f.success if application.last_step?
+              = f.back unless application.first_step?
+              = f.cancel applications_path if application.first_step?

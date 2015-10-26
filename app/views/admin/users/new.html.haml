@@ -14,20 +14,19 @@
 
       #select-password-creation-mode
         = f.hidden_field :create_options, value: ''
-        = f.collection_radio_buttons :create_options, UserCreationForm::PASSWORD_OPTIONS, :first, :last, inline: true, control_col: "col-sm-5 col-md-6"
+        = f.collection_radio_buttons :create_options, UserCreationForm::PASSWORD_OPTIONS, :first, :last, inline: true, control_col: 'col-sm-5 col-md-6'
 
       #password-manual-creation{ style: display_on_condition(f.object.create_options, 'manual') }
-        = f.password_field :password, required: false, autocomplete: "off"
-        = f.password_field :password_confirmation, required: false, autocomplete: "off"
+        = f.password_field :password, required: false, autocomplete: 'off'
+        = f.password_field :password_confirmation, required: false, autocomplete: 'off'
 
       .form-group
         %div{ class: 'col-sm-offset-3 col-sm-4' }
           = f.check_box :send_by_mail
 
-      .form-group
-        %div{ class: 'col-sm-offset-3 col-sm-4' }
-          = button_submit t('button.create')
-          = button_cancel admin_users_path
+      = f.form_group do
+        = f.success
+        = f.cancel admin_users_path
 
     :javascript
       setCreateUserForm();

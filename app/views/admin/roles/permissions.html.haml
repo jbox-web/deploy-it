@@ -18,7 +18,7 @@
                 = button_select_all "toggleCheckboxesBySelector('input.role-#{role.id}'); return false;"
 
         %tbody
-          - perms_by_module = @permissions.group_by {|p| p.project_module.to_s}
+          - perms_by_module = @permissions.group_by { |p| p.project_module.to_s }
           - perms_by_module.keys.sort.each do |mod|
             - unless mod.blank?
               %tr

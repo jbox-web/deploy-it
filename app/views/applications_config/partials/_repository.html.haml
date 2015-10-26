@@ -5,7 +5,7 @@
   .flash-messages
 
   = bootstrap_form_for application.distant_repo,
-                       layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-4",
+                       layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-4',
                        url:    repository_application_path(application),
                        html:   { method: :patch, remote: true } do |f|
 
@@ -20,9 +20,8 @@
     #select-credential
       = f.collection_select :credential_id, RepositoryCredential.all, :id, :to_s, prompt: true
 
-    .form-group
-      %div{ class: 'col-sm-offset-3 col-sm-3' }
-        = button_submit t('button.save'), data: { disable_with: t('text.save_in_progress') }
+    = f.form_group do
+      = f.success t('button.save'), data: { disable_with: t('text.save_in_progress') }
 
   - if !application.distant_repo.credential.nil?
     #in-use-credential= render 'applications_config/partials/credential', credential: application.distant_repo.credential

@@ -86,7 +86,7 @@ module Crudify
 
 
     def global_crumb_title_with_icon
-      "view_context.label_with_icon(#{global_crumb_title_without_icon}, '#{global_crumb_icon}', fixed: true)"
+      "view_context.label_with_icon(#{global_crumb_title_without_icon}, '#{global_crumb_icon}', fixed: true, bigger: false)"
     end
 
 

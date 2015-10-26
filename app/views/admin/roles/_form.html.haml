@@ -16,3 +16,7 @@
               = l_or_humanize(permission.name, prefix: 'permission.')
 
       = hidden_field_tag 'role[permissions][]', ''
+
+= f.form_group do
+  = f.success
+  = f.cancel admin_roles_path

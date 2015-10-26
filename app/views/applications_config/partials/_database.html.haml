@@ -22,6 +22,5 @@
           %span{ id: 'application_database_attributes_db_created' }= bool_to_icon application.database.db_created?
 
     - unless application.database.db_created?
-      .form-group
-        %div{ class: 'col-sm-offset-3 col-sm-3' }
-          = button_submit t('button.save'), data: { disable_with: t('text.save_in_progress') }
+      = f.form_group do
+        = f.success t('button.save'), data: { disable_with: t('text.save_in_progress') }

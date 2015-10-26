@@ -1,13 +1,12 @@
 = link_to label_with_icon(t('.change_password'), 'fa-lock', fixed: true), change_password_admin_user_path
 
 = bootstrap_form_for user,
-                     layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-5 col-md-4 col-lg-3",
+                     layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-5 col-md-4 col-lg-3',
                      url:    admin_user_path(user),
                      html:   { method: :patch } do |f|
 
-  = render partial: 'form', locals: { f: f }
+  = render 'form', f: f
 
-  .form-group
-    %div{ class: 'col-sm-offset-3 col-sm-5' }
-      = button_submit t('button.update')
-      = button_cancel admin_users_path
+  = f.form_group do
+    = f.success
+    = f.cancel admin_users_path

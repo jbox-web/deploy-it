@@ -1,6 +1,10 @@
 = f.text_field :name, required: true
-= f.text_field :identifier, required: true, disabled: !stage.new_record?
+= f.text_field :identifier, required: true, disabled: !f.object.new_record?
 = f.text_field :database_name_prefix
 = f.text_field :domain_name_suffix
 = f.text_field :portal_url
 = f.text_area  :description
+
+= f.form_group do
+  = f.success
+  = f.cancel admin_platforms_path

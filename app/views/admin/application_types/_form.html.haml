@@ -3,5 +3,9 @@
 = f.select     :language, DeployIt::AVAILABLE_LANGUAGES.collect {|p| [ p.capitalize, p ] }, prompt: true
 = f.text_area  :json_attributes, control_col: "col-sm-8 col-md-8", class: 'code-mirror', data: { code_type: 'application/json' }
 
+= f.form_group do
+  = f.success
+  = f.cancel admin_application_types_path
+
 :javascript
   setCodeMirror()

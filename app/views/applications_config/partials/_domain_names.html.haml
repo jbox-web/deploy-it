@@ -23,7 +23,6 @@
             %td{ class: 'vert-align' }= ff.collection_select :mode, DomainName::MODES_AVAILABLE, :first, :last, prompt: true, hide_label: true
             %td{ class: 'vert-align text-center' }= ff.link_to_remove icon('fa-trash-o')
 
-    .form-group
-      %div{ class: 'col-sm-12' }
-        = button_submit t('button.save'), data: { disable_with: t('text.save_in_progress') }
-        %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :domain_names, data: { target: "#domain_names_list" }
+    = f.form_group do
+      = f.success t('button.save'), data: { disable_with: t('text.save_in_progress') }
+      %span{ class: 'pull-right' }= f.link_to_add label_with_icon(t('.add'), 'fa-plus', fixed: true), :domain_names, data: { target: "#domain_names_list" }

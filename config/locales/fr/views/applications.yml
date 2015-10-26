@@ -52,7 +52,7 @@ fr:
         to: à
         none_defined: Aucune release trouvée
 
-      settings:
+      settings_status:
         database: BDD
 
       code: Code

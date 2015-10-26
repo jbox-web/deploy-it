@@ -1,2 +1,6 @@
 = f.text_field :name, required: true
 = f.text_field :image, required: true
+
+= f.form_group do
+  = f.success
+  = f.cancel admin_addons_path

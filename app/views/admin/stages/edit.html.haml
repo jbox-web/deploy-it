@@ -6,16 +6,12 @@
     %h3{ class: 'page-header' }= render_crumbs
 
     = bootstrap_form_for @stage,
-                         layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-4 col-md-4",
+                         layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-4 col-md-4',
                          url:    admin_platform_stage_path(@stage.platform, @stage),
                          html:   { method: :patch } do |f|
 
-      = render 'form', f: f, stage: @stage
-
-      .form-group
-        %div{ class: 'col-sm-offset-3 col-sm-4' }
-          = button_submit t('button.update')
-          = button_cancel admin_platforms_path
+      = render 'form', f: f
 
 .row
-  %div{ class: 'col-md-offset-1 col-md-10' }= render partial: 'delete', locals: { stage: @stage }
+  %div{ class: 'col-md-offset-1 col-md-10' }
+    = render 'delete', stage: @stage
