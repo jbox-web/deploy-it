@@ -22,6 +22,7 @@ class MyController < DCIController
 
 
   def account
+    add_breadcrumb t('.title'), 'fa-user', ''
     if request.patch?
       set_dci_data({ user: [:firstname, :lastname, :email, :language, :time_zone] })
       call_dci_role(:update_account)

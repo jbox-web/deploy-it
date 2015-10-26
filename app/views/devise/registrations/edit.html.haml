@@ -3,7 +3,7 @@
 .row
   %div{ class: 'col-md-offset-1 col-md-10' }
 
-    %h3{ class: 'page-header' }= label_with_icon(t('.change_password'), 'fa-lock', fixed: true)
+    %h3{ class: 'page-header' }= render_crumbs
 
     = bootstrap_form_for resource,
                          layout: :horizontal, label_col: 'col-sm-4 col-md-3', control_col: 'col-sm-4 col-md-3',

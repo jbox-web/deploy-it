@@ -16,11 +16,28 @@
 class RegistrationsController < Devise::RegistrationsController
 
 
+  def edit
+    set_crumb
+    super
+  end
+
+
+  def update
+    set_crumb
+    super
+  end
+
+
   protected
 
 
     def after_update_path_for(resource)
       my_account_path
+    end
+
+
+    def set_crumb
+      add_breadcrumb t('devise.registrations.edit.change_password'), 'fa-lock', ''
     end
 
 end
