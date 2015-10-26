@@ -20,7 +20,7 @@ module DCI
       include Base
 
 
-      def render_message(message, type, locals = {})
+      def render_message(message:, type:, locals: {}, errors: [])
         console_log message unless message.empty?
       end
 

@@ -38,9 +38,10 @@ module DCI
       end
 
 
-      def render_message(message, type, locals = {})
+      def render_message(message:, type:, locals: {}, errors: [])
         flash_type = type == :success ? :notice : :alert
         flash[flash_type] = message if render_flash_message?
+        flash[:alert] = errors if render_flash_message? && errors.any?
         render_dci_response(template: get_template, locals: locals, type: type)
       end
 

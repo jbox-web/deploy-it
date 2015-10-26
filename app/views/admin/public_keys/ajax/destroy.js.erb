@@ -1,2 +1,2 @@
-<%= js_render_partial('#user-ssh-keys', 'admin/public_keys/index', locals: { user: user, ssh_keys: ssh_keys, ssh_key: ssh_key }) %>
-<%= render_flash_messages_as_js %>
+<%= js_render_partial('#user-ssh-keys', 'admin/public_keys/index', locals: { user: user, ssh_key: nil }) %>
+<%= render_flash_messages_as_js('#user-ssh-keys .flash-messages') %>

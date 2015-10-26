@@ -17,75 +17,42 @@ module SshKeysManager
   extend ActiveSupport::Concern
 
   included do
-    before_action :find_user
-    before_action :find_user_ssh_keys
-    before_action :find_ssh_key, only: :destroy
+    include DCI::Controllers::Account
+    set_dci_role 'DCI::Roles::AccountManager'
+
+    before_action :set_user
+    before_action :set_ssh_key, only: :destroy
   end
 
 
   def index
-    @ssh_key = SshPublicKey.new
+    add_breadcrumb get_model_name_for('SshPublicKey'), 'octicon octicon-key', ''
   end
 
 
   def create
-    @ssh_key = SshPublicKey.new(ssh_key_params.merge(user_id: @user.id))
-    @ssh_key.save ? render_success : render_failed
+    set_dci_data({ ssh_public_key: [:title, :key] })
+    call_dci_role(:create_ssh_key)
   end
 
 
   def destroy
-    request.delete? && @ssh_key.destroy ? render_success : render_failed
+    call_dci_role(:delete_ssh_key, @ssh_key) if request.delete?
   end
 
 
   private
 
 
-    def render_success
-      flash[:notice] = t('.notice')
-      # Call service objects to perform other actions
-      call_service_objects
-      # Reset form object
-      @ssh_key = SshPublicKey.new
-      render_ajax_response(locals: { user: @user, ssh_keys: @ssh_keys, ssh_key: @ssh_key})
-    end
-
-
-    def render_failed
-      flash[:error] = t('.error')
-      render_ajax_response(locals: { user: @user, ssh_keys: @ssh_keys, ssh_key: @ssh_key})
-    end
-
-
-    def ssh_key_params
-      params.require(:ssh_public_key).permit(:title, :key)
-    end
-
-
-    def call_service_objects
-      case action_name
-      when 'create'
-        result = @ssh_key.add_to_authorized_keys!
-      when 'destroy'
-        result = @ssh_key.remove_from_authorized_keys!
-      end
-      flash[:alert] = result.errors if !result.success?
-    end
-
-
-    def find_user
+    def set_user
       raise NotImplementedError
     end
 
 
-    def find_ssh_key
-      @ssh_key = @user.ssh_public_keys.find_by_id(params[:id])
-    end
-
-
-    def find_user_ssh_keys
-      @ssh_keys = @user.ssh_public_keys
+    def set_ssh_key
+      @ssh_key = @user.ssh_public_keys.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      render_404
     end
 
 end

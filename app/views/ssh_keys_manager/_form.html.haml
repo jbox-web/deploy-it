@@ -11,7 +11,6 @@
       = f.text_field :title, required: true, control_col: 'col-sm-4'
       = f.text_area :key,    required: true
 
-      .form-group
-        %div{ class: 'col-sm-offset-2 col-sm-3' }
-          = button_submit t('button.create')
-          = button_tag t('button.cancel'), type: 'button', onclick: "resetForm('#new_ssh_public_key'); $('#form-add-key').hide(); return false;", class: 'btn btn-default'
+      = f.form_group do
+        = f.success
+        = button_tag t('button.cancel'), type: 'button', onclick: "resetForm('#new_ssh_public_key'); $('#form-add-key').hide(); return false;", class: 'btn btn-default'

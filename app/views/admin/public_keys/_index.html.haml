@@ -1,1 +1,1 @@
-= render 'ssh_keys_manager/index', ssh_keys: ssh_keys, ssh_key: ssh_key, user: user, admin: true
+= render 'ssh_keys_manager/index', ssh_keys: user.ssh_public_keys, ssh_key: (ssh_key || SshPublicKey.new), user: user, admin: true

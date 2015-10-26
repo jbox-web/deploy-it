@@ -32,6 +32,27 @@ module DCI
         context.render_success(locals: { user: user })
       end
 
+
+      def create_ssh_key(user, params = {})
+        ssh_key = SshPublicKey.new(params.merge(user_id: user.id))
+        if ssh_key.save
+          task = ssh_key.add_to_authorized_keys!
+          context.render_success(locals: { user: user }, errors: task.errors)
+        else
+          context.render_failed(locals: { user: user, ssh_key: ssh_key })
+        end
+      end
+
+
+      def delete_ssh_key(user, ssh_key, params = {})
+        if ssh_key.destroy
+          task = ssh_key.remove_from_authorized_keys!
+          context.render_success(locals: { user: user }, errors: task.errors)
+        else
+          context.render_failed(locals: { user: user })
+        end
+      end
+
     end
   end
 end

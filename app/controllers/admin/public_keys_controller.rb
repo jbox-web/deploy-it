@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Admin::PublicKeysController < Admin::DefaultController
+class Admin::PublicKeysController < Admin::DCIController
 
   include SshKeysManager
 
@@ -21,7 +21,7 @@ class Admin::PublicKeysController < Admin::DefaultController
   private
 
 
-    def find_user
+    def set_user
       @user = User.find_by_id(params[:user_id])
     end
 

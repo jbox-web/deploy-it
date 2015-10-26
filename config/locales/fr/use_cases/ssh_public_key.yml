@@ -5,8 +5,8 @@ fr:
       add_to_authorized_keys:
         errors:
           unknown: Erreur inconnue
-          unwriteable: Fichier inaccessible en écriture
+          unwriteable: "Fichier inaccessible en écriture : '%{file}'"
       remove_from_authorized_keys:
         errors:
           unknown: Erreur inconnue
-          unwriteable: Fichier inaccessible en écriture
+          unwriteable: "Fichier inaccessible en écriture : '%{file}'"

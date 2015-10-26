@@ -18,15 +18,15 @@ module DCI
     module Base
       extend self
 
-      def render_success(message: t('.notice'), locals: {})
+      def render_success(message: t('.notice'), locals: {}, errors: [])
         locals = locals.merge(saved: true)
-        render_message(message, :success, locals)
+        render_message(message: message, type: :success, locals: locals, errors: errors)
       end
 
 
-      def render_failed(message: t('.error'), locals: {})
+      def render_failed(message: t('.error'), locals: {}, errors: [])
         locals = locals.merge(saved: false)
-        render_message(message, :error, locals)
+        render_message(message: message, type: :error, locals: locals, errors: errors)
       end
 
 

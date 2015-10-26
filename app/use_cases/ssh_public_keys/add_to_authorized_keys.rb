@@ -25,11 +25,11 @@ module SshPublicKeys
             File.open(SshPublicKey.authorized_key_file, 'w') { |f| f.write(ssh_public_key.ssh_command(script_path) + "\n") }
           rescue Errno::ENOENT => e
             log_exception(e)
-            error_message(tt('errors.unwriteable'))
+            error_message(tt('errors.unwriteable', file: SshPublicKey.authorized_key_file))
           end
         rescue Errno::EACCES => e
           log_exception(e)
-          error_message(tt('errors.unwriteable'))
+          error_message(tt('errors.unwriteable', file: SshPublicKey.authorized_key_file))
         rescue => e
           log_exception(e)
           error_message(tt('errors.unknown'))
