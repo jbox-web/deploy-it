@@ -38,7 +38,7 @@ gem 'devise',        '~> 3.5.1'
 gem 'request_store', '~> 1.2.0'
 
 # Configuration
-gem 'dotenv-rails'
+gem 'dotenv-rails',  '~> 2.0.2'
 gem 'figaro',        '~> 1.1.0'
 gem 'settingslogic', '~> 2.0.9'
 
