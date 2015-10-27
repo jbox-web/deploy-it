@@ -23,6 +23,6 @@
 
             = f.form_group do
               = f.continue unless application.last_step?
-              = f.success if application.last_step?
+              = f.success nil, data: { disable_with: t('text.save_in_progress') } if application.last_step?
               = f.back unless application.first_step?
               = f.cancel applications_path if application.first_step?
