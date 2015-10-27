@@ -14,7 +14,7 @@ if ENV['RAILS_ENV'] == 'production'
   daemonize            true
   pidfile              File.join(Dir.pwd, 'tmp', 'pids', 'puma.pid')
   state_path           File.join(Dir.pwd, 'tmp', 'sockets', 'puma.state')
-  activate_control_app File.join(Dir.pwd, 'tmp', 'sockets', 'pumactl.sock')
+  activate_control_app "unix://#{File.join(Dir.pwd, 'tmp', 'sockets', 'pumactl.sock')}"
   stdout_redirect      File.join(Dir.pwd, 'log', 'puma.stdout.log'), File.join(Dir.pwd, 'log', 'puma.stderr.log')
 
   on_worker_boot do
