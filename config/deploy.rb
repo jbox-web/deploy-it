@@ -24,6 +24,9 @@ set :forward_agent, true
 # Sidekiq settings
 set :sidekiq_pid, "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid"
 
+# Puma settings
+set :puma_config, "#{deploy_to}/#{current_path}/config/puma.rb"
+
 # Foreman settings
 set :application,      'deploy-it'
 set :foreman_format,   'systemd'

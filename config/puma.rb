@@ -8,7 +8,7 @@ environment ENV['RAILS_ENV'] || 'development'
 
 preload_app!
 
-port ENV['PORT'] || 5000
+bind "tcp://127.0.0.1:#{(ENV['PORT'] || 5000)}"
 
 if ENV['RAILS_ENV'] == 'production'
   daemonize       true
