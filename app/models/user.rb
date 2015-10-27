@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   ## Relations
-  has_many :ssh_public_keys
+  has_many :ssh_public_keys, dependent: :destroy
   has_and_belongs_to_many :groups
 
   has_many :memberships, as: :enrolable, class_name: 'Member', dependent: :destroy
