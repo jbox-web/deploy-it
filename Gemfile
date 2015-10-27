@@ -171,5 +171,5 @@ group :development do
   gem 'mina-scp',     require: false
 
   # gem 'brakeman', '~> 2.6.3'
-  # gem 'bullet',   '~> 4.14.7'
+  # gem 'bullet',   '~> 4.14.10'
 end
