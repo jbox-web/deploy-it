@@ -106,7 +106,7 @@ class ApplicationsController < DCIController
     end
 
 
-    def render_message(message, type, locals = {})
+    def render_message(message:, type:, locals: {}, errors: [])
       self.render_flash_message = success_create?(type)
       super
     end
