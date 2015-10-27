@@ -42,7 +42,7 @@ module DCI
         flash_type = type == :success ? :notice : :alert
         flash[flash_type] = message if render_flash_message?
         flash[:alert] = errors if render_flash_message? && errors.any?
-        render_dci_response(template: get_template, locals: locals, type: type)
+        render_dci_response(template: get_template, type: type, locals: locals)
       end
 
 
@@ -85,21 +85,48 @@ module DCI
 
 
         def get_template(action: action_name)
-          action
+          case action
+          when 'new', 'create'
+            'new'
+          when 'edit', 'update'
+            'edit'
+          else
+            action
+          end
         end
 
 
-        def destroy?
+        def create_action?
+          action_name == 'create'
+        end
+
+
+        def update_action?
+          action_name == 'update'
+        end
+
+
+        def destroy_action?
           action_name == 'destroy'
         end
 
 
-        def success_create?(type)
-          action_name == 'create' && type == :success
+        def success_action?(type)
+          type == :success
         end
 
 
-        def render_dci_response(template: action_name, locals: {}, type:, &block)
+        def success_create?(type)
+          create_action? && success_action?(type)
+        end
+
+
+        def success_update?(type)
+          update_action? && success_action?(type)
+        end
+
+
+        def render_dci_response(template:, type:, locals: {}, &block)
           if block_given?
             yield
           else

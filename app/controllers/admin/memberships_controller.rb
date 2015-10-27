@@ -56,7 +56,7 @@ class Admin::MembershipsController < Admin::DCIController
     end
 
 
-    def render_dci_response(template: action_name, locals: {}, type:, &block)
+    def render_dci_response(template:, type:, locals: {}, &block)
       set_smart_listing
       super
     end

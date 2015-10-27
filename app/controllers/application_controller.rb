@@ -40,6 +40,11 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def set_credential
+    set_credential_by(params[:id])
+  end
+
+
   def set_user_by(param)
     @user = User.find(param)
   rescue ActiveRecord::RecordNotFound => e
@@ -69,6 +74,13 @@ class ApplicationController < ActionController::Base
     rescue ActiveRecord::RecordNotFound => e
       render_404
     end
+  end
+
+
+  def set_credential_by(params)
+    @credential = RepositoryCredential.find(params)
+  rescue ActiveRecord::RecordNotFound => e
+    render_404
   end
 
 

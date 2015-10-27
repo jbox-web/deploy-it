@@ -95,8 +95,8 @@ class ApplicationsController < DCIController
     end
 
 
-    def render_dci_response(template: action_name, locals: {}, type:, &block)
-      if destroy?
+    def render_dci_response(template:, type:, locals: {}, &block)
+      if destroy_action?
         super { redirect_to applications_path }
       elsif success_create?(type)
         super { render_ajax_redirect application_path(locals[:application]) }
