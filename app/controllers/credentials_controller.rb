@@ -13,10 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class CredentialsController < ApplicationController
+class CredentialsController < DCIController
+
+  set_dci_role 'DCI::Roles::RepositoryCredentialsManager'
 
   before_action :authorize_global
-  before_action :set_credential, only: [:edit, :update, :destroy]
+  before_action :set_credential,  only: [:edit, :update, :destroy]
+  before_action :add_breadcrumbs, except: [:index, :show]
 
 
   def index
@@ -30,101 +33,57 @@ class CredentialsController < ApplicationController
 
 
   def new
-    @credential = RepositoryCredential.new
-    @credential_form = CredentialCreationForm.new(@credential)
-    add_breadcrumbs
+    @credential = CredentialCreationForm.new(RepositoryCredential.new)
+    render locals: { credential: @credential }
   end
 
 
   def edit
-    add_breadcrumbs
   end
 
 
   def create
-    @credential = type_class.new
-    @credential_form = CredentialCreationForm.new(@credential)
-    @credential_form.submit(credential_create_params)
-    if @credential_form.save
-      render_success
-    else
-      add_breadcrumbs
-      render :new
-    end
+    set_dci_data({ repository_credential: [:name, :type, :login, :password, :public_key, :private_key, :create_options] })
+    call_dci_role(:create_credential)
   end
 
 
   def update
-    if @credential.update(credential_update_params)
-      render_success
-    else
-      add_breadcrumbs
-      render :edit
-    end
+    set_dci_data({ credential_hash => [:name, :login, :password] })
+    call_dci_role(:update_credential, @credential)
   end
 
 
   def destroy
-    @credential.destroy ? render_success : render_failed
+    call_dci_role(:delete_credential, @credential) if request.delete?
   end
 
 
   private
 
 
-    def type
-      accepted_klasses.include?(params[:repository_credential][:type]) ? params[:repository_credential][:type] : default_klass
+    def credential_hash
+      @credential.type.underscore.gsub('/', '_').to_sym
     end
 
 
-    def default_klass
-      'RepositoryCredential'
-    end
-
-
-    def accepted_klasses
-      ['RepositoryCredential::BasicAuth', 'RepositoryCredential::SshKey']
-    end
-
-
-    def type_class
-      type.constantize
-    end
-
-
-    def set_credential
-      @credential = RepositoryCredential.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
-    end
-
-
-    def credential_create_params
-      params.require(:repository_credential).permit(:name, :type, :login, :password, :public_key, :private_key, :create_options)
-    end
-
-
-    def credential_update_params
-      params.require(@credential.type.underscore.gsub('/', '_').to_sym).permit(:name, :login, :password)
-    end
-
-
-    def render_success
-      redirect_to applications_path, notice: t('.notice')
-    end
-
-
-    def render_failed
-      redirect_to applications_path, alert: @credential.errors.full_messages
+    def render_dci_response(template:, type:, locals: {}, &block)
+      if destroy_action?
+        super { redirect_to applications_path }
+      elsif success_create?(type) || success_update?(type)
+        super { redirect_to applications_path }
+      else
+        super
+      end
     end
 
 
     def add_breadcrumbs(type: action_name)
       case type
       when 'new', 'create'
-        add_crumb label_with_icon(t('.title'), 'fa-lock', fixed: true), applications_path
+        add_breadcrumb t('.title'), 'fa-lock', applications_path
       when 'edit', 'update'
-        add_crumb label_with_icon(@credential.name, 'fa-lock', fixed: true), applications_path
+        add_breadcrumb @credential.name, 'fa-lock', applications_path
         add_crumb t('text.edit'), '#'
       end
     end
