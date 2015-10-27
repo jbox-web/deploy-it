@@ -38,9 +38,6 @@ module DeployIt
     # ActiveJob config
     config.active_job.queue_adapter = :sidekiq
 
-    # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
-
     # Cookie / Session config
     config.action_dispatch.cookies_serializer = :json
     config.session_store :cookie_store, key: '_deploy-it_session'

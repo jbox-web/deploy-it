@@ -17,10 +17,10 @@ require_relative '../lib/deploy_it/utils/http'
 
 def get_user_authorization(token, fingerprint, repo_name)
   # Build auth url
-  auth_server = ENV["AUTHENTICATION_SERVER"] || "http://127.0.0.1:3000"
+  auth_server = ENV['AUTHENTICATION_SERVER'] || 'http://127.0.0.1:5000'
   auth_path   = '/deploy_it/auth'
   auth_url    = File.join(auth_server, auth_path)
-  data = { token: token, fingerprint: fingerprint, repo_name: repo_name }
+  data = { auth_token: token, fingerprint: fingerprint, repo_name: repo_name }
   failed, message = DeployIt::Utils::Http.post_data(auth_url, data)
   failed ? { 'auth' => { 'passed' => false, 'messages' => [message] } } : message
 end

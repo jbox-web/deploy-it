@@ -33,11 +33,11 @@ class DeployItAuthController < ApplicationController
 
 
     def find_params
-      @token       = params[:token]       || ''
+      @auth_token  = params[:auth_token]  || ''
       @fingerprint = params[:fingerprint] || ''
       @repo_name   = params[:repo_name]   || ''
 
-      return render_error(t('errors.deploy_it.missing_param', param: 'token'))       if @token.empty?
+      return render_error(t('errors.deploy_it.missing_param', param: 'auth_token'))  if @auth_token.empty?
       return render_error(t('errors.deploy_it.missing_param', param: 'fingerprint')) if @fingerprint.empty?
       return render_error(t('errors.deploy_it.missing_param', param: 'repo_name'))   if @repo_name.empty?
     end
@@ -45,7 +45,7 @@ class DeployItAuthController < ApplicationController
 
     def authenticate_user
       # First authenticate user in Deployer
-      authentication = Authentifier.new(@token, @fingerprint)
+      authentication = Authentifier.new(@auth_token, @fingerprint)
       return render_error(authentication.errors) if !authentication.passed?
       @user = authentication.user
     end
