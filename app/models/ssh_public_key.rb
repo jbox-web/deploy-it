@@ -86,7 +86,7 @@ class SshPublicKey < ActiveRecord::Base
     def build_ssh_comand(path)
       args = [path, *ssh_signed_command].compact.join(' ')
       cmd  = "command=\"#{args}\""
-      SSH_BASE_DIRECTIVES.push(cmd).join(',').strip
+      SSH_BASE_DIRECTIVES.clone.push(cmd).join(',').strip
     end
 
 
