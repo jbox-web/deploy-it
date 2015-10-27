@@ -28,7 +28,7 @@ class ApplicationsController < DCIController
 
   def index
     add_breadcrumb Application.model_name.human(count: 2), 'fa-desktop', ''
-    @applications = Application.visible.all
+    @applications = Application.visible.includes(:stage, :database).sorted_by_fullname
     render layout: 'base'
   end
 
