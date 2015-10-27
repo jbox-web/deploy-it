@@ -44,6 +44,9 @@ class SshPublicKey < ActiveRecord::Base
     self.fingerprint = DeployIt::Utils::Ssh.fingerprint(key) if !key.nil?
   end
 
+  ## Scopes
+  scope :active, -> { where(active: true) }
+
 
   def owner
     user.email
@@ -57,6 +60,16 @@ class SshPublicKey < ActiveRecord::Base
 
   def ssh_command(script_path)
     [build_ssh_comand(script_path), key].compact.join(' ').strip
+  end
+
+
+  def enable!
+    update_attribute(:active, true)
+  end
+
+
+  def disable!
+    update_attribute(:active, false)
   end
 
 

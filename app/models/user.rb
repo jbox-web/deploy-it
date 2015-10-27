@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   before_validation { self.email = email.downcase if !email.nil? }
   before_validation :ensure_api_token
   before_validation :ensure_authentication_token
+  after_save        :toggle_ssh_keys
 
   ## Scopes
   scope :by_email,  -> { order(email: :asc) }
@@ -133,6 +134,21 @@ class User < ActiveRecord::Base
 
   def subscribed_channels
     AsyncNotifications.channels.map(&:name)
+  end
+
+
+  def enable_ssh_keys!
+    ssh_public_keys.map(&:enable!)
+  end
+
+
+  def disable_ssh_keys!
+    ssh_public_keys.map(&:disable!)
+  end
+
+
+  def toggle_ssh_keys
+    enabled? ? enable_ssh_keys! : disable_ssh_keys! if enabled_changed?
   end
 
 

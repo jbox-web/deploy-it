@@ -13,35 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class DeployItIdentController < ApplicationController
-
-  protect_from_forgery except: :index
-  skip_before_action :require_login
-
-  before_action :authenticate_request
-
-
-  def index
-    render text: compute_authorized_keys
+class AddActiveFieldToSshPublicKeys < ActiveRecord::Migration
+  def change
+    add_column :ssh_public_keys, :active, :boolean, after: :key, default: true
   end
-
-
-  private
-
-
-    def authenticate_request
-      auth_token = params[:auth_token] || ''
-      return render text: '' if auth_token.empty? || auth_token != Settings.authentication_token
-    end
-
-
-    def compute_authorized_keys
-      SshPublicKey.active.map { |k| k.ssh_command(script_path) }.join("\n")
-    end
-
-
-    def script_path
-      File.join(Settings.scripts_path, 'deploy-it-authentifier')
-    end
-
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010155128) do
+ActiveRecord::Schema.define(version: 20151027160849) do
 
   create_table "addons", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20151010155128) do
     t.string   "image_type",          limit: 255
     t.string   "buildpack",           limit: 255
     t.integer  "instance_number",     limit: 4,     default: 1
-    t.integer  "max_memory",          limit: 4
+    t.integer  "max_memory",          limit: 4,     default: 256
     t.boolean  "use_cron",                          default: false
     t.boolean  "use_ssl",                           default: false
     t.boolean  "debug_mode",                        default: false
@@ -363,8 +363,9 @@ ActiveRecord::Schema.define(version: 20151010155128) do
     t.string   "title",       limit: 255
     t.string   "fingerprint", limit: 255
     t.text     "key",         limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "active",                    default: true
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "ssh_public_keys", ["fingerprint"], name: "index_ssh_public_keys_on_fingerprint", using: :btree
