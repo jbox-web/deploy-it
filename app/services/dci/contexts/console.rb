@@ -17,7 +17,7 @@ module DCI
   module Contexts
     module Console
       extend self
-      include Base
+      extend Base
 
 
       def render_message(message:, type:, locals: {}, errors: [])
