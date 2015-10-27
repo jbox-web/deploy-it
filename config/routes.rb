@@ -51,7 +51,9 @@ Rails.application.routes.draw do
   end
 
   ## DeployIt Authentifier
-  post 'deploy_it/auth'
+  constraints IpWhiteList.new do
+    post 'deploy_it/auth'
+  end
 
   resources :credentials
   scope '/credentials' do

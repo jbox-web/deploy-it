@@ -16,6 +16,7 @@ docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>
 # DeployIt authentication server
 authentication_server:    <%= ENV['AUTHENTICATION_SERVER'] %>
 authentication_token:     <%= ENV['AUTHENTICATION_TOKEN'] %>
+white_listed_ips:         <%= ENV['WHITE_LISTED_IPS'].split(',') %>
 
 # DeployIt directories
 applications_clones_dir:  <%= ENV['APPLICATIONS_CLONES_DIR'] %>
