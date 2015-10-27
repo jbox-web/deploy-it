@@ -39,19 +39,19 @@ module Authorizable
         false
       else
         # Authorize if user is authorized on every element of the array
-        context.map {|application| allowed_to?(action, application, options, &block)}.reduce(:&)
+        context.map { |application| allowed_to?(action, application, options, &block) }.reduce(:&)
       end
     elsif options[:global]
       # Admin users are always authorized
       return true if admin?
 
       # authorize if user has at least one role that has this permission
-      roles = memberships.collect {|m| m.roles}.flatten.uniq
+      roles = memberships.includes(:roles).collect { |m| m.roles }.flatten.uniq
       roles << (self.logged? ? Role.non_member : Role.anonymous)
-      roles.any? {|role|
+      roles.any? do |role|
         role.allowed_to?(action) &&
         (block_given? ? yield(role, self) : true)
-      }
+      end
     else
       false
     end
@@ -74,7 +74,7 @@ module Authorizable
     return @applications_by_role if @applications_by_role
 
     @applications_by_role = Hash.new([])
-    memberships.each do |membership|
+    memberships.includes([:application, :roles]).each do |membership|
       if membership.application
         membership.roles.each do |role|
           @applications_by_role[role] = [] unless @applications_by_role.key?(role)
