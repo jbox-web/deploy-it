@@ -29,3 +29,4 @@ fr:
       change_password:
         changing_password: Changement de mot de passe
         notice: Mot de passe mis à jour avec succès
+        error: Erreurs lors de la mise à jour du mot de passe

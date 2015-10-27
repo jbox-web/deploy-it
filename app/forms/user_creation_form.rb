@@ -63,31 +63,8 @@ class UserCreationForm < ActionForm::Base
   end
 
 
-  ## Override inherited method to send email.
-  ## (kind of alias_method_chain)
-  def save
-    ## Get saved status from inherited class
-    saved = super
-
-    if saved
-      send_email if send_email?
-    end
-
-    ## Return saved to not break controller
-    saved
+  def send_email?
+    send_by_mail == '1'
   end
-
-
-  private
-
-
-    def send_email?
-      send_by_mail == '1'
-    end
-
-
-    def send_email
-      RegistrationMailer.welcome(user, created_password).deliver_now
-    end
 
 end

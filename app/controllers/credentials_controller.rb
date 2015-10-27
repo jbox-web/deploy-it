@@ -68,9 +68,7 @@ class CredentialsController < DCIController
 
 
     def render_dci_response(template:, type:, locals: {}, &block)
-      if destroy_action?
-        super { redirect_to applications_path }
-      elsif success_create?(type) || success_update?(type)
+      if destroy_action? || success_create?(type) || success_update?(type)
         super { redirect_to applications_path }
       else
         super

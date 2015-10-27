@@ -112,6 +112,11 @@ module DCI
         end
 
 
+        def change_password_action?
+          action_name == 'change_password'
+        end
+
+
         def success_action?(type)
           type == :success
         end
@@ -124,6 +129,11 @@ module DCI
 
         def success_update?(type)
           update_action? && success_action?(type)
+        end
+
+
+        def success_password_update?(type)
+          change_password_action? && success_action?(type)
         end
 
 
