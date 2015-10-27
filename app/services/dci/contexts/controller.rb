@@ -85,6 +85,7 @@ module DCI
 
 
         def get_template(action: action_name)
+          return action if request.xhr?
           case action
           when 'new', 'create'
             'new'
