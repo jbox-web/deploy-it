@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class DeployItController < ApplicationController
+class DeployItAuthController < ApplicationController
 
-  protect_from_forgery except: :auth
+  protect_from_forgery except: :index
   skip_before_action :require_login
 
   before_action :find_params
@@ -23,7 +23,7 @@ class DeployItController < ApplicationController
   before_action :authorize_user
 
 
-  def auth
+  def index
     message = { auth: { passed: true, repo_path: @application.local_repo.path, user_id: @user.id } }
     render json: message
   end

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
   ## DeployIt Authentifier
   constraints IpWhiteList.new do
-    post 'deploy_it/auth'
+    post 'deploy_it/auth',  to: 'deploy_it_auth#index'
   end
 
   resources :credentials
