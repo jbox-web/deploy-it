@@ -13,6 +13,10 @@ mail_from:                <%= ENV['MAIL_FROM'] %>
 # Private Docker Registry
 docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>
 
+# DeployIt authentication server
+authentication_server:    <%= ENV['AUTHENTICATION_SERVER'] %>
+authentication_token:     <%= ENV['AUTHENTICATION_TOKEN'] %>
+
 # DeployIt directories
 applications_clones_dir:  <%= ENV['APPLICATIONS_CLONES_DIR'] %>
 applications_repos_dir:   <%= ENV['APPLICATIONS_REPOS_DIR'] %>

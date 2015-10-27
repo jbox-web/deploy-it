@@ -37,6 +37,7 @@ DEPLOY_IT_REQUIRED_KEYS = [
 
   # DeployIt authentication server
   'AUTHENTICATION_SERVER',
+  'AUTHENTICATION_TOKEN',
 
   # SSH authorized_keys file
   'SSH_CONFIG_FILE',
