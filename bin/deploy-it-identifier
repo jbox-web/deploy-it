@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Make the user configurable
+DEPLOY_IT_USER='deploy-it'
+
+# Exit if not matching
+[[ $1 != $DEPLOY_IT_USER ]] && exit 0
+
+DEPLOY_IT_HOME=$(getent passwd "$DEPLOY_IT_USER" | cut -d: -f6)
+DEPLOY_IT_PATH=$(cat "$DEPLOY_IT_HOME/.deploy-dir")
+DEPLOY_IT_CONF="$DEPLOY_IT_PATH/.env"
+DEPLOY_IT_AUTH_PATH='deploy_it/ident'
+
+source $DEPLOY_IT_CONF
+DEPLOY_IT_AUTH_URL="$AUTHENTICATION_SERVER/$DEPLOY_IT_AUTH_PATH"
+
+curl --data "auth_token=$AUTHENTICATION_TOKEN" $DEPLOY_IT_AUTH_URL
