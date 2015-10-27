@@ -25,16 +25,7 @@ class ChartsController < ApplicationController
 
 
   def charts
-    result =
-      case @group_by
-      when 'month_of_year'
-        @application.send(@type).group_by_month_of_year(:created_at, format: '%b').count
-      when 'day_of_week'
-        @application.send(@type).group_by_day_of_week(:created_at, format: '%A').count
-      when 'day'
-        @application.send(@type).group_by_day(:created_at).count
-      end
-    render json: result
+    render json: compute_chart
   end
 
 
@@ -42,19 +33,25 @@ class ChartsController < ApplicationController
 
 
     def set_type
-      if ALLOWED_TYPES.include?(params[:type])
-        @type = params[:type]
-      else
-        render_404
-      end
+      return render_404 unless ALLOWED_TYPES.include?(params[:type])
+      @type = params[:type]
     end
 
 
     def set_group_by
-      if ALLOWED_GROUPS.include?(params[:group_by])
-        @group_by = params[:group_by]
-      else
-        render_404
+      return render_404 unless ALLOWED_GROUPS.include?(params[:group_by])
+      @group_by = params[:group_by]
+    end
+
+
+    def compute_chart
+      case @group_by
+      when 'month_of_year'
+        @application.send(@type).group_by_month_of_year(:created_at, format: '%b').count
+      when 'day_of_week'
+        @application.send(@type).group_by_day_of_week(:created_at, format: '%A').count
+      when 'day'
+        @application.send(@type).group_by_day(:created_at).count
       end
     end
 
