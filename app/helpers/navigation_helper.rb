@@ -76,7 +76,7 @@ module NavigationHelper
 
 
   def render_menu(menu, opts = {})
-    locals = locals_for(:sidebar_menu)
+    locals = locals_for(:menus)
     locals = locals.call unless locals.nil?
     "#{menu}_navigation".camelize.constantize.new(self, opts).render(locals)
   end
