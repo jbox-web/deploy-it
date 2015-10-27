@@ -15,7 +15,7 @@
 
 class BaseNavigation < SimpleDelegator
 
-  include NavigationSection
+  include NavigationSections
 
   attr_reader :prefix
   attr_reader :opts
