@@ -21,26 +21,33 @@ module NavigationHelper
   # 2. the top menu of the left sidebar
   # 3. the bottom menu of the left sidebar
 
+  SIDEBAR_MENU_TOP_CONTENT    = [:admin, :user_account, :welcome, :application]
+  SIDEBAR_MENU_BOTTOM_CONTENT = [:applications, :credentials]
+
 
   def render_topbar_menu
-    TopbarMenu.new(self).render
+    User.current.logged? ? render_menu(:logged_user) : render_menu(:not_logged_user)
   end
 
 
   def render_sidebar_menu_top(prefix: nil)
-    return '' if !User.current.logged?
-    SidebarMenuTop.new(self, prefix).render
+    render_sidebar_menu(SIDEBAR_MENU_TOP_CONTENT, prefix)
   end
 
 
   def render_sidebar_menu_bottom(prefix: nil)
-    return '' if !User.current.logged?
-    SidebarMenuBottom.new(self, prefix).render
+    render_sidebar_menu(SIDEBAR_MENU_BOTTOM_CONTENT, prefix)
+  end
+
+
+  def render_sidebar_menu(items, prefix)
+    return '' unless User.current.logged?
+    items.map { |m| render_menu(m, prefix: prefix) }.compact.join.html_safe
   end
 
 
   def current_menu_name
-    BaseMenu.new(self).current_menu_name
+    BaseNavigation.new(self).section_name
   end
 
 
@@ -58,35 +65,20 @@ module NavigationHelper
   end
 
 
-  def menu_for(menu, &block)
-    @menu_for ||= {}
+  def locals_for(menu, &block)
+    @locals_for ||= {}
     if block_given?
-      @menu_for[menu] = block
+      @locals_for[menu] = block
     else
-      @menu_for[menu]
+      @locals_for[menu]
     end
   end
 
 
-  def menu_items_for(object, klass = nil, *args)
-    klass ||= "#{object.class.base_class}MenuItems".constantize
-    present(object, klass, *args)
-  end
-
-
-  def sidebar_menu(&block)
-    proc do |menu|
-      menu.dom_class = 'nav navmenu-nav'
-      yield menu
-    end
-  end
-
-
-  def topbar_right_menu(&block)
-    proc do |menu|
-      menu.dom_class = 'nav navbar-nav navbar-right'
-      yield menu
-    end
+  def render_menu(menu, opts = {})
+    locals = locals_for(:sidebar_menu)
+    locals = locals.call unless locals.nil?
+    "#{menu}_navigation".camelize.constantize.new(self, opts).render(locals)
   end
 
 end

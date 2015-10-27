@@ -15,6 +15,11 @@
 
 module ApplicationsHelper
 
+  def render_application_select_box(opts = {})
+    content_tag(:div, build_application_select_box, opts)
+  end
+
+
   def render_active_containers(application)
     css = application.containers.length == 0 ? 'danger' : 'success'
     css_class = "label label-#{css}"
@@ -88,11 +93,6 @@ module ApplicationsHelper
 
   def max_memory_available
     Application.max_memory_available.collect { |p| ["#{p}M", p] }
-  end
-
-
-  def show_application_links(application)
-    menu_items_for(application).render_links
   end
 
 

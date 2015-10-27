@@ -13,25 +13,21 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class SidebarMenuBottom < BaseMenu
+class CredentialsNavigation < BaseNavigation
 
-  def render
-    menu = ''
-    menu += render_menu(&credential_menu_items) if application_section? || credential_section?
-    menu.html_safe
+  def nav_menu
+    sidebar_menu do |menu|
+      menu.item with_prefix(:new_credentials), label_with_icon(t('layouts.sidebar.new_credentials'), 'fa-plus'), new_credential_path, if: -> { can?(:create_credential, nil, global: true) }
+
+      RepositoryCredential.all.each do |credential|
+        menu.item with_prefix(:credential), label_with_icon(credential.name, 'octicon octicon-key'), edit_credential_path(credential), if: -> { can?(:edit_credential, nil, global: true) }
+      end unless show_application_section?
+    end
   end
 
 
-  private
-
-
-    def credential_menu_items
-      sidebar_menu do |menu|
-        menu.item :new_credentials, label_with_icon(t('.new_credentials'), 'fa-plus'), new_credential_path if can?(:create_credential, nil, global: true)
-        RepositoryCredential.all.each do |credential|
-          menu.item :credential, label_with_icon(credential.name, 'octicon octicon-key'), edit_credential_path(credential)
-        end if can?(:edit_credential, nil, global: true)
-      end
-    end
+  def renderable?
+    application_section? || credential_section? || show_application_section?
+  end
 
 end

@@ -1,0 +1,13 @@
+.panel.panel-default
+  %table{ class: 'table table-hover' }
+    %thead
+      %tr
+        %th= Application.human_attribute_name('name')
+        %th= Application.human_attribute_name('domain_name')
+        %th= Application.human_attribute_name('status')
+      %tbody
+        - applications.each do |application|
+          %tr
+            %td= link_to application.fullname, infos_application_path(application)
+            %td= link_to_external application.domain_name
+            %td= render 'applications/show/settings_status', application: application

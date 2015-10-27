@@ -1,4 +1,9 @@
 .row
   %div{ class: 'col-md-12' }
 
-    %h3{ class: 'page-header' }= render_crumbs
+    %h3{ class: 'page-header' }
+      = render_crumbs
+      .contextual.contextual-header
+        = button_add new_application_path
+
+    = render 'list', applications: @applications

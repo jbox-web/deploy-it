@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-SimpleNavigation::Configuration.run do |config|
-  config.auto_highlight       = true
-  config.highlight_on_subpath = true
+SimpleNavigation::Configuration.run do |navigation|
+  navigation.auto_highlight       = true
+  navigation.highlight_on_subpath = true
 end
