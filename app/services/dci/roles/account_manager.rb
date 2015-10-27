@@ -47,7 +47,8 @@ module DCI
 
 
       def create_user(params = {})
-        user_form = UserCreationForm.new(User.new).submit(params)
+        user_form = UserCreationForm.new(User.new)
+        user_form.submit(params)
         if user_form.save
           send_email(:welcome, user_form.user, user_form.created_password) if user_form.send_email?
           context.render_success
@@ -73,7 +74,8 @@ module DCI
 
 
       def change_password(user, params = {}, &block)
-        password_form = AdminPasswordForm.new(user).submit(params)
+        password_form = AdminPasswordForm.new(user)
+        password_form.submit(params)
         if password_form.save
           yield if block_given?
           send_email(:password_changed, user, password_form.new_password) if password_form.send_email?
