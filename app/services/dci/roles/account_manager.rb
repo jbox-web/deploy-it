@@ -35,22 +35,14 @@ module DCI
 
       def create_ssh_key(user, params = {})
         ssh_key = SshPublicKey.new(params.merge(user_id: user.id))
-        if ssh_key.save
-          task = add_ssh_key_to_file(ssh_key)
-          context.render_success(locals: { user: user }, errors: task.errors)
-        else
-          context.render_failed(locals: { user: user, ssh_key: ssh_key })
-        end
+        locals = { user: user }
+        ssh_key.save ? context.render_success(locals: locals) : context.render_failed(locals: locals.merge(ssh_key: ssh_key))
       end
 
 
       def delete_ssh_key(user, ssh_key, params = {})
-        if ssh_key.destroy
-          task = remove_ssh_key_from_file(ssh_key)
-          context.render_success(locals: { user: user }, errors: task.errors)
-        else
-          context.render_failed(locals: { user: user })
-        end
+        locals = { locals: { user: user } }
+        ssh_key.destroy ? context.render_success(locals) : context.render_failed(locals)
       end
 
 
@@ -68,8 +60,7 @@ module DCI
       def update_user(user, params = {}, &block)
         if user.update(params)
           yield if block_given?
-          errors = toggle_ssh_keys(user)
-          context.render_success(errors: errors)
+          context.render_success
         else
           context.render_failed(locals: { user: user })
         end
@@ -77,12 +68,7 @@ module DCI
 
 
       def delete_user(user)
-        if user.destroy
-          errors = execute_post_action(user, :remove_ssh_key_from_file)
-          context.render_success(errors: errors)
-        else
-          context.render_failed
-        end
+        user.destroy ? context.render_success : context.render_failed
       end
 
 
@@ -99,31 +85,6 @@ module DCI
 
 
       private
-
-
-        def toggle_ssh_keys(user)
-          user.disabled? ? execute_post_action(user, :remove_ssh_key_from_file) : execute_post_action(user, :add_ssh_key_to_file)
-        end
-
-
-        def remove_ssh_key_from_file(ssh_key)
-          ssh_key.remove_from_authorized_keys!
-        end
-
-
-        def add_ssh_key_to_file(ssh_key)
-          ssh_key.add_to_authorized_keys!
-        end
-
-
-        def execute_post_action(user, method)
-          errors = []
-          user.ssh_public_keys.each do |ssh_key|
-            task = self.send(method, ssh_key)
-            errors += task.errors if !task.success?
-          end
-          errors
-        end
 
 
         def send_email(method, user, password)

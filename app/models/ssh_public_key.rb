@@ -44,18 +44,6 @@ class SshPublicKey < ActiveRecord::Base
     self.fingerprint = DeployIt::Utils::Ssh.fingerprint(key) if !key.nil?
   end
 
-  ## UseCases
-  add_use_cases [ :add_to_authorized_keys, :remove_from_authorized_keys ]
-
-
-  class << self
-
-    def authorized_key_file
-      Settings.ssh_config_file
-    end
-
-  end
-
 
   def owner
     user.email
@@ -64,14 +52,6 @@ class SshPublicKey < ActiveRecord::Base
 
   def token
     user.authentication_token
-  end
-
-
-  def exists_in_authorized_key_file?
-    line = File.open(self.class.authorized_key_file, 'r') { |f| f.each_line.detect { |line| /#{fingerprint}/.match(line) } }
-    !line.nil?
-  rescue Errno::ENOENT
-    false
   end
 
 

@@ -40,9 +40,6 @@ DEPLOY_IT_REQUIRED_KEYS = [
   'AUTHENTICATION_TOKEN',
   'WHITE_LISTED_IPS',
 
-  # SSH authorized_keys file
-  'SSH_CONFIG_FILE',
-
   # DeployIt domain name
   'ACCESS_DOMAIN_NAME',
 
