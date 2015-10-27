@@ -19,6 +19,7 @@ class Authentifier
   attr_reader :fingerprint
   attr_reader :user
   attr_reader :ssh_key
+  attr_reader :errors
 
 
   def initialize(token, fingerprint)
@@ -26,6 +27,7 @@ class Authentifier
     @fingerprint = fingerprint
     @user        = nil
     @ssh_key     = nil
+    @errors      = []
 
     find_user
     find_fingerprint
@@ -36,6 +38,8 @@ class Authentifier
     if !user.nil? && !ssh_key.nil?
       true
     else
+      @errors << I18n.t('errors.deploy_it.account_not_found')
+      @errors << I18n.t('errors.deploy_it.subscribe')
       false
     end
   end

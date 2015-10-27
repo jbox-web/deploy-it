@@ -33,24 +33,20 @@ class DeployItController < ApplicationController
 
 
     def find_params
-      token       = params[:token] || ''
-      fingerprint = params[:fingerprint] || ''
-      repo_name   = params[:repo_name] || ''
+      @token       = params[:token]       || ''
+      @fingerprint = params[:fingerprint] || ''
+      @repo_name   = params[:repo_name]   || ''
 
-      return render_error('Error! Missing params : token') if token.empty?
-      return render_error('Error! Missing params : fingerprint') if fingerprint.empty?
-      return render_error('Error! Missing params : repo_name') if repo_name.empty?
-
-      @token       = token
-      @fingerprint = fingerprint
-      @repo_name   = repo_name
+      return render_error(t('errors.deploy_it.missing_param', param: 'token'))       if @token.empty?
+      return render_error(t('errors.deploy_it.missing_param', param: 'fingerprint')) if @fingerprint.empty?
+      return render_error(t('errors.deploy_it.missing_param', param: 'repo_name'))   if @repo_name.empty?
     end
 
 
     def authenticate_user
       # First authenticate user in Deployer
       authentication = Authentifier.new(@token, @fingerprint)
-      return render_error(["You don't have any account on this platform !", "Subscribe before : http://www.jbox-cloud.com"]) if !authentication.passed?
+      return render_error(authentication.errors) if !authentication.passed?
       @user = authentication.user
     end
 

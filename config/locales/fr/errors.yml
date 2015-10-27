@@ -23,3 +23,9 @@ fr:
 
     deploy_it:
       unbuildable: "Reconstruction impossible : vous devez d'abord pousser des données via 'git push'"
+      missing_param: "Paramètre manquant : '%{param}'"
+      account_not_found: "Vous n'avez pas de compte sur cette plateforme!"
+      subscribe: "Inscrivez vous! http://www.jbox-cloud.com"
+      repository_not_found: Dépôt non trouvé
+      contact_your_admin: Contactez votre administrateur
+      unauthorized: Vous n'êtes pas autorisés à déployer ce contenaire!

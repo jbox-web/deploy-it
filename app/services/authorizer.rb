@@ -40,8 +40,8 @@ class Authorizer
     def find_application
       app = Application.find_by_repo_url(repo_name)
       if app.nil?
-        @errors << "Repository does not exist in Deployer !"
-        @errors << "Please contact your administrator."
+        @errors << I18n.t('errors.deploy_it.repository_not_found')
+        @errors << I18n.t('errors.deploy_it.contact_your_admin')
         false
       else
         @application = app
@@ -54,8 +54,8 @@ class Authorizer
       if user.allowed_to?(:build_application, application)
         true
       else
-        @errors << "You're not authorized to deploy container !"
-        @errors << "Please contact your administrator."
+        @errors << I18n.t('errors.deploy_it.unauthorized')
+        @errors << I18n.t('errors.deploy_it.contact_your_admin')
         false
       end
     end
