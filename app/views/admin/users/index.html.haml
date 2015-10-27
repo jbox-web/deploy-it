@@ -4,8 +4,9 @@
   %div{ class: 'col-md-offset-1 col-md-10' }
 
     %h3{ class: 'page-header' }
-      = label_with_icon(get_model_name_for('User'), 'fa-user', fixed: true)
-      = button_add new_admin_user_path
+      = render_crumbs
+      .contextual.contextual-header
+        = button_add new_admin_user_path
 
     = render 'admin/users/user', users: @users.active.admin,     label: label_with_icon(t('.admins'), 'fa-star')
     = render 'admin/users/user', users: @users.active.non_admin, label: label_with_icon(t('.non_admins'), 'fa-user')

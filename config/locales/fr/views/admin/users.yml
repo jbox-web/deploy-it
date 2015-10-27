@@ -11,9 +11,12 @@ fr:
         title: Modifier l'utilisateur
         settings: Paramètres
       create:
+        title: Nouvel utilisateur
         notice: Utilisateur créé avec succès
+        error: Erreurs lors de la création de l'utilisateur
       update:
         notice: Utilisateur modifié avec succès
+        error: Erreurs lors de la modification de l'utilisateur
       destroy:
         notice: Utilisateur supprimé avec succès
 

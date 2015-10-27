@@ -90,6 +90,12 @@ class User < ActiveRecord::Base
   end
 
 
+  def first_admin?
+    return false if id.nil?
+    id == 1
+  end
+
+
   def last_connection
     last_sign_in_at ? I18n.l(last_sign_in_at) : User.human_attribute_name('never_connected')
   end

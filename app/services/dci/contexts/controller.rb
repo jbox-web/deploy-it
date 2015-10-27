@@ -54,10 +54,10 @@ module DCI
         end
 
 
-        def call_dci_role(method, *args)
+        def call_dci_role(method, *args, &block)
           opts = get_dci_data
           args << opts unless opts.nil?
-          get_dci_role.constantize.new(self).send(method, *args)
+          get_dci_role.constantize.new(self).send(method, *args, &block)
         end
 
 

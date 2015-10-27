@@ -6,11 +6,11 @@
     %h3{ class: 'page-header' }= render_crumbs
 
     = bootstrap_form_for @user_form,
-                         layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-5 col-md-4 col-lg-3",
+                         layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-5 col-md-4 col-lg-3',
                          url:    admin_users_path,
                          html:   { method: :post } do |f|
 
-      = render 'form', f: f
+      = render 'form', f: f, object: user.model
 
       #select-password-creation-mode
         = f.hidden_field :create_options, value: ''
