@@ -15,6 +15,9 @@
 
 class Addon < ActiveRecord::Base
 
+  ADDONS_PORTS = { redis: 6379, memcached: 11211 }
+
+
   ## Basic Validations
   validates :name,  presence: true, uniqueness: true
   validates :image, presence: true
@@ -30,6 +33,11 @@ class Addon < ActiveRecord::Base
 
   def type
     name.downcase.to_sym
+  end
+
+
+  def port
+    ADDONS_PORTS[type]
   end
 
 end

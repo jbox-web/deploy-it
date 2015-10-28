@@ -107,6 +107,14 @@ class Application < ActiveRecord::Base
       url.start_with?('/') ? url[1..-1] : url
     end
 
+    def addons_available
+      Addon.all.map(&:type)
+    end
+
+    def application_containers
+      Container::APPLICATION_CONTAINERS.keys
+    end
+
   end
 
 

@@ -17,6 +17,11 @@ module ActsAs
   module DockerContainer
     extend ActiveSupport::Concern
 
+    APPLICATION_CONTAINERS    = { web: 'Container::Web', data: 'Container::Data', cron: 'Container::Cron' }
+    ADDONS_CONTAINERS         = { redis: 'Container::Redis', memcached: 'Container::Memcached' }
+    CONTAINER_TYPES_AVAILABLE = {}.merge(APPLICATION_CONTAINERS).merge(ADDONS_CONTAINERS)
+
+
     def docker_proxy
       @docker_proxy ||= DockerContainerProxy.new(self)
     end

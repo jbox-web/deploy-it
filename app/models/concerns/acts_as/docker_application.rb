@@ -48,7 +48,7 @@ module ActsAs
 
 
     def port
-      '5000'
+      5000
     end
 
 
@@ -159,7 +159,12 @@ module ActsAs
 
 
     def application_container?(type)
-      [:web, :cron, :data].include?(type)
+      self.class.application_containers.include?(type)
+    end
+
+
+    def application_addon?(type)
+      self.class.addons_available.include?(type)
     end
 
 
@@ -177,6 +182,7 @@ module ActsAs
 
     def get_container_port(type)
       return port if type == :web
+      return addons.select { |a| a.type == type }.first.port if application_addon?(type)
       nil
     end
 
