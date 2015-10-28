@@ -138,8 +138,16 @@ module ActsAs
 
 
     def create_container!(type:, release_id:)
-      server = find_server_with_role(:docker)
-      containers.create(server_id: server.id, release_id: release_id, type: "Container::#{type.to_s.capitalize}", image_type: get_image_type(type), memory: get_container_memory(type))
+      server  = find_server_with_role(:docker)
+      options = {
+        server_id:  server.id,
+        release_id: release_id,
+        image_type: get_image_type(type),
+        memory:     get_container_memory(type),
+        port:       get_container_port(type),
+        type:       "Container::#{type.to_s.capitalize}"
+      }
+      containers.create(options)
     end
 
 
@@ -167,40 +175,18 @@ module ActsAs
     end
 
 
+    def get_container_port(type)
+      return port if type == :web
+      nil
+    end
+
+
     def docker_options_for(step)
       case step
-      when :receive
-        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:receive] } }
-      when :build
-        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:build] } }
-      when :release
+      when :receive, :build
+        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[step] } }
+      else
         { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
-      when :cron
-        {
-          "Cmd"   => start_command('cron'),
-          "Image" => image_tagged,
-          "Env"   => active_env_vars.to_env,
-          "HostConfig" => {
-            "Binds" => active_mount_points_with_path[:deploy]
-          }
-        }
-      when :web
-        {
-          "Cmd"   => start_command('web'),
-          "Image" => image_tagged,
-          "Env"   => active_env_vars.to_env,
-          "ExposedPorts" => {
-            "#{port}/tcp" => {}
-          },
-          "HostConfig" => {
-            "Binds" => active_mount_points_with_path[:deploy],
-            "PortBindings" => {
-              "#{port}/tcp" => [{
-                "HostIp" => "127.0.0.1"
-              }]
-            }
-          }
-        }
       end
     end
 

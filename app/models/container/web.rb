@@ -19,4 +19,9 @@ class Container::Web < Container
     Settings.docker_registry
   end
 
+
+  def start_command
+    ['/bin/bash', '-c', '/start web']
+  end
+
 end

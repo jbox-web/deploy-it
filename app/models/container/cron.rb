@@ -19,4 +19,9 @@ class Container::Cron < Container
     Settings.docker_registry
   end
 
+
+  def start_command
+    ['/bin/bash', '-c', '/start cron']
+  end
+
 end

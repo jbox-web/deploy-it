@@ -22,7 +22,7 @@ module Containers
     def execute(logger, hostname, domain_name)
       @logger = logger
       if image_updated?
-        docker_options = docker_options_for(container.stype)
+        docker_options = application.docker_options_for(:deploy)
         docker_options = docker_options.deep_merge("Hostname" => hostname, "Domainname" => domain_name)
         docker_options = docker_options.deep_merge(container.docker_options)
         deploy(docker_options)
@@ -83,11 +83,6 @@ module Containers
 
       def docker_server
         container.docker_proxy.server
-      end
-
-
-      def docker_options_for(step)
-        application.docker_options_for(step)
       end
 
 

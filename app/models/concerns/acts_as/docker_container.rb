@@ -28,11 +28,36 @@ module ActsAs
 
 
     def docker_options
+      options = docker_base_options
+      options = options.deep_merge(docker_port_options) unless port.nil?
+      options
+    end
+
+
+    def docker_base_options
       {
+        "Cmd"   => start_command,
+        "Image" => image_type,
         "HostConfig" => {
           "CpuShares"  => cpu_shares,
           "Memory"     => memory.megabytes,
           "MemorySwap" => -1
+        }
+      }
+    end
+
+
+    def docker_port_options
+      {
+        "ExposedPorts" => {
+          "#{port}/tcp" => {}
+        },
+        "HostConfig" => {
+          "PortBindings" => {
+            "#{port}/tcp" => [{
+              "HostIp" => "127.0.0.1"
+            }]
+          }
         }
       }
     end

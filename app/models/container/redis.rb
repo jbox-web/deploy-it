@@ -19,4 +19,9 @@ class Container::Redis < Container
     nil
   end
 
+
+  def start_command
+    ['redis-server']
+  end
+
 end

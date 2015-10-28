@@ -19,4 +19,9 @@ class Container::Memcached < Container
     nil
   end
 
+
+  def start_command
+    ['memcached']
+  end
+
 end
