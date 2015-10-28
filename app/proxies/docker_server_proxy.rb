@@ -175,11 +175,13 @@ class DockerServerProxy
   end
 
 
-  def pull(image, registry)
-    registry_path = "#{registry}/#{image}"
+  def pull(image, registry = nil)
+    registry_path = !registry.nil? ? "#{registry}/#{image}" : image
     docker_command('pull', registry_path)
-    docker_command('tag', registry_path, image)
-    docker_command('rmi', registry_path)
+    unless registry.nil?
+      docker_command('tag', registry_path, image)
+      docker_command('rmi', registry_path)
+    end
   end
 
 
