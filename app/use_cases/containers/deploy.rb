@@ -22,7 +22,7 @@ module Containers
     def execute(logger, hostname, domain_name)
       @logger = logger
       if image_updated?
-        docker_options = application.docker_options_for(:deploy)
+        docker_options = container.application_container? ? application.docker_options_for(:deploy) : {}
         docker_options = docker_options.deep_merge("Hostname" => hostname, "Domainname" => domain_name)
         docker_options = docker_options.deep_merge(container.docker_options)
         deploy(docker_options)
@@ -68,7 +68,7 @@ module Containers
         container.save!
 
         # Execute plugins
-        execute_plugins(:post_deploy, docker_options) if container.stype == :web
+        execute_plugins(:post_deploy, docker_options) if container.web?
       end
     end
 

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Container::Web < Container
+class Container::Data < Container
 
   def docker_registry
     Settings.docker_registry
@@ -21,7 +21,7 @@ class Container::Web < Container
 
 
   def start_command
-    ['/bin/bash', '-c', '/start web']
+    ['/bin/bash', '-c', '/start data']
   end
 
 

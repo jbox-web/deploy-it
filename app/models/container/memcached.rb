@@ -24,4 +24,14 @@ class Container::Memcached < Container
     ['memcached']
   end
 
+
+  def application_container?
+    false
+  end
+
+
+  def addon_container?
+    !application_container?
+  end
+
 end

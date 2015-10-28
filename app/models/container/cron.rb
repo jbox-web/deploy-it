@@ -24,4 +24,14 @@ class Container::Cron < Container
     ['/bin/bash', '-c', '/start cron']
   end
 
+
+  def application_container?
+    true
+  end
+
+
+  def addon_container?
+    !application_container?
+  end
+
 end

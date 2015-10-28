@@ -18,8 +18,6 @@ class Container < ActiveRecord::Base
   ## DockerContainer
   include ActsAs::DockerContainer
 
-  AVAILABLE_CONTAINERS_TYPE = ['Container::Web', 'Container::Data', 'Container::Cron', 'Container::Redis', 'Container::Memcached']
-
   ## Relations
   belongs_to :application
   belongs_to :docker_server, foreign_key: 'server_id', class_name: 'Server'
@@ -29,15 +27,15 @@ class Container < ActiveRecord::Base
   validates :application_id, presence: true
   validates :server_id,      presence: true
   validates :release_id,     presence: true
-  validates :type,           presence: true, inclusion: { in: AVAILABLE_CONTAINERS_TYPE }
+  validates :type,           presence: true, inclusion: { in: CONTAINER_TYPES_AVAILABLE.values }
   validates :image_name,     presence: true
 
   ## Scopes
   scope :to_delete,  -> { where(marked_for_deletion: true) }
 
-  AVAILABLE_CONTAINERS_TYPE.each do |type|
-    scope_name = "type_#{type.split('::')[1].downcase}".to_sym
-    scope scope_name, -> { where(type: type) }
+  CONTAINER_TYPES_AVAILABLE.each do |type, klass|
+    scope_name = "type_#{type}".to_sym
+    scope scope_name, -> { where(type: klass) }
   end
 
   ## UseCases
@@ -81,6 +79,31 @@ class Container < ActiveRecord::Base
 
   def unmark_for_deletion!
     update_attribute(:marked_for_deletion, false)
+  end
+
+
+  def web?
+    stype == :web
+  end
+
+
+  def cron?
+    stype == :cron
+  end
+
+
+  def data?
+    stype == :data
+  end
+
+
+  def redis?
+    stype == :redis
+  end
+
+
+  def memcached?
+    stype == :memcached
   end
 
 end
