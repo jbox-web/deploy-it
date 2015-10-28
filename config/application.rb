@@ -38,14 +38,6 @@ module DeployIt
     # ActiveJob config
     config.active_job.queue_adapter = :sidekiq
 
-    # Cookie / Session config
-    config.action_dispatch.cookies_serializer = :json
-    config.session_store :cookie_store, key: '_deploy-it_session'
-
-    # Assets
-    config.assets.precompile += %w( )
-    config.assets.version = '1.0'
-
     # Locales
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.i18n.default_locale = :fr
