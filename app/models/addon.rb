@@ -27,4 +27,9 @@ class Addon < ActiveRecord::Base
     name
   end
 
+
+  def type
+    name.downcase.to_sym
+  end
+
 end
