@@ -37,7 +37,7 @@ module ActsAs
     def docker_base_options
       {
         "Cmd"   => start_command,
-        "Image" => image_type,
+        "Image" => image_name,
         "HostConfig" => {
           "CpuShares"  => cpu_shares,
           "Memory"     => memory.megabytes,
