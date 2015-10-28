@@ -18,7 +18,7 @@ class Container < ActiveRecord::Base
   ## DockerContainer
   include ActsAs::DockerContainer
 
-  AVAILABLE_CONTAINERS_TYPE = ['Container::Web', 'Container::Data', 'Container::Cron']
+  AVAILABLE_CONTAINERS_TYPE = ['Container::Web', 'Container::Data', 'Container::Cron', 'Container::Redis', 'Container::Memcached']
 
   ## Relations
   belongs_to :application

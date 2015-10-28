@@ -138,9 +138,8 @@ module ActsAs
 
 
     def create_container!(type:, release_id:)
-      container_type = type == :cron ? 'Container::Cron' : 'Container::Web'
       server = find_server_with_role(:docker)
-      containers.create(server_id: server.id, release_id: release_id, type: container_type, memory: max_memory)
+      containers.create(server_id: server.id, release_id: release_id, type: "Container::#{type.to_s.capitalize}", image_type: get_image_type(type), memory: get_container_memory(type))
     end
 
 
@@ -148,6 +147,23 @@ module ActsAs
       delete_containers!(type: type)
       reload
       rename_containers!(type: type, version: version)
+    end
+
+
+    def application_container?(type)
+      [:web, :cron, :data].include?(type)
+    end
+
+
+    def get_container_memory(type)
+      return max_memory if application_container?(type)
+      128
+    end
+
+
+    def get_image_type(type)
+      return image_tagged if application_container?(type)
+      addons.select { |a| a.type == type }.first.image
     end
 
 
