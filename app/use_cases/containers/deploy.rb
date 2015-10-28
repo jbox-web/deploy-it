@@ -36,9 +36,9 @@ module Containers
 
 
     def pull_image
-      logger.padded("Pull Docker image '#{container.image_type}' from registry")
+      logger.padded("Pull Docker image '#{container.image_name}' from registry")
       begin
-        docker_server.pull(container.image_type, container.docker_registry)
+        docker_server.pull(container.image_name, container.docker_registry)
       rescue => e
         log_exception(e)
         error_message(e.message)

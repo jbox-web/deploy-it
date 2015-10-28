@@ -142,7 +142,7 @@ module ActsAs
       options = {
         server_id:  server.id,
         release_id: release_id,
-        image_type: get_image_type(type),
+        image_name: get_image_name(type),
         memory:     get_container_memory(type),
         port:       get_container_port(type),
         type:       "Container::#{type.to_s.capitalize}"
@@ -169,7 +169,7 @@ module ActsAs
     end
 
 
-    def get_image_type(type)
+    def get_image_name(type)
       return image_tagged if application_container?(type)
       addons.select { |a| a.type == type }.first.image
     end

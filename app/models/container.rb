@@ -30,7 +30,7 @@ class Container < ActiveRecord::Base
   validates :server_id,      presence: true
   validates :release_id,     presence: true
   validates :type,           presence: true, inclusion: { in: AVAILABLE_CONTAINERS_TYPE }
-  validates :image_type,     presence: true
+  validates :image_name,     presence: true
 
   ## Scopes
   scope :to_delete,  -> { where(marked_for_deletion: true) }
@@ -39,9 +39,6 @@ class Container < ActiveRecord::Base
     scope_name = "type_#{type.split('::')[1].downcase}".to_sym
     scope scope_name, -> { where(type: type) }
   end
-
-  ## Delegation
-  delegate :image_tagged, :image_name, to: :application
 
   ## UseCases
   add_use_cases [:deploy, :start, :stop, :restart, :pause, :unpause, :destroy_forever]

@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class AddImageTypeFieldToContainers < ActiveRecord::Migration
+class AddImageNameFieldToContainers < ActiveRecord::Migration
   def change
-    add_column :containers, :image_type, :string, after: :type
+    add_column :containers, :image_name, :string, after: :type
   end
 end

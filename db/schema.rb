@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20151028210138) do
     t.integer  "server_id",           limit: 4
     t.integer  "release_id",          limit: 4
     t.string   "type",                limit: 255
-    t.string   "image_type",          limit: 255
+    t.string   "image_name",          limit: 255
     t.integer  "cpu_shares",          limit: 4,   default: 256
     t.integer  "memory",              limit: 4,   default: 256
     t.string   "docker_id",           limit: 255
