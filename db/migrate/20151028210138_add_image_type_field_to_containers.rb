@@ -13,10 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Container::Web < Container
-
-  def docker_registry
-    Settings.docker_registry
+class AddImageTypeFieldToContainers < ActiveRecord::Migration
+  def change
+    add_column :containers, :image_type, :string, after: :type
   end
-
 end

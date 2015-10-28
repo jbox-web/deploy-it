@@ -14,4 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 class Container::Cron < Container
+
+  def docker_registry
+    Settings.docker_registry
+  end
+
 end

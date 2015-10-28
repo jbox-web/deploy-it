@@ -18,6 +18,8 @@ class Container < ActiveRecord::Base
   ## DockerContainer
   include ActsAs::DockerContainer
 
+  AVAILABLE_CONTAINERS_TYPE = ['Container::Web', 'Container::Data', 'Container::Cron']
+
   ## Relations
   belongs_to :application
   belongs_to :docker_server, foreign_key: 'server_id', class_name: 'Server'
@@ -27,13 +29,16 @@ class Container < ActiveRecord::Base
   validates :application_id, presence: true
   validates :server_id,      presence: true
   validates :release_id,     presence: true
-  validates :type,           presence: true, inclusion: { in: ['Container::Web', 'Container::Data', 'Container::Cron']}
+  validates :type,           presence: true, inclusion: { in: AVAILABLE_CONTAINERS_TYPE }
+  validates :image_type,     presence: true
 
   ## Scopes
   scope :to_delete,  -> { where(marked_for_deletion: true) }
-  scope :type_web,   -> { where(type: 'Container::Web') }
-  scope :type_data,  -> { where(type: 'Container::Data') }
-  scope :type_cron,  -> { where(type: 'Container::Cron') }
+
+  AVAILABLE_CONTAINERS_TYPE.each do |type|
+    scope_name = "type_#{type.split('::')[1].downcase}".to_sym
+    scope scope_name, -> { where(type: type) }
+  end
 
   ## Delegation
   delegate :image_tagged, :image_name, to: :application

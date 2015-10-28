@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027160849) do
+ActiveRecord::Schema.define(version: 20151028210138) do
 
   create_table "addons", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20151027160849) do
     t.integer  "server_id",           limit: 4
     t.integer  "release_id",          limit: 4
     t.string   "type",                limit: 255
+    t.string   "image_type",          limit: 255
     t.integer  "cpu_shares",          limit: 4,   default: 256
     t.integer  "memory",              limit: 4,   default: 256
     t.string   "docker_id",           limit: 255
