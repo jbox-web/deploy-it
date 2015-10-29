@@ -52,11 +52,6 @@ module ActsAs
     end
 
 
-    def start_command(type)
-      [ '/bin/bash', '-c', "/start #{type}" ]
-    end
-
-
     def state
       return :undeployed if containers.empty?
       if running?
@@ -83,11 +78,6 @@ module ActsAs
 
     def stopped?
       stopped_containers == total_instance_number
-    end
-
-
-    def backend_urls
-      all_containers.type_web.map(&:docker_proxy).map(&:backend_url).compact
     end
 
 
