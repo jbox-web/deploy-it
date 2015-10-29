@@ -189,10 +189,17 @@ module ActsAs
 
 
     def get_linked_containers
-      return {} unless containers.type_redis.any? || containers.type_memcached.any?
-      linked_containers = containers.type_redis.map { |c| "#{c.docker_id}:redis" }
-      linked_containers += containers.type_memcached.map { |c| "#{c.docker_id}:memcached" }
+      return {} if linked_containers.empty?
       { "HostConfig" => { "Links": linked_containers } }
+    end
+
+
+    def linked_containers
+      linked_containers = []
+      DeployIt.addons_available.each do |a|
+        linked_containers += containers.send("type_#{a}").map { |c| "#{c.docker_id}:#{a}" }
+      end
+      linked_containers
     end
 
   end
