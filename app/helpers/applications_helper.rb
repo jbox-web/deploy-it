@@ -96,6 +96,11 @@ module ApplicationsHelper
   end
 
 
+  def addons_available
+    Application.addons_available.collect { |p| [p.to_s.capitalize, p.to_s] }
+  end
+
+
   def render_memory_icon(memory)
     DeployIt::Theme::MEMORY_ICONS_MAPPING[memory]
   end

@@ -6,5 +6,6 @@
 
   .flash-messages
 
-  = f.collection_select :addon_id, Addon.by_name, :id, :name, prompt: true
+  = f.select :type, addons_available, prompt: true
+
   = f.success

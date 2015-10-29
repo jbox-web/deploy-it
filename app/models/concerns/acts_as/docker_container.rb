@@ -17,9 +17,17 @@ module ActsAs
   module DockerContainer
     extend ActiveSupport::Concern
 
-    APPLICATION_CONTAINERS    = { web: 'Container::Web', data: 'Container::Data', cron: 'Container::Cron' }
-    ADDONS_CONTAINERS         = { redis: 'Container::Redis', memcached: 'Container::Memcached' }
-    CONTAINER_TYPES_AVAILABLE = {}.merge(APPLICATION_CONTAINERS).merge(ADDONS_CONTAINERS)
+    APPLICATION_CONTAINERS    = %w(data cron web)
+    ADDONS_CONTAINERS         = DeployIt::AVAILABLE_ADDONS.keys.map { |a| a.to_s }
+    CONTAINER_TYPES_AVAILABLE = APPLICATION_CONTAINERS + ADDONS_CONTAINERS
+
+    included do
+      CONTAINER_TYPES_AVAILABLE.each do |c|
+        define_method :"#{c}?" do
+          type == c
+        end
+      end
+    end
 
 
     def docker_proxy
@@ -65,6 +73,30 @@ module ActsAs
           }
         }
       }
+    end
+
+
+    def addon_container?
+      ADDONS_CONTAINERS.include?(type)
+    end
+
+
+    def application_container?
+      APPLICATION_CONTAINERS.include?(type)
+    end
+
+
+    def start_command
+      return ['/bin/bash', '-c', "/start #{type}"] if application_container?
+      return DeployIt::AVAILABLE_ADDONS[stype][:start_command] if addon_container?
+      []
+    end
+
+
+    def docker_registry
+      return Settings.docker_registry if application_container?
+      return DeployIt::AVAILABLE_ADDONS[stype][:docker_registry] if addon_container?
+      nil
     end
 
   end

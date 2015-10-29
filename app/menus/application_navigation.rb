@@ -36,7 +36,7 @@ class ApplicationNavigation < BaseNavigation
       menu.item with_prefix(:app_env_vars),        label_with_icon(get_model_name_for('EnvVar'), 'fa-list-ul'),            env_vars_application_path(application), if: -> { can?(:edit_application, application) }
       menu.item with_prefix(:app_mount_points),    label_with_icon(get_model_name_for('MountPoint'), 'fa-download'),       mount_points_application_path(application), if: -> { can?(:edit_application, application) }
       menu.item with_prefix(:app_credentials),     label_with_icon(get_model_name_for('ApplicationCredential'), 'fa-eye'), credentials_application_path(application), if: -> { can?(:edit_application, application) }
-      menu.item with_prefix(:app_addons),          label_with_icon(get_model_name_for('Addon'), 'fa-cube'),                addons_application_path(application), if: -> { can?(:edit_application, application) }
+      menu.item with_prefix(:app_addons),          label_with_icon(get_model_name_for('ApplicationAddon'), 'fa-cube'),     addons_application_path(application), if: -> { can?(:edit_application, application) }
       menu.item with_prefix(:app_ssl_certificate), label_with_icon(get_model_name_for('SslCertificate', pluralize: false), 'fa-shield'), ssl_certificate_application_path(application), if: -> { can?(:edit_application, application) }
       menu.item with_prefix(:app_database),        label_with_icon(get_model_name_for('ApplicationDatabase'), 'fa-database'), database_application_path(application), if: -> { can?(:edit_application, application) }
     end

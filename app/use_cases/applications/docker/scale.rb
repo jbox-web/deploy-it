@@ -25,8 +25,8 @@ module Applications
         application.addons.each do |addon|
           spin_container(addon.type)
         end
-        spin_container(:web, application.instance_number)
-        application.use_cron? ? spin_container(:cron) : remove_container(:cron)
+        spin_container('web', application.instance_number)
+        application.use_cron? ? spin_container('cron') : remove_container('cron')
       end
 
 

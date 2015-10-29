@@ -15,6 +15,7 @@ fr:
       models:
         application_addon:
           attributes:
-            addon_id:
+            type:
               blank: ne peut être nul
               taken: déjà utilisé
+              inclusion: vous devez choisir

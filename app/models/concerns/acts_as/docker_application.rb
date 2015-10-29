@@ -107,11 +107,10 @@ module ActsAs
 
 
     def total_instance_number
-      if use_cron?
-        instance_number + 1
-      else
-        instance_number
-      end
+      total = instance_number
+      total += addons.count
+      total += 1 if use_cron?
+      total
     end
 
 
@@ -135,7 +134,7 @@ module ActsAs
         image_name: get_image_name(type),
         memory:     get_container_memory(type),
         port:       get_container_port(type),
-        type:       "Container::#{type.to_s.capitalize}"
+        type:       type
       }
       containers.create(options)
     end
@@ -166,12 +165,12 @@ module ActsAs
 
     def get_image_name(type)
       return image_tagged if application_container?(type)
-      addons.select { |a| a.type == type }.first.image
+      addons.select { |a| a.type == type }.first.image_name
     end
 
 
     def get_container_port(type)
-      return port if type == :web
+      return port if type == 'web'
       return addons.select { |a| a.type == type }.first.port if application_addon?(type)
       nil
     end

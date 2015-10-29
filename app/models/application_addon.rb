@@ -15,15 +15,46 @@
 
 class ApplicationAddon < ActiveRecord::Base
 
+  # Disable STI for this class
+  self.inheritance_column = 'types'
+
+  AVAILABLE_ADDONS = DeployIt::AVAILABLE_ADDONS.keys.map { |k| k.to_s }
+
   ## Relations
   belongs_to :application
-  belongs_to :addon
 
   ## Basic Validations
   validates :application_id, presence: true
-  validates :addon_id,       presence: true, uniqueness: { scope: :application_id }
+  validates :type,           presence: true, uniqueness: { scope: :application_id }, inclusion: { in: AVAILABLE_ADDONS }
 
-  ## Delegations
-  delegate :to_s, :name, :type, :image, :port, to: :addon
+
+  def to_s
+    name
+  end
+
+
+  def name
+    type.capitalize
+  end
+
+
+  def stype
+    type.to_sym
+  end
+
+
+  def image_name
+    DeployIt::AVAILABLE_ADDONS[stype][:image]
+  end
+
+
+  def port
+    DeployIt::AVAILABLE_ADDONS[stype][:port]
+  end
+
+
+  def url
+    DeployIt::AVAILABLE_ADDONS[stype][:url]
+  end
 
 end

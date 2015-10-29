@@ -13,25 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Container::Data < Container
-
-  def docker_registry
-    Settings.docker_registry
+class SwitchAddonsToSti < ActiveRecord::Migration
+  def up
+    remove_index  :application_addons, name: 'index_application_addons_on_application_id_and_addon_id'
+    remove_column :application_addons, :addon_id
+    add_column    :application_addons, :type, :string, after: :application_id
+    add_index     :application_addons, [:application_id, :type], unique: true
+    drop_table    :addons
   end
 
-
-  def start_command
-    ['/bin/bash', '-c', '/start data']
+  def down
+    raise ActiveRecord::IrreversibleMigration
   end
-
-
-  def application_container?
-    true
-  end
-
-
-  def addon_container?
-    !application_container?
-  end
-
 end

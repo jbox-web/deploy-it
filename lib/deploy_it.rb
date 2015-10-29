@@ -16,10 +16,26 @@
 module DeployIt
 
   MAX_INSTANCES_NUMBER = (1..4).to_a
+  MAX_MEMORY_AVAILABLE = (128..1024).step(128).to_a
+
   AVAILABLE_LANGUAGES  = %w(php ruby python)
   AVAILABLE_DATABASES  = %w(mysql postgres)
   EXCLUDED_APP_NAME    = %w(mysql information_schema performance_schema)
-  MAX_MEMORY_AVAILABLE = (128..1024).step(128).to_a
+
+  AVAILABLE_ADDONS     = {
+    redis: {
+      port: 6379,
+      image: 'redis',
+      url: 'https://hub.docker.com/_/redis/',
+      start_command: ['redis-server']
+    },
+    memcached: {
+      port: 11211,
+      image: 'memcached',
+      url: 'https://hub.docker.com/_/memcached/',
+      start_command: ['memcached']
+    }
+  }
 
   MANAGER_PERMS = [
     :view_application,

@@ -24,7 +24,6 @@ class AdminNavigation < BaseNavigation
       menu.item with_prefix(:platforms),         label_with_icon(get_model_name_for('Platform'), 'fa-sitemap'), admin_platforms_path
       menu.item with_prefix(:docker_images),     label_with_icon(get_model_name_for('DockerImage'), 'fa-cubes'), admin_docker_images_path
       menu.item with_prefix(:buildpacks),        label_with_icon(get_model_name_for('Buildpack'), 'fa-rocket'), admin_buildpacks_path
-      menu.item with_prefix(:addons),            label_with_icon(get_model_name_for('Addon'), 'fa-cube'), admin_addons_path
       menu.item with_prefix(:reserved_names),    label_with_icon(get_model_name_for('ReservedName'), 'fa-shield'), admin_reserved_names_path
       menu.item with_prefix(:applications),      label_with_icon(get_model_name_for('Application'), 'fa-desktop'), admin_applications_path
       menu.item with_prefix(:locks),             label_with_icon(get_model_name_for('Lock'), 'fa-lock'), admin_locks_path
