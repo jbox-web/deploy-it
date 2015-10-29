@@ -191,9 +191,19 @@ module ActsAs
       case step
       when :receive, :build
         { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[step] } }
+      when :deploy
+        get_linked_containers.deep_merge({ "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } })
       else
         { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
       end
+    end
+
+
+    def get_linked_containers
+      return {} unless containers.type_redis.any? || containers.type_memcached.any?
+      linked_containers = containers.type_redis.map { |c| "#{c.docker_id}:redis" }
+      linked_containers += containers.type_memcached.map { |c| "#{c.docker_id}:memcached" }
+      { "HostConfig" => { "Links": linked_containers } }
     end
 
   end
