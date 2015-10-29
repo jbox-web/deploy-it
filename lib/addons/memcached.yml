@@ -1,0 +1,8 @@
+---
+name:  Memcached
+port:  11211
+image: 'memcached'
+url:   'https://hub.docker.com/_/memcached/'
+icon:  'memcached.png'
+start_command:
+- 'memcached'

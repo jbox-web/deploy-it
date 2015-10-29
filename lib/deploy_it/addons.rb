@@ -13,51 +13,32 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationAddon < ActiveRecord::Base
+require 'ostruct'
 
-  # Disable STI for this class
-  self.inheritance_column = 'types'
+module DeployIt
+  module Addons
+    extend self
 
-  ## Relations
-  belongs_to :application
+    def load!(path)
+      path = File.join(path, '**', '*.yml')
+      data = {}
+      Dir.glob(path).each do |file|
+        type       = File.basename(file, '.*').to_sym
+        settings   = load_file(file).merge(type: type)
+        data[type] = klassify(settings)
+      end
+      data
+    end
 
-  ## Basic Validations
-  validates :application_id, presence: true
-  validates :type,           presence: true, uniqueness: { scope: :application_id }, inclusion: { in: DeployIt.addons_available }
+
+    def klassify(settings)
+      OpenStruct.new(settings)
+    end
 
 
-  def to_s
-    name
+    def load_file(file)
+      YAML::load(ERB.new(IO.read(file)).result).symbolize_keys
+    end
+
   end
-
-
-  def stype
-    type.to_sym
-  end
-
-
-  def name
-    DeployIt.addons[stype][:name] || type.capitalize
-  end
-
-
-  def image_name
-    DeployIt.addons[stype][:image]
-  end
-
-
-  def port
-    DeployIt.addons[stype][:port]
-  end
-
-
-  def url
-    DeployIt.addons[stype][:url] || ''
-  end
-
-
-  def icon
-    DeployIt.addons[stype][:icon] || ''
-  end
-
 end

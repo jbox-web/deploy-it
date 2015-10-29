@@ -190,15 +190,8 @@ module ApplicationsHelper
   end
 
 
-  def render_addon_with_icon(addon_name, addon_type)
-    image_name =
-      case addon_type
-      when 'redis'
-        'redis.svg'
-      when 'memcached'
-        'memcached.png'
-      end
-    label_with_image(addon_name, image_name)
+  def render_addon_link(addon)
+    link_to label_with_image(addon.name, addon.icon), addon.url, target: '_blank'
   end
 
 end

@@ -108,7 +108,7 @@ class Application < ActiveRecord::Base
     end
 
     def addons_available
-      DeployIt::AVAILABLE_ADDONS.keys.map(&:to_s)
+      DeployIt.addons_available
     end
 
     def application_containers

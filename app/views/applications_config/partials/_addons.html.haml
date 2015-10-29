@@ -19,7 +19,7 @@
 
       %fieldset
         %legend
-          = render_addon_with_icon(ff.object.name, ff.object.type)
+          = render_addon_link(ff.object)
           %small.pull-right= ff.link_to_remove icon('fa-trash-o', bigger: false)
 
         = ff.text_field :params

@@ -22,21 +22,6 @@ module DeployIt
   AVAILABLE_DATABASES  = %w(mysql postgres)
   EXCLUDED_APP_NAME    = %w(mysql information_schema performance_schema)
 
-  AVAILABLE_ADDONS     = {
-    redis: {
-      port: 6379,
-      image: 'redis',
-      url: 'https://hub.docker.com/_/redis/',
-      start_command: ['redis-server']
-    },
-    memcached: {
-      port: 11211,
-      image: 'memcached',
-      url: 'https://hub.docker.com/_/memcached/',
-      start_command: ['memcached']
-    }
-  }
-
   MANAGER_PERMS = [
     :view_application,
     :create_application,
@@ -59,8 +44,9 @@ module DeployIt
 
   class << self
 
-    @@file_logger    = nil
-    @@console_logger = nil
+    @@file_logger      = nil
+    @@console_logger   = nil
+    @@addons_available = {}
 
     def file_logger
       @@file_logger
@@ -76,6 +62,22 @@ module DeployIt
 
     def console_logger=(logger)
       @@console_logger = logger
+    end
+
+    def addons_path
+      Rails.root.join('lib', 'addons')
+    end
+
+    def addons
+      @@addons_available
+    end
+
+    def addons=(addons)
+      @@addons_available = addons
+    end
+
+    def addons_available
+      addons.keys.map(&:to_s)
     end
 
   end
@@ -96,6 +98,7 @@ end
 ## Init logs
 DeployIt.console_logger = DeployIt::Loggers::ConsoleLogs.new
 DeployIt.file_logger    = DeployIt::Loggers::FileLogs.init_logs!
+DeployIt.addons         = DeployIt::Addons.load!(DeployIt.addons_path)
 
 # Init Plugins
 required_plugins_dirs = Rails.root.join('plugins', '**', '*.rb')

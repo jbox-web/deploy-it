@@ -1,0 +1,8 @@
+---
+name:  Redis
+port:  6379
+image: 'redis'
+url:   'https://hub.docker.com/_/redis/'
+icon:  'redis.svg'
+start_command:
+- 'redis-server'

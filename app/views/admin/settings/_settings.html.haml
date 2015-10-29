@@ -1,0 +1,10 @@
+%h3{ class: 'page-header' }
+  = label_with_icon(t('.title'), 'fa-info-circle', bigger: false)
+
+%table{ class: 'table table-striped' }
+  %tbody
+    - Settings.each do |key, value|
+      %tr
+        %td= key.upcase
+        %td
+          %code= value

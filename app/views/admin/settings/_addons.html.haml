@@ -1,0 +1,10 @@
+%h3{ class: 'page-header' }
+  = label_with_icon(t('.title'), 'fa-info-circle', bigger: false)
+
+%table{ class: 'table table-striped' }
+  %tbody
+    - DeployIt.addons.each do |name, addon|
+      %tr
+        %td= render_addon_link(addon)
+        %td
+          %code= YAML::dump(addon).gsub("\n", "<br>\n").html_safe

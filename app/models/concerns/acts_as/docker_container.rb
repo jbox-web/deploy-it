@@ -18,7 +18,7 @@ module ActsAs
     extend ActiveSupport::Concern
 
     APPLICATION_CONTAINERS    = %w(data cron web)
-    ADDONS_CONTAINERS         = DeployIt::AVAILABLE_ADDONS.keys.map { |a| a.to_s }
+    ADDONS_CONTAINERS         = DeployIt.addons_available
     CONTAINER_TYPES_AVAILABLE = APPLICATION_CONTAINERS + ADDONS_CONTAINERS
 
     included do
@@ -88,14 +88,14 @@ module ActsAs
 
     def start_command
       return ['/bin/bash', '-c', "/start #{type}"] if application_container?
-      return DeployIt::AVAILABLE_ADDONS[stype][:start_command] if addon_container?
+      return DeployIt.addons[stype][:start_command] if addon_container?
       []
     end
 
 
     def docker_registry
       return Settings.docker_registry if application_container?
-      return DeployIt::AVAILABLE_ADDONS[stype][:docker_registry] if addon_container?
+      return DeployIt.addons[stype][:docker_registry] if addon_container?
       nil
     end
 
