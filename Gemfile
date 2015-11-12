@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.1'
+ruby '2.2.3'
 
 gem 'rugged',                '~> 0.23.2', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.23.2', submodules: true
 gem 'actionform',            '~> 0.0.1',  git: 'https://github.com/rails/actionform.git', require: 'action_form'
