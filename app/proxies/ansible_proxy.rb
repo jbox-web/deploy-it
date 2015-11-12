@@ -50,6 +50,12 @@ class AnsibleProxy
 
 
   INVENTORY_FILE = Rails.root.join('tmp', 'hosts').to_s
+  ANSIBLE_EXIT_STATUS = {
+    1 => DeployIt::Error::InvalidServerUpdate,
+    2 => DeployIt::Error::UnreachableServer,
+    3 => DeployIt::Error::ServerUpdateFailed
+  }
+
 
   attr_reader :host_name
   attr_reader :private_key
@@ -65,7 +71,7 @@ class AnsibleProxy
   end
 
 
-  def run_playbook(playbook, extra_vars)
+  def run_playbook(playbook, extra_vars, opts = {})
     extra_vars = extend_vars(extra_vars)
     vars_file = DeployIt::Utils::Files.write_yaml_file(extra_vars)
     params = default_params.concat(["CONTAINER_VARS=#{vars_file}", playbook])
@@ -75,14 +81,11 @@ class AnsibleProxy
     rescue DeployIt::Error::IOError => e
       raise e
     else
-      case status.exitstatus
-      when 1
-        raise DeployIt::Error::InvalidServerUpdate
-      when 2
-        raise DeployIt::Error::UnreachableServer
-      when 3
-        raise DeployIt::Error::ServerUpdateFailed
+      if opts[:debug]
+        DeployIt.file_logger.error output
+        DeployIt.file_logger.error err
       end
+      raise ANSIBLE_EXIT_STATUS[status.exitstatus] unless status.exitstatus == 0
     ensure
       FileUtils.rm_f(vars_file)
       destroy_temp_keys

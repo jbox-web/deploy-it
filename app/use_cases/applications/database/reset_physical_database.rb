@@ -18,9 +18,9 @@ module Applications
     class ResetPhysicalDatabase < ActiveUseCase::Base
 
       def execute(opts = {})
-        destroy = application.destroy_physical_database!
+        destroy = application.destroy_physical_database!(opts)
         if destroy.success?
-          create = application.create_physical_database!
+          create = application.create_physical_database!(opts)
           @errors += create.errors if !create.success?
         else
           @errors += destroy.errors

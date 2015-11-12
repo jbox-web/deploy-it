@@ -20,7 +20,7 @@ module Helpers
       if !object.nil?
         yield
       else
-        error_message(I18n.t('ansible.errors.unavailable_server'))
+        error_message(I18n.t('errors.ansible.unavailable_server'))
       end
     end
 
@@ -39,15 +39,15 @@ module Helpers
     def treat_ansible_exception(e)
       case e
       when DeployIt::Error::IOError
-        I18n.t('ansible.errors.io_error')
+        I18n.t('errors.ansible.io_error')
       when DeployIt::Error::InvalidServerUpdate
-        I18n.t('ansible.errors.invalid_server_update')
+        I18n.t('errors.ansible.invalid_server_update')
       when DeployIt::Error::UnreachableServer
-        I18n.t('ansible.errors.unreachable_server')
+        I18n.t('errors.ansible.unreachable_server')
       when DeployIt::Error::ServerUpdateFailed
-        I18n.t('ansible.errors.server_update_failed')
+        I18n.t('errors.ansible.server_update_failed')
       else
-        I18n.t('ansible.errors.unknown_error')
+        I18n.t('errors.ansible.unknown_error')
       end
     end
 

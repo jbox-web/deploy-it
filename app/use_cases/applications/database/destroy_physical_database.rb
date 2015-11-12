@@ -24,7 +24,7 @@ module Applications
       def execute(opts = {})
         execute_if_exists(database_server) do
           catch_errors(database_server) do
-            database_server.ansible_proxy.run_playbook(playbook, extra_vars)
+            database_server.ansible_proxy.run_playbook(playbook, extra_vars, opts)
           end
         end
       end
