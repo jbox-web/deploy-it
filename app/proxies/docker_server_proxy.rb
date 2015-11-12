@@ -17,12 +17,6 @@ require 'docker'
 
 class DockerServerProxy
 
-  CONNECT_TIMEOUT = 5
-  READ_TIMEOUT    = 90
-  WRITE_TIMEOUT   = 30
-  TCP_NODELAY     = true
-
-
   def initialize(url, opts = {})
     @url = url
     init_connexion(url, opts)
@@ -36,7 +30,12 @@ class DockerServerProxy
     end
 
     def docker_options
-      { connect_timeout: CONNECT_TIMEOUT, read_timeout: READ_TIMEOUT, write_timeout: WRITE_TIMEOUT, tcp_nodelay: TCP_NODELAY }
+      {
+        connect_timeout: Settings.docker_connect_timeout,
+        read_timeout:    Settings.docker_read_timeout,
+        write_timeout:   Settings.docker_write_timeout,
+        tcp_nodelay: true
+      }
     end
 
   end

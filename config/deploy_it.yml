@@ -22,3 +22,8 @@ applications_datas_dir:   <%= ENV['APPLICATIONS_DATAS_DIR'] %>
 
 # Scripts path
 scripts_path:             <%= ENV['SCRIPTS_PATH'] %>
+
+# Docker
+docker_connect_timeout:   <%= ENV['DOCKER_CONNECT_TIMEOUT'] || 5 %>
+docker_read_timeout:      <%= ENV['DOCKER_READ_TIMEOUT'] || 90 %>
+docker_write_timeout:     <%= ENV['DOCKER_WRITE_TIMEOUT'] || 30 %>
