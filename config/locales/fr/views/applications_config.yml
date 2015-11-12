@@ -74,3 +74,7 @@ fr:
         add: Ajouter un addon
       add_addon:
         title: Nouvel addon
+      database:
+        settings: Paramètres
+        reset: Réinitialiser la base données
+        warning: Etes vous sur? Cette action laissera la base de données complètement vide!

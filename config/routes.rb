@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     member do
       get 'restore_env_vars'
       get 'restore_mount_points'
+      get 'reset_database'
       get 'reset_ssl_certificate'
       get 'synchronize_repository'
 

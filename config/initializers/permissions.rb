@@ -34,6 +34,7 @@ DeployIt::AccessControl.map do |map|
                                             :synchronize_repository,
                                             :restore_env_vars,
                                             :restore_mount_points,
+                                            :reset_database,
                                             :reset_ssl_certificate,
                                             :add_addon,
                                             :toggle_credentials,

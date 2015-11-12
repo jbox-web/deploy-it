@@ -80,7 +80,7 @@ class Application < ActiveRecord::Base
 
   ## UseCases
   add_use_cases [ :build, :compile, :release, :publish, :scale, :start, :stop, :restart, :pause, :unpause, :rename_containers, :delete_containers ], prefix: '::Docker'
-  add_use_cases [ :create_physical_database, :destroy_physical_database ], prefix: '::Database'
+  add_use_cases [ :create_physical_database, :destroy_physical_database, :reset_physical_database ], prefix: '::Database'
   add_use_cases [ :create_lb_route, :destroy_lb_route ], prefix: '::Router'
   add_use_cases [ :restore_env_vars, :restore_mount_points, :create_relations ], prefix: '::Params'
   add_use_cases [ :bootstrap, :update_files, :destroy_forever ], prefix: '::Files'

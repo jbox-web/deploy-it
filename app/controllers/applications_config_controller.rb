@@ -89,6 +89,12 @@ class ApplicationsConfigController < DCIController
   end
 
 
+  def reset_database
+    add_breadcrumb get_model_name_for('ApplicationDatabase', pluralize: false), 'fa-database', ''
+    call_dci_role(:reset_database)
+  end
+
+
   def synchronize_repository
     set_dci_data(event_options_for(:synchronize_repository).merge(strong_params: false))
     call_dci_role(:synchronize_repository)

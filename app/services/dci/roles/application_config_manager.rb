@@ -113,6 +113,12 @@ module DCI
       end
 
 
+      def reset_database(application)
+        application.run_async!('reset_physical_database!')
+        context.render_success(locals: { application: application })
+      end
+
+
       def synchronize_repository(application, opts = {})
         application.distant_repo.run_async!('resync!', opts)
         context.render_success(locals: { application: application })

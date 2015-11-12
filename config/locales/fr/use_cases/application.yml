@@ -99,6 +99,11 @@ fr:
         success: "Création de la base de données de l'application '%{application}' réussie !"
         failed: "Echec de la création de la base de données de l'application '%{application}' : %{errors}"
 
+      reset_physical_database:
+        start: "Réinitialisation de la base de données de l'application '%{application}' en cours..."
+        success: "Réinitialisation de la base de données de l'application '%{application}' réussie !"
+        failed: "Echec de la réinitialisation de la base de données de l'application '%{application}' : %{errors}"
+
       create_lb_route:
         start: "Création de la route de l'application '%{application}' en cours..."
         success: "Création de la route de l'application '%{application}' réussie !"
