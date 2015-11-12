@@ -25,7 +25,7 @@ source 'https://rails-assets.org' do
 end
 
 # Server
-gem 'puma',           '~> 2.14.0'
+gem 'puma',           '~> 2.15.0'
 gem 'secure_headers', '~> 2.4.0'
 
 # Database
@@ -57,7 +57,7 @@ gem 'google-webfonts-rails', '~> 0.0.4'
 # CSS
 gem 'sass-rails',         '~> 5.0.3'
 gem 'bootstrap-sass',     '~> 3.3.4'
-gem 'autoprefixer-rails', '~> 6.0.0'
+gem 'autoprefixer-rails', '~> 6.1.0'
 
 # Forms
 gem 'bootstrap_form',         '~> 2.3.0'
@@ -94,10 +94,10 @@ gem 'simple-navigation', '~> 4.0.0'
 gem 'acts_as_list', '~> 0.7.0'
 
 # Translations
-gem 'i18n-tasks', '~> 0.8.0'
+gem 'i18n-tasks', '~> 0.9.0'
 
 # Docker connection
-gem 'docker-api', '~> 1.22.2'
+gem 'docker-api', '~> 1.23.0'
 
 # SSH Keys generation
 gem 'sshkey', '~> 1.7.0'
@@ -106,7 +106,7 @@ gem 'sshkey', '~> 1.7.0'
 gem 'net-ssh', '~> 3.0.1'
 
 # Docker builds are state machines
-gem 'aasm', '~> 4.3.0'
+gem 'aasm', '~> 4.4.0'
 
 # Async Jobs
 gem 'sidekiq', '~> 3.5.0'
