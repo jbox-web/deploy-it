@@ -11,7 +11,7 @@ gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/asyn
 gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git', branch: 'fix_rails4'
 
 # Base gems
-gem 'rails', '~> 4.2.4'
+gem 'rails', '~> 4.2.5'
 
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
