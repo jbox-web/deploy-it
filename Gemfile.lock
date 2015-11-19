@@ -55,7 +55,7 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    aasm (4.4.1)
+    aasm (4.5.0)
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
       actionview (= 4.2.5)
@@ -119,23 +119,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.17.2)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-pool (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-supervision (0.20.5)
-      timers (>= 4.1.1)
     chartkick (1.4.1)
     codemirror-rails (5.6)
       railties (>= 3.0, < 5)
@@ -148,6 +131,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
     cookiejar (0.3.2)
     crummy (1.8.0)
@@ -249,7 +233,6 @@ GEM
       hashie (>= 3.0)
     highline (1.7.8)
     hiredis (0.5.2)
-    hitimes (1.2.3)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -298,7 +281,7 @@ GEM
     minitest (5.8.3)
     multi_json (1.11.2)
     multi_xml (0.5.5)
-    mysql2 (0.3.20)
+    mysql2 (0.4.1)
     nested_form (0.3.2)
     net-ssh (3.0.1)
     nokogiri (1.6.6.4)
@@ -362,8 +345,6 @@ GEM
     redis-activesupport (4.1.5)
       activesupport (>= 3, < 5)
       redis-store (~> 1.1.0)
-    redis-namespace (1.5.2)
-      redis (~> 3.0, >= 3.0.4)
     redis-rack (1.5.0)
       rack (~> 1.5)
       redis-store (~> 1.1.0)
@@ -421,12 +402,11 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (3.5.3)
-      celluloid (~> 0.17.2)
+    sidekiq (4.0.1)
+      concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
-      redis-namespace (~> 1.5, >= 1.5.2)
     simple-navigation (4.0.3)
       activesupport (>= 2.3.2)
     simplecov (0.10.0)
@@ -468,8 +448,6 @@ GEM
     thread (0.2.2)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    timers (4.1.1)
-      hitimes
     tins (1.7.0)
     turbolinks (2.5.3)
       coffee-rails
@@ -503,7 +481,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm (~> 4.4.0)
+  aasm (~> 4.5.0)
   actionform (~> 0.0.1)!
   active_use_case (~> 1.0.3)!
   acts_as_list (~> 0.7.0)
@@ -547,7 +525,7 @@ DEPENDENCIES
   mina-puma
   mina-scp
   mina-sidekiq
-  mysql2 (~> 0.3.20)
+  mysql2 (~> 0.4.1)
   nested_form (~> 0.3.2)
   net-ssh (~> 3.0.1)
   octicons-rails (~> 2.1.1)
@@ -572,7 +550,7 @@ DEPENDENCIES
   shoulda (~> 3.5.0)
   shoulda-context (~> 1.2.1)
   shoulda-matchers (~> 2.8.0)
-  sidekiq (~> 3.5.0)
+  sidekiq (~> 4.0.0)
   simple-navigation (~> 4.0.0)
   simple_navigation_renderers (~> 1.0.2)!
   simplecov (~> 0.10.0)

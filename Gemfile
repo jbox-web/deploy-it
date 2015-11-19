@@ -29,7 +29,7 @@ gem 'puma',           '~> 2.15.0'
 gem 'secure_headers', '~> 2.4.0'
 
 # Database
-gem 'mysql2', '~> 0.3.20'
+gem 'mysql2', '~> 0.4.1'
 gem 'pg',     '~> 0.18.2'
 
 # Authentication
@@ -106,10 +106,10 @@ gem 'sshkey', '~> 1.7.0'
 gem 'net-ssh', '~> 3.0.1'
 
 # Docker builds are state machines
-gem 'aasm', '~> 4.4.0'
+gem 'aasm', '~> 4.5.0'
 
 # Async Jobs
-gem 'sidekiq', '~> 3.5.0'
+gem 'sidekiq', '~> 4.0.0'
 gem 'sinatra', require: false
 gem 'slim'
 
