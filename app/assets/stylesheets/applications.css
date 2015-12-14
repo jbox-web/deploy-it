@@ -23,6 +23,7 @@
   color: #fff;
   font: 0.9em 'Andale Mono', Consolas, 'Courier New';
   line-height: 1.8em;
+  overflow: auto;
 
   -webkit-border-top-right-radius: 3px;
   -webkit-border-top-left-radius: 3px;
