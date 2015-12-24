@@ -50,23 +50,23 @@ gem 'turbolinks',      '~> 2.5.3'
 gem 'uglifier',        '~> 2.7.1'
 
 # Fonts
-gem 'font-awesome-rails',    '~> 4.4.0'
-gem 'octicons-rails',        '~> 2.1.1'
-gem 'google-webfonts-rails', '~> 0.0.4'
+gem 'font-awesome-rails'
+gem 'octicons-rails'
+gem 'google-webfonts-rails'
 
 # CSS
-gem 'sass-rails',         '~> 5.0.3'
-gem 'bootstrap-sass',     '~> 3.3.4'
-gem 'autoprefixer-rails', '~> 6.1.0'
+gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 
 # Forms
 gem 'bootstrap_form',         '~> 2.3.0'
 gem 'bootstrap-switch-rails', '~> 3.3.2'
-gem 'bootstrap-slider-rails', '~> 5.2.4'
+gem 'bootstrap-slider-rails', '~> 5.2.6'
 gem 'nested_form',            '~> 0.3.2'
 
 # View rendering
-gem 'haml-rails', '~> 0.9.0'
+gem 'haml-rails'
 
 # Pagination
 gem 'smart_listing', '~> 1.1.2'
@@ -97,10 +97,10 @@ gem 'acts_as_list', '~> 0.7.0'
 gem 'i18n-tasks', '~> 0.9.0'
 
 # Docker connection
-gem 'docker-api', '~> 1.23.0'
+gem 'docker-api', '~> 1.24.0'
 
 # SSH Keys generation
-gem 'sshkey', '~> 1.7.0'
+gem 'sshkey', '~> 1.8.0'
 
 # Presence check over SSH
 gem 'net-ssh', '~> 3.0.1'
@@ -130,7 +130,7 @@ gem 'logster'
 gem 'rack-mini-profiler'
 
 # External API
-gem 'grape', '~> 0.13.0'
+gem 'grape', '~> 0.14.0'
 gem 'hashie-forbidden_attributes'
 
 ## Documentation gems
