@@ -62,7 +62,7 @@ gem 'autoprefixer-rails'
 # Forms
 gem 'bootstrap_form',         '~> 2.3.0'
 gem 'bootstrap-switch-rails', '~> 3.3.2'
-gem 'bootstrap-slider-rails', '~> 5.2.6'
+gem 'bootstrap-slider-rails', '~> 5.3.3'
 gem 'nested_form',            '~> 0.3.2'
 
 # View rendering
