@@ -30,11 +30,11 @@ GIT
 
 GIT
   remote: https://github.com/libgit2/rugged.git
-  revision: 51eb13f1fb9ba17969fb62380c67741d3d8841ea
-  tag: v0.23.2
+  revision: 63cbfaf6af2c0adb559002e3e4009f47ea98892e
+  tag: v0.23.3
   submodules: true
   specs:
-    rugged (0.23.2)
+    rugged (0.23.3)
 
 GIT
   remote: https://github.com/n-rodriguez/ajax-datatables-rails.git
@@ -574,7 +574,7 @@ DEPENDENCIES
   request_store (~> 1.2.0)
   rspec (~> 3.3.0)
   rspec-rails (~> 3.3.0)
-  rugged (~> 0.23.2)!
+  rugged (~> 0.23.3)!
   sass-rails
   sdoc (~> 0.4.0)
   secure_headers (~> 2.4.0)
