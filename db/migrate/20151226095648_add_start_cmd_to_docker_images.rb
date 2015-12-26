@@ -13,20 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class DockerImage < ActiveRecord::Base
-
-  ## Basic Validations
-  validates :name,      presence: true, uniqueness: true
-  validates :start_cmd, presence: true
-
-
-  def to_s
-    name
+class AddStartCmdToDockerImages < ActiveRecord::Migration
+  def change
+    add_column :docker_images, :start_cmd, :string, after: :name
   end
-
-
-  def builder_script
-    start_cmd.split(' ')
-  end
-
 end

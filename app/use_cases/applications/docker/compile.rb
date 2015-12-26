@@ -24,7 +24,7 @@ module Applications
         app_dir:         '/app',
 
         # The script to run to build our app
-        builder_script:  '/build/builder',
+        builder_script:  ['/bin/herokuish', 'buildpack', 'build'],
 
         ## Environment variables files
 
@@ -98,7 +98,7 @@ module Applications
           execute_plugins(:pre_build, docker_options)
 
           # Run BuildStep builder script
-          run_command(DEFAULT_SETTINGS[:builder_script], docker_options)
+          run_command(builder_script, docker_options)
 
           # Execute plugins
           execute_plugins(:post_build, docker_options)
@@ -164,6 +164,11 @@ module Applications
 
         def execute_plugins(step, docker_options = {})
           DockerPlugin.execute(step, application, docker_connection, logger, docker_options)
+        end
+
+
+        def builder_script
+          DockerImage.find_by_name(application.image_type).try(:builder_script) || DEFAULT_SETTINGS[:builder_script]
         end
 
     end

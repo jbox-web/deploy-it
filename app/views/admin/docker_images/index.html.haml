@@ -12,6 +12,7 @@
       %thead
         %tr
           %th= DockerImage.human_attribute_name('name')
+          %th= DockerImage.human_attribute_name('start_cmd')
           %th= DockerImage.human_attribute_name('description')
           %th
 
@@ -19,5 +20,6 @@
         - @docker_images.each do |docker_image|
           %tr
             %td= link_to docker_image.name, edit_admin_docker_image_path(docker_image)
+            %td= docker_image.start_cmd
             %td= docker_image.description
             %td{ class: 'text-right' }= button_delete admin_docker_image_path(docker_image), class: 'btn-sm'

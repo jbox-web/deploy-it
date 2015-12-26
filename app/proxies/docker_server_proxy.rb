@@ -136,7 +136,7 @@ class DockerServerProxy
   def run_attached(image_name, command, opts, &block)
     docker_container = create_container(
       'Image' => image_name,
-      'Cmd'   => [command]
+      'Cmd'   => command
     )
 
     # Launch command and stream output

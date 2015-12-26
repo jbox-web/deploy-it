@@ -22,7 +22,7 @@ class Admin::DockerImagesController < Admin::DefaultController
           crumbable: true,
           crumbs_opts: { icon: 'fa-cubes' },
           params: {
-            on_create: [:name, :description],
-            on_update: [:name, :description]
+            on_create: [:name, :start_cmd, :description],
+            on_update: [:name, :start_cmd, :description]
           }
 end

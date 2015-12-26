@@ -9,6 +9,7 @@ fr:
     attributes:
       docker_image:
         name: Nom
+        start_cmd: Commande de démarrage
         description: Description
 
     errors:
@@ -18,3 +19,5 @@ fr:
             name:
               blank: ne peut être nul
               taken: déjà pris
+            start_cmd:
+              blank: ne peut être nul
