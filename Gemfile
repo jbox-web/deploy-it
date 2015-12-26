@@ -143,31 +143,31 @@ group :doc do
 end
 
 group :test, :development do
-  gem 'rspec',       '~> 3.3.0'
-  gem 'rspec-rails', '~> 3.3.0'
+  gem 'rspec'
+  gem 'rspec-rails'
 
   gem 'shoulda',          '~> 3.5.0'
   gem 'shoulda-matchers', '~> 2.8.0'
   gem 'shoulda-context',  '~> 1.2.1'
 
-  gem 'factory_girl',       '~> 4.5.0'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker',              '~> 1.5.0'
-  gem 'database_cleaner',   '~> 1.5.0'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'database_cleaner'
 
-  gem 'capybara', '~> 2.5.0'
+  gem 'capybara'
 
   # Code coverage
-  gem 'simplecov', '~> 0.10.0'
+  gem 'simplecov'
 end
 
 group :development do
-  gem 'spring',                '~> 1.4.0'
-  gem 'spring-commands-rspec', '~> 1.0.4'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 
-  gem 'turbulence',   '~> 1.2.4'
-  gem 'flog',         '~> 4.3.0'
-  gem 'quiet_assets', '~> 1.1.0'
+  gem 'turbulence'
+  gem 'flog'
+  gem 'quiet_assets'
 
   gem 'mina',         '~> 0.3.4'
   gem 'mina-puma',    require: false

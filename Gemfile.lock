@@ -195,7 +195,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faker (1.5.0)
+    faker (1.6.1)
       i18n (~> 0.5)
     faye (1.1.2)
       cookiejar (>= 0.3.0)
@@ -377,27 +377,27 @@ GEM
     request_store (1.2.1)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
-    rspec (3.3.0)
-      rspec-core (~> 3.3.0)
-      rspec-expectations (~> 3.3.0)
-      rspec-mocks (~> 3.3.0)
-    rspec-core (3.3.2)
-      rspec-support (~> 3.3.0)
-    rspec-expectations (3.3.1)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.3.0)
-    rspec-mocks (3.3.2)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.3.0)
-    rspec-rails (3.3.3)
+      rspec-support (~> 3.4.0)
+    rspec-rails (3.4.0)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.3.0)
-      rspec-expectations (~> 3.3.0)
-      rspec-mocks (~> 3.3.0)
-      rspec-support (~> 3.3.0)
-    rspec-support (3.3.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     sass (3.4.20)
@@ -429,7 +429,7 @@ GEM
       redis (~> 3.2, >= 3.2.1)
     simple-navigation (4.0.3)
       activesupport (>= 2.3.2)
-    simplecov (0.10.0)
+    simplecov (0.11.1)
       docile (~> 1.1.0)
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
@@ -446,7 +446,7 @@ GEM
       jquery-rails
       kaminari (~> 0.16.1)
       rails (>= 3.2)
-    spring (1.4.4)
+    spring (1.6.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     sprockets (3.5.2)
@@ -528,22 +528,22 @@ DEPENDENCIES
   bootstrap-switch-rails (~> 3.3.2)
   bootstrap_form (~> 2.3.0)
   bundler (>= 1.8.4)
-  capybara (~> 2.5.0)
+  capybara
   chartkick (~> 1.4.1)
   codemirror-rails (~> 5.6.0)
   coffee-rails (~> 4.1.0)
   crummy (~> 1.8.0)
   danthes (~> 2.0.1)!
-  database_cleaner (~> 1.5.0)
+  database_cleaner
   devise (~> 3.5.1)
   docker-api (~> 1.24.0)!
   dotenv-rails (~> 2.0.2)
-  factory_girl (~> 4.5.0)
-  factory_girl_rails (~> 4.5.0)
-  faker (~> 1.5.0)
+  factory_girl
+  factory_girl_rails
+  faker
   faye-redis (~> 0.2.0)
   figaro (~> 1.1.0)
-  flog (~> 4.3.0)
+  flog
   font-awesome-rails
   google-webfonts-rails
   grape (~> 0.14.0)
@@ -564,7 +564,7 @@ DEPENDENCIES
   octicons-rails
   pg (~> 0.18.2)
   puma (~> 2.15.0)
-  quiet_assets (~> 1.1.0)
+  quiet_assets
   rack-mini-profiler
   rails (~> 4.2.5)
   rails-assets-datetimepicker!
@@ -572,8 +572,8 @@ DEPENDENCIES
   redis
   redis-rails
   request_store (~> 1.2.0)
-  rspec (~> 3.3.0)
-  rspec-rails (~> 3.3.0)
+  rspec
+  rspec-rails
   rugged (~> 0.23.3)!
   sass-rails
   sdoc (~> 0.4.0)
@@ -586,17 +586,17 @@ DEPENDENCIES
   sidekiq (~> 4.0.0)
   simple-navigation (~> 4.0.0)
   simple_navigation_renderers (~> 1.0.2)!
-  simplecov (~> 0.10.0)
+  simplecov
   sinatra
   slim
   smart_listing (~> 1.1.2)
-  spring (~> 1.4.0)
-  spring-commands-rspec (~> 1.0.4)
+  spring
+  spring-commands-rspec
   sshkey (~> 1.8.0)
   thin (~> 1.6.3)
   tty-table
   turbolinks (~> 2.5.3)
-  turbulence (~> 1.2.4)
+  turbulence
   uglifier (~> 2.7.1)
   zeroclipboard-rails (~> 0.1.1)
 
