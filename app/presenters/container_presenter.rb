@@ -47,6 +47,7 @@ class ContainerPresenter < SimpleDelegator
     uptime = distance_of_time_in_words(DateTime.now, container.docker_proxy.uptime) rescue 'Not running'
     html_list(class: 'container-infos') do
       add_item(t('.state'), container_state_tag) +
+      add_item(t('.health'), container_health_tag) +
       add_item(t('.docker_id'), container.short_id) +
       add_item(t('.uptime'), uptime) +
       add_item(t('.backend_url'), container.docker_proxy.backend_url) +
@@ -88,12 +89,33 @@ class ContainerPresenter < SimpleDelegator
     end
 
 
+    def container_health_tag
+      if container.infected?
+        label   = t('.infected')
+        method  = :label_with_danger_tag
+        icon    = :label_with_icon_warning
+      else
+        label   = t('.healthy')
+        method  = :label_with_success_tag
+        icon    = :label_with_icon_check
+      end
+
+      link_name =
+        self.send(method) do
+          self.send(icon, "#{label}")
+        end
+
+      link_to link_name, events_application_path(container.application)
+    end
+
+
     def links_for_running_container
       manage_link('pause', 'fa-pause') +
       manage_link('stop', 'fa-power-off') +
       manage_link('restart', 'fa-refresh') +
       manage_link('destroy_forever', 'fa-trash-o') +
-      info_link
+      info_link +
+      top_link
     end
 
 
@@ -114,12 +136,17 @@ class ContainerPresenter < SimpleDelegator
 
 
     def info_link
-      link_to_icon('fa-info-circle', infos_application_container_path(container.application, container), info_options, icon_options)
+      link_to_icon('fa-info-circle', infos_application_container_path(container.application, container), modal_options.merge(title: t('.docker_infos')), icon_options)
     end
 
 
-    def info_options
-      { title: t('.docker_infos'), remote: true, data: { toggle: 'ajax-modal', draggable: false, modal_size: 'lg' } }
+    def top_link
+      link_to_icon('fa-gears', top_application_container_path(container.application, container), modal_options.merge(title: t('.docker_top')), icon_options)
+    end
+
+
+    def modal_options
+      { data: { toggle: 'ajax-modal', draggable: false, modal_size: 'lg' } }
     end
 
 

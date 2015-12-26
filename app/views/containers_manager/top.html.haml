@@ -1,0 +1,8 @@
+= content_for :title, label_with_icon(t('.title'), 'fa-gears', bigger: false)
+
+#container-top
+  %pre= render_console_table(data: container.docker_proxy.top(format: :hash, ps_args: 'faux'), headers: 'Titles', body: 'Processes')
+
+  = link_to label_with_icon(t('button.refresh'), 'fa-refresh', bigger: false), top_application_container_path(container.application, container),
+            remote: true,
+            class: 'btn btn-default btn-success'

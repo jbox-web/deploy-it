@@ -23,12 +23,12 @@ class ApplicationsController < DCIController
   before_action :authorize,        except: [:index, :new, :create, :pushes, :releases]
   before_action :authorize_global, only:   [:new, :create]
   before_action :load_wizard_form, only:   [:new, :create]
-  before_action :add_global_crumb, only:   [:show, :containers, :repositories, :activities]
+  before_action :add_global_crumb, only:   [:show, :containers, :repositories, :activities, :events]
 
 
   def index
     add_breadcrumb Application.model_name.human(count: 2), 'fa-desktop', ''
-    @applications = Application.visible.includes(:stage, :database).sorted_by_fullname
+    @applications = Application.visible.includes(:stage, :database, :containers).sorted_by_fullname
     render layout: 'base'
   end
 
@@ -77,7 +77,13 @@ class ApplicationsController < DCIController
 
 
   def activities
-    add_breadcrumb t('.title'), 'fa-dashboard', ''
+    add_breadcrumb t('.title'), 'fa-clock-o', ''
+    render_multi_responses(locals: { application: @application })
+  end
+
+
+  def events
+    add_breadcrumb t('.title'), 'fa-commenting', ''
     render_multi_responses(locals: { application: @application })
   end
 

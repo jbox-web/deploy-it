@@ -12,6 +12,9 @@ fr:
     activities:
       title: Activité récente
 
+    events:
+      title: Evènements récents
+
     show:
       title: Informations
 
@@ -54,6 +57,8 @@ fr:
 
       settings_status:
         database: BDD
+        healthy: En bonne santé
+        infected: Potentiellement infecté
 
       code: Code
       informations: Infos
@@ -87,6 +92,7 @@ fr:
         app_unpause: Sortir l'application de pause
 
         state: Etat du contenaire
+        health: Santé du contenaire
         docker_id: Identifiant Docker
         uptime: Uptime
         backend_url: URL du contenaire
@@ -100,10 +106,14 @@ fr:
         unpause: Sortir le contenaire de pause
         destroy_forever: Supprimer le contenaire
         docker_infos: Informations Docker
+        docker_top: Processus en cours
 
         running: Démarré
         stopped: Arrêté
         paused: En pause
+
+        healthy: En bonne santé
+        infected: Potentiellement infecté
 
       status:
         running_containers: Contenaires démarrés

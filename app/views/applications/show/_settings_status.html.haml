@@ -6,3 +6,4 @@
 = label_with_success_tag label_with_icon("#{Application.human_attribute_name('instance').capitalize} #{application.instance_number}", 'fa-rocket')
 = label_with_success_tag label_with_icon("#{Application.human_attribute_name('memory').capitalize} #{application.max_memory}M", render_memory_icon(application.max_memory))
 = label_with_success_tag label_with_icon("#{t('.database')} #{application.db_type}", 'fa-database')
+= render_application_health(application)

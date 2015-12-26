@@ -4,3 +4,5 @@ fr:
       notice: Demande mise en file d'attente
     infos:
       title: Informations Docker
+    top:
+      title: Processus en cours

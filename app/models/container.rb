@@ -25,6 +25,7 @@ class Container < ActiveRecord::Base
   belongs_to :application
   belongs_to :docker_server, foreign_key: 'server_id', class_name: 'Server'
   belongs_to :release
+  has_many   :events, class_name: 'ContainerEvent', dependent: :destroy
 
   ## Basic Validations
   validates :application_id, presence: true
@@ -82,6 +83,11 @@ class Container < ActiveRecord::Base
 
   def unmark_for_deletion!
     update_attribute(:marked_for_deletion, false)
+  end
+
+
+  def infected?
+    events.unknow_process.not_seen.any?
   end
 
 end

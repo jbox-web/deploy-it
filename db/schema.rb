@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029010223) do
-
-  create_table "addons", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "image",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
+ActiveRecord::Schema.define(version: 20151225030956) do
 
   create_table "application_addons", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -124,6 +117,17 @@ ActiveRecord::Schema.define(version: 20151029010223) do
   end
 
   add_index "configs", ["application_id"], name: "index_configs_on_application_id", using: :btree
+
+  create_table "container_events", force: :cascade do |t|
+    t.integer  "container_id", limit: 4
+    t.string   "type",         limit: 255
+    t.string   "message",      limit: 255
+    t.boolean  "seen",                     default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "container_events", ["container_id"], name: "index_container_events_on_container_id", using: :btree
 
   create_table "containers", force: :cascade do |t|
     t.integer  "application_id",      limit: 4

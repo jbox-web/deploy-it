@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     member do
       get 'infos', action: 'show'
       get 'activities'
+      get 'events'
       get 'containers'
       get 'repositories'
     end
@@ -83,11 +84,16 @@ Rails.application.routes.draw do
     end
     resources :containers, only: [], controller: 'containers_manager' do
       member do
+        get  'events'
         get  'infos'
+        get  'top'
         post 'manage'
+        post 'mark_events'
       end
     end
   end
+
+  post 'events/:id/mark_event', to: 'container_events#mark_event', as: 'mark_event'
 
   # Applications Charts
   resources :applications, only: [], controller: 'charts' do

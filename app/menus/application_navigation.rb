@@ -28,7 +28,8 @@ class ApplicationNavigation < BaseNavigation
       menu.item with_prefix(:app_infos),           label_with_icon(t('layouts.sidebar.informations'), 'fa-info-circle'),   infos_application_path(application)
       menu.item with_prefix(:app_repositories),    label_with_icon(t('layouts.sidebar.code'), 'fa-code'),                  repositories_application_path(application)
       menu.item with_prefix(:app_containers),      label_with_icon(get_model_name_for('Container'), 'fa-rocket'),          containers_application_path(application)
-      menu.item with_prefix(:app_activities),      label_with_icon(t('layouts.sidebar.activities'), 'fa-dashboard'),       activities_application_path(application)
+      menu.item with_prefix(:app_activities),      label_with_icon(t('layouts.sidebar.activities'), 'fa-clock-o'),         activities_application_path(application)
+      menu.item with_prefix(:app_events),          label_with_icon(get_model_name_for('ContainerEvent'), 'fa-commenting'), events_application_path(application)
       menu.item with_prefix(:app_settings),        label_with_icon(get_model_name_for('Settings'), 'fa-sliders'),          settings_application_path(application), if: -> { can?(:edit_application, application) }
       menu.item with_prefix(:app_members),         label_with_icon(get_model_name_for('Member'), 'fa-users'),              application_members_path(application), if: -> { can?(:manage_members, application) }
       menu.item with_prefix(:app_repository),      label_with_icon(get_model_name_for('Repository'), 'fa-git'),            repository_application_path(application), if: -> { can?(:edit_application, application) }

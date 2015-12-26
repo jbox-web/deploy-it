@@ -34,6 +34,28 @@ class ContainersManagerController < DCIController
   end
 
 
+  def top
+    respond_to do |format|
+      format.html { render_modal_box(locals: { container: @container }) }
+      format.js   { render ajax_template_path(action_name), locals: { container: @container } }
+    end
+  end
+
+
+  def events
+    respond_to do |format|
+      format.html
+      format.json { render json: ContainerEventDatatable.new(view_context, container: @container) }
+    end
+  end
+
+
+  def mark_events
+    @container.events.not_seen.map(&:seen!)
+    render_ajax_response(locals: { container: @container })
+  end
+
+
   private
 
 

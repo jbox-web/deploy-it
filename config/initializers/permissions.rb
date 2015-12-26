@@ -15,7 +15,7 @@
 
 # Permissions
 DeployIt::AccessControl.map do |map|
-  map.permission :view_application,    { applications: [:show, :repositories, :containers, :activities],
+  map.permission :view_application,    { applications: [:show, :repositories, :containers, :activities, :events],
                                          applications_manager: [:status],
                                          charts: [:charts]
                                         }, require: :loggedin

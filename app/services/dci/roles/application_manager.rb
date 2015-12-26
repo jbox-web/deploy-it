@@ -75,6 +75,12 @@ module DCI
         context.render_success
       end
 
+
+      def create_container_event(container, opts = {})
+        container.events.create(opts)
+        context.render_success
+      end
+
     end
   end
 end

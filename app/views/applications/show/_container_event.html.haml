@@ -1,0 +1,16 @@
+- bootstrap_datatables_for("container_#{container.id}_events") do |t|
+  - t.source      events_application_container_path(container.application, container, format: :json)
+  - t.dom         '<"panel panel-default"<"panel-heading"<"toolbar"><"pull-right hide-on-small"B>>t>ip'
+  - t.order       [[ 0, 'asc' ]]
+  - t.page_length 5
+
+  - t.head ContainerEvent.human_attribute_name('created_at'), class: 'created_at'
+  - t.head ContainerEvent.human_attribute_name('type'),       class: 'type'
+  - t.head ContainerEvent.human_attribute_name('message'),    class: 'message'
+  - t.head link_to_icon('fa-check', mark_events_application_container_path(container.application, container), method: :post, remote: :true, title: t('text.mark_as_read')), class: 'text-center'
+
+  - t.body
+  = t.render_datatable
+
+:coffee
+  $("#container_#{container.id}_events-table_wrapper div.toolbar").html("#{container.to_s}")

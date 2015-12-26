@@ -1,0 +1,6 @@
+= render 'common/application_partial'
+
+- application.containers.in_groups_of(2, false).each do |row_container|
+  .row
+    - row_container.each do |container|
+      .col-md-6= render 'applications/show/container_event', container: container

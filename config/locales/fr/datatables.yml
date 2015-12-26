@@ -1,0 +1,35 @@
+fr:
+
+  datatables:
+    processing:     Traitement en cours...
+    search:         "Rechercher&nbsp;:"
+    lengthMenu:     Afficher _MENU_ éléments
+    info:           Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments
+    infoEmpty:      Affichage de l'élément 0 à 0 sur 0 éléments
+    infoFiltered:   (filtré de _MAX_ éléments au total)
+    infoPostFix:    ''
+    loadingRecords: Chargement en cours...
+    zeroRecords:    Aucun élément à afficher
+    emptyTable:     Aucune donnée disponible dans le tableau
+
+    paginate:
+      first:    Premier
+      previous: Précédent
+      next:     Suivant
+      last:     Dernier
+
+    aria:
+      sortAscending:  ': activer pour trier la colonne par ordre croissant'
+      sortDescending: ': activer pour trier la colonne par ordre décroissant'
+
+    buttons:
+      copy: Copier dans le presse-papier
+      pdf: Exporter au format PDF
+      csv: Exporter au format CSV
+      excel: Exporter au format Excel
+      print: Imprimer
+      display_columns: Sélectionnez les colonnes à afficher
+      display_n_items: Sélectionnez le nombre d'entrées à afficher
+      pageLength:
+        _: Afficher %d éléments
+        '-1': Montre tout

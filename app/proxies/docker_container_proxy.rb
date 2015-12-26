@@ -86,6 +86,11 @@ class DockerContainerProxy < SimpleDelegator
   end
 
 
+  def top(opts = {})
+    docker_container.top(opts)
+  end
+
+
   def start
     docker_container.start
   end

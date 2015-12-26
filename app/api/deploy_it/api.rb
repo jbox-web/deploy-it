@@ -19,6 +19,9 @@ module DeployIt
     format :json
     prefix :api
 
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      error!("404 Not Found", 404)
+    end
 
     before do
       error!("401 Unauthorized", 401) unless authenticated
@@ -29,6 +32,10 @@ module DeployIt
 
       def authenticated
         params[:access_token] && User.current = User.find_by_api_token(params[:access_token])
+      end
+
+      def render_success
+        'OK'
       end
 
     end
@@ -46,6 +53,19 @@ module DeployIt
       desc "Return containers list."
       get :list do
         ::Application.includes(:containers).visible.map(&:containers)
+      end
+
+
+      params do
+        requires :id,      type: String
+        requires :type,    type: String
+        requires :message, type: String
+      end
+
+      post ':id/events' do
+        container = Container.find_by_docker_id(params[:id])
+        raise ActiveRecord::RecordNotFound if container.nil?
+        DCI::Roles::ApplicationManager.new(self).create_container_event(container, { type: params[:type], message: params[:message] })
       end
     end
 

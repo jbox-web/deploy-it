@@ -85,3 +85,8 @@ div.settings-head h4 {
 .code {
   font-family: monospace;
 }
+
+.dataTables_info,
+.dataTables_paginate {
+  text-align: center;
+}

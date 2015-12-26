@@ -1,0 +1,24 @@
+fr:
+
+  activerecord:
+    models:
+      container_event:
+        one: Evènement
+        other: Evènements
+
+    attributes:
+      container_event:
+        type: Type
+        message: Message
+        created_at: Créé le
+
+    errors:
+      models:
+        container_event:
+          attributes:
+            container_id:
+              blank: ne peut être nul
+            type:
+              blank: ne peut être nul
+            message:
+              blank: ne peut être nul

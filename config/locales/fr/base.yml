@@ -11,6 +11,7 @@ fr:
     done: Done !
     time: Temps
     save_in_progress: Sauvegarde en cours...
+    mark_as_read: Marquer comme lu
 
   language:
     name:

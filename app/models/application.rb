@@ -205,6 +205,11 @@ class Application < ActiveRecord::Base
   end
 
 
+  def infected?
+    containers.map(&:infected?).include?(true)
+  end
+
+
   private
 
 

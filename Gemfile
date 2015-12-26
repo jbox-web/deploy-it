@@ -70,6 +70,7 @@ gem 'haml-rails'
 
 # Pagination
 gem 'smart_listing', '~> 1.1.2'
+gem 'ajax-datatables-rails', git: 'https://github.com/n-rodriguez/ajax-datatables-rails.git', branch: 'v-0-4-0'
 
 # Breadcrumbs
 gem 'crummy', '~> 1.8.0'
@@ -97,7 +98,10 @@ gem 'acts_as_list', '~> 0.7.0'
 gem 'i18n-tasks', '~> 0.9.0'
 
 # Docker connection
-gem 'docker-api', '~> 1.24.0'
+gem 'docker-api', '~> 1.24.0', git: 'https://github.com/n-rodriguez/docker-api.git', branch: 'top-add-format-option'
+
+# Render Docker top
+gem 'tty-table'
 
 # SSH Keys generation
 gem 'sshkey', '~> 1.8.0'
@@ -171,5 +175,5 @@ group :development do
   gem 'mina-scp',     require: false
 
   # gem 'brakeman', '~> 2.6.3'
-  # gem 'bullet',   '~> 4.14.10'
+  # gem 'bullet'
 end

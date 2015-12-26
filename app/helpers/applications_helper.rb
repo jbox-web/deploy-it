@@ -121,6 +121,32 @@ module ApplicationsHelper
   end
 
 
+  def render_console_table(data:, headers:, body:)
+    table = TTY::Table.new data[headers], data[body]
+    table.render(:unicode, width: 240, padding: [0, 1])
+  end
+
+
+  def render_application_health(application)
+    if application.infected?
+      label   = t('.infected')
+      method  = :label_with_danger_tag
+      icon    = :label_with_icon_warning
+    else
+      label   = t('.healthy')
+      method  = :label_with_success_tag
+      icon    = :label_with_icon_check
+    end
+
+    link_name =
+      self.send(method) do
+        self.send(icon, "#{label}")
+      end
+
+    link_to link_name, events_application_path(application)
+  end
+
+
   ### PRIVATE ###
 
 

@@ -1,2 +1,2 @@
-= content_for :title, t('.title')
+= content_for :title, label_with_icon(t('.title'), 'fa-info-circle', bigger: false)
 %pre= YAML::dump(container.docker_proxy.info)
