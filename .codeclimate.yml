@@ -1,0 +1,8 @@
+languages:
+  Ruby: true
+  JavaScript: true
+  PHP: false
+  Python: false
+exclude_paths:
+- "app/assets/javascripts/plugins/datatables.min.js"
+- "app/assets/javascripts/plugins/jquery.dataTables.yadcf.js"
