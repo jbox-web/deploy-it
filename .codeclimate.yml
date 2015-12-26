@@ -6,3 +6,4 @@ languages:
 exclude_paths:
 - "app/assets/javascripts/plugins/datatables.min.js"
 - "app/assets/javascripts/plugins/jquery.dataTables.yadcf.js"
+- "app/assets/javascripts/chartkick.js"
