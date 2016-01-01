@@ -16,6 +16,8 @@ fr:
       notice: Base de données modifiée avec succès
     reset_ssl_certificate:
       notice: Certificat SSL réinitialisé avec succès
+    reset_database:
+      notice: Base de données en cours de réinitialisation
     domain_names:
       notice: Alias / Redirections mis à jour avec succès
       error: Erreurs lors de l'enregistrement des alias / redirections
