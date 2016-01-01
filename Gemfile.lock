@@ -113,7 +113,7 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.2.1)
+    autoprefixer-rails (6.2.3)
       execjs
       json
     axiom-types (0.1.1)
@@ -125,7 +125,7 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bootstrap-slider-rails (5.3.3)
+    bootstrap-slider-rails (5.3.7)
       railties (>= 3.2, < 5.0)
     bootstrap-switch-rails (3.3.3)
     bootstrap_form (2.3.0)
@@ -299,7 +299,7 @@ GEM
     mysql2 (0.4.2)
     necromancer (0.3.0)
     nested_form (0.3.2)
-    net-ssh (3.0.1)
+    net-ssh (3.0.2)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     octicons-rails (2.1.1)
