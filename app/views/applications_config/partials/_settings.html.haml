@@ -26,6 +26,9 @@
       = f.form_group :use_cron, label: { text: Application.human_attribute_name('enable_cron') }, class: 'shifted' do
         = f.check_box :use_cron, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 
+      = f.form_group :use_workers, label: { text: Application.human_attribute_name('enable_workers') }, class: 'shifted' do
+        = f.check_box :use_workers, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
+
       = f.form_group :debug_mode, label: { text: Application.human_attribute_name('enable_debug') }, class: 'shifted' do
         = f.check_box :debug_mode, class: 'bootstrap-switch', data: { size: 'small' }, label: ''
 

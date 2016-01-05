@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151226095648) do
+ActiveRecord::Schema.define(version: 20160105093916) do
 
   create_table "application_addons", force: :cascade do |t|
     t.integer  "application_id", limit: 4
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20151226095648) do
     t.integer  "max_memory",          limit: 4,     default: 256
     t.boolean  "use_cron",                          default: false
     t.boolean  "use_ssl",                           default: false
+    t.boolean  "use_workers",                       default: false
     t.boolean  "debug_mode",                        default: false
     t.boolean  "use_credentials",                   default: false
     t.boolean  "marked_for_deletion",               default: false

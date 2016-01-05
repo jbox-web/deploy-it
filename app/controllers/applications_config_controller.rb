@@ -27,7 +27,7 @@ class ApplicationsConfigController < DCIController
 
   def settings
     add_breadcrumb get_model_name_for('Settings'), 'fa-sliders', ''
-    dci_data = [:name, :domain_name, :application_type_id, :max_memory, :instance_number, :image_type, :buildpack, :use_cron, :debug_mode]
+    dci_data = [:name, :domain_name, :application_type_id, :max_memory, :instance_number, :image_type, :buildpack, :use_cron, :use_workers, :debug_mode]
     set_dci_data({ application: dci_data })
     wrapped_response { call_dci_role(:update_settings) }
   end

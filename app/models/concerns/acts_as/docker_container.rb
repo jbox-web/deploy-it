@@ -17,7 +17,7 @@ module ActsAs
   module DockerContainer
     extend ActiveSupport::Concern
 
-    APPLICATION_CONTAINERS    = %w(data cron web)
+    APPLICATION_CONTAINERS    = %w(data cron web worker)
     ADDONS_CONTAINERS         = DeployIt.addons_available
     CONTAINER_TYPES_AVAILABLE = APPLICATION_CONTAINERS + ADDONS_CONTAINERS
 

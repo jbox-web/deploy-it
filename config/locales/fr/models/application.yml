@@ -38,11 +38,13 @@ fr:
         cron_enabled: Tâches CRON activées
         ssl_enabled: SSL activé
         debug_enabled: Mode debug activé
+        workers_enabled: Workers activés
 
         enable_credentials: Activer l'authentification par mot de passe
         enable_cron: Activer les tâches CRON
         enable_ssl: Activer SSL
         enable_debug: Activer le mode debug
+        enable_workers: Activer les workers
 
         pushes: Nombre de push
         releases: Nombre de version
