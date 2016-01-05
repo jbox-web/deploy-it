@@ -179,11 +179,11 @@ module ActsAs
     def docker_options_for(step)
       case step
       when :receive, :build
-        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[step] } }
+        { "Env" => active_env_vars.merge(current_step: step).to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[step] } }
       when :deploy
-        get_linked_containers.deep_merge({ "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } })
+        get_linked_containers.deep_merge({ "Env" => active_env_vars.merge(current_step: step).to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } })
       else
-        { "Env" => active_env_vars.to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
+        { "Env" => active_env_vars.merge(current_step: step).to_env, "HostConfig" => { "Binds" => active_mount_points_with_path[:deploy] } }
       end
     end
 
