@@ -26,7 +26,7 @@ end
 
 # Server
 gem 'puma',           '~> 2.15.0'
-gem 'secure_headers', '~> 2.4.0'
+gem 'secure_headers', '~> 2.5.0'
 
 # Database
 gem 'mysql2', '~> 0.4.1'
@@ -35,16 +35,16 @@ gem 'pg',     '~> 0.18.2'
 # Authentication
 gem 'bcrypt',        '~> 3.1.10'
 gem 'devise',        '~> 3.5.1'
-gem 'request_store', '~> 1.2.0'
+gem 'request_store', '~> 1.3.0'
 
 # Configuration
-gem 'dotenv-rails',  '~> 2.0.2'
-gem 'figaro',        '~> 1.1.0'
-gem 'settingslogic', '~> 2.0.9'
+gem 'dotenv-rails'
+gem 'figaro'
+gem 'settingslogic'
 
 # Javascript
 gem 'coffee-rails',    '~> 4.1.0'
-gem 'jquery-rails',    '~> 4.0.3'
+gem 'jquery-rails',    '~> 4.1.0'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'turbolinks',      '~> 2.5.3'
 gem 'uglifier',        '~> 2.7.1'
