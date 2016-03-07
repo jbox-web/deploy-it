@@ -72,7 +72,7 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    aasm (4.5.2)
+    aasm (4.9.0)
     actionmailer (4.2.5.2)
       actionpack (= 4.2.5.2)
       actionview (= 4.2.5.2)
@@ -188,7 +188,7 @@ GEM
     equatable (0.5.0)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
-    excon (0.47.0)
+    excon (0.48.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -312,7 +312,7 @@ GEM
       equatable (~> 0.5.0)
       tty-color (~> 0.3.0)
     pg (0.18.4)
-    puma (2.15.3)
+    puma (3.1.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -415,8 +415,6 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    secure_headers (2.5.2)
-      user_agent_parser
     select2-rails (4.0.1.1)
       thor (~> 0.14)
     settingslogic (2.0.9)
@@ -427,7 +425,7 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (4.0.2)
+    sidekiq (4.1.1)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
@@ -495,7 +493,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode_utils (1.4.0)
-    user_agent_parser (2.3.0)
     verse (0.4.0)
       unicode_utils (~> 1.4.0)
     virtus (1.0.5)
@@ -518,7 +515,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm (~> 4.5.0)
+  aasm (~> 4.9.0)
   actionform (~> 0.0.1)!
   active_use_case (~> 1.0.3)!
   acts_as_list (~> 0.7.0)
@@ -568,7 +565,7 @@ DEPENDENCIES
   net-ssh (~> 3.0.1)
   octicons-rails
   pg (~> 0.18.2)
-  puma (~> 2.15.0)
+  puma (~> 3.1.0)
   quiet_assets
   rack-mini-profiler
   rails (~> 4.2.5)
@@ -582,13 +579,12 @@ DEPENDENCIES
   rugged (~> 0.23.3)!
   sass-rails
   sdoc (~> 0.4.0)
-  secure_headers (~> 2.5.0)
   select2-rails (~> 4.0.0)
   settingslogic
   shoulda (~> 3.5.0)
   shoulda-context (~> 1.2.1)
   shoulda-matchers (~> 2.8.0)
-  sidekiq (~> 4.0.0)
+  sidekiq (~> 4.1.0)
   simple-navigation (~> 4.0.0)
   simple_navigation_renderers (~> 1.0.2)!
   simplecov
@@ -606,4 +602,4 @@ DEPENDENCIES
   zeroclipboard-rails (~> 0.1.1)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

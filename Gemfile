@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.2.4'
 
 gem 'rugged',                '~> 0.23.3', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.23.3', submodules: true
 gem 'actionform',            '~> 0.0.1',  git: 'https://github.com/rails/actionform.git', require: 'action_form'
@@ -25,8 +25,7 @@ source 'https://rails-assets.org' do
 end
 
 # Server
-gem 'puma',           '~> 2.15.0'
-gem 'secure_headers', '~> 2.5.0'
+gem 'puma', '~> 3.1.0'
 
 # Database
 gem 'mysql2', '~> 0.4.1'
@@ -110,10 +109,10 @@ gem 'sshkey', '~> 1.8.0'
 gem 'net-ssh', '~> 3.0.1'
 
 # Docker builds are state machines
-gem 'aasm', '~> 4.5.0'
+gem 'aasm', '~> 4.9.0'
 
 # Async Jobs
-gem 'sidekiq', '~> 4.0.0'
+gem 'sidekiq', '~> 4.1.0'
 gem 'sinatra', require: false
 gem 'slim'
 

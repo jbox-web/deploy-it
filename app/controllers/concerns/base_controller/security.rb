@@ -19,9 +19,6 @@ module BaseController::Security
   included do
     # Prevent CSRF attacks by raising an exception.
     protect_from_forgery with: :exception
-
-    # Secure Headers stuff
-    ensure_security_headers
   end
 
 end
