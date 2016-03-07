@@ -151,6 +151,8 @@ class DockerServerProxy
 
     # Commit image to save data
     docker_container.commit('repo' => image_name)
+
+    docker_container.json['State']['ExitCode'] == 0
   end
 
 

@@ -22,6 +22,7 @@ module DeployIt
     class InvalidServerUpdate < DeployItError; end
     class UnreachableServer   < DeployItError; end
     class ServerUpdateFailed  < DeployItError; end
+    class CompilationFailed   < DeployItError; end
 
   end
 end

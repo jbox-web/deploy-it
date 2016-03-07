@@ -98,7 +98,9 @@ module Applications
           execute_plugins(:pre_build, docker_options)
 
           # Run BuildStep builder script
-          run_command(builder_script, docker_options)
+          success = run_command(builder_script, docker_options)
+
+          raise DeployIt::Error::CompilationFailed unless success
 
           # Execute plugins
           execute_plugins(:post_build, docker_options)

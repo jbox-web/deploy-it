@@ -27,9 +27,10 @@ module Helpers
 
 
     def run_command(command, docker_options = {})
-      docker_connection.run_attached(application.image_name, command, docker_options) do |chunk|
+      success = docker_connection.run_attached(application.image_name, command, docker_options) do |chunk|
         logger.info chunk
       end
+      success
     end
 
 
@@ -64,6 +65,8 @@ module Helpers
         error_message I18n.t('errors.docker.image_not_found', image: application.image_type)
       rescue EOFError, Excon::Errors::SocketError
         error_message I18n.t('errors.docker.connection_refused')
+      rescue DeployIt::Error::CompilationFailed
+        error_message I18n.t('errors.deploy_it.compilation_failed')
       rescue => e
         error_message I18n.t('errors.docker.unknown_error', error: e.message)
       else

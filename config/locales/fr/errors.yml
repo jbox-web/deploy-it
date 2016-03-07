@@ -29,3 +29,4 @@ fr:
       repository_not_found: Dépôt non trouvé
       contact_your_admin: Contactez votre administrateur
       unauthorized: Vous n'êtes pas autorisés à déployer ce contenaire!
+      compilation_failed: La compilation de l'image a échoué
