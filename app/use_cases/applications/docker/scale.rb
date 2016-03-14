@@ -26,7 +26,7 @@ module Applications
           spin_container(addon.type)
         end
         spin_container('web', application.instance_number)
-        application.use_cron? ? spin_container('cron') : remove_container('cron')
+        application.use_cron? ? spin_container('clock') : remove_container('clock')
         application.use_workers? ? spin_container('worker') : remove_container('worker')
       end
 
