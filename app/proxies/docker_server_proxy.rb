@@ -190,9 +190,9 @@ class DockerServerProxy
 
 
     def docker_command(*args)
-      args = ['-H', @url].concat(args)
-      Rails.logger.info "docker #{args.join(' ')}"
-      DeployIt::Utils::Exec.execute('docker', args)
+      new_args = ['-H', @url].concat(args)
+      Rails.logger.info "docker #{new_args.join(' ')}"
+      DeployIt::Utils::Exec.execute('docker', new_args)
     end
 
 
