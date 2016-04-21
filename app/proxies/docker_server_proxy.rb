@@ -170,7 +170,7 @@ class DockerServerProxy
   def push(image, registry)
     raise DeployIt::Error::DockerImageNotFound if !image_exists?(image)
     registry_path = "#{registry}/#{image}"
-    docker_command('tag', '-f', image, registry_path)
+    docker_command('tag', image, registry_path)
     docker_command('push', registry_path)
     docker_command('rmi', registry_path)
   end
