@@ -111,6 +111,12 @@ gem 'net-ssh'
 # Docker builds are state machines
 gem 'aasm'
 
+# Redis
+gem 'redis'
+gem 'hiredis'
+gem 'em-synchrony'
+gem 'redis-namespace'
+
 # Async Jobs
 gem 'sidekiq'
 gem 'sinatra', require: false
@@ -126,7 +132,6 @@ gem 'bootstrap-growl-rails'
 gem 'redis-rails'
 
 # Rails Application Logs
-gem 'redis'
 gem 'logster'
 
 # Profiler
