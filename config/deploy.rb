@@ -65,7 +65,7 @@ task deploy: :environment do
     to :launch do
       invoke :'puma:restart'
       invoke :'sidekiq:restart'
-      invoke :'danthes:restart'
+      invoke :'faye:restart'
     end
   end
 end
@@ -82,40 +82,41 @@ namespace :deploy do
 end
 
 
-namespace :danthes do
-  set_default :danthes_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/faye.pid" }
-  set_default :thin_cmd,    -> { "#{bundle_prefix} thin" }
+namespace :faye do
+  set_default :faye_pid,    -> { "#{deploy_to}/#{shared_path}/tmp/pids/faye.pid" }
+  set_default :faye_cmd,    -> { "#{bundle_prefix} thin" }
+  set_default :faye_config, -> { 'config/danthes_thin.yml' }
 
-  desc 'Start danthes'
+  desc 'Start Faye'
   task start: :environment do
     queue! %[
-      if [ -e '#{danthes_pid}' ]; then
-        echo 'Danthes is already running!';
+      if [ -e '#{faye_pid}' ]; then
+        echo 'Faye is already running!';
       else
-        cd #{deploy_to}/#{current_path} && #{thin_cmd} start -d -C config/danthes_thin.yml
+        cd #{deploy_to}/#{current_path} && #{faye_cmd} start -d -C #{faye_config}
       fi
     ]
   end
 
-  desc 'Restart danthes'
+  desc 'Restart Faye'
   task restart: :environment do
     queue! %[
-      if [ -e '#{danthes_pid}' ]; then
-        cd #{deploy_to}/#{current_path} && #{thin_cmd} restart -d -C config/danthes_thin.yml
+      if [ -e '#{faye_pid}' ]; then
+        cd #{deploy_to}/#{current_path} && #{faye_cmd} restart -d -C #{faye_config}
       else
-        echo 'Danthes is not running!';
+        echo 'Faye is not running!';
       fi
     ]
   end
 
-  desc 'Stop danthes'
+  desc 'Stop Faye'
   task stop: :environment do
     queue! %[
-      if [ -e '#{danthes_pid}' ]; then
-        cd #{deploy_to}/#{current_path} && #{thin_cmd} stop -C config/danthes_thin.yml
-        rm -f '#{danthes_pid}'
+      if [ -e '#{faye_pid}' ]; then
+        cd #{deploy_to}/#{current_path} && #{faye_cmd} stop -C #{faye_config}
+        rm -f '#{faye_pid}'
       else
-        echo 'Danthes is not running!';
+        echo 'Faye is not running!';
       fi
     ]
   end
