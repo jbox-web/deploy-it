@@ -26,9 +26,9 @@ module BaseController::Devise
 
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:login) { |u| u.permit(:email, :password, :remember_me) }
-      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:current_password, :password, :password_confirmation) }
-      # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
+      devise_parameter_sanitizer.permit(:login, keys: [:email, :password, :remember_me])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:current_password, :password, :password_confirmation])
+      # devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation])
     end
 
 end
