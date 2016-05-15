@@ -3,16 +3,18 @@ development:
   server: <%= ENV['ACCESS_URL'] %>
   mount: '/faye'
   secret_token: <%= ENV['FAYE_SECRET'] %>
-  signature_expiration: 3600 # one hour
+  signature_expiration: 3600
+
 test:
   adapter: thin
   server: <%= ENV['ACCESS_URL'] %>
   mount: '/faye'
   secret_token: <%= ENV['FAYE_SECRET'] %>
-  signature_expiration: 3600 # one hour
+  signature_expiration: 3600
+
 production:
   adapter: thin
   server: <%= ENV['ACCESS_URL'] %>
   mount: '/faye'
   secret_token: <%= ENV['FAYE_SECRET'] %>
-  signature_expiration: 3600 # one hour
+  signature_expiration: 3600

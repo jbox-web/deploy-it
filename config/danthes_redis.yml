@@ -1,12 +1,17 @@
 development:
-  host: <%= ENV['REDIS_HOST'] %>
-  port: <%= ENV['REDIS_PORT'] %>
-  namespace: '/danthes'
+  host:      <%= ENV['REDIS_HOST'] %>
+  port:      <%= ENV['REDIS_PORT'] %>
+  database:  <%= ENV['REDIS_DB'] %>
+  namespace: 'danthes'
+
 test:
-  host: <%= ENV['REDIS_HOST'] %>
-  port: <%= ENV['REDIS_PORT'] %>
-  namespace: '/danthes'
+  host:      <%= ENV['REDIS_HOST'] %>
+  port:      <%= ENV['REDIS_PORT'] %>
+  database:  <%= ENV['REDIS_DB'] %>
+  namespace: 'danthes'
+
 production:
-  host: <%= ENV['REDIS_HOST'] %>
-  port: <%= ENV['REDIS_PORT'] %>
-  namespace: '/danthes'
+  host:      <%= ENV['REDIS_HOST'] %>
+  port:      <%= ENV['REDIS_PORT'] %>
+  database:  <%= ENV['REDIS_DB'] %>
+  namespace: 'danthes'

@@ -57,12 +57,17 @@ module DeployIt
     # https://github.com/plataformatec/devise/issues/3643
     config.relative_url_root = '/'
 
-    # Cache
-    config.cache_store = :redis_store, { host:      ENV['REDIS_HOST'],
-                                         port:      ENV['REDIS_PORT'],
-                                         db:        0,
-                                         namespace: 'deploy-it_cache',
+    # Cache store
+    config.cache_store = :redis_store, { host:       ENV['REDIS_HOST'],
+                                         port:       ENV['REDIS_HOST'],
+                                         db:         ENV['REDIS_DB'],
+                                         namespace:  'cache',
+                                         driver:     :hiredis,
                                          expires_in: 90.minutes }
+
+    # Logster
+    Logster.store = Logster::RedisStore.new(Redis.new(host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'], db: ENV['REDIS_DB'], namespace: 'logster', driver: :hiredis))
+
   end
 end
 

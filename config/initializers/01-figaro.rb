@@ -30,6 +30,7 @@ DEPLOY_IT_REQUIRED_KEYS = [
   # Redis (Sidekiq / Faye)
   'REDIS_HOST',
   'REDIS_PORT',
+  'REDIS_DB',
 
   # Faye server / Async events
   'ACCESS_URL',
