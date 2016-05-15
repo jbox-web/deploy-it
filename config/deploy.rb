@@ -37,7 +37,7 @@ set :config_file, File.join(Dir.pwd, 'deploy-it.conf')
 
 # RVM settings
 task :environment do
-  invoke :'rvm:use[ruby-2.2.4@default]'
+  invoke :'rvm:use[ruby-2.3.1@default]'
 end
 
 ##### TASKS #####
