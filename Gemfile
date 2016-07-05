@@ -2,13 +2,12 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rugged',                '~> 0.24.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.24.0', submodules: true
-gem 'actionform',            '~> 0.0.1',  git: 'https://github.com/rails/actionform.git', require: 'action_form'
 
 gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
 gem 'active_use_case',       '~> 1.0.3',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.0.3'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
-gem 'simple_navigation_renderers', '~> 1.0.2', git: 'https://github.com/n-rodriguez/simple_navigation_renderers.git', branch: 'fix_rails4'
+gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'action_form'
 
 # Base gems
 gem 'rails', '~> 4.2.6'
@@ -45,7 +44,7 @@ gem 'settingslogic'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
+gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic.git'
 gem 'uglifier'
 
 # Fonts
@@ -89,6 +88,7 @@ gem 'groupdate'
 
 # Menus
 gem 'simple-navigation'
+gem 'simple_navigation_bootstrap'
 
 # Sortable lists
 gem 'acts_as_list'

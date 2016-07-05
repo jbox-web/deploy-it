@@ -8,6 +8,13 @@ GIT
       yajl-ruby (~> 1.2.0)
 
 GIT
+  remote: https://github.com/jbox-web/actionform.git
+  revision: 6ec2f5fd7f21f2a14c03e782fe8715f3491b36d6
+  specs:
+    actionform (0.0.1)
+      rails (>= 4.1, < 5.1)
+
+GIT
   remote: https://github.com/jbox-web/active_use_case.git
   revision: 3f7e91e366653103fb560671aa318f8974709854
   tag: 1.0.3
@@ -39,7 +46,7 @@ GIT
 
 GIT
   remote: https://github.com/n-rodriguez/ajax-datatables-rails.git
-  revision: a7bacd2f2bc1472c7b63fdde90bd03b5c0784cf6
+  revision: 0d1362a1f2b5d2622a746542d7c5cda751f30aab
   branch: v-0-4-0
   specs:
     ajax-datatables-rails (0.3.0)
@@ -55,25 +62,17 @@ GIT
       json
 
 GIT
-  remote: https://github.com/n-rodriguez/simple_navigation_renderers.git
-  revision: 4040de66da57ea0c46165e12e0bdc52ea3f327bc
-  branch: fix_rails4
+  remote: https://github.com/turbolinks/turbolinks-classic.git
+  revision: 37a7c296232d20a61bd1946f600da7f2009189db
   specs:
-    simple_navigation_renderers (1.0.2)
-      simple-navigation (~> 4.0)
-
-GIT
-  remote: https://github.com/rails/actionform.git
-  revision: fe9ed888bbee5804f250e77b798972e47f780656
-  specs:
-    actionform (0.0.1)
-      rails (~> 4.1)
+    turbolinks (3.0.0)
+      coffee-rails
 
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    aasm (4.10.0)
+    aasm (4.11.0)
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
       actionview (= 4.2.6)
@@ -109,12 +108,12 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.7.4)
+    acts_as_list (0.7.5)
       activerecord (>= 3.0)
     addressable (2.4.0)
     arel (6.0.3)
-    ast (2.2.0)
-    autoprefixer-rails (6.3.6)
+    ast (2.3.0)
+    autoprefixer-rails (6.3.7)
       execjs
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -128,7 +127,7 @@ GEM
     bootstrap-slider-rails (7.0.3)
       railties (>= 3.2, < 5.0)
     bootstrap-switch-rails (3.3.3)
-    bootstrap_form (2.3.0)
+    bootstrap_form (2.4.0)
     builder (3.2.2)
     capybara (2.7.1)
       addressable
@@ -137,27 +136,27 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    chartkick (1.5.2)
-    codemirror-rails (5.11)
-      railties (>= 3.0, < 5)
+    chartkick (2.0.0)
+    codemirror-rails (5.16.0)
+      railties (>= 3.0, < 6.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    coffee-rails (4.1.1)
+    coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
+      railties (>= 4.0.0, < 5.2.x)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
-    cookiejar (0.3.0)
+    cookiejar (0.3.3)
     crummy (1.8.0)
     daemons (1.2.3)
     database_cleaner (1.5.3)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (4.1.1)
+    devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.1)
@@ -176,9 +175,9 @@ GEM
     em-hiredis (0.3.1)
       eventmachine (~> 1.0)
       hiredis (~> 0.6.0)
-    em-http-request (1.1.3)
+    em-http-request (1.1.5)
       addressable (>= 2.3.4)
-      cookiejar (<= 0.3.0)
+      cookiejar (!= 0.3.1)
       em-socksify (>= 0.3)
       eventmachine (>= 1.0.3)
       http_parser.rb (>= 0.6.0)
@@ -191,8 +190,8 @@ GEM
     equatable (0.5.0)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
-    excon (0.49.0)
-    execjs (2.6.0)
+    excon (0.50.1)
+    execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
@@ -200,7 +199,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
-    faye (1.1.2)
+    faye (1.2.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
@@ -212,15 +211,16 @@ GEM
       em-hiredis (>= 0.2.0)
       eventmachine (>= 0.12.0)
       multi_json (>= 1.0.0)
-    faye-websocket (0.10.3)
+    faye-websocket (0.10.4)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     figaro (1.1.1)
       thor (~> 0.14)
-    flog (4.3.2)
+    flog (4.4.0)
+      path_expander (~> 1.0)
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
-    font-awesome-rails (4.6.2.0)
+    font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -236,7 +236,7 @@ GEM
       rack (>= 1.3.0)
       rack-accept
       virtus (>= 1.0.0)
-    groupdate (2.5.3)
+    groupdate (3.0.0)
       activesupport (>= 3)
     haml (4.0.7)
       tilt
@@ -281,52 +281,55 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    logster (1.2.3)
+    logster (1.2.4)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mime-types (3.0)
+    mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0221)
+    mime-types-data (3.2016.0521)
     mina (0.3.8)
       open4 (~> 1.3.4)
       rake
-    mina-puma (0.3.0)
+    mina-puma (0.3.1)
       mina
       puma (>= 2.13)
     mina-scp (0.1.2)
-    mina-sidekiq (0.3.1)
+    mina-sidekiq (0.4.1)
       mina
-    mini_portile2 (2.0.0)
-    minitest (5.8.4)
-    multi_json (1.12.0)
+    mini_portile2 (2.1.0)
+    minitest (5.9.0)
+    multi_json (1.12.1)
     multi_xml (0.5.5)
-    mustermann19 (0.4.3)
+    mustermann19 (0.4.4)
       enumerable-lazy
     mysql2 (0.4.4)
     necromancer (0.3.0)
     nested_form (0.3.2)
-    net-ssh (3.1.1)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
+    net-ssh (3.2.0)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     octicons-rails (2.1.1)
       railties (>= 3.2, < 5.0)
     open4 (1.3.4)
     orm_adapter (0.5.0)
-    parser (2.3.1.0)
+    parser (2.3.1.2)
       ast (~> 2.2)
     pastel (0.6.1)
       equatable (~> 0.5.0)
       tty-color (~> 0.3.0)
+    path_expander (1.0.0)
     pg (0.18.4)
+    pkg-config (1.1.7)
     puma (3.4.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-mini-profiler (0.9.9.2)
+    rack-mini-profiler (0.10.1)
       rack (>= 1.2.0)
     rack-protection (1.5.3)
       rack
@@ -343,12 +346,12 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.6)
       sprockets-rails
-    rails-assets-datetimepicker (2.5.3)
+    rails-assets-datetimepicker (2.5.4)
       rails-assets-jquery (>= 1.7.2)
       rails-assets-jquery-mousewheel (>= 3.1.13)
       rails-assets-php-date-formatter (>= 1.3.3)
     rails-assets-highstock-release (4.2.5)
-    rails-assets-jquery (2.2.3)
+    rails-assets-jquery (3.0.0)
     rails-assets-jquery-mousewheel (3.1.13)
       rails-assets-jquery (>= 1.2.2)
     rails-assets-php-date-formatter (1.3.3)
@@ -365,7 +368,7 @@ GEM
       activesupport (= 4.2.6)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.1.2)
+    rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
     redis (3.3.0)
@@ -390,32 +393,32 @@ GEM
     request_store (1.3.1)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
-    rspec (3.4.0)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.4)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-rails (3.4.2)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     sass (3.4.22)
-    sass-rails (5.0.4)
-      railties (>= 4.0.0, < 5.0)
+    sass-rails (5.0.5)
+      railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
@@ -423,7 +426,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    select2-rails (4.0.2)
+    select2-rails (4.0.3)
       thor (~> 0.14)
     settingslogic (2.0.9)
     sexp_processor (4.7.0)
@@ -433,53 +436,56 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (4.1.2)
+    sidekiq (4.1.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
+      sinatra (>= 1.4.7)
     simple-navigation (4.0.3)
       activesupport (>= 2.3.2)
-    simplecov (0.11.2)
+    simple_navigation_bootstrap (1.0.1)
+      simple-navigation (~> 4.0)
+    simplecov (0.12.0)
       docile (~> 1.1.0)
-      json (~> 1.8)
+      json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    slim (3.0.6)
-      temple (~> 0.7.3)
+    slim (3.0.7)
+      temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
     smart_listing (1.1.2)
       coffee-rails
       jquery-rails
       kaminari (~> 0.16.1)
       rails (>= 3.2)
-    spring (1.7.1)
+    spring (1.7.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    sprockets (3.6.0)
+    sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.4)
+    sprockets-rails (3.1.1)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sshkey (1.8.0)
-    temple (0.7.6)
+    temple (0.7.7)
     term-ansicolor (1.3.2)
       tins (~> 1.0)
-    terminal-table (1.5.2)
-    thin (1.6.4)
+    terminal-table (1.6.0)
+    thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
-      rack (~> 1.0)
+      rack (>= 1, < 3)
     thor (0.19.1)
     thread (0.2.2)
     thread_safe (0.3.5)
-    tilt (2.0.3)
-    tins (1.10.1)
+    tilt (2.0.5)
+    tins (1.10.2)
     tty-color (0.3.0)
     tty-screen (0.5.0)
     tty-table (0.5.0)
@@ -489,8 +495,6 @@ GEM
       tty-screen (~> 0.5.0)
       unicode_utils (~> 1.4.0)
       verse (~> 0.4.0)
-    turbolinks (2.5.3)
-      coffee-rails
     turbulence (1.2.4)
       flog (~> 4.1)
       json (>= 1.4.6)
@@ -509,13 +513,13 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.6)
       rack (>= 1.0)
-    websocket-driver (0.6.3)
+    websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yajl-ruby (1.2.1)
-    zeroclipboard-rails (0.1.1)
+    zeroclipboard-rails (0.1.2)
       railties (>= 3.1)
 
 PLATFORMS
@@ -523,7 +527,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  actionform (~> 0.0.1)!
+  actionform!
   active_use_case (~> 1.0.3)!
   acts_as_list
   ajax-datatables-rails!
@@ -596,7 +600,7 @@ DEPENDENCIES
   shoulda-matchers (~> 2.8.0)
   sidekiq
   simple-navigation
-  simple_navigation_renderers (~> 1.0.2)!
+  simple_navigation_bootstrap
   simplecov
   sinatra
   slim
@@ -606,7 +610,7 @@ DEPENDENCIES
   sshkey
   thin
   tty-table
-  turbolinks
+  turbolinks!
   turbulence
   uglifier
   zeroclipboard-rails

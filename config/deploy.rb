@@ -23,6 +23,7 @@ set :forward_agent, true
 
 # Sidekiq settings
 set :sidekiq_pid, "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_concurrency, 10
 
 # Puma settings
 set :puma_config, "#{deploy_to}/#{current_path}/config/puma.rb"

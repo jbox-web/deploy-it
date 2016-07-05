@@ -32,7 +32,7 @@
 #= require_tree .
 
 # Turbolinks.enableTransitionCache()
-Turbolinks.enableProgressBar()
+# Turbolinks.enableProgressBar()
 
 onFirstLoad = ->
   setAsyncNotifications()
