@@ -119,8 +119,6 @@ gem 'redis-namespace'
 
 # Async Jobs
 gem 'sidekiq'
-gem 'sinatra', require: false
-gem 'slim'
 
 # Async Notifications
 gem 'danthes', '~> 2.0.1', git: 'https://github.com/dotpromo/danthes.git'
@@ -150,34 +148,49 @@ group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
 
-  gem 'shoulda',          '~> 3.5.0'
-  gem 'shoulda-matchers', '~> 2.8.0'
-  gem 'shoulda-context',  '~> 1.2.1'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
+  gem 'shoulda-context'
 
   gem 'factory_girl'
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'database_cleaner'
+  gem 'faker'
 
   gem 'capybara'
 
   # Code coverage
   gem 'simplecov'
+
+  # Code coverage for CodeClimate
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :development do
+  # Rails test server
   gem 'spring'
   gem 'spring-commands-rspec'
 
-  gem 'turbulence'
-  gem 'flog'
+  # Remove assets logs from console
   gem 'quiet_assets'
 
+  # Deployment
   gem 'mina'
-  gem 'mina-puma',    require: false
-  gem 'mina-sidekiq', require: false
-  gem 'mina-scp',     require: false
+  gem 'mina-scp', require: false
 
-  # gem 'brakeman', '~> 2.6.3'
-  # gem 'bullet'
+  # Email preview
+  gem 'letter_opener_web'
+
+  # SQL Queries optimizer
+  gem 'bullet'
+
+  # Security analysis
+  gem 'brakeman'
+
+  # Code analyzer
+  gem 'rubocop',    require: false
+  gem 'rubycritic', require: false
+
+  # Generate Entity-Relationship Diagrams
+  gem 'rails-erd'
 end
