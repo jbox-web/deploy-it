@@ -2,15 +2,13 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
-require 'mina/puma'
-require 'mina_sidekiq/tasks'
 require 'mina/scp'
 require 'mina/foreman'
 
 # Global settings
 set :domain,       File.read(File.join(Dir.pwd, '.domain')).chomp
 set :deploy_to,    '/home/deploy-it/deploy-it'
-set :shared_paths, ['tmp/pids', 'tmp/sockets', 'log', '.env']
+set :shared_paths, ['tmp', 'log', '.env']
 
 # Git settings
 set :repository, 'https://github.com/jbox-web/deploy-it.git'
@@ -21,20 +19,17 @@ set :user,          'deploy-it'
 set :identity_file, File.join(Dir.home, '.ssh', 'mina')
 set :forward_agent, true
 
-# Sidekiq settings
-set :sidekiq_pid, "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid"
-set :sidekiq_concurrency, 10
+# Nginx settings
+set :nginx_config, File.join(Dir.pwd, 'deploy', 'nginx.conf')
 
-# Puma settings
-set :puma_config, "#{deploy_to}/#{current_path}/config/puma.rb"
+# DeployIt settings
+set :app_config, File.join(Dir.pwd, 'deploy', 'deploy-it.conf')
 
 # Foreman settings
 set :application,      'deploy-it'
 set :foreman_format,   'systemd'
-set :foreman_location, '/lib/systemd/system'
-
-# DeployIt settings
-set :config_file, File.join(Dir.pwd, 'deploy-it.conf')
+set :foreman_location, "#{deploy_to}/.config/systemd/user"
+set :foreman_services, %w(web worker socket)
 
 # RVM settings
 task :environment do
@@ -45,102 +40,124 @@ end
 
 desc 'Create base directories'
 task :setup do
+  queue! %(mkdir -p "#{deploy_to}/#{shared_path}/config")
   queue! %(mkdir -p "#{deploy_to}/#{shared_path}/log")
-  queue! %(mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids")
-  queue! %(mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets")
+  queue! %(mkdir -p "#{deploy_to}/#{shared_path}/tmp")
+
+  invoke :'foreman:systemd:setup'
+  invoke :'foreman:systemd:export'
+  invoke :'foreman:systemd:reload'
 end
 
 
 desc "Deploys the current version to the server."
 task deploy: :environment do
   deploy do
-    invoke :'sidekiq:quiet'
+    invoke :'maintenance:start'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
+    invoke :'bundle:clean'
     invoke :'deploy:install_config'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'puma:hard_restart'
-      invoke :'sidekiq:restart'
-      invoke :'faye:restart'
+      invoke :'foreman:systemd:restart'
+      invoke :'maintenance:end'
     end
   end
 end
 
 
 namespace :deploy do
-  desc 'Copy DeployIt configuration file'
+  desc 'Copy configuration file'
   task install_config: :environment do
     queue! %[
       echo '-----> Copying configuration file'
     ]
-    scp_upload(config_file, "#{deploy_to}/#{shared_path}/.env")
+    scp_upload(app_config, "#{deploy_to}/#{shared_path}/.env")
+    scp_upload(nginx_config, "#{deploy_to}/#{shared_path}/config/nginx.conf")
   end
 end
 
 
-namespace :faye do
-  set_default :faye_pid,    -> { "#{deploy_to}/#{shared_path}/tmp/pids/faye.pid" }
-  set_default :faye_cmd,    -> { "#{bundle_prefix} thin" }
-  set_default :faye_config, -> { 'config/danthes_thin.yml' }
+namespace :bundle do
+  desc "Clean gem dependencies using Bundler."
+  task :clean do
+    queue %{
+      echo "-----> Cleaning gem dependencies"
+      #{echo_cmd %[#{bundle_bin} clean]}
+    }
+  end
+end
 
-  desc 'Start Faye'
-  task start: :environment do
-    queue! %[
-      if [ -e '#{faye_pid}' ]; then
-        echo 'Faye is already running!';
-      else
-        cd #{deploy_to}/#{current_path} && #{faye_cmd} start -d -C #{faye_config}
-      fi
-    ]
+
+namespace :maintenance do
+  set_default :maintenance_page, -> { 'public/maintenance.html' }
+
+  desc "Start maintenance mode"
+  task :start do
+    queue %{
+      echo "-----> Start maintenance mode"
+      #{echo_cmd %[cd #{deploy_to}/#{current_path} && touch tmp/maintenance.txt]}
+    }
   end
 
-  desc 'Restart Faye'
-  task restart: :environment do
-    queue! %[
-      if [ -e '#{faye_pid}' ]; then
-        cd #{deploy_to}/#{current_path} && #{faye_cmd} restart -d -C #{faye_config}
-      else
-        echo 'Faye is not running!';
-      fi
-    ]
+  desc "Stop maintenance mode"
+  task :end do
+    queue %{
+      echo "-----> Stop maintenance mode"
+      #{echo_cmd %[cd #{deploy_to}/#{current_path} && rm -f tmp/maintenance.txt]}
+    }
   end
 
-  desc 'Stop Faye'
-  task stop: :environment do
+  desc 'Update maintenance page'
+  task update: :environment do
     queue! %[
-      if [ -e '#{faye_pid}' ]; then
-        cd #{deploy_to}/#{current_path} && #{faye_cmd} stop -C #{faye_config}
-        rm -f '#{faye_pid}'
-      else
-        echo 'Faye is not running!';
-      fi
+      echo '-----> Updating maintenance page'
     ]
+    scp_upload(maintenance_page, "#{deploy_to}/#{shared_path}/public/maintenance.html")
   end
 end
 
 
 namespace :foreman do
   namespace :systemd do
-    set_default :foreman_dir, -> { "#{deploy_to}/#{current_path}" }
+    set_default :foreman_dir,      -> { "#{deploy_to}/#{current_path}" }
+    set_default :foreman_services, -> { [] }
+
+    desc 'Setup systemd'
+    task setup: :environment do
+      # Create Foreman templates directory
+      queue! %{
+        echo "-----> Setting up systemd"
+        mkdir -p "#{deploy_to}/.foreman/templates/systemd"
+        rvm repair wrappers
+      }
+
+      # Copy Foreman systemd templates
+      %w(master.target.erb process.service.erb process_master.target.erb).each do |file|
+        source = File.join(Dir.pwd, 'deploy', 'foreman', file)
+        scp_upload(source, "#{deploy_to}/.foreman/templates/systemd/#{file}")
+      end
+    end
+
 
     desc 'Export the Procfile to systemd'
     task export: :environment do
-      cmd = "sudo foreman export #{foreman_format} #{foreman_location} -a #{foreman_app} -u #{foreman_user} -d #{foreman_dir} -l #{foreman_log} -f #{foreman_dir}/#{foreman_procfile}"
+      cmd = "#{bundle_prefix} foreman export #{foreman_format} #{foreman_location} -a #{foreman_app} -u #{foreman_user} -d #{foreman_dir} -l #{foreman_log} -f #{foreman_dir}/#{foreman_procfile} --timeout 30"
       queue! %[
         echo "-----> Exporting foreman Procfile for #{foreman_app}"
-        #{cmd}
+        cd #{deploy_to}/#{current_path} && #{cmd}
       ]
     end
 
 
     desc 'Reload systemd'
     task reload: :environment do
-      cmd = "sudo systemctl daemon-reload"
+      cmd = "systemctl --user daemon-reload"
       queue! %[
         echo "-----> Reloading systemd"
         #{cmd}
@@ -150,7 +167,7 @@ namespace :foreman do
 
     desc 'Start application with systemd'
     task start: :environment do
-      cmd = "sudo systemctl start #{foreman_app}.target"
+      cmd = "systemctl --user start #{foreman_app}.target"
       queue! %[
         echo "-----> Starting #{foreman_app} with systemd"
         #{cmd}
@@ -160,7 +177,7 @@ namespace :foreman do
 
     desc 'Restart application with systemd'
     task restart: :environment do
-      cmd = "sudo systemctl restart #{foreman_app}.target"
+      cmd = "systemctl --user restart #{foreman_app}.target"
       queue! %[
         echo "-----> Restarting #{foreman_app} with systemd"
         #{cmd}
@@ -170,7 +187,7 @@ namespace :foreman do
 
     desc 'Stop application with systemd'
     task stop: :environment do
-      cmd = "sudo systemctl stop #{foreman_app}.target"
+      cmd = "systemctl --user stop #{foreman_app}.target"
       queue! %[
         echo "-----> Stopping #{foreman_app} with systemd"
         #{cmd}
@@ -180,7 +197,7 @@ namespace :foreman do
 
     desc 'Enable application with systemd'
     task enable: :environment do
-      cmd = "sudo systemctl enable #{foreman_app}.target"
+      cmd = "systemctl --user enable #{foreman_app}.target"
       queue! %[
         echo "-----> Enabling #{foreman_app} with systemd"
         #{cmd}
@@ -190,11 +207,31 @@ namespace :foreman do
 
     desc 'Disable application with systemd'
     task disable: :environment do
-      cmd = "sudo systemctl disable #{foreman_app}.target"
+      cmd = "systemctl --user disable #{foreman_app}.target"
       queue! %[
         echo "-----> Disabling #{foreman_app} with systemd"
         #{cmd}
       ]
+    end
+
+
+    desc 'Getting application status with systemd'
+    task status: :environment do
+      cmd = "systemctl --user status #{foreman_app}.target"
+      queue! %[
+        echo "-----> Getting #{foreman_app} status with systemd"
+        #{cmd}
+      ]
+
+      foreman_services.each_with_index do |service, i|
+        cmd = "systemctl --user status #{foreman_app}-#{service}@5#{i}00.service"
+
+        queue! %[
+          echo ''
+          echo "-----> Getting #{foreman_app} #{service} status with systemd"
+          #{cmd}
+        ]
+      end
     end
   end
 end

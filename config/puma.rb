@@ -9,7 +9,8 @@ environment ENV['RAILS_ENV'] || 'development'
 preload_app!
 
 if ENV['RAILS_ENV'] == 'production'
-  daemonize            true
+  # Don't daemonize with systemd
+  # daemonize            true
   bind                 "unix://#{File.join(Dir.pwd, 'tmp', 'sockets', 'puma.sock')}"
   pidfile              File.join(Dir.pwd, 'tmp', 'pids', 'puma.pid')
   state_path           File.join(Dir.pwd, 'tmp', 'sockets', 'puma.state')

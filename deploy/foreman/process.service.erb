@@ -1,0 +1,10 @@
+[Unit]
+PartOf=<%= app %>-<%= name %>.target
+
+[Service]
+# Foreground process (do not use --daemon in ExecStart or config.rb)
+Type=simple
+WorkingDirectory=<%= engine.root %>
+ExecStart=<%= File.join(Dir.home, '.rvm', 'wrappers', 'default', 'bundle') %> exec <%= process.command %>
+Restart=always
+TimeoutStopSec=<%= engine.options[:timeout] %>
