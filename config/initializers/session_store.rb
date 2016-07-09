@@ -13,4 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-Rails.application.config.session_store :cookie_store, key: '_deploy-it_session'
+Rails.application.config.session_store :redis_store, servers: {
+                                                                host: Settings.redis_host,
+                                                                port: Settings.redis_port,
+                                                                db:   Settings.redis_db,
+                                                                namespace: 'sessions',
+                                                                driver: :hiredis
+                                                              }, expires_in: 90.minutes
