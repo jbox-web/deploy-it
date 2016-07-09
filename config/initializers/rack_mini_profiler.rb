@@ -1,2 +1,9 @@
-Rack::MiniProfiler.config.storage_options = { host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'] }
+Rack::MiniProfiler.config.storage_options = {
+  host:      Settings.redis_host,
+  port:      Settings.redis_port,
+  db:        Settings.redis_db,
+  namespace: 'mini_profiler',
+  driver:    :hiredis
+}
+
 Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
