@@ -16,7 +16,7 @@
 require 'settingslogic'
 
 class Settings < Settingslogic
-  source Rails.root.join('config', 'deploy_it.yml')
+  source Rails.root.join('config', 'settings.yml')
   extend ActiveModel::Translation
   include ActiveModel::Conversion
 end
