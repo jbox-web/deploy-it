@@ -1,5 +1,4 @@
 ---
-:pidfile: tmp/pids/sidekiq.pid
 :concurrency: 10
 :timeout: 15
 :queues:
