@@ -20,25 +20,6 @@ module EnginePatch
       @env.update Dotenv::Environment.new(filename)
     end
 
-
-    # Fix https://github.com/ddollar/foreman/issues/553
-    #
-    def terminate_gracefully
-      return if @terminating
-      restore_default_signal_handlers
-      @terminating = true
-      command = ::Foreman.windows? ? 'SIGKILL' : 'SIGTERM'
-      Timeout.timeout(options[:timeout]) do
-        watch_for_termination do
-          system  "sending #{command} to all processes"
-          kill_children command
-        end while @running.length > 0
-      end
-    rescue Timeout::Error
-      system  "sending SIGKILL to all processes"
-      kill_children "SIGKILL"
-    end
-
   end
 
 end
