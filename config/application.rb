@@ -35,39 +35,43 @@ module DeployIt
     config.active_record.store_full_sti_class = true
     config.active_record.raise_in_transactional_callbacks = true
 
-    # ActiveJob config
-    config.active_job.queue_adapter = :sidekiq
-
     # Locales
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.i18n.default_locale = :fr
     config.i18n.available_locales = [:en, :fr]
+
+    # Timezone
+    config.time_zone = 'Paris'
 
     # Log Level
     config.log_level = :info
 
     # Generators
     config.generators do |g|
-      g.orm :active_record
+      g.orm            :active_record
+      g.test_framework :rspec
     end
 
-    # Timezone
-    config.time_zone = 'Paris'
+    # ActiveJob config
+    config.active_job.queue_adapter = :sidekiq
 
     # https://github.com/plataformatec/devise/issues/3643
     config.relative_url_root = '/'
 
     # Cache store
     config.cache_store = :redis_store, { host:       ENV['REDIS_HOST'],
-                                         port:       ENV['REDIS_HOST'],
+                                         port:       ENV['REDIS_PORT'],
                                          db:         ENV['REDIS_DB'],
                                          namespace:  'cache',
                                          driver:     :hiredis,
                                          expires_in: 90.minutes }
 
     # Logster
-    Logster.store = Logster::RedisStore.new(Redis.new(host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'], db: ENV['REDIS_DB'], namespace: 'logster', driver: :hiredis))
-
+    Logster.store = Logster::RedisStore.new Redis.new(host:      ENV['REDIS_HOST'],
+                                                      port:      ENV['REDIS_PORT'],
+                                                      db:        ENV['REDIS_DB'],
+                                                      namespace: 'logster',
+                                                      driver:    :hiredis)
   end
 end
 
