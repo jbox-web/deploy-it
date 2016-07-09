@@ -39,6 +39,7 @@ gem 'request_store'
 gem 'dotenv-rails'
 gem 'figaro'
 gem 'settingslogic'
+gem 'foreman'
 
 # Javascript
 gem 'coffee-rails'

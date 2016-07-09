@@ -237,6 +237,8 @@ GEM
       sexp_processor (~> 4.4)
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
+    foreman (0.82.0)
+      thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-webfonts-rails (0.0.4)
@@ -599,6 +601,7 @@ DEPENDENCIES
   faye-redis
   figaro
   font-awesome-rails
+  foreman
   google-webfonts-rails
   grape
   groupdate
