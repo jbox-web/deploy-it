@@ -13,9 +13,9 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui/effect
-#= require jquery-ui/effect-highlight
-#= require jquery-ui/draggable
-#= require jquery-ui/sortable
+#= require jquery-ui/effects/effect-highlight
+#= require jquery-ui/widgets/draggable
+#= require jquery-ui/widgets/sortable
 #= require bootstrap-sprockets
 #= require bootstrap-switch
 #= require bootstrap-notify

@@ -42,6 +42,7 @@ gem 'settingslogic'
 gem 'foreman'
 
 # Javascript
+gem 'therubyracer'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -98,7 +99,7 @@ gem 'acts_as_list'
 gem 'i18n-tasks'
 
 # Docker connection
-gem 'docker-api', '~> 1.24.0', git: 'https://github.com/n-rodriguez/docker-api.git', branch: 'top-add-format-option'
+gem 'docker-api', '~> 1.33.2', git: 'https://github.com/n-rodriguez/docker-api.git', branch: 'top-add-format-option'
 
 # Render Docker top
 gem 'tty-table'
