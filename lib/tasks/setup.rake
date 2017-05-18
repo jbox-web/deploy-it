@@ -5,7 +5,6 @@ namespace :deploy_it do
     desc 'Create Admin User'
     task :create_admin_user => [:environment] do
       user_option = {
-        login: 'admin',
         firstname: 'admin',
         lastname: 'admin',
         email: 'admin@example.org',
@@ -15,13 +14,12 @@ namespace :deploy_it do
         time_zone: 'Paris'
       }
 
-      if User.find_by_login('admin').nil?
+      unless User.where(email: 'admin@example.org').any?
         puts 'Create Admin user ...'
         admin = User.new(user_option)
         admin.save!
         puts 'Done!'
         puts
-        puts 'login    : admin'
         puts 'email    : admin@example.org'
         puts 'password : admin123'
       else
