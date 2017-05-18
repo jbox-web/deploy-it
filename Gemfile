@@ -10,7 +10,7 @@ gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/asyn
 gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'action_form'
 
 # Base gems
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 4.2.8'
 
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
@@ -65,12 +65,15 @@ gem 'bootstrap-switch-rails'
 gem 'bootstrap-slider-rails'
 gem 'nested_form'
 
+# Email
+gem 'mail', '2.6.6.rc1'
+
 # View rendering
 gem 'haml-rails'
 
 # Pagination
 gem 'smart_listing'
-gem 'ajax-datatables-rails', git: 'https://github.com/n-rodriguez/ajax-datatables-rails.git', branch: 'v-0-4-0'
+gem 'ajax-datatables-rails', git: 'https://github.com/jbox-web/ajax-datatables-rails.git'
 
 # Breadcrumbs
 gem 'crummy'
@@ -99,7 +102,7 @@ gem 'acts_as_list'
 gem 'i18n-tasks'
 
 # Docker connection
-gem 'docker-api', '~> 1.33.2', git: 'https://github.com/n-rodriguez/docker-api.git', branch: 'top-add-format-option'
+gem 'docker-api'
 
 # Render Docker top
 gem 'tty-table'
