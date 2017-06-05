@@ -73,7 +73,7 @@ gem 'haml-rails'
 
 # Pagination
 gem 'smart_listing'
-gem 'ajax-datatables-rails', git: 'https://github.com/jbox-web/ajax-datatables-rails.git'
+gem 'ajax-datatables-rails'
 
 # Breadcrumbs
 gem 'crummy'

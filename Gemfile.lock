@@ -23,13 +23,6 @@ GIT
       rails (~> 4.0, >= 4.0.0)
 
 GIT
-  remote: https://github.com/jbox-web/ajax-datatables-rails.git
-  revision: 9663005fa2a970bba524c61b83898e9a435cf935
-  specs:
-    ajax-datatables-rails (0.4.0)
-      railties (>= 4.0)
-
-GIT
   remote: https://github.com/jbox-web/async_model.git
   revision: bd71b80f6b2f634357578b25f9ee5b8eb0c14d01
   specs:
@@ -102,9 +95,11 @@ GEM
       activerecord (>= 3.0)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    ajax-datatables-rails (0.4.0)
+      railties (>= 4.0)
     arel (6.0.4)
     ast (2.3.0)
-    autoprefixer-rails (7.1.0)
+    autoprefixer-rails (7.1.1)
       execjs
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -119,7 +114,7 @@ GEM
       railties (>= 3.2, < 6.0)
     bootstrap-switch-rails (3.3.3)
     bootstrap_form (2.7.0)
-    brakeman (3.6.1)
+    brakeman (3.6.2)
     builder (3.2.3)
     bullet (5.5.1)
       activesupport (>= 3.0.0)
@@ -141,9 +136,9 @@ GEM
       railties (>= 3.0, < 6.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    coffee-rails (4.2.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -192,7 +187,7 @@ GEM
     equatable (0.5.0)
     erubis (2.7.0)
     eventmachine (1.2.3)
-    excon (0.55.0)
+    excon (0.56.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -267,7 +262,7 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     http_parser.rb (0.6.0)
-    i18n (0.8.1)
+    i18n (0.8.4)
     i18n-tasks (0.9.15)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
@@ -310,7 +305,7 @@ GEM
       open4 (~> 1.3.4)
       rake
     mina-scp (0.1.2)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
     multi_xml (0.6.0)
@@ -321,12 +316,13 @@ GEM
     necromancer (0.4.0)
     nested_form (0.3.2)
     net-ssh (4.1.0)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     octicons-rails (2.1.1)
       railties (>= 3.2, < 5.0)
     open4 (1.3.4)
     orm_adapter (0.5.0)
+    parallel (1.11.2)
     parser (2.4.0.0)
       ast (~> 2.2)
     pastel (0.7.1)
@@ -336,13 +332,13 @@ GEM
     pg (0.20.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
-    puma (3.8.2)
+    puma (3.9.1)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.8)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-mini-profiler (0.10.4)
+    rack-mini-profiler (0.10.5)
       rack (>= 1.2.0)
     rack-protection (2.0.0)
       rack
@@ -363,7 +359,7 @@ GEM
       rails-assets-jquery (>= 1.7.2)
       rails-assets-jquery-mousewheel (>= 3.1.13)
       rails-assets-php-date-formatter (>= 1.3.3)
-    rails-assets-highstock-release (5.0.11)
+    rails-assets-highstock-release (5.0.12)
     rails-assets-jquery (3.2.1)
     rails-assets-jquery-mousewheel (3.1.13)
       rails-assets-jquery (>= 1.2.2)
@@ -374,7 +370,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-erd (1.5.1)
+    rails-erd (1.5.2)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       choice (~> 0.2.0)
@@ -409,7 +405,7 @@ GEM
       redis-store (>= 1.2, < 2)
     redis-store (1.3.0)
       redis (>= 2.2)
-    reek (4.6.2)
+    reek (4.7.0)
       codeclimate-engine-rb (~> 0.4.0)
       parser (>= 2.4.0.0, < 2.5)
       rainbow (~> 2.0)
@@ -439,7 +435,8 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
-    rubocop (0.48.1)
+    rubocop (0.49.1)
+      parallel (~> 1.10)
       parser (>= 2.3.3.1, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
@@ -449,16 +446,16 @@ GEM
     ruby-progressbar (1.8.1)
     ruby_parser (3.9.0)
       sexp_processor (~> 4.1)
-    rubycritic (3.2.1)
+    rubycritic (3.2.3)
       flay (~> 2.8)
       flog (~> 4.4)
       launchy (= 2.4.3)
-      parser (= 2.4.0)
+      parser (~> 2.4.0)
       rainbow (~> 2.1)
       reek (~> 4.4)
       ruby_parser (~> 3.8)
       virtus (~> 1.0)
-    sass (3.4.23)
+    sass (3.4.24)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -478,7 +475,7 @@ GEM
     shoulda-context (1.2.2)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (5.0.0)
+    sidekiq (5.0.2)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -497,7 +494,7 @@ GEM
       jquery-rails
       kaminari (~> 0.17)
       rails (>= 3.2)
-    spring (2.0.1)
+    spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -552,7 +549,7 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xpath (2.0.0)
+    xpath (2.1.0)
       nokogiri (~> 1.3)
     yajl-ruby (1.3.0)
     zeroclipboard-rails (0.1.2)
@@ -566,7 +563,7 @@ DEPENDENCIES
   actionform!
   active_use_case (~> 1.0.3)!
   acts_as_list
-  ajax-datatables-rails!
+  ajax-datatables-rails
   async_model (~> 1.0.0)!
   async_notifications (~> 1.0.0)!
   autoprefixer-rails
@@ -659,4 +656,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
