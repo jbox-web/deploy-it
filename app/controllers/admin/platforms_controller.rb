@@ -30,7 +30,7 @@ class Admin::PlatformsController < Admin::DefaultController
 
 
   def index
-    @platforms = Platform.includes(:stages, :servers).all
+    @platforms = Platform.all
     add_breadcrumbs
   end
 
