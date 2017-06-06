@@ -33,3 +33,7 @@ html.turbolinks-progress-bar::before {
   background-color: #008183 !important;
   height: 5px !important;
 }
+
+#side-menu li.active {
+  background-color: #fff;
+}
