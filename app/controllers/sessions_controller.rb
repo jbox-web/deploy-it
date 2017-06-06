@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 class SessionsController < Devise::SessionsController
+  layout 'login'
 
   def create
     super do |resource|
