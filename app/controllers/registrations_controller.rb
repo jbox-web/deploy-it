@@ -15,6 +15,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
+  set_sidebar_menu :my
 
   def edit
     set_crumb

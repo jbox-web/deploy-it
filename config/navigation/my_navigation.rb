@@ -13,17 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class PublicKeysController < DCIController
-
-  include SshKeysManager
-  set_sidebar_menu :my
-
-
-  private
-
-
-    def set_user
-      @user = User.current
-    end
-
+SimpleNavigation::Configuration.run do |navigation|
+  navigation.items do |menu|
+    menu.dom_id = 'side-menu'
+    menu.dom_class = 'nav'
+    menu.item :my_profile,      label_with_icon(t('layouts.sidebar.my_account'), 'fa-user'), my_account_path
+    menu.item :change_password, label_with_icon(t('layouts.sidebar.change_password'), 'fa-lock'), edit_user_registration_path
+    menu.item :ssh_keys,        label_with_icon(t('layouts.sidebar.my_ssh_keys'), 'octicon octicon-key'), public_keys_path
+  end
 end

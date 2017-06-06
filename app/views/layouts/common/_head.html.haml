@@ -1,0 +1,15 @@
+%meta{ charset: 'utf-8' }
+%meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+%meta{ name: 'turbolinks-cache-control', content: 'no-cache' }
+
+%title= yield :title
+= csrf_meta_tags
+= google_webfonts_init({google: ['Ubuntu','Pacifico']})
+
+= stylesheet_link_tag assets_for_layout, media: 'all', 'data-turbolinks-track' => true
+
+= yield :stylesheet
+
+= javascript_include_tag assets_for_layout, 'data-turbolinks-track' => true
+
+= yield :header_tags

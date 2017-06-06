@@ -1,18 +1,24 @@
 !!! 5
 %html{ lang: User.current.language }
-  %head= render 'layouts/head'
+  %head= render 'layouts/common/head', assets_for_layout: 'main/application'
 
   %body{ data: { controller: controller.controller_path, action: controller.action_name } }
 
-    #header= render 'layouts/topbar'
+    #wrapper
 
-    #main-content{ class: 'container-fluid' }
-      .row-fluid
+      = render 'layouts/common/topnavbar'
 
-        - if User.current.logged?
-          = render_page_content(class: "col-md-9 col-sm-9")
+      #page-wrapper
 
-        - else
-          = render 'layouts/page'
+        .row
+          .col-lg-12
 
-    = render 'layouts/footer'
+            #flash-messages.flash-messages= render_flash_messages
+
+            = yield
+
+      #modal-holder
+
+      #context-menu{ style: 'display: none;' }
+
+    = render 'layouts/common/javascript'

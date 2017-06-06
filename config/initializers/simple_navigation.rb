@@ -13,4 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-SimpleNavigation.config_file_path = Rails.root.join('app', 'menus')
+SimpleNavigation::Configuration.run do |navigation|
+  navigation.auto_highlight       = true
+  navigation.highlight_on_subpath = true
+end
+
+# Move menus configuration files in config/navigation directory
+SimpleNavigation.config_file_path = Rails.root.join('config', 'navigation')

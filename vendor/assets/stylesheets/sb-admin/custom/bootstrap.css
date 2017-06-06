@@ -1,0 +1,67 @@
+.shifted div.checkbox label {
+  padding-left: 0px;
+}
+
+.form-group .control-label.required:after {
+  content: ' *';
+  color: #a94442;
+  font-size: 16px;
+}
+
+.vert-align .form-group {
+  margin-bottom: 0px;
+}
+
+.dl-horizontal dd {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.dl-big dt {
+  width: 240px;
+}
+
+.dl-big dd {
+  margin-left: 250px;
+}
+
+.dl-xl dt {
+  width: 280px;
+}
+
+.dl-xl dd {
+  margin-left: 290px;
+}
+
+ul, ol {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.row.vdivide [class*='col-']:not(:last-child):after {
+  background: #e0e0e0;
+  width: 1px;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  min-height: 70px;
+}
+
+@media screen and (max-width:767px){
+  .dl-big dt {
+    width: 160px !important;
+  }
+  .dl-big dd {
+    margin-left: 0px !important;
+  }
+
+  .dl-xl dt {
+    width: 160px !important;
+  }
+  .dl-xl dd {
+    margin-left: 0px !important;
+  }
+}

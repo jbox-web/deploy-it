@@ -1,27 +1,25 @@
 !!! 5
 %html{ lang: User.current.language }
-  %head= render 'layouts/head'
+  %head= render 'layouts/common/head', assets_for_layout: 'main/application'
 
   %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: @application.id } }
 
-    #header= render 'layouts/topbar'
+    #wrapper
 
-    #main-content{ class: 'container-fluid' }
-      .row-fluid
+      = render 'layouts/common/topnavbar'
 
-        - if User.current.logged?
+      #page-wrapper
 
-          = render 'layouts/sidebar'
+        .row
+          .col-lg-12
 
-          .col-md-9.col-sm-9
-            .container-fluid
-              #flash-messages= render_flash_messages
-              .row
-                %div{ class: 'col-md-12' }
-                  #application-content{ class: @application.marked_for_deletion? ? 'disabled marked-for-deletion' : '' }= yield
+            #flash-messages.flash-messages= render_flash_messages
 
-        - else
+            #application-content{ class: @application.marked_for_deletion? ? 'disabled marked-for-deletion' : '' }
+              = yield
 
-          = render 'layouts/page'
+      #modal-holder
 
-    = render 'layouts/footer'
+      #context-menu{ style: 'display: none;' }
+
+    = render 'layouts/common/javascript'

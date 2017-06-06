@@ -1,0 +1,129 @@
+#context-menu {
+  font-size: 0.9em;
+  position: absolute;
+  z-index: 100;
+}
+
+#context-menu ul, #context-menu li, #context-menu a {
+  border: 0 none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#context-menu ul {
+  background: white none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  list-style: outside none none;
+  padding: 2px;
+  width: 150px;
+}
+
+#context-menu li {
+  border: 1px solid white;
+  padding: 1px;
+  position: relative;
+  z-index: 139;
+}
+
+#context-menu li.folder ul {
+  left: 168px;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: -2px;
+}
+
+#context-menu li.folder > ul {
+  left: 148px;
+}
+
+#context-menu.reverse-y li.folder > ul {
+  bottom: 0;
+  top: auto;
+}
+
+#context-menu.reverse-x li.folder ul {
+  left: auto;
+  right: 168px;
+}
+
+#context-menu.reverse-x li.folder > ul {
+  right: 148px;
+}
+
+#context-menu a {
+  background-position: 1px 50%;
+  background-repeat: no-repeat;
+  padding: 2px 5px;
+  text-decoration: none !important;
+  width: 100%;
+}
+
+#context-menu li > a {
+  width: auto;
+}
+
+#context-menu a.disabled, #context-menu a.disabled:hover {
+  color: #aaa;
+}
+
+#context-menu li a.submenu {
+  background: rgba(0, 0, 0, 0) image-url('chevron-right.png') no-repeat scroll right center;
+  padding-right: 16px;
+}
+
+#context-menu li:hover {
+  background-color: #eef5fd;
+  border: 1px solid #628db6;
+  border-radius: 3px;
+}
+
+#context-menu a:hover {
+  color: #2a5685;
+}
+
+#context-menu li.folder:hover {
+  z-index: 140;
+}
+
+#context-menu ul ul, #context-menu li:hover ul ul {
+  display: none;
+}
+
+#context-menu li:hover ul, #context-menu li:hover li:hover ul {
+  display: block;
+}
+
+#context-menu a.icon-checked {
+  background: rgba(0, 0, 0, 0) image-url('toggle_check.png') no-repeat scroll 3px 40%;
+}
+
+.has-context-menu.selected {
+  background-color: #2996cc !important;
+  color: #fff !important;
+}
+
+.has-context-menu.selected a, .has-context-menu.selected a:hover {
+  color: #fff !important;
+}
+
+.has-context-menu.selected:hover {
+  background-color: #2996cc !important;
+  color: #fff !important;
+}
+
+.has-context-menu {
+  cursor: context-menu;
+}
+
+.has-context-menu td {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -7,8 +7,6 @@ gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/asyn
 gem 'active_use_case',       '~> 1.0.3',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.0.3'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
-gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'action_form'
-
 # Base gems
 gem 'rails', '~> 4.2.8'
 
@@ -42,7 +40,7 @@ gem 'settingslogic'
 gem 'foreman'
 
 # Javascript
-gem 'therubyracer'
+gem 'mini_racer'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -50,7 +48,7 @@ gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic.git'
 gem 'uglifier'
 
 # Fonts
-gem 'font-awesome-rails'
+gem 'font-awesome-sass'
 gem 'octicons-rails'
 gem 'google-webfonts-rails'
 
@@ -61,9 +59,12 @@ gem 'autoprefixer-rails'
 
 # Forms
 gem 'bootstrap_form'
+gem 'nested_form'
+gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'action_form'
+
+# Bootstrap addons
 gem 'bootstrap-switch-rails'
 gem 'bootstrap-slider-rails'
-gem 'nested_form'
 
 # Email
 gem 'mail', '2.6.6.rc1'
@@ -94,6 +95,7 @@ gem 'groupdate'
 # Menus
 gem 'simple-navigation'
 gem 'simple_navigation_bootstrap'
+gem 'rails_bootstrap_navbar'
 
 # Sortable lists
 gem 'acts_as_list'

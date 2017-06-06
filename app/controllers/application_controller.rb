@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   include BaseController::Authorizations
   include BaseController::Tools
   include BaseController::Helpers
+  include BaseController::Menus
 
   layout 'base'
 

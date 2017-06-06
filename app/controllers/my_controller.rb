@@ -19,6 +19,7 @@ class MyController < DCIController
   set_dci_role 'DCI::Roles::AccountManager'
 
   before_action :set_user
+  set_sidebar_menu :my
 
 
   def account

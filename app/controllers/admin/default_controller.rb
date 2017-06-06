@@ -15,4 +15,5 @@
 
 class Admin::DefaultController < ApplicationController
   before_action :require_admin
+  set_sidebar_menu :admin
 end

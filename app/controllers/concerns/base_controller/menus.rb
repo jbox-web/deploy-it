@@ -13,17 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class PublicKeysController < DCIController
+module BaseController::Menus
+  extend ActiveSupport::Concern
 
-  include SshKeysManager
-  set_sidebar_menu :my
+  included do
+    helper_method :sidebar_menu
 
+    class_attribute :sidebar_menu
 
-  private
-
-
-    def set_user
-      @user = User.current
+    class << self
+      def set_sidebar_menu(menu)
+        self.sidebar_menu = menu
+      end
     end
 
+    set_sidebar_menu :user
+  end
 end
