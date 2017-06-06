@@ -16,7 +16,7 @@
 SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |menu|
     menu.dom_class = 'navbar-top-links navbar-right'
-    if current_user.logged?
+    if User.current.logged?
       menu.item :applications, get_model_name_for('Application'), applications_path
       menu.item :admin,        t('layouts.topbar.admin'), admin_root_path, if: -> { User.current.admin? }
 
@@ -28,7 +28,7 @@ SimpleNavigation::Configuration.run do |navigation|
         sub_menu.item :logout,     t('layouts.topbar.logout'), destroy_user_session_path, method: :delete
       end
     else
-      menu.item :login, { icon: icon_for_entry('fa-sign-in'), text: label_for_entry(t('text.login')) }, new_user_session_path
+      menu.item :login, { icon: icon_for_entry('fa-sign-in'), text: label_for_entry(t('layouts.topbar.login')) }, new_user_session_path
     end
   end
 end
