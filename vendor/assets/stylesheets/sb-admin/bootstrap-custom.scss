@@ -1,4 +1,6 @@
-$font-family-sans-serif: Ubuntu;
+// Google Fonts
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
+
 $navbar-default-bg: #00a2a4;
 $navbar-default-border: lighten($navbar-default-bg,6.5%);
 
@@ -9,6 +11,7 @@ $navbar-default-brand-hover-color: $navbar-default-link-hover-color;
 
 $link-color: #00a2a4;
 
+// Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
