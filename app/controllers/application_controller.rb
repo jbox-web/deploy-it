@@ -14,7 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 class ApplicationController < ActionController::Base
-  include BaseController::Security
+  # Prevent CSRF attacks by raising an exception.
+  protect_from_forgery with: :exception
+
   include BaseController::Devise
   include BaseController::UserSettings
   include BaseController::Ajax
