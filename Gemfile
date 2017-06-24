@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.3'
+ruby '2.3.4'
 
 gem 'rugged',                '~> 0.24.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.24.0', submodules: true
 
@@ -65,9 +65,6 @@ gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'a
 # Bootstrap addons
 gem 'bootstrap-switch-rails'
 gem 'bootstrap-slider-rails'
-
-# Email
-gem 'mail', '2.6.6.rc1'
 
 # View rendering
 gem 'haml-rails'
