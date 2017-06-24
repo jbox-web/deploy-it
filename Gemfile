@@ -143,6 +143,9 @@ gem 'rack-mini-profiler'
 gem 'grape'
 gem 'hashie-forbidden_attributes'
 
+# Speedup application loading
+gem 'bootsnap'
+
 ## Documentation gems
 group :doc do
   gem 'sdoc'
