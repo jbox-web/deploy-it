@@ -44,7 +44,7 @@ gem 'mini_racer'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic.git'
+gem 'turbolinks'
 gem 'uglifier'
 
 # Fonts

@@ -12,14 +12,15 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui/effect
 #= require bootstrap-sprockets
 #= require sb-admin/metisMenu
 #= require sb-admin/sb-admin-2
-#= require sb-admin/bootstrap_helper
 #= require turbolinks
 #= require_tree .
+#= require_self
 
-onTurboLoad = ->
-  setAlertDismiss()
+onLoad = ->
+  $('.alert:not(.dont-dismiss)').delay(3000).slideUp(200, -> $(this).alert('close'))
 
-$(document).on('page:load', onTurboLoad)
+$(document).on('turbolinks:load', onLoad)

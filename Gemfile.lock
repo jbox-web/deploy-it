@@ -44,13 +44,6 @@ GIT
   specs:
     rugged (0.24.0)
 
-GIT
-  remote: https://github.com/turbolinks/turbolinks-classic.git
-  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
-  specs:
-    turbolinks (3.0.0)
-      coffee-rails
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -536,6 +529,9 @@ GEM
       tty-screen (~> 0.5.0)
       unicode-display_width (~> 1.1.0)
       verse (~> 0.5.0)
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.3)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
@@ -656,7 +652,7 @@ DEPENDENCIES
   sshkey
   thin
   tty-table
-  turbolinks!
+  turbolinks
   uglifier
   zeroclipboard-rails
 

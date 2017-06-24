@@ -36,25 +36,10 @@
 #= require zeroclipboard
 #= require turbolinks
 #= require_tree .
+#= require_self
 
-# Turbolinks.enableTransitionCache()
-# Turbolinks.enableProgressBar()
-
-onFirstLoad = ->
-  setAsyncNotifications()
-  setModalBox()
-
-onTurboLoad = ->
-  # Common helper to set interface
-  setNavigationSelector()
-  setCurrentTab()
+onLoad = ->
   setAlertDismiss()
 
-beforeChange = ->
-  ZeroClipboard.destroy()
-
-$(document).ready(onFirstLoad)
-$(document).ready(onTurboLoad)
-$(document).on('page:load', onTurboLoad)
-$(document).on('page:before-change', beforeChange)
+$(document).on('turbolinks:load', onLoad)
 $(document).on('nested:fieldAdded', HandleNestedFields)
