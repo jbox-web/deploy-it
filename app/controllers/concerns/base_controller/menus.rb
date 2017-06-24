@@ -13,20 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module BaseController::Menus
-  extend ActiveSupport::Concern
+module BaseController
+  module Menus
+    extend ActiveSupport::Concern
 
-  included do
-    helper_method :sidebar_menu
+    included do
+      helper_method :sidebar_menu
 
-    class_attribute :sidebar_menu
+      class_attribute :sidebar_menu
 
-    class << self
-      def set_sidebar_menu(menu)
-        self.sidebar_menu = menu
+      class << self
+        def set_sidebar_menu(menu)
+          self.sidebar_menu = menu
+        end
       end
-    end
 
-    set_sidebar_menu :user
+      set_sidebar_menu :user
+    end
   end
 end

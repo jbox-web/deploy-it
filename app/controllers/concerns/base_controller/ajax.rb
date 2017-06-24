@@ -13,48 +13,50 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module BaseController::Ajax
-  extend ActiveSupport::Concern
+module BaseController
+  module Ajax
+    extend ActiveSupport::Concern
 
-  def render_ajax_redirect(url)
-    respond_to do |format|
-      format.js { render js: "window.location = #{url.to_json};" }
+    def render_ajax_redirect(url)
+      respond_to do |format|
+        format.js { render js: "window.location = #{url.to_json};" }
+      end
     end
-  end
 
 
-  def render_ajax_response(template: action_name, locals: {})
-    respond_to do |format|
-      format.js { render ajax_template_path(template), locals: locals }
+    def render_ajax_response(template: action_name, locals: {})
+      respond_to do |format|
+        format.js { render ajax_template_path(template), locals: locals }
+      end
     end
-  end
 
 
-  def get_controller_name
-    self.class.name.gsub('Controller', '').underscore
-  end
-
-
-  def ajax_template_path(template, dir = 'ajax')
-    File.join(get_controller_name, dir, template)
-  end
-
-
-  def render_modal_box(locals: {})
-    render layout: modal_or_application_layout, locals: locals
-  end
-
-
-  def modal_or_application_layout
-    request.xhr? ? 'modal' : 'application'
-  end
-
-
-  def render_multi_responses(template: action_name, partial: action_name, locals: {})
-    respond_to do |format|
-      format.html { render template, locals: locals }
-      format.js   { render 'common/ajax', locals: {}.merge(locals: locals, partial: partial) }
+    def get_controller_name
+      self.class.name.gsub('Controller', '').underscore
     end
-  end
 
+
+    def ajax_template_path(template, dir = 'ajax')
+      File.join(get_controller_name, dir, template)
+    end
+
+
+    def render_modal_box(locals: {})
+      render layout: modal_or_application_layout, locals: locals
+    end
+
+
+    def modal_or_application_layout
+      request.xhr? ? 'modal' : 'application'
+    end
+
+
+    def render_multi_responses(template: action_name, partial: action_name, locals: {})
+      respond_to do |format|
+        format.html { render template, locals: locals }
+        format.js   { render 'common/ajax', locals: {}.merge(locals: locals, partial: partial) }
+      end
+    end
+
+  end
 end

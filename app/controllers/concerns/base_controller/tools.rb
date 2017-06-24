@@ -13,18 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module BaseController::Tools
-  extend ActiveSupport::Concern
+module BaseController
+  module Tools
+    extend ActiveSupport::Concern
 
-  included do
-    before_action :set_mini_profiler
-  end
-
-
-  def set_mini_profiler
-    if current_user && current_user.admin?
-      Rack::MiniProfiler.authorize_request
+    included do
+      before_action :set_mini_profiler
     end
-  end
 
+
+    def set_mini_profiler
+      if current_user && current_user.admin?
+        Rack::MiniProfiler.authorize_request
+      end
+    end
+
+  end
 end

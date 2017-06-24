@@ -13,12 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module BaseController::Security
-  extend ActiveSupport::Concern
+module BaseController
+  module Security
+    extend ActiveSupport::Concern
 
-  included do
-    # Prevent CSRF attacks by raising an exception.
-    protect_from_forgery with: :exception
+    included do
+      # Prevent CSRF attacks by raising an exception.
+      protect_from_forgery with: :exception
+    end
+
   end
-
 end
