@@ -18,7 +18,7 @@ class ApplicationsConfigController < DCIController
   include DCI::Controllers::Application
   set_dci_role 'DCI::Roles::ApplicationConfigManager'
 
-  layout 'application'
+  layout 'docker_app'
 
   before_action :set_application
   before_action :authorize

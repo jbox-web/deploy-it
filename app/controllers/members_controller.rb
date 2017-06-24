@@ -19,7 +19,7 @@ class MembersController < DCIController
   set_dci_role 'DCI::Roles::ApplicationMembershipManager'
   self.render_flash_message = false
 
-  layout 'application'
+  layout 'docker_app'
 
   before_action :set_application
   before_action :authorize

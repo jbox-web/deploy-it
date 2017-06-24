@@ -40,6 +40,7 @@
 
 onLoad = ->
   setAlertDismiss()
+  setCurrentTab()
 
 $(document).on('turbolinks:load', onLoad)
 $(document).on('nested:fieldAdded', HandleNestedFields)

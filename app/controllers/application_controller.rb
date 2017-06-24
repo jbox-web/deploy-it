@@ -23,8 +23,6 @@ class ApplicationController < ActionController::Base
   include BaseController::Helpers
   include BaseController::Menus
 
-  layout 'base'
-
 
   def set_application
     set_application_by(params[:id])

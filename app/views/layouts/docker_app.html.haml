@@ -2,7 +2,7 @@
 %html{ lang: User.current.language }
   %head= render 'layouts/common/head', assets_for_layout: 'main/application'
 
-  %body{ data: { controller: controller.controller_path, action: controller.action_name } }
+  %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: @application.id } }
 
     #wrapper
 
@@ -15,7 +15,8 @@
 
             #flash-messages.flash-messages= render_flash_messages
 
-            = yield
+            #application-content{ class: @application.marked_for_deletion? ? 'disabled marked-for-deletion' : '' }
+              = yield
 
       #modal-holder
 

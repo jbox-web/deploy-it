@@ -15,7 +15,7 @@
 
 class ApplicationsController < DCIController
 
-  layout 'application'
+  layout 'docker_app'
 
   set_dci_role 'DCI::Roles::ApplicationManager'
 
@@ -29,7 +29,7 @@ class ApplicationsController < DCIController
   def index
     add_breadcrumb Application.model_name.human(count: 2), 'fa-desktop', ''
     @applications = Application.visible.includes(:stage, :database, :containers).sorted_by_fullname
-    render layout: 'base'
+    render layout: 'application'
   end
 
 
@@ -42,7 +42,7 @@ class ApplicationsController < DCIController
   def new
     add_breadcrumb t('.title'), 'fa-desktop', ''
     self.render_flash_message = false
-    render layout: 'base', locals: { application: @wizard_form.object }
+    render layout: 'application', locals: { application: @wizard_form.object }
   end
 
 
