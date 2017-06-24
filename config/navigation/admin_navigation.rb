@@ -17,18 +17,19 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |menu|
     menu.dom_id = 'side-menu'
     menu.dom_class = 'nav'
-    menu.item :users,             label_with_icon(get_model_name_for('User'), 'fa-user'), admin_users_path
-    menu.item :groups,            label_with_icon(get_model_name_for('Group'), 'fa-users'), admin_groups_path
-    menu.item :roles,             label_with_icon(get_model_name_for('Role'), 'fa-database'), admin_roles_path
-    menu.item :application_types, label_with_icon(get_model_name_for('ApplicationType'), 'fa-desktop'), admin_application_types_path
-    menu.item :platforms,         label_with_icon(get_model_name_for('Platform'), 'fa-sitemap'), admin_platforms_path
-    menu.item :docker_images,     label_with_icon(get_model_name_for('DockerImage'), 'fa-cubes'), admin_docker_images_path
-    menu.item :buildpacks,        label_with_icon(get_model_name_for('Buildpack'), 'fa-rocket'), admin_buildpacks_path
-    menu.item :reserved_names,    label_with_icon(get_model_name_for('ReservedName'), 'fa-shield'), admin_reserved_names_path
-    menu.item :applications,      label_with_icon(get_model_name_for('Application'), 'fa-desktop'), admin_applications_path
-    menu.item :locks,             label_with_icon(get_model_name_for('Lock'), 'fa-lock'), admin_locks_path
-    menu.item :settings,          label_with_icon(t('layouts.sidebar.settings'), 'fa-info-circle'), admin_settings_path
-    menu.item :sidekiq,           label_with_icon(t('layouts.sidebar.sidekiq'), 'fa-gears'), sidekiq_web_path
-    menu.item :logster,           label_with_icon(t('layouts.sidebar.logster'), 'fa-book'), logster_web_path
+    menu.item :users,             *menu_entry_for_model('User', namespace: :admin)
+    menu.item :groups,            *menu_entry_for_model('Group', namespace: :admin)
+    menu.item :roles,             *menu_entry_for_model('Role', namespace: :admin)
+    menu.item :application_types, *menu_entry_for_model('ApplicationType', namespace: :admin)
+    menu.item :platforms,         *menu_entry_for_model('Platform', namespace: :admin)
+    menu.item :docker_images,     *menu_entry_for_model('DockerImage', namespace: :admin)
+    menu.item :buildpacks,        *menu_entry_for_model('Buildpack', namespace: :admin)
+    menu.item :reserved_names,    *menu_entry_for_model('ReservedName', namespace: :admin)
+    menu.item :applications,      *menu_entry_for_model('Application', namespace: :admin)
+    menu.item :locks,             *menu_entry_for_model('Lock', namespace: :admin)
+
+    menu.item :settings,          { icon: icon_for_entry('fa-gear'),  text: label_for_entry(t('text.settings')) }, admin_settings_path
+    menu.item :logster,           { icon: icon_for_entry('fa-book'),  text: label_for_entry(t('text.logster')) }, logster_web_path, link_html: { target: '_blank' }
+    menu.item :sidekiq,           { icon: icon_for_entry('fa-gears'), text: label_for_entry(t('text.sidekiq')) }, sidekiq_web_path, link_html: { target: '_blank' }
   end
 end

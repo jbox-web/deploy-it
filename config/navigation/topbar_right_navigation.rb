@@ -18,17 +18,17 @@ SimpleNavigation::Configuration.run do |navigation|
     menu.dom_class = 'navbar-top-links navbar-right'
     if User.current.logged?
       menu.item :applications, get_model_name_for('Application'), applications_path
-      menu.item :admin,        t('layouts.topbar.admin'), admin_root_path, if: -> { User.current.admin? }
+      menu.item :admin,        t('text.admin'), admin_root_path, if: -> { User.current.admin? }
 
       menu.item :logged, User.current.email, my_account_path, highlights_on: %r(/my), class: 'dropdown' do |sub_menu|
         sub_menu.auto_highlight = false
-        sub_menu.item :my_account, t('layouts.topbar.my_account'), my_account_path, highlights_on: %r(/my)
-        sub_menu.item :help,       t('layouts.topbar.help'), help_path, highlights_on: :subpath
+        sub_menu.item :my_account, t('text.my_account'), my_account_path, highlights_on: %r(/my)
+        sub_menu.item :help,       t('text.help'), help_path, highlights_on: :subpath
         sub_menu.item :divider, '', '', class: :divider, role: :presentation
-        sub_menu.item :logout,     t('layouts.topbar.logout'), destroy_user_session_path, method: :delete
+        sub_menu.item :logout,     t('text.logout'), destroy_user_session_path, method: :delete
       end
     else
-      menu.item :login, { icon: icon_for_entry('fa-sign-in'), text: label_for_entry(t('layouts.topbar.login')) }, new_user_session_path
+      menu.item :login, { icon: icon_for_entry('fa-sign-in'), text: label_for_entry(t('text.login')) }, new_user_session_path
     end
   end
 end

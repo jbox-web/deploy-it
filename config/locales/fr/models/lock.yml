@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      lock: fa-lock
+
     models:
       lock:
         one: Verrou

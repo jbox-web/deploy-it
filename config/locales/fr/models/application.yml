@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      application: fa-desktop
+
     models:
       application:
         one: Application

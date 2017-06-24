@@ -17,8 +17,8 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |menu|
     menu.dom_id = 'side-menu'
     menu.dom_class = 'nav'
-    menu.item :my_profile,      label_with_icon(t('layouts.sidebar.my_account'), 'fa-user'), my_account_path
-    menu.item :change_password, label_with_icon(t('layouts.sidebar.change_password'), 'fa-lock'), edit_user_registration_path
-    menu.item :ssh_keys,        label_with_icon(t('layouts.sidebar.my_ssh_keys'), 'octicon octicon-key'), public_keys_path
+    menu.item :my_profile,      { icon: icon_for_entry('fa-user'), text: t('text.my_account') }, my_account_path
+    menu.item :change_password, { icon: icon_for_entry('fa-lock'), text: t('text.change_password') }, edit_user_registration_path
+    menu.item :ssh_keys,        { icon: 'octicon octicon-key',     text: t('text.my_ssh_keys') }, public_keys_path
   end
 end

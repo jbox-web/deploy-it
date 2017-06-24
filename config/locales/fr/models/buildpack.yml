@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      buildpack: fa-rocket
+
     models:
       buildpack:
         one: Buildpack

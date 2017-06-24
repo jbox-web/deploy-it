@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      group: fa-users
+
     models:
       group:
         one: Groupe

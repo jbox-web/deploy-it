@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      role: fa-database
+
     models:
       role:
         one: Rôle

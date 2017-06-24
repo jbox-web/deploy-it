@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      user: fa-user
+
     models:
       user:
         one: Utilisateur

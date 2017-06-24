@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ApplicationAddon < ActiveRecord::Base
+class ApplicationAddon < ApplicationRecord
 
   # Disable STI for this class
   self.inheritance_column = 'types'

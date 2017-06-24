@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Push < ActiveRecord::Base
+class Push < ApplicationRecord
 
   ## Relations
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'

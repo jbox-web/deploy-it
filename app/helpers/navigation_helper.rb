@@ -17,7 +17,7 @@ module NavigationHelper
 
 
   def icon_for_entry(icon)
-    "fa #{icon}"
+    "fa fa-fw #{icon}"
   end
 
 

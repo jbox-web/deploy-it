@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      docker_image: fa-cubes
+
     models:
       docker_image:
         one: Image Docker

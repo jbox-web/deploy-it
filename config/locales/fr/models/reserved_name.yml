@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      reserved_name: fa-shield
+
     models:
       reserved_name:
         one: Nom réservé

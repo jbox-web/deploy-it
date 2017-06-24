@@ -15,7 +15,7 @@
 
 require 'resolv'
 
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
 
   include PlatformServer
 

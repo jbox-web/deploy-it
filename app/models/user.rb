@@ -15,7 +15,7 @@
 
 require 'digest'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   ## Module copied from Redmine to perform Authorization
   include Authorizable

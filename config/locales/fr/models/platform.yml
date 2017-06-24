@@ -1,6 +1,9 @@
 fr:
 
   activerecord:
+    icons:
+      platform: fa-sitemap
+
     models:
       platform:
         one: Plateforme

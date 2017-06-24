@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ServerRole < ActiveRecord::Base
+class ServerRole < ApplicationRecord
 
   SERVER_ROLES_AVAILABLE = %w[ pg_db mysql_db docker lb log ]
 

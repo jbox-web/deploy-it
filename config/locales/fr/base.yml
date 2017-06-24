@@ -3,15 +3,48 @@ fr:
   the_jbox_deployer: "Deploy'it"
 
   text:
+    "yes": Oui
+    "no": Non
+    "true": Oui
+    "false": Non
     are_you_sure: Etes vous sur?
     or: ou
-    copy_to_clipboard: Copier dans le presse papier
-    copied: Copié!
+    and: et
+    by: par
+    all: Tout
+    of: de
+    ofa: d'
+    here: ici
+    error: Erreur
+    actions: Actions
+    add: Ajouter
     edit: Modifier
-    done: Done !
-    time: Temps
+    change_password: Changer de mot de passe
+    copy_to_clipboard: Copier dans le presse papier
+    copied: Copié !
+    welcome: Bienvenue!
+    my_account: Mon compte
+    my_ssh_keys: Mes clés SSH
+    login: Connexion
+    logout: Déconnexion
+    signup: S'inscrire
+    help: Aide
+    admin: Admin
+    administration: Administration
+    dashboard: Tableau de bord
+    settings: Paramètres
+    infos: Informations
+    sidekiq: Sidekiq
+    logster: Logster
+    monitoring: Monitoring
     save_in_progress: Sauvegarde en cours...
-    mark_as_read: Marquer comme lu
+    new_application: Nouvelle application
+    new_credentials: Nouvelle clé d'accès
+    code: Code
+    informations: Informations
+    activities: Activité récente
+    time: Temps
+    done: Done!
 
   language:
     name:

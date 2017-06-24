@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
 
   ## Relations
   has_and_belongs_to_many :users,
