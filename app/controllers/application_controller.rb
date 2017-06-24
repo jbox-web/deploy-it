@@ -18,12 +18,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include BaseController::Devise
+  include BaseController::Errors
   include BaseController::UserSettings
   include BaseController::Ajax
-  include BaseController::Authorizations
   include BaseController::Tools
   include BaseController::Helpers
   include BaseController::Menus
+
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
 
   def set_application
@@ -46,66 +48,55 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def set_user_by(param)
-    @user = User.find(param)
-  rescue ActiveRecord::RecordNotFound => e
-    render_404
-  end
+  private
 
 
-  def set_application_by(param)
-    begin
+    def set_user_by(param)
+      @user = User.find(param)
+    end
+
+
+    def set_application_by(param)
       @application = Application.find(param)
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
     end
-  end
 
 
-  def set_member_by(param)
-    @member = Member.find(param)
-  rescue ActiveRecord::RecordNotFound => e
-    render_404
-  end
+    def set_member_by(param)
+      @member = Member.find(param)
+    end
 
 
-  def set_container_by(param)
-    begin
+    def set_container_by(param)
       @container = @application.containers.find(param)
-    rescue ActiveRecord::RecordNotFound => e
-      render_404
     end
-  end
 
 
-  def set_credential_by(params)
-    @credential = RepositoryCredential.find(params)
-  rescue ActiveRecord::RecordNotFound => e
-    render_404
-  end
-
-
-  def set_deployment_action_for(object)
-    @deploy_action = object.find_active_use_case(params[:deploy_action])
-  rescue UseCaseNotDefinedError => e
-    render_403
-  end
-
-
-  def event_options_for(method)
-    case method
-    when :synchronize_repository
-      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'repositories', triggers: [repositories_application_path(@application)]) }
-    when :toolbar
-      { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'containers', triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
-    else
-      {}
+    def set_credential_by(params)
+      @credential = RepositoryCredential.find(params)
     end
-  end
 
 
-  def add_global_crumb
-    add_breadcrumb @application.fullname, 'fa-desktop', infos_application_path(@application)
-  end
+    def set_deployment_action_for(object)
+      @deploy_action = object.find_active_use_case(params[:deploy_action])
+    rescue UseCaseNotDefinedError => e
+      render_403
+    end
+
+
+    def event_options_for(method)
+      case method
+      when :synchronize_repository
+        { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'repositories', triggers: [repositories_application_path(@application)]) }
+      when :toolbar
+        { async_view_refresh: RefreshViewEvent.create(app_id: @application.id, action: 'containers', triggers: [toolbar_application_path(@application), status_application_path(@application)]) }
+      else
+        {}
+      end
+    end
+
+
+    def add_global_crumb
+      add_breadcrumb @application.fullname, 'fa-desktop', infos_application_path(@application)
+    end
 
 end
