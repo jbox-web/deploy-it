@@ -64,10 +64,6 @@ dl {
   text-align: center;
 }
 
-.nav-tabs > li.buggy {
-  margin-bottom: -4px;
-}
-
 .table tbody > tr > td.vert-align {
   vertical-align: middle;
 }

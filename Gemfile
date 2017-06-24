@@ -47,15 +47,13 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'uglifier'
 
-# Fonts
-gem 'font-awesome-sass'
-gem 'octicons-rails'
-gem 'google-webfonts-rails'
-
 # CSS
 gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+
+# Fonts
+gem 'font-awesome-sass'
 
 # Forms
 gem 'bootstrap_form'

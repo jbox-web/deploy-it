@@ -26,7 +26,7 @@ module SshKeysManager
 
 
   def index
-    add_breadcrumb get_model_name_for('SshPublicKey'), 'octicon octicon-key', ''
+    add_breadcrumb get_model_name_for('SshPublicKey'), 'fa fa-key fa-lg', ''
   end
 
 

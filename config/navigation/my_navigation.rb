@@ -19,6 +19,6 @@ SimpleNavigation::Configuration.run do |navigation|
     menu.dom_class = 'nav'
     menu.item :my_profile,      { icon: icon_for_entry('fa-user'), text: t('text.my_account') }, my_account_path
     menu.item :change_password, { icon: icon_for_entry('fa-lock'), text: t('text.change_password') }, edit_user_registration_path
-    menu.item :ssh_keys,        { icon: 'octicon octicon-key',     text: t('text.my_ssh_keys') }, public_keys_path
+    menu.item :ssh_keys,        { icon: icon_for_entry('fa-key'),  text: t('text.my_ssh_keys') }, public_keys_path
   end
 end
