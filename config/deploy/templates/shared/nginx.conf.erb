@@ -7,7 +7,7 @@ upstream <%= fetch(:application) %>-puma {
 
 server {
   server_name   <%= domain %>;
-  listen        4443 ssl http2;
+  listen        4443 ssl;
   listen        127.0.0.1:5000;
   root          <%= remote_path_for(deploy_to) %>/current/public;
 
