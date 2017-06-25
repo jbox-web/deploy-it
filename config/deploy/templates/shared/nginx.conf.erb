@@ -2,10 +2,6 @@ upstream <%= fetch(:application) %>-puma {
   server unix:<%= remote_path_for(shared_path) %>/tmp/sockets/puma.sock fail_timeout=0;
 }
 
-upstream <%= fetch(:application) %>-faye {
-  server unix:<%= remote_path_for(shared_path) %>/tmp/sockets/faye.sock fail_timeout=0;
-}
-
 <%- config = fetch(:nginx_vhost, {}) -%>
 <%- domain = config[:domain] -%>
 
@@ -19,26 +15,29 @@ server {
   error_log     <%= remote_path_for(shared_path) %>/log/nginx.error.log;
 
   ssl on;
-  ssl_certificate       /etc/nginx/sites-admin/ssl-certificates/server.crt;
-  ssl_certificate_key   /etc/nginx/sites-admin/ssl-certificates/server.key;
+  ssl_certificate       <%= remote_path_for(shared_path) %>/config/ssl/server.crt;
+  ssl_certificate_key   <%= remote_path_for(shared_path) %>/config/ssl/server.key;
+
+  error_page 502 @maintenance;
+  error_page 503 @maintenance;
 
   location / {
-    try_files $uri @deploy_it;
+    if (-f <%= remote_path_for(shared_path) %>/tmp/maintenance.txt) {
+      return 503;
+    }
+
+    try_files $uri @rails;
   }
 
-  location @deploy_it {
-    # Headers
-    include /etc/nginx/proxy_params;
-
-    # Options
-    proxy_redirect     off;
-    proxy_read_timeout 300;
-
-    # Pass to Rails
-    proxy_pass http://<%= fetch(:application) %>-puma;
+  location = /check.json {
+    try_files $uri @rails_nologs;
   }
 
-  location /faye {
+  location ~ ^/(sidekiq|logs|check)/ {
+    try_files $uri @rails_nologs;
+  }
+
+  location /cable {
     # Headers
     include /etc/nginx/proxy_params;
 
@@ -59,6 +58,44 @@ server {
     proxy_connect_timeout     850000;
 
     # Pass to Faye
-    proxy_pass http://<%= fetch(:application) %>-faye;
+    proxy_pass http://<%= fetch(:application) %>-puma;
+  }
+
+  location @rails {
+    # Headers
+    include /etc/nginx/proxy_params;
+
+    # Options
+    proxy_redirect     off;
+    proxy_read_timeout 300;
+
+    # Pass to Rails
+    proxy_pass http://<%= fetch(:application) %>-puma;
+  }
+
+  location @rails_nologs {
+    # Headers
+    include /etc/nginx/proxy_params;
+
+    # Options
+    proxy_redirect     off;
+    proxy_read_timeout 300;
+
+    # Disable logs
+    access_log off;
+
+    # Pass to Rails
+    proxy_pass http://<%= fetch(:application) %>-puma;
+  }
+
+  location @maintenance {
+    # Serve static assets if found.
+    if (-f $request_filename) {
+      break;
+    }
+
+    # Set root to the shared directory.
+    root <%= remote_path_for(shared_path) %>/public;
+    rewrite ^(.*)$ /maintenance.html break;
   }
 }
