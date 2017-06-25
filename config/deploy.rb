@@ -35,7 +35,7 @@ set :keep_assets, 1
 ## Foreman
 set :foreman_roles,       :app
 set :foreman_template,    'systemd'
-set :foreman_services,    %w(web worker socket)
+set :foreman_services,    %w(web worker)
 set :foreman_export_path, "#{deploy_to}/.config/systemd/user"
 set :foreman_options,     {
   template: "#{deploy_to}/.foreman/templates/systemd",
