@@ -22,7 +22,7 @@ class DeployItIdentController < ApplicationController
 
 
   def index
-    render text: compute_authorized_keys
+    render plain: compute_authorized_keys
   end
 
 
@@ -31,7 +31,7 @@ class DeployItIdentController < ApplicationController
 
     def authenticate_request
       auth_token = params[:auth_token] || ''
-      return render text: '' if auth_token.empty? || auth_token != Settings.authentication_token
+      return render plain: '' if auth_token.empty? || auth_token != Settings.authentication_token
     end
 
 
