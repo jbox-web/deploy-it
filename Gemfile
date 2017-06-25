@@ -157,12 +157,14 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'shoulda-context'
 
+  gem 'faker'
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'faker'
 
   gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'poltergeist'
 
   # Code coverage
   gem 'simplecov'

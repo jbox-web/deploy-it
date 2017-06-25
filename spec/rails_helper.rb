@@ -14,13 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 require 'simplecov'
-require 'simplecov-rcov'
-
-## Configure SimpleCov
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::RcovFormatter
-]
 
 SimpleCov.start 'rails' do
   add_group 'Forms',      'app/forms/'
@@ -58,7 +51,7 @@ RSpec.configure do |config|
   # Include standard helpers
   config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   # Include our helpers from support directory
   config.include GlobalHelpers

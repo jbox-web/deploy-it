@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe RepositoryCredential::BasicAuth do
 
-  before(:each) do
-    @basic_auth = build(:basic_auth)
-  end
+  let(:basic_auth) { build(:basic_auth) }
 
-  subject { @basic_auth }
+  subject { basic_auth }
 
   ## Global validation
   it { should be_valid }

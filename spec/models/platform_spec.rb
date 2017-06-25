@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Platform do
 
-  before(:each) do
-    @platform = build(:platform)
-  end
+  let(:platform) { build(:platform) }
 
-  subject { @platform }
+  subject { platform }
 
   ## Global validation
   it { should be_valid }
@@ -38,7 +36,7 @@ describe Platform do
   it { should have_many(:stages) }
 
   it "should render as string" do
-    expect(@platform.to_s).to eq @platform.name
+    expect(subject.to_s).to eq subject.name
   end
 
   context "when platform is used by servers" do

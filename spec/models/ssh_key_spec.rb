@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe RepositoryCredential::SshKey do
 
-  before(:each) do
-    @ssh_key = build(:ssh_key)
-  end
+  let(:ssh_key) { build(:ssh_key) }
 
-  subject { @ssh_key }
+  subject { ssh_key }
 
   ## Global validation
   it { should_not be_valid }

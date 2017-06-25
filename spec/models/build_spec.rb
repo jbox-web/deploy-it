@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Build do
 
-  before(:each) do
-    @build = build(:build)
-  end
+  let(:build_o) { build(:build) }
 
-  subject { @build }
+  subject { build_o }
 
   ## Global validation
   it { should be_valid }

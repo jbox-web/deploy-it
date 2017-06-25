@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe PlatformCredential do
 
-  before(:each) do
-    @credential = build(:platform_credential)
-  end
+  let(:credential) { build(:platform_credential) }
 
-  subject { @credential }
+  subject { credential }
 
   ## Global validation
   it { should_not be_valid }

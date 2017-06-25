@@ -17,33 +17,31 @@ require 'rails_helper'
 
 describe AnonymousUser do
 
-  before(:all) do
-    @user = AnonymousUser.new(firstname: 'Anonymous', lastname: '', email: '', login: '')
-  end
+  let(:user) { AnonymousUser.new(firstname: 'Anonymous', lastname: '', email: '') }
 
-  subject { @user }
+  subject { user }
 
   it "should have a name" do
-    expect(@user.name).to eq I18n.t('label.user.anonymous')
+    expect(subject.name).to eq I18n.t('label.user.anonymous')
   end
 
   it "should not have an email" do
-    expect(@user.email).to be nil
+    expect(subject.email).to be nil
   end
 
   it "should not have a time_zone" do
-    expect(@user.time_zone).to be nil
+    expect(subject.time_zone).to be nil
   end
 
   it "should not be logged" do
-    expect(@user.logged?).to be false
+    expect(subject.logged?).to be false
   end
 
   it "should not be admin" do
-    expect(@user.admin?).to be false
+    expect(subject.admin?).to be false
   end
 
   it "should not be destroyed" do
-    expect(@user.destroy).to be false
+    expect(subject.destroy).to be false
   end
 end

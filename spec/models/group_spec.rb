@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Group do
 
-  before(:each) do
-    @group = build(:group)
-  end
+  let(:group) { build(:group) }
 
-  subject { @group }
+  subject { group }
 
   ## Global validation
   it { should be_valid }
@@ -38,7 +36,7 @@ describe Group do
   it { should respond_to(:members) }
 
   it "should render as string" do
-    expect(@group.to_s).to eq @group.name
+    expect(subject.to_s).to eq subject.name
   end
 
   context "when a group is assigned to an application" do

@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe RepositoryCredential do
 
-  before(:each) do
-    @credential = build(:repository_credential)
-  end
+  let(:credential) { build(:repository_credential) }
 
-  subject { @credential }
+  subject { credential }
 
   ## Global validation
   it { should be_valid }
@@ -37,7 +35,7 @@ describe RepositoryCredential do
 
 
   it "should render as string" do
-    expect(@credential.to_s).to eq @credential.name
+    expect(subject.to_s).to eq subject.name
   end
 
 end

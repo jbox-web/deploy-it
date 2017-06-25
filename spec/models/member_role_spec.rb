@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe MemberRole do
 
-  before(:each) do
-    @member_role = build(:member_role)
-  end
+  let(:member_role) { build(:member_role) }
 
-  subject { @member_role }
+  subject { member_role }
 
   ## Global validation
   it { should be_valid }

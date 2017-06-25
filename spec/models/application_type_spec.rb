@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe ApplicationType do
 
-  before(:each) do
-    @application_type = build(:application_type)
-  end
+  let(:application_type) { build(:application_type) }
 
-  subject { @application_type }
+  subject { application_type }
 
   ## Global validation
   it { should be_valid }
@@ -40,23 +38,23 @@ describe ApplicationType do
 
 
   it "should render as string" do
-    expect(@application_type.to_s).to eq "#{@application_type.name} - #{@application_type.version}"
+    expect(subject.to_s).to eq "#{subject.name} - #{subject.version}"
   end
 
   it "should have no attributes" do
-    expect(@application_type.has_extra_attributes?).to be false
+    expect(subject.has_extra_attributes?).to be false
   end
 
   it "should accept JSON attributes" do
     data = { "foo" => ["foo", "bar"], "bar" => 1 }
-    @application_type.json_attributes = data
-    expect(@application_type.json_attributes).to eq JSON.pretty_generate(data)
-    expect(@application_type.has_extra_attributes?).to be true
+    subject.json_attributes = data
+    expect(subject.json_attributes).to eq JSON.pretty_generate(data)
+    expect(subject.has_extra_attributes?).to be true
   end
 
   it "should validate JSON attributes" do
     data = '"foo": ["foo", "bar"], "bar": 1'
-    @application_type.json_attributes = data
-    expect(@application_type).to be_invalid
+    subject.json_attributes = data
+    expect(subject).to be_invalid
   end
 end

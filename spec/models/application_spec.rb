@@ -17,11 +17,8 @@ require 'rails_helper'
 
 describe Application do
 
-  before(:each) do
-    @application = build(:application)
-  end
-
-  subject { @application }
+  let(:application) { build(:application) }
+  subject { application }
 
   ## Global validation
   it { should be_valid }
@@ -77,18 +74,18 @@ describe Application do
 
   describe "#calculated_members" do
     it "should return application's member (user + group)" do
-      @application = create(:application)
+      application = create(:application)
 
-      @manager   = create(:user)
+      manager   = create(:user)
 
-      @developer = create(:user)
-      @group = create(:group)
-      @group.users << @developer
+      developer = create(:user)
+      group = create(:group)
+      group.users << developer
 
-      @application.members << Member.new(role_ids: [create_role(:manager).id], enrolable_type: 'User',  enrolable_id: @manager.id)
-      @application.members << Member.new(role_ids: [create_role(:developer).id], enrolable_type: 'Group',  enrolable_id: @group.id)
+      application.members << Member.new(role_ids: [create_role(:manager).id], enrolable_type: 'User',  enrolable_id: manager.id)
+      application.members << Member.new(role_ids: [create_role(:developer).id], enrolable_type: 'Group',  enrolable_id: group.id)
 
-      expect(@application.calculated_members).to eq [@manager, @developer]
+      expect(application.calculated_members).to eq [manager, developer]
     end
   end
 

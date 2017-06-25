@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe EnvVar do
 
-  before(:each) do
-    @env_var = build(:env_var)
-  end
+  let(:env_var) { build(:env_var) }
 
-  subject { @env_var }
+  subject { env_var }
 
   ## Global validation
   it { should be_valid }
@@ -30,10 +28,8 @@ describe EnvVar do
   it { should validate_presence_of(:application_id) }
   it { should validate_presence_of(:key) }
   it { should validate_presence_of(:value) }
-  it { should validate_presence_of(:step) }
 
-  it { should validate_uniqueness_of(:key).scoped_to([:application_id, :step]).case_insensitive }
-  it { should validate_inclusion_of(:step).in_array(%w(receive build deploy)) }
+  it { should validate_uniqueness_of(:key).scoped_to([:application_id]).case_insensitive }
 
   ## Relations validation
   it { should belong_to(:application) }

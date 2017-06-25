@@ -123,8 +123,12 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.14)
+      capybara (>= 1.0, < 3)
+      launchy
     chartkick (2.2.4)
     choice (0.2.0)
+    cliver (0.3.2)
     codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
     codeclimate-test-reporter (1.0.8)
@@ -327,6 +331,10 @@ GEM
       tty-color (~> 0.4.0)
     path_expander (1.0.2)
     pg (0.21.0)
+    poltergeist (1.15.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
     puma (3.9.1)
@@ -577,6 +585,7 @@ DEPENDENCIES
   bullet
   bundler (>= 1.8.4)
   capybara
+  capybara-screenshot
   chartkick
   codeclimate-test-reporter
   codemirror-rails
@@ -612,6 +621,7 @@ DEPENDENCIES
   nested_form
   net-ssh
   pg
+  poltergeist
   puma
   quiet_assets
   rack-mini-profiler

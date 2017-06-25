@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Stage do
 
-  before(:each) do
-    @stage = build(:stage)
-  end
+  let(:stage) { build(:stage) }
 
-  subject { @stage }
+  subject { stage }
 
   ## Global validation
   it { should be_valid }
@@ -39,12 +37,12 @@ describe Stage do
 
 
   it "should render as string" do
-    expect(@stage.to_s).to eq @stage.name
+    expect(subject.to_s).to eq subject.name
   end
 
 
   it "should have a full name" do
-    expect(@stage.full_name).to eq "#{@stage.platform.name} - #{@stage.name}"
+    expect(subject.full_name).to eq "#{subject.platform.name} - #{subject.name}"
   end
 
 

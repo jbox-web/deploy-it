@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Server do
 
-  before(:each) do
-    @server = build(:server)
-  end
+  let(:server) { build(:server) }
 
-  subject { @server }
+  subject { server }
 
   ## Global validation
   it { should be_valid }
@@ -46,7 +44,7 @@ describe Server do
 
 
   it "should render as string" do
-    expect(@server.to_s).to eq @server.host_name
+    expect(subject.to_s).to eq subject.host_name
   end
 
   context "when ip_address is invalid" do

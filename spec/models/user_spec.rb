@@ -22,11 +22,9 @@ describe User do
   INVALID_MAIL_ADDRESSES = %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com]
 
   context "when password is set" do
-    before(:each) do
-      @user = build(:user)
-    end
+    let(:user) { build(:user) }
 
-    subject { @user }
+    subject { user }
 
     ## Global validation
     it { should be_valid }
@@ -49,63 +47,45 @@ describe User do
     it { should_not allow_value(*INVALID_MAIL_ADDRESSES).for(:email), proc { @user.errors.full_messages } }
 
     ## Relations validation
-    # has_many :ssh_public_keys
-    # has_and_belongs_to_many :groups
+    it { should have_many(:ssh_public_keys) }
+    it { should have_and_belong_to_many(:groups) }
 
-    # has_many :memberships, as: :enrolable, class_name: 'Member', dependent: :destroy
-    # has_many :applications, through: :memberships
+    it { should have_many(:memberships).class_name('Member').dependent(:destroy) }
+    it { should have_many(:applications).through(:memberships) }
 
-    it { should respond_to(:logged?) }
-    it { should respond_to(:anonymous?) }
 
     it "should render as string" do
-      expect(@user.to_s).to eq @user.email
+      expect(subject.to_s).to eq subject.full_name
     end
 
     it "should be logged" do
-      expect(@user.logged?).to be true
+      expect(subject.logged?).to be true
     end
 
     it "should have a full name" do
-      expect(@user.full_name).to eq "#{@user.firstname} #{@user.lastname}"
+      expect(subject.full_name).to eq "#{subject.firstname} #{subject.lastname}"
     end
 
     it "should have a notification token" do
-      expect(@user.notification_token).to eq Digest::SHA256.new.hexdigest(@user.email)
+      expect(subject.notification_token).to eq Digest::SHA256.new.hexdigest(subject.email)
     end
 
     it "should have a private notification channel" do
-      expect(@user.private_channel).to eq "/private/#{@user.notification_token}"
+      expect(subject.private_channel).to eq "/private/#{subject.notification_token}"
     end
 
     it "should have never been connected" do
-      expect(@user.last_connection).to eq I18n.t('label.user.never_connected')
+      expect(subject.last_connection).to eq User.human_attribute_name('never_connected')
     end
 
     it "should not be anonymous" do
-      expect(@user.anonymous?).to be false
+      expect(subject.anonymous?).to be false
     end
 
     it "should downcase email" do
       user = build(:user, email: "TOTO@TOTO.COM")
       user.valid?
       expect(user.email).to eq 'toto@toto.com'
-    end
-
-    describe ".current" do
-      context "when user is logged" do
-        it "should assing current user to main thread" do
-          User.current = @user
-          expect(User.current).to eq @user
-        end
-      end
-
-      context "when user is not logged" do
-        it "should assing anonymous user to main thread" do
-          User.current = nil
-          expect(User.current).to be_an_instance_of(AnonymousUser)
-        end
-      end
     end
 
     describe ".anonymous" do
@@ -116,10 +96,8 @@ describe User do
   end
 
   context "when password is not set" do
-    before(:each) do
-      @new_user = build(:user, password: nil)
-    end
-    subject { @new_user }
+    let(:new_user) { build(:user, password: nil) }
+    subject { new_user }
     it { should validate_presence_of(:password) }
     it { should validate_confirmation_of(:password) }
   end

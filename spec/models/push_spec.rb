@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Push do
 
-  before(:each) do
-    @push = build(:push)
-  end
+  let(:push) { build(:push) }
 
-  subject { @push }
+  subject { push }
 
   ## Global validation
   it { should be_valid }

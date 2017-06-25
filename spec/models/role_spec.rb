@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Role do
 
-  before(:each) do
-    @role = build(:role)
-  end
+  let(:role) { build(:role) }
 
-  subject { @role }
+  subject { role }
 
   ## Global validation
   it { should be_valid }
@@ -38,40 +36,40 @@ describe Role do
 
 
   it "should render as string" do
-    expect(@role.to_s).to eq @role.name
+    expect(subject.to_s).to eq subject.name
   end
 
 
   describe "#permissions=" do
-    before { @role.permissions = [:edit_container] }
+    before { subject.permissions = [:edit_container] }
     it "should save role's permissions" do
-      expect(@role.permissions).to eq [:edit_container]
+      expect(subject.permissions).to eq [:edit_container]
     end
   end
 
 
   describe "#setable_permissions" do
     it "should return an array of Permissions" do
-      expect(@role.setable_permissions).to be_an_instance_of Array
+      expect(subject.setable_permissions).to be_an_instance_of Array
     end
   end
 
 
   describe "#allowed_to?" do
-    before { @role.permissions << :view_application }
+    before { subject.permissions << :view_application }
 
     it "can take a symbol" do
-      expect(@role.allowed_to?(:view_application)).to be true
+      expect(subject.allowed_to?(:view_application)).to be true
     end
 
     it "can take a hash" do
-      expect(@role.allowed_to?(action: :show, controller: :applications)).to be true
+      expect(subject.allowed_to?(action: :show, controller: :applications)).to be true
     end
   end
 
   describe "#builtin?" do
     context "the role is an application member role" do
-      it { expect(@role.builtin?).to be false }
+      it { expect(subject.builtin?).to be false }
     end
     context "the role is a builtin role" do
       role = Role.non_member
@@ -81,7 +79,7 @@ describe Role do
 
   describe "#anonymous?" do
     context "the role is an application member role" do
-      it { expect(@role.anonymous?).to be false }
+      it { expect(subject.anonymous?).to be false }
     end
     context "the role is a builtin role" do
       role = Role.anonymous
@@ -91,7 +89,7 @@ describe Role do
 
   describe "#member?" do
     context "the role is an application member role" do
-      it { expect(@role.member?).to be true }
+      it { expect(subject.member?).to be true }
     end
     context "the role is a builtin role" do
       role = Role.non_member

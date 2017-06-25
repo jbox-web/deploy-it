@@ -19,7 +19,6 @@ FactoryGirl.define do
     f.association  :application
     f.key          { Faker::Lorem.characters(10) }
     f.value        { Faker::Lorem.characters(10) }
-    f.step         'build'
   end
 
 end

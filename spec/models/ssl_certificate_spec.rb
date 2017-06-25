@@ -17,11 +17,9 @@ require "rails_helper"
 
 describe SslCertificate do
 
-  before(:each) do
-    @ssl_certificate = build(:ssl_certificate)
-  end
+  let(:ssl_certificate) { build(:ssl_certificate) }
 
-  subject { @ssl_certificate }
+  subject { ssl_certificate }
 
   ## Global validation
   it { should_not be_valid }

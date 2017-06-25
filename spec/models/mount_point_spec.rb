@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe MountPoint do
 
-  before(:each) do
-    @mount_point = build(:mount_point)
-  end
+  let(:mount_point) { build(:mount_point) }
 
-  subject { @mount_point }
+  subject { mount_point }
 
   ## Global validation
   it { should be_valid }
@@ -38,7 +36,7 @@ describe MountPoint do
   it { should belong_to(:application) }
 
   it "should render as string" do
-    expect(@mount_point.to_s).to eq "#{@mount_point.source}:#{@mount_point.target}"
+    expect(subject.to_s).to eq "#{subject.source}:#{subject.target}"
   end
 
 end

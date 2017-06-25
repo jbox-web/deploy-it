@@ -17,11 +17,9 @@ require 'rails_helper'
 
 describe Member do
 
-  before(:each) do
-    @member = build(:member_user)
-  end
+  let(:member) { build(:member_user) }
 
-  subject { @member }
+  subject { member }
 
   ## Global validation
   it { should be_valid }
@@ -69,13 +67,13 @@ describe Member do
       context "and it's a user" do
         it "should return the existing user member" do
           application = create(:application, name: 'toto')
-          user, role, member = create_user_membership(application)
+          user, role, new_member = create_user_membership(application)
           user_member = Member.find_or_new(application, user)
 
-          expect(member.name).to eq user.email
-          expect(member.deletable?).to be true
+          expect(new_member.name).to eq user.full_name
+          expect(new_member.deletable?).to be true
           expect(user_member.new_record?).to be false
-          expect(user_member).to eq member
+          expect(user_member).to eq new_member
           expect(user.roles_for_application(application)).to eq [role]
         end
       end
@@ -83,11 +81,11 @@ describe Member do
       context "and it's a group" do
         it "should return the existing group member" do
           application = create(:application, name: 'toto')
-          user, group, role, member = create_group_membership(application)
+          user, group, role, new_member = create_group_membership(application)
           user_member = Member.find_or_new(application, user)
 
-          expect(member.name).to eq group.name
-          expect(member.deletable?).to be true
+          expect(new_member.name).to eq group.name
+          expect(new_member.deletable?).to be true
           expect(user_member.new_record?).to be false
           expect(user_member.deletable?).to be false
           expect(user.roles_for_application(application)).to eq [role]
