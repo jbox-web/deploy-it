@@ -17,12 +17,14 @@ module Repositories
   class DestroyForever < ActiveUseCase::Base
 
     def execute(opts = {})
-      if repository.exists?
-        begin
-          FileUtils.rm_rf(repository.path)
-        rescue => e
-          log_exception(e)
-          error_message(tt('errors.destroy'))
+      if defined?(repository)
+        if repository.exists?
+          begin
+            FileUtils.rm_rf(repository.path)
+          rescue => e
+            log_exception(e)
+            error_message(tt('errors.destroy'))
+          end
         end
       end
     end

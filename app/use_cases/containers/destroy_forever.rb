@@ -20,22 +20,24 @@ module Containers
 
 
     def execute(opts = {})
-      self_destroy = opts.delete(:self_destroy){ true }
+      if defined?(container)
+        self_destroy = opts.delete(:self_destroy){ true }
 
-      # Stop it first
-      catch_errors(container, opts) do
-        container.docker_proxy.stop
-      end
+        # Stop it first
+        catch_errors(container, opts) do
+          container.docker_proxy.stop
+        end
 
-      begin
-        # Remove it from Docker
-        container.docker_proxy.delete
-      rescue => e
-        log_exception(e)
-        error_message(e.message)
-      ensure
-        # Remove from database
-        container.destroy! if self_destroy
+        begin
+          # Remove it from Docker
+          container.docker_proxy.delete
+        rescue => e
+          log_exception(e)
+          error_message(e.message)
+        ensure
+          # Remove from database
+          container.destroy! if self_destroy
+        end
       end
     end
 
