@@ -1,0 +1,10 @@
+fr:
+
+  settings:
+    rails_config: Configuration Rails
+    db_config: Configuration de la base de données
+    redis_config: Configuration Redis
+    app_config: Configuration de l'application
+    devise_config: Configuration Devise
+    smtp_config: Configuration SMTP
+    monitoring_config: Configuration du monitoring

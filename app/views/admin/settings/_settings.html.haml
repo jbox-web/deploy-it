@@ -1,10 +1,19 @@
 %h3{ class: 'page-header' }
   = label_with_icon(t('.title'), 'fa-info-circle', bigger: false)
 
-%table{ class: 'table table-striped' }
-  %tbody
-    - Settings.each do |key, value|
-      %tr
-        %td= key.upcase
-        %td
-          %code= value
+- Settings.grouped(2).each do |row|
+  .row
+    - row.each do |group_name, values|
+      .col-lg-6.col-md-6
+        .panel.panel-default
+          .panel-heading
+            %h4.panel-title
+              = link_to label_with_icon(t("settings.#{group_name}"), settings_icon_for(group_name), bigger: false), "##{group_name}", data: { toggle: 'collapse' }
+          .panel-collapse.collapse.in{ id: group_name }
+            %table.table.table-bordered
+              %tbody
+                - values.each do |key, value|
+                  %tr
+                    %td= key
+                    %td
+                      %code= truncate value, length: 50

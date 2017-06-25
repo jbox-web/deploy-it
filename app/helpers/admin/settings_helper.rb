@@ -13,31 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-require 'settingslogic'
+module Admin
+  module SettingsHelper
 
-class Settings < Settingslogic
-  source Rails.root.join('config', 'settings.yml')
-  extend ActiveModel::Translation
-  include ActiveModel::Conversion
+    SETTINGS_ICON_MAPPING = {
+      rails_config:         'fa-gears',
+      db_config:            'fa-database',
+      redis_config:         'fa-database',
+      app_config:           'fa-gears',
+      devise_config:        'fa-shield',
+      smtp_config:          'fa-envelope',
+      monitoring_config:    'fa-heartbeat',
+    }.freeze
 
-  def grouped(nb = 4)
-    grouped = []
-    APPLICATION_CONFIG.keys.in_groups_of(nb).each do |keys|
-      group = {}
-      keys.each do |key|
-        next if key.blank?
-        group[key] = {}
-        if key == :rails_config
-          group[key]['RUBY_VERSION']  = "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"
-          group[key]['RAILS_VERSION'] = Rails::VERSION::STRING
-        end
-        APPLICATION_CONFIG[key].each do |value|
-          group[key][value] = ENV[value]
-        end
-      end
-      grouped << group
+    def settings_icon_for(group_name)
+      SETTINGS_ICON_MAPPING[group_name] || 'fa-gears'
     end
-    grouped
-  end
 
+  end
 end
