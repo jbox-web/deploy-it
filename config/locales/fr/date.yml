@@ -93,6 +93,7 @@ fr:
 
       x_days: "Il y a %{count} jours"
       x_minutes: "Il y a %{count} minutes"
+      x_months: "Il y a %{count} mois"
       half_a_minute: il y a moins d'une minute
 
     prompts:
