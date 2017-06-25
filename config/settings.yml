@@ -6,6 +6,7 @@ log_level:                <%= ENV['LOG_LEVEL'] %>
 access_domain_name:       <%= ENV['ACCESS_DOMAIN_NAME'] %>
 access_url:               <%= ENV['ACCESS_URL'] %>
 mail_from:                <%= ENV['MAIL_FROM'] %>
+session_timeout:          <%= ENV['SESSION_TIMEOUT'] %>
 
 # Private Docker Registry
 docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>

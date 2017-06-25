@@ -19,4 +19,4 @@ Rails.application.config.session_store :redis_store, servers: {
                                                                 db:   Settings.redis_db,
                                                                 namespace: 'sessions',
                                                                 driver: :hiredis
-                                                              }, expires_in: 90.minutes
+                                                              }, expires_in: Settings.session_timeout.minutes

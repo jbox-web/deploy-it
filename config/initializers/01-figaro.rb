@@ -43,6 +43,7 @@ DEPLOY_IT_REQUIRED_KEYS = [
 
   # DeployIt domain name
   'ACCESS_DOMAIN_NAME',
+  'SESSION_TIMEOUT',
 
   # Private Docker Registry
   'DOCKER_REGISTRY',
