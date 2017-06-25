@@ -13,11 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-module Admin::RolesHelper
+module Admin
+  module RolesHelper
 
-  def l_or_humanize(s, options = {})
-    k = "#{options[:prefix]}#{s}"
-    ::I18n.t(k, default: s.to_s.humanize)
+    def l_or_humanize(s, options = {})
+      k = "#{options[:prefix]}#{s}"
+      ::I18n.t(k, default: s.to_s.humanize)
+    end
+
   end
-
 end
