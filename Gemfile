@@ -146,6 +146,9 @@ gem 'bootsnap'
 # Be notified of exceptions in production
 gem 'exception_notification'
 
+# The `content_tag_for` method has been removed from Rails
+gem 'record_tag_helper'
+
 ## Documentation gems
 group :doc do
   gem 'sdoc'

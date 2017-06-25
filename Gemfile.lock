@@ -379,6 +379,8 @@ GEM
       rake
     rake (12.0.0)
     rdoc (4.3.0)
+    record_tag_helper (1.0.0)
+      actionview (~> 5.x)
     redis (3.3.3)
     redis-actionpack (5.0.1)
       actionpack (>= 4.0, < 6)
@@ -614,6 +616,7 @@ DEPENDENCIES
   rails-assets-highstock-release!
   rails-erd
   rails_bootstrap_navbar
+  record_tag_helper
   redis
   redis-namespace
   redis-rails
