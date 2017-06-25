@@ -33,6 +33,7 @@ end
 #
 
 if Rails.env.production?
+  Sidekiq.logger = Syslogger.new("#{Settings.application_name}.worker", nil, Syslog::LOG_LOCAL7)
   Sidekiq.logger.level = Logger::WARN
 
   class SidekiqLogsterReporter < Sidekiq::ExceptionHandler::Logger
