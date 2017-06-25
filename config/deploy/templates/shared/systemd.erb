@@ -1,0 +1,32 @@
+#!/bin/bash
+
+function call_systemd() {
+<%- services.each_with_index do |service, index| -%>
+  systemctl --user $1 <%= fetch(:application) %>-<%= service %>@5<%= index %>00.service
+<%- end -%>
+}
+
+case "$1" in
+  start)
+    call_systemd "start"
+    ;;
+
+  stop)
+    call_systemd "stop"
+    ;;
+
+  restart)
+    call_systemd "restart"
+    ;;
+
+  status)
+    call_systemd "status"
+    ;;
+
+  *)
+    echo "Usage: <%= fetch(:application) %> {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

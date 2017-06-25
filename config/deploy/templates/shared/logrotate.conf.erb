@@ -1,0 +1,31 @@
+<%- fetch(:config_syslog, []).each do |log| -%>
+<%= remote_path_for(shared_path) %>/log/<%= log %>.log
+<%- end -%>
+{
+  daily
+  rotate 365
+  compress
+  dateext
+  missingok
+  notifempty
+  create 0640 <%= host.user %> <%= host.user %>
+  olddir <%= remote_path_for(shared_path) %>/log/archives/<%= fetch(:application) %>
+  postrotate
+    invoke-rc.d syslog-ng reload > /dev/null
+  endscript
+}
+
+<%= remote_path_for(shared_path) %>/log/nginx.*.log
+{
+  daily
+  rotate 365
+  compress
+  dateext
+  missingok
+  notifempty
+  create 0640 www-data <%= host.user %>
+  olddir <%= remote_path_for(shared_path) %>/log/archives/nginx
+  postrotate
+    invoke-rc.d nginx rotate >/dev/null 2>&1
+  endscript
+}
