@@ -76,6 +76,11 @@ module DeployIt
         end
       end
 
+
+      def info?
+        true
+      end
+
     end
   end
 end

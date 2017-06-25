@@ -1,18 +1,13 @@
-root = exports ? this
-
-root.setAsyncNotifications = ->
-  url = $('#notifications').data('url')
-  $.ajax(url: url, dataType: 'json').done (data) ->
-    $.each data, (index, name) ->
-      subscribeDanthesChannel(name)
-
-
-root.subscribeDanthesChannel = (name) ->
-  Danthes.subscribe name, (data, channel) ->
+App.cable.subscriptions.create { channel: "DataChannel" },
+  received: (data) ->
     if data.event_type == 'notification'
       displayGrowlMessage(data)
     else if data.event_type == 'view_refresh'
       triggerViewRefresh(data)
+    else if data.event_type == 'progress_bar'
+      updateProgressBar(data)
+    else if data.event_type == 'console_stream'
+      console.log(data)
 
 
 displayGrowlMessage = (data) ->
@@ -45,14 +40,21 @@ growlTemplate = ->
 triggerViewRefresh = (data) ->
   current_controller = $('body').data('controller')
   current_action     = $('body').data('action')
-  current_app_id     = $('body').data('app-id')
   context  = data['context']
   triggers = data['triggers']
 
-  if context.controller == current_controller && context.action == current_action && context.app_id == current_app_id
+  if context.controller == current_controller && context.action == current_action
     $.each triggers, (index, trigger) ->
       eval(trigger)
 
 
 refreshView = (url) ->
   $.ajax({ url: url, dataType: 'script' })
+
+
+updateProgressBar = (data) ->
+  progressBar = $('#' + data.target)
+  if progressBar.length > 0
+    progressBar.parent().removeClass('hide')
+    progressBar.width(data.progress + '%')
+    progressBar.html(data.progress + '%')

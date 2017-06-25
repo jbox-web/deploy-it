@@ -29,7 +29,7 @@ module DeployIt
 
       def write(log)
         log = log.gsub(/^\s*.+\[1G/, '')
-        Danthes.publish_to "/console-streamer/#{request_id}", { event_type: 'console_stream', message: log }
+        ConsoleChannel.broadcast_to "/console-streamer/#{request_id}", { event_type: 'console_stream', message: log }
       end
 
     end

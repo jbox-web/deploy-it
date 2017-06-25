@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   mount DeployIt::API, at: '/'
+  mount ActionCable.server, at: '/cable'
 
   ## Devise routes
   devise_for :users,

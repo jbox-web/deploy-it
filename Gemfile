@@ -116,7 +116,6 @@ gem 'aasm'
 # Redis
 gem 'redis'
 gem 'hiredis'
-gem 'em-synchrony'
 gem 'redis-namespace'
 
 # Async Jobs
@@ -126,9 +125,6 @@ gem 'sidekiq'
 gem 'syslogger'
 
 # Async Notifications
-gem 'danthes', '~> 2.0.1', git: 'https://github.com/dotpromo/danthes.git'
-gem 'thin'
-gem 'faye-redis'
 gem 'bootstrap-growl-rails'
 
 # Cache

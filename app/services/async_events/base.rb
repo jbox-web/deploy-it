@@ -23,7 +23,7 @@ module AsyncEvents
 
     def notification_adapter(channels, event, opts)
       channels.each do |channel|
-        Danthes.publish_to channel, opts.merge(event_type: event)
+        DataChannel.broadcast_to channel, opts.merge(event_type: event)
       end
     end
 
