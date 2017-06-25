@@ -1,12 +1,32 @@
 ---
+# Rails config
+application_name:   <%= ENV['APPLICATION_NAME'] %>
+
+# DB Config
+db_adapter: <%= ENV['DB_ADAPTER'] %>
+db_host:    <%= ENV['DB_HOST'] %>
+db_port:    <%= ENV['DB_PORT'] %>
+db_name:    <%= ENV['DB_NAME'] %>
+db_user:    <%= ENV['DB_USER'] %>
+db_pass:    <%= ENV['DB_PASS'] %>
+
+# Redis
+redis_host: <%= ENV['REDIS_HOST'] %>
+redis_port: <%= ENV['REDIS_PORT'] %>
+redis_db:   <%= ENV['REDIS_DB'] %>
+
 # Logs
 log_level:                <%= ENV['LOG_LEVEL'] %>
 
 # DeployIt domain name
 access_domain_name:       <%= ENV['ACCESS_DOMAIN_NAME'] %>
 access_url:               <%= ENV['ACCESS_URL'] %>
-mail_from:                <%= ENV['MAIL_FROM'] %>
+
+# Devise config
 session_timeout:          <%= ENV['SESSION_TIMEOUT'] %>
+
+# SMTP config
+mail_from:                <%= ENV['MAIL_FROM'] %>
 
 # Private Docker Registry
 docker_registry:          <%= ENV['DOCKER_REGISTRY'] %>
@@ -28,11 +48,6 @@ scripts_path:             <%= ENV['SCRIPTS_PATH'] %>
 docker_connect_timeout:   <%= ENV['DOCKER_CONNECT_TIMEOUT'] || 5 %>
 docker_read_timeout:      <%= ENV['DOCKER_READ_TIMEOUT'] || 90 %>
 docker_write_timeout:     <%= ENV['DOCKER_WRITE_TIMEOUT'] || 30 %>
-
-# Sidekiq
-redis_host: <%= ENV['REDIS_HOST'] %>
-redis_port: <%= ENV['REDIS_PORT'] %>
-redis_db:   <%= ENV['REDIS_DB'] %>
 
 # Monitoring
 mail_on_application_error: <%= ENV['MAIL_ON_APPLICATION_ERROR'] %>
