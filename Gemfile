@@ -184,8 +184,11 @@ group :development do
   gem 'quiet_assets'
 
   # Deployment
-  gem 'mina'
-  gem 'mina-scp', require: false
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-foreman'
+  gem 'capistrano-template'
 
   # Email preview
   gem 'letter_opener_web'
