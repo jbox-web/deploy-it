@@ -15,8 +15,8 @@ server {
   error_log     <%= remote_path_for(shared_path) %>/log/nginx.error.log;
 
   ssl on;
-  ssl_certificate       <%= remote_path_for(shared_path) %>/config/ssl/server.crt;
-  ssl_certificate_key   <%= remote_path_for(shared_path) %>/config/ssl/server.key;
+  ssl_certificate      /etc/letsencrypt/live/<%= domain %>/fullchain.pem;
+  ssl_certificate_key  /etc/letsencrypt/live/<%= domain %>/privkey.pem;
 
   error_page 502 @maintenance;
   error_page 503 @maintenance;
