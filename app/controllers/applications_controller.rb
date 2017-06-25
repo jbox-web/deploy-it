@@ -28,7 +28,7 @@ class ApplicationsController < DCIController
 
   def index
     add_breadcrumb Application.model_name.human(count: 2), 'fa-desktop', ''
-    @applications = Application.visible.includes(:stage, :database, :containers).sorted_by_fullname
+    @applications = Application.visible(current_user).includes(:stage, :database, :containers).sorted_by_fullname
     render layout: 'application'
   end
 
@@ -54,7 +54,7 @@ class ApplicationsController < DCIController
   def create
     add_breadcrumb t('.title'), 'fa-desktop', ''
     self.render_flash_message = false
-    call_dci_role(:create, @wizard_form, User.current)
+    call_dci_role(:create, @wizard_form, current_user)
   end
 
 

@@ -45,7 +45,7 @@ class MyController < DCIController
 
 
     def set_user
-      @user = User.current
+      @user = current_user
     end
 
 end

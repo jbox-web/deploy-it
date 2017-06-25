@@ -47,11 +47,11 @@ module DockerApplication
             base_statement = "(#{application_statement})"
           end
 
-          if user.admin?
+          if user && user.admin?
             ""
           else
             statement_by_role = {}
-            if user.logged?
+            if user && user.logged?
               user.applications_by_role.each do |role, applications|
                 if role.allowed_to?(permission) && applications.any?
                   statement_by_role[role] = "#{Application.table_name}.id IN (#{applications.collect(&:id).join(',')})"
@@ -86,7 +86,7 @@ module DockerApplication
 
     # Returns true if the application is visible to +user+ or to the current user.
     #
-    def visible?(user = User.current)
+    def visible?(user)
       user.allowed_to?(:view_application, self)
     end
 

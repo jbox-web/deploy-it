@@ -1,5 +1,5 @@
 !!! 5
-%html{ lang: User.current.language }
+%html{ lang: current_site_user.language }
   %head= render 'layouts/common/head', assets_for_layout: 'main/application'
 
   %body{ data: { controller: controller.controller_path, action: controller.action_name, app_id: @application.id } }

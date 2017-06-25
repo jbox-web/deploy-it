@@ -61,7 +61,7 @@ class Application < ApplicationRecord
   validate  :uniqueness_with_domains_aliases
 
   ## Scopes
-  scope :visible, lambda { |*args| where(Application.visible_condition(args.shift || User.current, *args)) }
+  scope :visible, lambda { |*args| where(Application.visible_condition(args.shift, *args)) }
   scope :sorted_by_identifier, -> { order(:identifier) }
   scope :sorted_by_fullname,   -> { all.sort_by(&:fullname) }
 

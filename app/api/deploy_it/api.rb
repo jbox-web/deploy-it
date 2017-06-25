@@ -31,7 +31,7 @@ module DeployIt
     helpers do
 
       def authenticated
-        params[:access_token] && User.current = User.find_by_api_token(params[:access_token])
+        params[:access_token] && current_user = User.find_by_api_token(params[:access_token])
       end
 
       def render_success

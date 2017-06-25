@@ -27,4 +27,5 @@
 # Dotenv file
 /.domain
 /.env
+/.env.*
 /deploy/deploy-it.conf

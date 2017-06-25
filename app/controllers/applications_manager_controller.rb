@@ -25,7 +25,7 @@ class ApplicationsManagerController < DCIController
 
   def build
     set_dci_data(event_options_for(:toolbar).merge(strong_params: false, logger: 'console_streamer'))
-    call_dci_role(:build_application, User.current, @application.pushes.last)
+    call_dci_role(:build_application, current_user, @application.pushes.last)
   end
 
 

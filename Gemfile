@@ -31,7 +31,6 @@ gem 'pg'
 # Authentication
 gem 'bcrypt'
 gem 'devise'
-gem 'request_store'
 
 # Configuration
 gem 'dotenv-rails'

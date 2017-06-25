@@ -417,7 +417,6 @@ GEM
       codeclimate-engine-rb (~> 0.4.0)
       parser (>= 2.4.0.0, < 2.5)
       rainbow (~> 2.0)
-    request_store (1.3.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -633,7 +632,6 @@ DEPENDENCIES
   redis
   redis-namespace
   redis-rails
-  request_store
   rspec
   rspec-rails
   rubocop

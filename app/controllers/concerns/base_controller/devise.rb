@@ -23,6 +23,9 @@ module BaseController
 
       # Devise stuff
       before_action :configure_permitted_parameters, if: :devise_controller?
+
+      # Make controller method available in views
+      helper_method :current_site_user
     end
 
 
@@ -41,24 +44,32 @@ module BaseController
     # we will check if the visitor has the rights to access to the Admin section.
     def require_admin
       return unless require_login
-      render_403 if !User.current.admin?
+      render_403 if !current_site_user.admin?
     end
 
 
-    def deny_access
-      User.current.logged? ? render_403 : require_login
+    # Define our own method to retrieve the current user in session.
+    # The #current_user method is a Devise method to get the current user in session.
+    # If the visitor is logged, Devise returns an instance of the User model,
+    # else it returns nil. This is not very handy in views where we always have to
+    # check to if the current_user is nil or not.
+    #
+    # To bypass this, use #current_site_user when you need to access to the current user.
+    # This method will return an instance of the User model if the visitor is logged or
+    # an instance of AnonymousUser if the visitor is not logged (instead of returning nil).
+    # Thus you can do this :
+    #
+    #     current_site_user.logged? => true if current_site_user is an instance of User
+    #     current_site_user.logged? => false if current_site_user is an instance of AnonymousUser
+    #
+    def current_site_user
+      current_user || anonymous_user
     end
 
 
-    # Authorize the user for the requested action
-    def authorize(ctrl = params[:controller], action = params[:action], global = false)
-      User.current.allowed_to?({ controller: ctrl, action: action }, @application || @applications, global: global) ? true : deny_access
-    end
-
-
-    # Authorize the user for the requested action outside an application
-    def authorize_global(ctrl = params[:controller], action = params[:action], global = true)
-      authorize(ctrl, action, global)
+    # Return an instance of AnonymousUser
+    def anonymous_user
+      User.anonymous
     end
 
 

@@ -49,7 +49,7 @@ class Admin::UsersController < Admin::DCIController
   def update
     set_dci_data({ user: [:firstname, :lastname, :email, :language, :time_zone, :admin, :enabled] })
     call_dci_role(:update_user, @user) do
-      reload_user_locales if @user.id == User.current.id
+      reload_user_locales if @user.id == current_user.id
     end
   end
 
@@ -63,7 +63,7 @@ class Admin::UsersController < Admin::DCIController
     if request.patch?
       set_dci_data({ user: [:new_password, :new_password_confirmation, :send_by_mail, :create_options] })
       call_dci_role(:change_password, @user) do
-        sign_in(@user, bypass: true) if @user.id == User.current.id
+        sign_in(@user, bypass: true) if @user.id == current_user.id
       end
     else
       render locals: { password_form: AdminPasswordForm.new(@user) }

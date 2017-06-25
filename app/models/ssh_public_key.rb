@@ -110,10 +110,8 @@ class SshPublicKey < ApplicationRecord
       existing = SshPublicKey.find_by_fingerprint(fingerprint)
       if existing
         # Hm.... have a duplicate key!
-        if existing.user == User.current
+        if existing.user == user
           errors.add(:key, :in_use_by_you, name: existing.title)
-        elsif User.current.admin?
-          errors.add(:key, :in_use_by_other, login: existing.user.email, name: existing.title)
         else
           errors.add(:key, :in_use_by_someone)
         end

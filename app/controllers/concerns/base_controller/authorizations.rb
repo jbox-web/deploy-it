@@ -13,33 +13,25 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-require "rails_helper"
+module BaseController
+  module Authorizations
+    extend ActiveSupport::Concern
 
-describe SessionsController do
+      def deny_access
+        current_site_user.logged? ? render_403 : require_login
+      end
 
-  let(:user){ create(:user) }
 
-  describe "POST #create" do
-    it "assigns User.current to the current_user" do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      post :create, user: {
-                      email: user.email,
-                      password: user.password
-                    }
-      expect(User.current).to eq user
-    end
+      # Authorize the user for the requested action
+      def authorize(ctrl = params[:controller], action = params[:action], global = false)
+        current_site_user.allowed_to?({ controller: ctrl, action: action }, @application || @applications, global: global) ? true : deny_access
+      end
+
+
+      # Authorize the user for the requested action outside an application
+      def authorize_global(ctrl = params[:controller], action = params[:action], global = true)
+        authorize(ctrl, action, global)
+      end
+
   end
-
-  describe 'DELETE destroy' do
-    before do
-      sign_in user
-    end
-
-    it "assigns User.current to nil" do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      delete :destroy
-      expect(User.current).to be_an_instance_of(AnonymousUser)
-    end
-  end
-
 end

@@ -16,11 +16,11 @@
 SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |menu|
     menu.dom_class = 'navbar-top-links navbar-right'
-    if User.current.logged?
+    if current_site_user.logged?
       menu.item :applications, get_model_name_for('Application'), applications_path
-      menu.item :admin,        t('text.admin'), admin_root_path, if: -> { User.current.admin? }
+      menu.item :admin,        t('text.admin'), admin_root_path, if: -> { current_site_user.admin? }
 
-      menu.item :logged, User.current.email, my_account_path, highlights_on: %r(/my), class: 'dropdown' do |sub_menu|
+      menu.item :logged, current_site_user.email, my_account_path, highlights_on: %r(/my), class: 'dropdown' do |sub_menu|
         sub_menu.auto_highlight = false
         sub_menu.item :my_account, t('text.my_account'), my_account_path, highlights_on: %r(/my)
         sub_menu.item :help,       t('text.help'), help_path, highlights_on: :subpath

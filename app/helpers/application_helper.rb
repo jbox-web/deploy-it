@@ -21,7 +21,7 @@ module ApplicationHelper
 
 
   def can?(permission, application, opts = {}, &block)
-    User.current.allowed_to?(permission, application, opts, &block)
+    current_user.allowed_to?(permission, application, opts, &block)
   end
 
 

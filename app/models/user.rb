@@ -60,14 +60,6 @@ class User < ApplicationRecord
 
   class << self
 
-    def current=(user)
-      RequestStore.store[:current_user] = user
-    end
-
-    def current
-      RequestStore.store[:current_user] ||= User.anonymous
-    end
-
     # Returns the anonymous user.
     def anonymous
       AnonymousUser.new(firstname: 'Anonymous', lastname: '', email: '',)

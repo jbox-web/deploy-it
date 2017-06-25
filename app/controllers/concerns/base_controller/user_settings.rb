@@ -18,7 +18,6 @@ module BaseController
     extend ActiveSupport::Concern
 
     included do
-      before_action :setup_user
       before_action :setup_locale
 
       # Set TimeZone for current user
@@ -28,23 +27,18 @@ module BaseController
     end
 
 
-    def setup_user
-      User.current = current_user
-    end
-
-
     def setup_locale
-      I18n.locale = User.current.language || I18n.default_locale
+      I18n.locale = current_site_user.language || I18n.default_locale
     end
 
 
     def set_time_zone(&block)
-      Time.use_zone(User.current.time_zone, &block)
+      Time.use_zone(current_site_user.time_zone, &block)
     end
 
 
     def reload_user_locales
-      User.current.reload
+      current_site_user.reload
       setup_locale
     end
 
