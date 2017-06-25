@@ -33,7 +33,6 @@ module DeployIt
 
     # ActiveRecord config
     config.active_record.store_full_sti_class = true
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Locales
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]

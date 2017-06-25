@@ -8,7 +8,7 @@ gem 'active_use_case',       '~> 1.1.1',  git: 'https://github.com/jbox-web/acti
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
 # Base gems
-gem 'rails', '~> 4.2.8'
+gem 'rails', '~> 5.1'
 
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
@@ -183,9 +183,6 @@ group :development do
   # Rails test server
   gem 'spring'
   gem 'spring-commands-rspec'
-
-  # Remove assets logs from console
-  gem 'quiet_assets'
 
   # Deployment
   gem 'capistrano'

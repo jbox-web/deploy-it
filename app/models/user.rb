@@ -36,7 +36,7 @@ class User < ApplicationRecord
   validates :firstname, presence: true, length: { maximum: 50 }
   validates :lastname,  presence: true, length: { maximum: 50 }
   validates :language,  presence: true
-  validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map(&:name).keys }
+  validates :time_zone, presence: true
 
   validates :password,  presence: true, length: { minimum: 6 }, on: :create
   validates_confirmation_of :password, on: :create

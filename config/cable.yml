@@ -1,0 +1,18 @@
+cable_config: &cable_config
+  adapter:   redis
+  host:      <%= ENV['REDIS_HOST'] %>
+  port:      <%= ENV['REDIS_PORT'] %>
+  database:  <%= ENV['REDIS_DB'] %>
+  namespace: 'action-cable'
+
+production:
+  <<: *cable_config
+
+development:
+  <<: *cable_config
+
+staging:
+  <<: *cable_config
+
+test:
+  adapter: async
