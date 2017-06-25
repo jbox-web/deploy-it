@@ -143,6 +143,9 @@ gem 'hashie-forbidden_attributes'
 # Speedup application loading
 gem 'bootsnap'
 
+# Be notified of exceptions in production
+gem 'exception_notification'
+
 ## Documentation gems
 group :doc do
   gem 'sdoc'

@@ -188,6 +188,9 @@ GEM
     equatable (0.5.0)
     erubis (2.7.0)
     eventmachine (1.2.3)
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     excon (0.57.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -596,6 +599,7 @@ DEPENDENCIES
   docker-api
   dotenv-rails
   em-synchrony
+  exception_notification
   factory_girl
   factory_girl_rails
   faker
