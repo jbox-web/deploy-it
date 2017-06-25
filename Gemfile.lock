@@ -536,6 +536,7 @@ GEM
     sshkit (1.13.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    syslogger (1.6.4)
     temple (0.8.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -680,6 +681,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sshkey
+  syslogger
   thin
   tty-table
   turbolinks

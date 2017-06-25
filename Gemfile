@@ -121,6 +121,9 @@ gem 'redis-namespace'
 # Async Jobs
 gem 'sidekiq'
 
+# Use Syslog to manage our logs
+gem 'syslogger'
+
 # Async Notifications
 gem 'danthes', '~> 2.0.1', git: 'https://github.com/dotpromo/danthes.git'
 gem 'thin'
