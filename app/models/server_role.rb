@@ -76,7 +76,7 @@ class ServerRole < ApplicationRecord
 
 
   def host
-    (alternative_host.nil? || alternative_host.empty?) ? server.ip_address : alternative_host
+    alternative_host.present? ? alternative_host : server.ip_address
   end
 
 

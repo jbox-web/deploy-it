@@ -53,6 +53,7 @@ gem 'autoprefixer-rails'
 
 # Fonts
 gem 'font-awesome-sass'
+gem 'font-awesome-rails'
 
 # Forms
 gem 'bootstrap_form'
