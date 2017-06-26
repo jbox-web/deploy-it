@@ -8,7 +8,6 @@ upstream <%= fetch(:application) %>-puma {
 server {
   server_name   <%= domain %>;
   listen        4443 ssl;
-  listen        127.0.0.1:5000;
   root          <%= remote_path_for(deploy_to) %>/current/public;
 
   access_log    <%= remote_path_for(shared_path) %>/log/nginx.access.log;
@@ -97,5 +96,26 @@ server {
     # Set root to the shared directory.
     root <%= remote_path_for(shared_path) %>/public;
     rewrite ^(.*)$ /maintenance.html break;
+  }
+}
+
+server {
+  listen        127.0.0.1:5000;
+  root          <%= remote_path_for(deploy_to) %>/current/public;
+
+  location / {
+    try_files $uri @rails;
+  }
+
+  location @rails {
+    # Headers
+    include /etc/nginx/proxy_params;
+
+    # Options
+    proxy_redirect     off;
+    proxy_read_timeout 300;
+
+    # Pass to Rails
+    proxy_pass http://<%= fetch(:application) %>-puma;
   }
 }
