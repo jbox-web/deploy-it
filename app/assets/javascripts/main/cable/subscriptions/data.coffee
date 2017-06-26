@@ -1,3 +1,11 @@
+root = exports ? this
+
+root.loadConsoleStreamer = (request_id) ->
+  App.cable.subscriptions.create { channel: "ConsoleChannel", request_id: request_id },
+    received: (data) ->
+      $("#console-output").append("<li>" + data.message + "</li>")
+
+
 App.cable.subscriptions.create { channel: "DataChannel" },
   received: (data) ->
     if data.event_type == 'notification'
@@ -6,8 +14,6 @@ App.cable.subscriptions.create { channel: "DataChannel" },
       triggerViewRefresh(data)
     else if data.event_type == 'progress_bar'
       updateProgressBar(data)
-    else if data.event_type == 'console_stream'
-      console.log(data)
 
 
 displayGrowlMessage = (data) ->

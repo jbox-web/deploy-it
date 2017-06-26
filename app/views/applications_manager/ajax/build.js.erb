@@ -2,4 +2,5 @@
 
 <% if request_id %>
 $("#console-output").empty();
+loadConsoleStreamer('<%= request_id %>');
 <% end %>
