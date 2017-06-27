@@ -17,7 +17,7 @@ module Containers
   module Base
 
     def execute_if_exists(object, &block)
-      if !object.nil? && !object.empty?
+      if object.present?
         yield
       else
         error_message(message_on_nil_object)
