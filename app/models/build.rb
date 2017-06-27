@@ -15,6 +15,8 @@
 
 class Build < ApplicationRecord
 
+  include ActiveUseCase::Model
+
   ## Relations
   belongs_to :application
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'

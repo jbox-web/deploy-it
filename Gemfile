@@ -4,7 +4,7 @@ ruby '2.4.1'
 gem 'rugged',                '~> 0.25.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.25.1', submodules: true
 
 gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
-gem 'active_use_case',       '~> 1.1.1',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.1.1'
+gem 'active_use_case',       '~> 1.2.0',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.2.0'
 gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
 # Base gems

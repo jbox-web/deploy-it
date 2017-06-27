@@ -23,10 +23,6 @@ class ApplicationRecord < ActiveRecord::Base
       I18n.t(self.name.underscore, options)
     end
 
-    def add_use_cases(use_cases = [], opts = {})
-      super use_cases, opts.merge(namespace: self.name.pluralize)
-    end
-
   end
 
 end

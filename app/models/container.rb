@@ -21,6 +21,8 @@ class Container < ApplicationRecord
   ## DockerContainer
   include ActsAs::DockerContainer
 
+  include ActiveUseCase::Model
+
   ## Relations
   belongs_to :application
   belongs_to :docker_server, foreign_key: 'server_id', class_name: 'Server'

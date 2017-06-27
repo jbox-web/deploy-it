@@ -18,6 +18,7 @@ require 'resolv'
 class Server < ApplicationRecord
 
   include PlatformServer
+  include ActiveUseCase::Model
 
   ## Relations
   belongs_to :platform

@@ -17,6 +17,7 @@ class Application < ApplicationRecord
 
   ## DockerApplication
   include DockerApplication
+  include ActiveUseCase::Model
 
   ## Relations
   has_many   :members, dependent: :destroy

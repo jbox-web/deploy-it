@@ -17,6 +17,7 @@ class Repository < ApplicationRecord
 
   ## Rugged methods (exits?, empty? ...)
   include ActsAs::RuggedRepository
+  include ActiveUseCase::Model
 
   GIT_USER_REGEX = /\A(ssh:\/\/)?([a-z\-]+)@([a-z0-9\.\-]+):?([0-9]+)?:?([a-z0-9\-\/]+\.git)\z/i
 
