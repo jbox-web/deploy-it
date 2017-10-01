@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.8.2'
+lock '3.9.1'
 
 ## Base
 set :application, 'deploy-it'
@@ -14,7 +14,7 @@ set :ssh_options, {
 }
 
 ## RVM
-set :rvm_ruby_version, '2.4.1'
+set :rvm_ruby_version, '2.4.2'
 
 ## Bundler
 set :bundle_flags, '--deployment'
