@@ -17,7 +17,7 @@ require 'bootstrap_form/form_builder'
 
 module DeployIt
   module CoreExt
-    module BootstrapForm
+    module BootstrapFormPatch
       module FormBuilderPatch
 
         def self.included(base)
@@ -78,6 +78,6 @@ module DeployIt
   end
 end
 
-unless BootstrapForm::FormBuilder.included_modules.include?(DeployIt::CoreExt::BootstrapForm::FormBuilderPatch)
-  BootstrapForm::FormBuilder.send(:include, DeployIt::CoreExt::BootstrapForm::FormBuilderPatch)
+unless BootstrapForm::FormBuilder.included_modules.include?(DeployIt::CoreExt::BootstrapFormPatch::FormBuilderPatch)
+  BootstrapForm::FormBuilder.send(:include, DeployIt::CoreExt::BootstrapFormPatch::FormBuilderPatch)
 end
