@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.4.2'
 
 gem 'rugged',                '~> 0.25.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.25.1', submodules: true
 
@@ -141,7 +141,7 @@ gem 'grape'
 gem 'hashie-forbidden_attributes'
 
 # Speedup application loading
-gem 'bootsnap'
+gem 'bootsnap', require: false
 
 # Be notified of exceptions in production
 gem 'exception_notification'
