@@ -45,7 +45,7 @@ module HtmlHelpers
 
 
     def bootstrap_datatables_for(name, opts = {}, &block)
-      opts = { width: '100%', class: 'table table-striped table-bordered display responsive no-wrap' }.merge(opts)
+      opts = { html: { width: '100%', class: 'table table-striped table-bordered display responsive no-wrap' } }.merge(opts)
       datatables_for(name, opts, &block)
     end
 

@@ -47,7 +47,21 @@ root.createDatatableWithContextMenu = (element, search_fields, options) ->
 
 root.createDatatableWithButtons = (element, search_fields, options) ->
   # Get all buttons from element
-  buttons = $(element).data('buttons')
+  all_buttons = $(element).data('buttons')
+
+  buttons = all_buttons
+
+  # Add export PDF button
+  if findButton(buttons, 'pdf') != null
+    buttons = addCallbackToButton(buttons, 'pdf', saveSelectedAndCallUrl)
+
+  # Add export Excel button
+  if findButton(buttons, 'excel') != null
+    buttons = addCallbackToButton(buttons, 'excel', saveSelectedAndCallUrl)
+
+  # Add export CSV button
+  if findButton(buttons, 'csv') != null
+    buttons = addCallbackToButton(buttons, 'csv', saveSelectedAndCallUrl)
 
   # Add reset selection button
   if findButton(buttons, 'reset_selection') != null

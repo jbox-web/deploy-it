@@ -85,11 +85,11 @@ Rails.application.routes.draw do
     end
     resources :containers, only: [], controller: 'containers_manager' do
       member do
-        get  'events'
-        get  'infos'
-        get  'top'
-        post 'manage'
-        post 'mark_events'
+        get   'infos'
+        get   'top'
+        match 'events', via: [:get, :post]
+        post  'manage'
+        post  'mark_events'
       end
     end
   end

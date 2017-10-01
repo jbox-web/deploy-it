@@ -19,11 +19,24 @@ class ContainerEventDatatable < AjaxDatatablesRails::Base
 
   def view_columns
     @view_columns ||= {
-      0 => { source: 'ContainerEvent.created_at', searchable: false },
-      1 => { source: 'ContainerEvent.type' },
-      2 => { source: 'ContainerEvent.message' },
-      3 => { source: 'ContainerEvent.id', searchable: false }
+      created_at: { source: 'ContainerEvent.created_at', searchable: false },
+      type:       { source: 'ContainerEvent.type' },
+      message:    { source: 'ContainerEvent.message' },
+      id:         { source: 'ContainerEvent.id', searchable: false }
     }
+  end
+
+
+  def data
+    records.map do |record|
+      {
+        created_at: l(record.created_at),
+        type:       record.type,
+        message:    record.message,
+        id:         link_to_icon('fa-check', mark_event_path(record.id), method: :post, remote: :true, title: t('text.mark_as_read')),
+        'DT_RowId' => record.id
+      }
+    end
   end
 
 
@@ -33,19 +46,6 @@ class ContainerEventDatatable < AjaxDatatablesRails::Base
 
 
   private
-
-
-    def data
-      records.map do |record|
-        {
-          '0' => l(record.created_at),
-          '1' => record.type,
-          '2' => record.message,
-          '3' => link_to_icon('fa-check', mark_event_path(record.id), method: :post, remote: :true, title: t('text.mark_as_read')),
-          'DT_RowId' => record.id
-        }
-      end
-    end
 
 
     def get_raw_records
