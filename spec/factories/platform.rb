@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :platform do |f|
     f.identifier { Faker::Internet.user_name }

@@ -50,7 +50,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Include standard helpers
   config.include Capybara::DSL
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
 
   # Include our helpers from support directory
@@ -68,7 +68,7 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    # FactoryGirl.lint
+    # FactoryBot.lint
     DatabaseCleaner.clean_with(:truncation)
   end
 

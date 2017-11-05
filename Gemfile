@@ -163,8 +163,7 @@ group :test, :development do
   gem 'shoulda-context'
 
   gem 'faker'
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
 
   gem 'capybara'
