@@ -14,22 +14,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 require 'logster/logger'
-require 'logster/message'
 
 module DeployIt
   module CoreExt
     module LogsterPatch
-      module LogsterMessagePatch
-
-        # Fix error : "Failed to report error: no implicit conversion of ActionDispatch::Request into Hash"
-        def populate_from_env(env)
-          env ||= {}
-          env = { 'error' => env } unless env.is_a?(Hash)
-          @env = Logster::Message.populate_from_env(self.class.default_env.merge env)
-        end
-
-      end
-
       module LogsterLoggerPatch
 
         def silence(*)
@@ -39,10 +27,6 @@ module DeployIt
       end
     end
   end
-end
-
-unless Logster::Message.included_modules.include?(DeployIt::CoreExt::LogsterPatch::LogsterMessagePatch)
-  Logster::Message.send(:prepend, DeployIt::CoreExt::LogsterPatch::LogsterMessagePatch)
 end
 
 unless Logster::Logger.included_modules.include?(DeployIt::CoreExt::LogsterPatch::LogsterLoggerPatch)
