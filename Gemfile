@@ -114,7 +114,7 @@ gem 'net-ssh'
 gem 'aasm'
 
 # Redis
-gem 'redis'
+gem 'redis', '~> 3.0'
 gem 'hiredis'
 gem 'redis-namespace'
 
