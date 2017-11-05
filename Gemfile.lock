@@ -146,8 +146,8 @@ GEM
     cliver (0.3.2)
     codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
+    codeclimate-test-reporter (1.0.7)
+      simplecov
     codemirror-rails (5.16.0)
       railties (>= 3.0, < 6.0)
     coercible (1.0.0)
@@ -482,7 +482,7 @@ GEM
       activesupport (>= 2.3.2)
     simple_navigation_bootstrap (1.0.1)
       simple-navigation (~> 4.0)
-    simplecov (0.13.0)
+    simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
@@ -656,4 +656,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
