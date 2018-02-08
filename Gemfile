@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.5.0'
 
 gem 'rugged',                '~> 0.25.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.25.1', submodules: true
 
