@@ -26,7 +26,7 @@ gem 'puma'
 
 # Database
 gem 'mysql2'
-gem 'pg'
+gem 'pg', '< 1.0'
 
 # Authentication
 gem 'bcrypt'
