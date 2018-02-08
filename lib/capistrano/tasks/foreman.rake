@@ -5,12 +5,12 @@ namespace :foreman do
   task :install do
     on roles fetch(:foreman_roles) do |host|
       # Create Foreman templates directory
-      execute 'mkdir', '-p', "#{deploy_to}/.foreman/templates/systemd"
+      execute 'mkdir', '-p', "#{fetch(:deploy_it_home)}/.foreman/templates/systemd"
 
       # Copy Foreman systemd templates
       %w(master.target.erb process.service.erb process_master.target.erb).each do |file|
         source = "config/deploy/templates/shared/foreman/#{file}"
-        upload! source, "#{deploy_to}/.foreman/templates/systemd/#{file}"
+        upload! source, "#{fetch(:deploy_it_home)}/.foreman/templates/systemd/#{file}"
       end
     end
   end
@@ -57,7 +57,8 @@ namespace :foreman do
     if args.first == :foreman
       execute *args
     else
-      execute 'systemctl', '--user', args.first, "#{fetch(:application)}.target"
+      args.shift
+      execute 'systemctl', '--user', *args
     end
   end
 end

@@ -2,9 +2,10 @@
 lock '3.10.1'
 
 ## Base
-set :application, 'deploy-it'
-set :repo_url,    'https://github.com/jbox-web/deploy-it.git'
-set :deploy_to,   '/home/deploy-it/deploy-it'
+set :application,    'deploy-it'
+set :repo_url,       'https://github.com/jbox-web/deploy-it.git'
+set :deploy_to,      '/home/deploy-it/deploy-it'
+set :deploy_it_home, '/home/deploy-it'
 
 ## SSH
 set :ssh_options, {
@@ -14,7 +15,7 @@ set :ssh_options, {
 }
 
 ## RVM
-set :rvm_ruby_version, '2.4.2'
+set :rvm_ruby_version, '2.5.0'
 
 ## Bundler
 set :bundle_flags, '--deployment'
@@ -34,11 +35,11 @@ set :keep_assets, 1
 
 ## Foreman
 set :foreman_roles,       :app
-set :foreman_template,    'systemd'
+set :foreman_init_system, 'systemd'
 set :foreman_services,    %w(web worker)
-set :foreman_export_path, "#{deploy_to}/.config/systemd/user"
+set :foreman_export_path, "#{fetch(:deploy_it_home)}/.config/systemd/user"
 set :foreman_options,     {
-  template: "#{deploy_to}/.foreman/templates/systemd",
+  template: "#{fetch(:deploy_it_home)}/.foreman/templates/systemd",
   root:     current_path,
   timeout:  30,
 }
