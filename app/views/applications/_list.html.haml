@@ -5,9 +5,11 @@
         %th= Application.human_attribute_name('name')
         %th= Application.human_attribute_name('domain_name')
         %th= Application.human_attribute_name('status')
+        %th= Application.human_attribute_name('created_at')
       %tbody
         - applications.each do |application|
           %tr
             %td= link_to application.fullname, infos_application_path(application)
             %td= link_to_external application.domain_name
             %td= render 'applications/show/settings_status', application: application
+            %td= l application.created_at

@@ -17,6 +17,7 @@ fr:
         application_type_id: Type d'application
         domain_name: Nom de domaine
         stage_id: Stage
+        created_at: Créée le
 
         buildpack: Buildpack
         image_type: Type d'image
