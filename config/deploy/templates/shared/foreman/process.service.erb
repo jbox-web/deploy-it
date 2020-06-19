@@ -8,3 +8,4 @@ WorkingDirectory=<%= engine.root %>
 ExecStart=/bin/bash -l -c '<%= process.command %>'
 Restart=no
 TimeoutStopSec=<%= engine.options[:timeout] %>
+SyslogIdentifier=deploy-it.<%= name %>
