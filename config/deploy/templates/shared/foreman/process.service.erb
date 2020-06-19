@@ -6,5 +6,5 @@ PartOf=<%= app %>-<%= name %>.target
 Type=simple
 WorkingDirectory=<%= engine.root %>
 ExecStart=/bin/bash -l -c '<%= process.command %>'
-Restart=always
+Restart=no
 TimeoutStopSec=<%= engine.options[:timeout] %>
