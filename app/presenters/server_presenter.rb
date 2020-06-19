@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # DeployIt - Docker containers management software
 # Copyright (C) 2015 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com)
 #
@@ -39,7 +40,7 @@ class ServerPresenter < SimpleDelegator
 
     def render_server_roles
       html_list do
-        content = ''
+        content = +''
         server.roles.by_role.each do |role|
           content << render_role(role)
         end

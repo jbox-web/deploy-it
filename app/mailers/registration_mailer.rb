@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RegistrationMailer < ActionMailer::Base
 
   default from: Settings.mail_from

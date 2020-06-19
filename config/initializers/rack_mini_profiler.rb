@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rack::MiniProfiler.config.storage_options = {
   host:      Settings.redis_host,
   port:      Settings.redis_port,

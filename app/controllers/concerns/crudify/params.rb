@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # DeployIt - Docker containers management software
 # Copyright (C) 2015 Nicolas Rodriguez (nrodriguez@jbox-web.com), JBox Web (http://www.jbox-web.com)
 #
@@ -39,7 +40,7 @@ module Crudify
           when 'Symbol'
             ":#{p}"
           when 'Hash'
-            content = ''
+            content = +''
             p.each do |key, values|
              content << "#{key}: #{values}"
             end
