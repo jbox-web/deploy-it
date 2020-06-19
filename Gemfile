@@ -9,7 +9,7 @@ gem 'bundler', '>= 1.8.4'
 # Base gems
 gem 'rails', '~> 5.2'
 
-gem 'rugged',                '~> 0.27.0', github: 'libgit2/rugged', tag: 'v0.27.10.1', submodules: true
+gem 'rugged',                '~> 1.0.0', github: 'libgit2/rugged', tag: 'v1.0.0', submodules: true
 
 gem 'async_notifications',   '~> 1.0.0',  github: 'jbox-web/async_notifications', tag: '1.0.0'
 gem 'active_use_case',       '~> 1.3.0',  github: 'jbox-web/active_use_case', tag: '1.3.0'

@@ -39,11 +39,11 @@ GIT
 
 GIT
   remote: https://github.com/libgit2/rugged.git
-  revision: 3a777da4014957da3eaa4d96d19b67831e21e4cb
-  tag: v0.27.10.1
+  revision: 5807a7e6d2345edf211f8361c7d9650d6701ee66
+  tag: v1.0.0
   submodules: true
   specs:
-    rugged (0.27.10.1)
+    rugged (1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -685,7 +685,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubycritic
-  rugged (~> 0.27.0)!
+  rugged (~> 1.0.0)!
   sass-rails
   sdoc
   select2-rails
