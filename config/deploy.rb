@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.10.1'
+lock '3.14.1'
 
 ## Base
 set :application,    'deploy-it'
@@ -14,11 +14,14 @@ set :ssh_options, {
   auth_methods:  %w(publickey)
 }
 
-## RVM
-set :rvm_ruby_version, '2.5.0'
+## rbenv
+set :rbenv_type, :user
+set :rbenv_ruby, '2.5.8'
 
 ## Bundler
-set :bundle_flags, '--deployment'
+set :bundle_flags,   '--quiet'
+set :bundle_path,    nil
+set :bundle_without, nil
 
 ## Rails
 append :linked_files, '.env'
@@ -60,7 +63,7 @@ namespace :deploy do
   after  'deploy:check:linked_files', 'foreman:install'
   after  'deploy:check:linked_files', 'maintenance:install'
   after  'deploy:check:linked_files', 'favicon:install'
-  after  'deploy:published',          'bundler:clean'
+  # after  'deploy:published',          'bundler:clean'
   after  'deploy:finished',           'foreman:export'
   after  'deploy:finished',           'foreman:restart'
   after  'deploy:finished',           'maintenance:end'

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
+
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
 
@@ -9,11 +11,11 @@ gem 'bootsnap', require: false
 # Base gems
 gem 'rails', '~> 5.2'
 
-gem 'rugged',                '~> 0.27.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.27.10.1', submodules: true
+gem 'rugged',                '~> 0.27.0', github: 'libgit2/rugged', tag: 'v0.27.10.1', submodules: true
 
-gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
-gem 'active_use_case',       '~> 1.3.0',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.3.0'
-gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
+gem 'async_notifications',   '~> 1.0.0',  github: 'jbox-web/async_notifications', tag: '1.0.0'
+gem 'active_use_case',       '~> 1.3.0',  github: 'jbox-web/active_use_case', tag: '1.3.0'
+gem 'async_model',           '~> 1.0.0',  github: 'jbox-web/async_model'
 
 source 'https://rails-assets.org' do
   # HighCharts
@@ -38,7 +40,7 @@ gem 'devise'
 gem 'dotenv-rails'
 gem 'figaro'
 gem 'settingslogic'
-gem 'foreman'
+gem 'foreman', github: 'jbox-web/foreman'
 
 # Javascript
 gem 'mini_racer'
@@ -60,7 +62,7 @@ gem 'font-awesome-rails'
 # Forms
 gem 'bootstrap_form', '2.7.0'
 gem 'nested_form'
-gem 'action_form', git: 'https://github.com/jbox-web/action_form.git'
+gem 'action_form', github: 'jbox-web/action_form'
 
 # Bootstrap addons
 gem 'bootstrap-switch-rails'
@@ -183,7 +185,7 @@ group :development do
 
   # Deployment
   gem 'capistrano'
-  gem 'capistrano-rvm'
+  gem 'capistrano-rbenv'
   gem 'capistrano-rails'
   gem 'capistrano-foreman'
   gem 'capistrano-template'

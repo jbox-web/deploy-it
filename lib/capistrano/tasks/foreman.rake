@@ -55,6 +55,7 @@ namespace :foreman do
   # Override original method to add our systemd arguments.
   def foreman_exec(*args)
     if args.first == :foreman
+      args.unshift(:bundle, :exec)
       execute *args
     else
       args.shift
