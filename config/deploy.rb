@@ -17,10 +17,10 @@ set :ssh_options, {
 
 ## rbenv
 set :rbenv_type, :user
-set :rbenv_ruby, '2.5.8'
+set :rbenv_ruby, '2.6.6'
 
 ## Bundler
-set :bundle_flags,   '--quiet'
+set :bundle_flags,   ''
 set :bundle_path,    nil
 set :bundle_without, nil
 
