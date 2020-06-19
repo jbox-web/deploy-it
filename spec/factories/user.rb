@@ -20,8 +20,8 @@ FactoryBot.define do
     f.lastname        { Faker::Name.last_name }
     f.email           { Faker::Internet.email }
     f.password        { Faker::Internet.password(6) }
-    f.language        "fr"
-    f.time_zone       "Paris"
+    f.language        { 'fr' }
+    f.time_zone       { 'Paris' }
   end
 
 end

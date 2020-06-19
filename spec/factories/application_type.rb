@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :application_type do |f|
     f.name     { Faker::Internet.user_name }
     f.version  { [Faker::Number.digit, Faker::Number.digit, Faker::Number.digit].join('.') }
-    f.language 'php'
+    f.language { 'php' }
   end
 
 end

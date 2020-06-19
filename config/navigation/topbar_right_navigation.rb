@@ -15,7 +15,7 @@
 
 SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |menu|
-    menu.dom_class = 'navbar-top-links navbar-right'
+    menu.dom_class = 'nav navbar-nav navbar-top-links navbar-right'
     if current_site_user.logged?
       menu.item :applications, get_model_name_for('Application'), applications_path
       menu.item :admin,        t('text.admin'), admin_root_path, if: -> { current_site_user.admin? }

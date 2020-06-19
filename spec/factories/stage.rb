@@ -19,7 +19,7 @@ FactoryBot.define do
     f.name         { Faker::Internet.user_name }
     f.identifier   { Faker::Internet.user_name }
     f.association  :platform
-    f.database_name_prefix ''
+    f.database_name_prefix { '' }
   end
 
 end

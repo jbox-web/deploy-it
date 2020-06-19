@@ -19,7 +19,7 @@ FactoryBot.define do
     f.association        :application
     f.sequence(:source)  { |n| "static-file/toto#{n}" }
     f.sequence(:target)  { |n| "/app/toto#{n}" }
-    f.step               "deploy"
+    f.step               { 'deploy' }
   end
 
 end

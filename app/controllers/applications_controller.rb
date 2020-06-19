@@ -92,7 +92,7 @@ class ApplicationsController < DCIController
 
 
     def load_wizard_form
-      @wizard_form = ApplicationCreationWizardForm.new(Application, session, params)
+      @wizard_form = ApplicationCreationWizardForm.new(Application, session, params.to_unsafe_h)
       if action_name.in? %w[new]
         @wizard_form.start
       elsif action_name.in? %w[create]

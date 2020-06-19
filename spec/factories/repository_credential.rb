@@ -17,7 +17,7 @@ FactoryBot.define do
 
   factory :repository_credential do |f|
     f.name { Faker::Internet.user_name }
-    f.type 'RepositoryCredential::BasicAuth'
+    f.type { 'RepositoryCredential::BasicAuth' }
   end
 
 end

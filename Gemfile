@@ -1,17 +1,19 @@
 source 'https://rubygems.org'
-ruby '2.5.0'
-
-gem 'rugged',                '~> 0.25.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.25.1', submodules: true
-
-gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
-gem 'active_use_case',       '~> 1.2.0',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.2.0'
-gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
-
-# Base gems
-gem 'rails', '~> 5.1'
 
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
+
+# Speedup application loading
+gem 'bootsnap', require: false
+
+# Base gems
+gem 'rails', '~> 5.2'
+
+gem 'rugged',                '~> 0.27.0', git: 'https://github.com/libgit2/rugged.git', tag: 'v0.27.10.1', submodules: true
+
+gem 'async_notifications',   '~> 1.0.0',  git: 'https://github.com/jbox-web/async_notifications.git', tag: '1.0.0'
+gem 'active_use_case',       '~> 1.3.0',  git: 'https://github.com/jbox-web/active_use_case.git', tag: '1.3.0'
+gem 'async_model',           '~> 1.0.0',  git: 'https://github.com/jbox-web/async_model.git'
 
 source 'https://rails-assets.org' do
   # HighCharts
@@ -26,7 +28,7 @@ gem 'puma'
 
 # Database
 gem 'mysql2'
-gem 'pg', '< 1.0'
+gem 'pg'
 
 # Authentication
 gem 'bcrypt'
@@ -56,9 +58,9 @@ gem 'font-awesome-sass'
 gem 'font-awesome-rails'
 
 # Forms
-gem 'bootstrap_form'
+gem 'bootstrap_form', '2.7.0'
 gem 'nested_form'
-gem 'actionform', git: 'https://github.com/jbox-web/actionform.git', require: 'action_form'
+gem 'action_form', git: 'https://github.com/jbox-web/action_form.git'
 
 # Bootstrap addons
 gem 'bootstrap-switch-rails'
@@ -139,9 +141,6 @@ gem 'rack-mini-profiler'
 # External API
 gem 'grape'
 gem 'hashie-forbidden_attributes'
-
-# Speedup application loading
-gem 'bootsnap', require: false
 
 # Be notified of exceptions in production
 gem 'exception_notification'

@@ -18,7 +18,7 @@ FactoryBot.define do
   factory :push do |f|
     f.association  :application
     f.association  :author, factory: :user
-    f.ref_name     "refs/heads/master"
+    f.ref_name     { 'refs/heads/master' }
     f.old_revision { Faker::Number.number(32) }
     f.new_revision { Faker::Number.number(32) }
   end
