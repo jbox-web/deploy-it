@@ -232,6 +232,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.12.0)
       i18n (>= 1.6, < 2)
+    fast_blank (1.0.0)
     ffi (1.13.1)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -563,6 +564,7 @@ GEM
       unicode-display_width (~> 1.5)
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
+    symbol-fstring (0.1.0)
     syslogger (1.6.5)
     temple (0.8.2)
     terminal-table (1.8.0)
@@ -601,6 +603,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yajl-ruby (1.4.1)
     zeitwerk (2.3.0)
     zeroclipboard-rails (0.1.2)
       railties (>= 3.1)
@@ -646,6 +649,7 @@ DEPENDENCIES
   exception_notification
   factory_bot_rails
   faker
+  fast_blank
   figaro
   font-awesome-rails
   font-awesome-sass
@@ -697,10 +701,12 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sshkey
+  symbol-fstring
   syslogger
   tty-table
   turbolinks
   uglifier
+  yajl-ruby
   zeroclipboard-rails
 
 BUNDLED WITH

@@ -5,9 +5,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 # Bundler for Rails Assets
 gem 'bundler', '>= 1.8.4'
 
-# Speedup application loading
-gem 'bootsnap', require: false
-
 # Base gems
 gem 'rails', '~> 5.2'
 
@@ -25,12 +22,30 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
 end
 
+platforms :mri do
+  # Speedup application loading
+  gem 'bootsnap', require: false
+
+  # Speedup blank? method
+  gem 'fast_blank'
+
+  # symbol.to_s returns frozen string
+  gem 'symbol-fstring', require: 'fstring/all'
+
+  # Boost JSON generation
+  gem 'yajl-ruby', require: 'yajl/json_gem'
+
+  # Database
+  gem 'mysql2'
+  gem 'pg'
+
+  # Javascript
+  gem 'uglifier'
+  gem 'mini_racer'
+end
+
 # Server
 gem 'puma'
-
-# Database
-gem 'mysql2'
-gem 'pg'
 
 # Authentication
 gem 'bcrypt'
@@ -43,12 +58,10 @@ gem 'settingslogic'
 gem 'foreman', github: 'jbox-web/foreman'
 
 # Javascript
-gem 'mini_racer'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
-gem 'uglifier'
 
 # CSS
 gem 'sass-rails'
