@@ -13,9 +13,16 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class ContainerEventDatatable < AjaxDatatablesRails::Base
+class ContainerEventDatatable < AjaxDatatablesRails::ActiveRecord
+  extend Forwardable
 
   def_delegators :@view, :l, :t, :link_to_icon, :mark_event_path
+
+  def initialize(params, opts = {})
+    @view = opts[:view_context]
+    super
+  end
+
 
   def view_columns
     @view_columns ||= {

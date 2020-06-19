@@ -44,7 +44,7 @@ class ContainersManagerController < DCIController
 
   def events
     if request.post?
-      return render json: ContainerEventDatatable.new(view_context, container: @container)
+      return render json: ContainerEventDatatable.new(params, view_context: view_context, container: @container)
     end
   end
 
