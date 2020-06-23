@@ -6,6 +6,7 @@ production:
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASS'] %>
   encoding: utf8
+  pool:     25
 
 development:
   adapter:  <%= ENV['DB_ADAPTER'] %>
