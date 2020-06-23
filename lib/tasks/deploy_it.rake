@@ -8,7 +8,7 @@ namespace :deploy_it do
 
   namespace :applications do
     desc "Rebuild all applications"
-    task :rebuild_all => [:environment] do
+    task rebuild_all: [:environment] do
       user = User.find_by_id(1)
 
       Application.find_each do |application|
@@ -23,6 +23,16 @@ namespace :deploy_it do
         end
       end
     end
-  end
 
+    desc "Dump applications repo config to YAML"
+    task dump_repo_config: [:environment] do
+      configs = {}
+
+      Application.find_each do |application|
+        configs[application.identifier] = { 'git_url' => application.distant_repo.git_url, 'deploy_it_url' => application.local_repo.git_url }
+      end
+
+      puts YAML.dump(configs)
+    end
+  end
 end
