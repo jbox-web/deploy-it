@@ -42,6 +42,7 @@ module DockerApplication
 
     def application_params
       params = {}
+      params[:docker]            = true
       params[:buildpack_url]     = buildpack
       params[:buildpack_debug]   = debug_mode? ? 'true' : ''
       params[:site_dns]          = domain_name
