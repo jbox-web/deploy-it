@@ -19,6 +19,7 @@ fr:
       title: Informations
 
       env_vars:
+        final: Voir les variables d'environnement finales
         none_defined: Aucune variable d'environnement définie
 
       mount_points:

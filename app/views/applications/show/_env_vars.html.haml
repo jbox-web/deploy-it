@@ -9,3 +9,11 @@
 
 - else
   = render_no_data
+
+= link_to "(#{t('.final')})", 'javascript:void(0);', onclick: "$('#final-env-vars').toggle(); return false;"
+%span{ id: 'final-env-vars', style: 'display: none;' }
+  %ul{ class: 'list-group' }
+    - application.active_env_vars.to_env.each do |env|
+      %li{ class: 'list-group-item' }
+        %span{ class: 'mount-point' }
+          %code= env
