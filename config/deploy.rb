@@ -17,7 +17,7 @@ set :ssh_options, {
 
 ## rbenv
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.6'
+set :rbenv_ruby, '2.7.2'
 
 ## Bundler
 set :bundle_flags,   ''
