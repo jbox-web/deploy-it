@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
-# Bundler for Rails Assets
-gem 'bundler', '>= 1.8.4'
-
 # Base gems
 gem 'rails', '~> 5.2'
 
@@ -132,7 +129,7 @@ gem 'net-ssh'
 gem 'aasm'
 
 # Redis
-gem 'redis', '~> 3.0'
+gem 'redis'
 gem 'hiredis'
 gem 'redis-namespace'
 
@@ -187,9 +184,6 @@ group :test, :development do
 
   # Code coverage
   gem 'simplecov'
-
-  # Code coverage for CodeClimate
-  gem 'codeclimate-test-reporter', require: false
 end
 
 group :development do
