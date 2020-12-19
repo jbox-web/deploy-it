@@ -114,7 +114,7 @@ gem 'acts_as_list'
 gem 'i18n-tasks'
 
 # Docker connection
-gem 'docker-api'
+gem 'docker-api', '1.34.2'
 
 # Render Docker top
 gem 'tty-table'
