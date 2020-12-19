@@ -16,5 +16,5 @@ fr:
         failed: "Echec de la création de l'archive du dépôt '%{repository}' : %{errors}"
       init_bare:
         errors:
-          initialize:
-          install_hook:
+          initialize: Erreurs lors de l'initialisation du dépôt '%{repository}'
+          install_hook: Erreurs lors de l'installation des hooks du dépôt '%{repository}'
