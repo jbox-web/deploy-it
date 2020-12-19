@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,425 +10,392 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105093916) do
+ActiveRecord::Schema.define(version: 2020_12_19_113803) do
 
-  create_table "application_addons", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.string   "type",           limit: 255
-    t.text     "params",         limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+  create_table "application_addons", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "type"
+    t.text "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id", "type"], name: "index_application_addons_on_application_id_and_type", unique: true
   end
 
-  add_index "application_addons", ["application_id", "type"], name: "index_application_addons_on_application_id_and_type", unique: true, using: :btree
-
-  create_table "application_credentials", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.string   "login",          limit: 255
-    t.string   "password",       limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "application_credentials", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "login"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id", "login"], name: "index_application_credentials_on_application_id_and_login", unique: true
+    t.index ["application_id"], name: "index_application_credentials_on_application_id"
   end
 
-  add_index "application_credentials", ["application_id", "login"], name: "index_application_credentials_on_application_id_and_login", unique: true, using: :btree
-  add_index "application_credentials", ["application_id"], name: "index_application_credentials_on_application_id", using: :btree
-
-  create_table "application_databases", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.integer  "server_id",      limit: 4
-    t.string   "db_type",        limit: 255
-    t.string   "db_name",        limit: 255
-    t.string   "db_user",        limit: 255
-    t.string   "db_pass",        limit: 255
-    t.boolean  "db_created",                 default: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+  create_table "application_databases", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "server_id"
+    t.string "db_type"
+    t.string "db_name"
+    t.string "db_user"
+    t.string "db_pass"
+    t.boolean "db_created", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_application_databases_on_application_id", unique: true
   end
 
-  add_index "application_databases", ["application_id"], name: "index_application_databases_on_application_id", unique: true, using: :btree
-
-  create_table "application_types", force: :cascade do |t|
-    t.string   "name",             limit: 255
-    t.string   "version",          limit: 255
-    t.string   "language",         limit: 255
-    t.text     "extra_attributes", limit: 65535
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+  create_table "application_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "version"
+    t.string "language"
+    t.text "extra_attributes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "version", "language"], name: "index_application_types_on_name_and_version_and_language", unique: true
   end
 
-  add_index "application_types", ["name", "version", "language"], name: "index_application_types_on_name_and_version_and_language", unique: true, using: :btree
-
-  create_table "applications", force: :cascade do |t|
-    t.integer  "application_type_id", limit: 4
-    t.integer  "stage_id",            limit: 4
-    t.string   "name",                limit: 255
-    t.string   "identifier",          limit: 13
-    t.string   "deploy_url",          limit: 255
-    t.string   "domain_name",         limit: 255
-    t.string   "image_type",          limit: 255
-    t.string   "buildpack",           limit: 255
-    t.integer  "instance_number",     limit: 4,     default: 1
-    t.integer  "max_memory",          limit: 4,     default: 256
-    t.boolean  "use_cron",                          default: false
-    t.boolean  "use_ssl",                           default: false
-    t.boolean  "use_workers",                       default: false
-    t.boolean  "debug_mode",                        default: false
-    t.boolean  "use_credentials",                   default: false
-    t.boolean  "marked_for_deletion",               default: false
-    t.text     "description",         limit: 65535
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+  create_table "applications", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_type_id"
+    t.integer "stage_id"
+    t.string "name"
+    t.string "identifier", limit: 13
+    t.string "deploy_url"
+    t.string "domain_name"
+    t.string "image_type"
+    t.string "buildpack"
+    t.integer "instance_number", default: 1
+    t.integer "max_memory", default: 256
+    t.boolean "use_cron", default: false
+    t.boolean "use_ssl", default: false
+    t.boolean "use_workers", default: false
+    t.boolean "debug_mode", default: false
+    t.boolean "use_credentials", default: false
+    t.boolean "marked_for_deletion", default: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_type_id"], name: "index_applications_on_application_type_id"
+    t.index ["deploy_url"], name: "index_applications_on_deploy_url", unique: true
+    t.index ["identifier", "stage_id"], name: "index_applications_on_identifier_and_stage_id", unique: true
+    t.index ["stage_id"], name: "index_applications_on_stage_id"
   end
 
-  add_index "applications", ["application_type_id"], name: "index_applications_on_application_type_id", using: :btree
-  add_index "applications", ["deploy_url"], name: "index_applications_on_deploy_url", unique: true, using: :btree
-  add_index "applications", ["identifier", "stage_id"], name: "index_applications_on_identifier_and_stage_id", unique: true, using: :btree
-  add_index "applications", ["stage_id"], name: "index_applications_on_stage_id", using: :btree
-
-  create_table "buildpacks", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "url",         limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "buildpacks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_buildpacks_on_name", unique: true
   end
 
-  add_index "buildpacks", ["name"], name: "index_buildpacks_on_name", unique: true, using: :btree
-
-  create_table "builds", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.integer  "author_id",      limit: 4
-    t.integer  "push_id",        limit: 4
-    t.string   "request_id",     limit: 255
-    t.string   "state",          limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "builds", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "author_id"
+    t.integer "push_id"
+    t.string "request_id"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_builds_on_application_id"
+    t.index ["author_id"], name: "index_builds_on_author_id"
+    t.index ["push_id"], name: "index_builds_on_push_id"
   end
 
-  add_index "builds", ["application_id"], name: "index_builds_on_application_id", using: :btree
-  add_index "builds", ["author_id"], name: "index_builds_on_author_id", using: :btree
-  add_index "builds", ["push_id"], name: "index_builds_on_push_id", using: :btree
-
-  create_table "configs", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.text     "values",         limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+  create_table "configs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.text "values"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_configs_on_application_id"
   end
 
-  add_index "configs", ["application_id"], name: "index_configs_on_application_id", using: :btree
-
-  create_table "container_events", force: :cascade do |t|
-    t.integer  "container_id", limit: 4
-    t.string   "type",         limit: 255
-    t.string   "message",      limit: 255
-    t.boolean  "seen",                     default: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+  create_table "container_events", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "container_id"
+    t.string "type"
+    t.string "message"
+    t.boolean "seen", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["container_id"], name: "index_container_events_on_container_id"
   end
 
-  add_index "container_events", ["container_id"], name: "index_container_events_on_container_id", using: :btree
-
-  create_table "containers", force: :cascade do |t|
-    t.integer  "application_id",      limit: 4
-    t.integer  "server_id",           limit: 4
-    t.integer  "release_id",          limit: 4
-    t.string   "type",                limit: 255
-    t.string   "image_name",          limit: 255
-    t.integer  "cpu_shares",          limit: 4,   default: 256
-    t.integer  "memory",              limit: 4,   default: 256
-    t.integer  "port",                limit: 4
-    t.string   "docker_id",           limit: 255
-    t.boolean  "marked_for_deletion",             default: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+  create_table "containers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "server_id"
+    t.integer "release_id"
+    t.string "type"
+    t.string "image_name"
+    t.integer "cpu_shares", default: 256
+    t.integer "memory", default: 256
+    t.integer "port"
+    t.string "docker_id"
+    t.boolean "marked_for_deletion", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_containers_on_application_id"
+    t.index ["docker_id"], name: "index_containers_on_docker_id"
   end
 
-  add_index "containers", ["application_id"], name: "index_containers_on_application_id", using: :btree
-  add_index "containers", ["docker_id"], name: "index_containers_on_docker_id", using: :btree
-
-  create_table "docker_images", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "start_cmd",   limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "docker_images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "start_cmd"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_docker_images_on_name", unique: true
   end
 
-  add_index "docker_images", ["name"], name: "index_docker_images_on_name", unique: true, using: :btree
-
-  create_table "domain_names", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.string   "domain_name",    limit: 255
-    t.string   "mode",           limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "domain_names", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "domain_name"
+    t.string "mode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_domain_names_on_application_id"
+    t.index ["domain_name"], name: "index_domain_names_on_domain_name", unique: true
   end
 
-  add_index "domain_names", ["application_id"], name: "index_domain_names_on_application_id", using: :btree
-  add_index "domain_names", ["domain_name"], name: "index_domain_names_on_domain_name", unique: true, using: :btree
-
-  create_table "env_vars", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.string   "key",            limit: 255
-    t.string   "value",          limit: 255
-    t.boolean  "masked",                     default: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+  create_table "env_vars", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "key"
+    t.string "value"
+    t.boolean "masked", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id", "key"], name: "index_env_vars_on_application_id_and_key", unique: true
+    t.index ["application_id"], name: "index_env_vars_on_application_id"
   end
 
-  add_index "env_vars", ["application_id", "key"], name: "index_env_vars_on_application_id_and_key", unique: true, using: :btree
-  add_index "env_vars", ["application_id"], name: "index_env_vars_on_application_id", using: :btree
-
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
-  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
-
-  create_table "groups_users", id: false, force: :cascade do |t|
-    t.integer "group_id", limit: 4, null: false
-    t.integer "user_id",  limit: 4, null: false
+  create_table "groups_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "user_id", null: false
+    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id", unique: true
+    t.index ["group_id"], name: "index_groups_users_on_group_id"
+    t.index ["user_id"], name: "index_groups_users_on_user_id"
   end
 
-  add_index "groups_users", ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id", unique: true, using: :btree
-  add_index "groups_users", ["group_id"], name: "index_groups_users_on_group_id", using: :btree
-  add_index "groups_users", ["user_id"], name: "index_groups_users_on_user_id", using: :btree
-
-  create_table "locks", force: :cascade do |t|
-    t.string "token", limit: 255, null: false
+  create_table "locks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "token", null: false
+    t.index ["token"], name: "index_locks_on_token", unique: true
   end
 
-  add_index "locks", ["token"], name: "index_locks_on_token", unique: true, using: :btree
-
-  create_table "member_roles", force: :cascade do |t|
-    t.integer "member_id",      limit: 4, null: false
-    t.integer "role_id",        limit: 4, null: false
-    t.integer "inherited_from", limit: 4
+  create_table "member_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "role_id", null: false
+    t.integer "inherited_from"
+    t.index ["member_id"], name: "index_member_roles_on_member_id"
+    t.index ["role_id"], name: "index_member_roles_on_role_id"
   end
 
-  add_index "member_roles", ["member_id"], name: "index_member_roles_on_member_id", using: :btree
-  add_index "member_roles", ["role_id"], name: "index_member_roles_on_role_id", using: :btree
-
-  create_table "members", force: :cascade do |t|
-    t.integer  "enrolable_id",   limit: 4
-    t.string   "enrolable_type", limit: 255
-    t.integer  "application_id", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "members", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "enrolable_id"
+    t.string "enrolable_type"
+    t.integer "application_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_members_on_application_id"
+    t.index ["enrolable_id", "enrolable_type", "application_id"], name: "unique_member", unique: true
+    t.index ["enrolable_id"], name: "index_members_on_enrolable_id"
   end
 
-  add_index "members", ["application_id"], name: "index_members_on_application_id", using: :btree
-  add_index "members", ["enrolable_id", "enrolable_type", "application_id"], name: "unique_member", unique: true, using: :btree
-  add_index "members", ["enrolable_id"], name: "index_members_on_enrolable_id", using: :btree
-
-  create_table "mount_points", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.string   "source",         limit: 255
-    t.string   "target",         limit: 255
-    t.string   "step",           limit: 255
-    t.boolean  "active",                     default: true
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+  create_table "mount_points", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "source"
+    t.string "target"
+    t.string "step"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_mount_points_on_application_id"
   end
 
-  add_index "mount_points", ["application_id"], name: "index_mount_points_on_application_id", using: :btree
-
-  create_table "platform_credentials", force: :cascade do |t|
-    t.integer  "platform_id", limit: 4
-    t.string   "fingerprint", limit: 255
-    t.text     "public_key",  limit: 65535
-    t.text     "private_key", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "platform_credentials", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "platform_id"
+    t.string "fingerprint"
+    t.text "public_key"
+    t.text "private_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint"], name: "index_platform_credentials_on_fingerprint", unique: true
+    t.index ["platform_id"], name: "index_platform_credentials_on_platform_id", unique: true
   end
 
-  add_index "platform_credentials", ["fingerprint"], name: "index_platform_credentials_on_fingerprint", unique: true, using: :btree
-  add_index "platform_credentials", ["platform_id"], name: "index_platform_credentials_on_platform_id", unique: true, using: :btree
-
-  create_table "platforms", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "identifier",  limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "platforms", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "identifier"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_platforms_on_identifier", unique: true
   end
 
-  add_index "platforms", ["identifier"], name: "index_platforms_on_identifier", unique: true, using: :btree
-
-  create_table "pushes", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.integer  "author_id",      limit: 4
-    t.string   "ref_name",       limit: 255
-    t.string   "old_revision",   limit: 255
-    t.string   "new_revision",   limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "pushes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "author_id"
+    t.string "ref_name"
+    t.string "old_revision"
+    t.string "new_revision"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_pushes_on_application_id"
+    t.index ["author_id"], name: "index_pushes_on_author_id"
   end
 
-  add_index "pushes", ["application_id"], name: "index_pushes_on_application_id", using: :btree
-  add_index "pushes", ["author_id"], name: "index_pushes_on_author_id", using: :btree
-
-  create_table "releases", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.integer  "author_id",      limit: 4
-    t.integer  "build_id",       limit: 4
-    t.integer  "config_id",      limit: 4
-    t.integer  "version",        limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+  create_table "releases", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.integer "author_id"
+    t.integer "build_id"
+    t.integer "config_id"
+    t.integer "version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_releases_on_application_id"
+    t.index ["author_id"], name: "index_releases_on_author_id"
+    t.index ["build_id"], name: "index_releases_on_build_id"
+    t.index ["config_id"], name: "index_releases_on_config_id"
+    t.index ["version"], name: "index_releases_on_version"
   end
 
-  add_index "releases", ["application_id"], name: "index_releases_on_application_id", using: :btree
-  add_index "releases", ["author_id"], name: "index_releases_on_author_id", using: :btree
-  add_index "releases", ["build_id"], name: "index_releases_on_build_id", using: :btree
-  add_index "releases", ["config_id"], name: "index_releases_on_config_id", using: :btree
-  add_index "releases", ["version"], name: "index_releases_on_version", using: :btree
-
-  create_table "repositories", force: :cascade do |t|
-    t.integer  "application_id",   limit: 4
-    t.string   "type",             limit: 255
-    t.string   "url",              limit: 255
-    t.string   "relative_path",    limit: 255
-    t.string   "branch",           limit: 255, default: "master"
-    t.boolean  "have_credentials",             default: false
-    t.integer  "credential_id",    limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+  create_table "repositories", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.string "type"
+    t.string "url"
+    t.string "relative_path"
+    t.string "branch", default: "master"
+    t.boolean "have_credentials", default: false
+    t.integer "credential_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id", "type"], name: "index_repositories_on_application_id_and_type", unique: true
+    t.index ["credential_id"], name: "index_repositories_on_credential_id"
   end
 
-  add_index "repositories", ["application_id", "type"], name: "index_repositories_on_application_id_and_type", unique: true, using: :btree
-  add_index "repositories", ["credential_id"], name: "index_repositories_on_credential_id", using: :btree
-
-  create_table "repository_credentials", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "type",        limit: 255
-    t.string   "fingerprint", limit: 255
-    t.text     "public_key",  limit: 65535
-    t.text     "private_key", limit: 65535
-    t.string   "login",       limit: 255
-    t.string   "password",    limit: 255
-    t.boolean  "generated"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "repository_credentials", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "fingerprint"
+    t.text "public_key"
+    t.text "private_key"
+    t.string "login"
+    t.string "password"
+    t.boolean "generated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint"], name: "index_repository_credentials_on_fingerprint"
   end
 
-  add_index "repository_credentials", ["fingerprint"], name: "index_repository_credentials_on_fingerprint", using: :btree
-
-  create_table "reserved_names", force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "reserved_names", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.index ["name"], name: "index_reserved_names_on_name", unique: true
   end
 
-  add_index "reserved_names", ["name"], name: "index_reserved_names_on_name", unique: true, using: :btree
-
-  create_table "roles", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "builtin",     limit: 4,     default: 0
-    t.integer  "position",    limit: 4,     default: 1
-    t.text     "permissions", limit: 65535
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+  create_table "roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "builtin", default: 0
+    t.integer "position", default: 1
+    t.text "permissions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
-  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
-
-  create_table "server_roles", force: :cascade do |t|
-    t.integer  "platform_id",        limit: 4
-    t.integer  "server_id",          limit: 4
-    t.string   "name",               limit: 255
-    t.string   "alternative_host",   limit: 255, default: ""
-    t.integer  "port",               limit: 4
-    t.integer  "connection_timeout", limit: 4,   default: 10
-    t.boolean  "default_server",                 default: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+  create_table "server_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "platform_id"
+    t.integer "server_id"
+    t.string "name"
+    t.string "alternative_host", default: ""
+    t.integer "port"
+    t.integer "connection_timeout", default: 10
+    t.boolean "default_server", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_server_roles_on_name"
+    t.index ["platform_id"], name: "index_server_roles_on_platform_id"
+    t.index ["server_id", "name"], name: "index_server_roles_on_server_id_and_name", unique: true
+    t.index ["server_id"], name: "index_server_roles_on_server_id"
   end
 
-  add_index "server_roles", ["name"], name: "index_server_roles_on_name", using: :btree
-  add_index "server_roles", ["platform_id"], name: "index_server_roles_on_platform_id", using: :btree
-  add_index "server_roles", ["server_id", "name"], name: "index_server_roles_on_server_id_and_name", unique: true, using: :btree
-  add_index "server_roles", ["server_id"], name: "index_server_roles_on_server_id", using: :btree
-
-  create_table "servers", force: :cascade do |t|
-    t.integer  "platform_id", limit: 4
-    t.string   "host_name",   limit: 255
-    t.string   "ip_address",  limit: 255
-    t.string   "ssh_user",    limit: 255, default: "root"
-    t.integer  "ssh_port",    limit: 4,   default: 22
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+  create_table "servers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "platform_id"
+    t.string "host_name"
+    t.string "ip_address"
+    t.string "ssh_user", default: "root"
+    t.integer "ssh_port", default: 22
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["host_name"], name: "index_servers_on_host_name", unique: true
+    t.index ["ip_address"], name: "index_servers_on_ip_address", unique: true
+    t.index ["platform_id"], name: "index_servers_on_platform_id"
   end
 
-  add_index "servers", ["host_name"], name: "index_servers_on_host_name", unique: true, using: :btree
-  add_index "servers", ["ip_address"], name: "index_servers_on_ip_address", unique: true, using: :btree
-  add_index "servers", ["platform_id"], name: "index_servers_on_platform_id", using: :btree
-
-  create_table "ssh_public_keys", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "title",       limit: 255
-    t.string   "fingerprint", limit: 255
-    t.text     "key",         limit: 65535
-    t.boolean  "active",                    default: true
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+  create_table "ssh_public_keys", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.string "fingerprint"
+    t.text "key"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint"], name: "index_ssh_public_keys_on_fingerprint"
+    t.index ["user_id"], name: "index_ssh_public_keys_on_user_id"
   end
 
-  add_index "ssh_public_keys", ["fingerprint"], name: "index_ssh_public_keys_on_fingerprint", using: :btree
-  add_index "ssh_public_keys", ["user_id"], name: "index_ssh_public_keys_on_user_id", using: :btree
-
-  create_table "ssl_certificates", force: :cascade do |t|
-    t.integer  "application_id", limit: 4
-    t.text     "ssl_crt",        limit: 65535
-    t.text     "ssl_key",        limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+  create_table "ssl_certificates", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "application_id"
+    t.text "ssl_crt"
+    t.text "ssl_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_ssl_certificates_on_application_id", unique: true
   end
 
-  add_index "ssl_certificates", ["application_id"], name: "index_ssl_certificates_on_application_id", unique: true, using: :btree
-
-  create_table "stages", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.string   "identifier",           limit: 255
-    t.integer  "platform_id",          limit: 4
-    t.string   "portal_url",           limit: 255
-    t.string   "database_name_prefix", limit: 255
-    t.string   "domain_name_suffix",   limit: 255
-    t.text     "description",          limit: 65535
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+  create_table "stages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "identifier"
+    t.integer "platform_id"
+    t.string "portal_url"
+    t.string "database_name_prefix"
+    t.string "domain_name_suffix"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier", "platform_id"], name: "index_stages_on_identifier_and_platform_id", unique: true
+    t.index ["platform_id"], name: "index_stages_on_platform_id"
   end
 
-  add_index "stages", ["identifier", "platform_id"], name: "index_stages_on_identifier_and_platform_id", unique: true, using: :btree
-  add_index "stages", ["platform_id"], name: "index_stages_on_platform_id", using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "",    null: false
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
-    t.string   "firstname",              limit: 255
-    t.string   "lastname",               limit: 255
-    t.string   "language",               limit: 255
-    t.string   "time_zone",              limit: 255
-    t.boolean  "admin",                              default: false
-    t.boolean  "enabled",                            default: true
-    t.string   "authentication_token",   limit: 255
-    t.string   "api_token",              limit: 255
-    t.string   "reset_password_token",   limit: 255
+  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "firstname"
+    t.string "lastname"
+    t.string "language"
+    t.string "time_zone"
+    t.boolean "admin", default: false
+    t.boolean "enabled", default: true
+    t.string "authentication_token"
+    t.string "api_token"
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_token"], name: "index_users_on_api_token", unique: true
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["api_token"], name: "index_users_on_api_token", unique: true, using: :btree
-  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

@@ -213,4 +213,7 @@ group :development do
 
   # Generate Entity-Relationship Diagrams
   gem 'rails-erd'
+
+  # Squash DB migrations
+  gem 'squasher'
 end
