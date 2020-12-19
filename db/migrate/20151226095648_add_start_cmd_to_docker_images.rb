@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class AddStartCmdToDockerImages < ActiveRecord::Migration
+class AddStartCmdToDockerImages < ActiveRecord::Migration[4.2]
   def change
     add_column :docker_images, :start_cmd, :string, after: :name
   end

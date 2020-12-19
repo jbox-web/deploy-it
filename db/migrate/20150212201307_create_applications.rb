@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class CreateApplications < ActiveRecord::Migration
+class CreateApplications < ActiveRecord::Migration[4.2]
   def change
     create_table :applications do |t|
       t.integer :application_type_id

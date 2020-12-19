@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class AddApiTokenField < ActiveRecord::Migration
+class AddApiTokenField < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :api_token, :string, after: :authentication_token
     add_index  :users, :api_token, unique: true

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class CreateConfigs < ActiveRecord::Migration
+class CreateConfigs < ActiveRecord::Migration[4.2]
   def change
     create_table :configs do |t|
       t.integer :application_id

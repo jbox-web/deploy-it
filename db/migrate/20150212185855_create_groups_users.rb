@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class CreateGroupsUsers < ActiveRecord::Migration
+class CreateGroupsUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :groups_users, id: false do |t|
       t.integer  :group_id, null: false

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class SwitchAddonsToSti < ActiveRecord::Migration
+class SwitchAddonsToSti < ActiveRecord::Migration[4.2]
   def up
     remove_index  :application_addons, name: 'index_application_addons_on_application_id_and_addon_id'
     remove_column :application_addons, :addon_id

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class CreateContainers < ActiveRecord::Migration
+class CreateContainers < ActiveRecord::Migration[4.2]
   def change
     create_table :containers do |t|
       t.integer :application_id

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class RemoveLoginField < ActiveRecord::Migration
+class RemoveLoginField < ActiveRecord::Migration[4.2]
   def up
     remove_column :users, :login
     change_column :users, :email, :string, null: false, default: '', after: :id

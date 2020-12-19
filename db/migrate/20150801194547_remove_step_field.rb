@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License, version 3,
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-class RemoveStepField < ActiveRecord::Migration
+class RemoveStepField < ActiveRecord::Migration[4.2]
   def up
     remove_column :env_vars, :step
   end
