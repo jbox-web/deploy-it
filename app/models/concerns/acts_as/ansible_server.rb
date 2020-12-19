@@ -23,7 +23,7 @@ module ActsAs
 
         def generate_ansible_inventory_file!
           content = {}
-          Server.all.map { |s| content[s.host_name] = { ansible_ssh_host: s.ip_address } }
+          Server.all.map { |s| content[s.host_name] = { ansible_ssh_host: s.ip_address, ansible_ssh_port: s.ssh_port } }
           AnsibleProxy.generate_inventory_file(content)
         end
 

@@ -83,10 +83,13 @@ class AnsibleProxy
       raise e
     else
       if opts[:debug]
+        DeployIt.file_logger.error params
+        DeployIt.file_logger.error extra_vars
         DeployIt.file_logger.error output
         DeployIt.file_logger.error err
       end
-      raise ANSIBLE_EXIT_STATUS[status.exitstatus] unless status.exitstatus == 0
+      exception = ANSIBLE_EXIT_STATUS[status.exitstatus] || DeployIt::Error::ServerUpdateFailed
+      raise exception unless status.exitstatus == 0
     ensure
       FileUtils.rm_f(vars_file)
       destroy_temp_keys

@@ -1,16 +1,14 @@
 ---
 - hosts: "{{ HOST }}"
   remote_user: "{{ USER }}"
-  port: "{{ PORT }}"
   gather_facts: no
 
   vars_files:
     - "{{ CONTAINER_VARS }}"
 
   tasks:
+    - name: "Create Postgres database : {{ DB_NAME }}"
+      postgresql_db: login_host=localhost name={{ DB_NAME }} state=present
 
-  - name: "Create Postgres database : {{ DB_NAME }}"
-    postgresql_db: login_host=localhost name={{ DB_NAME }} state=present
-
-  - name: "Create Postgres database user : {{ DB_USER }}"
-    postgresql_user: login_host=localhost name={{ DB_USER }} password={{ DB_PASS }} db={{ DB_NAME }} priv=ALL state=present
+    - name: "Create Postgres database user : {{ DB_USER }}"
+      postgresql_user: login_host=localhost name={{ DB_USER }} password={{ DB_PASS }} db={{ DB_NAME }} priv=ALL state=present
