@@ -7,20 +7,20 @@ namespace :deploy_it do
       user_option = {
         firstname: 'admin',
         lastname: 'admin',
-        email: 'admin@example.org',
+        email: 'admin@example.net',
         admin: true,
         password: 'admin123',
         language: 'fr',
         time_zone: 'Paris'
       }
 
-      unless User.where(email: 'admin@example.org').any?
+      unless User.where(email: 'admin@example.net').any?
         puts 'Create Admin user ...'
         admin = User.new(user_option)
         admin.save!
         puts 'Done!'
         puts
-        puts 'email    : admin@example.org'
+        puts 'email    : admin@example.net'
         puts 'password : admin123'
       else
         puts 'User admin already exists, skip ...'
