@@ -96,6 +96,8 @@ GEM
       activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    after_commit_everywhere (0.1.5)
+      activerecord (>= 4.2)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     ajax-datatables-rails (1.2.0)
@@ -609,6 +611,7 @@ DEPENDENCIES
   action_form!
   active_use_case (~> 1.3.0)!
   acts_as_list
+  after_commit_everywhere
   ajax-datatables-rails
   async_model (~> 1.0.0)!
   async_notifications (~> 1.0.0)!

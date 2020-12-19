@@ -127,6 +127,7 @@ gem 'net-ssh'
 
 # Docker builds are state machines
 gem 'aasm'
+gem 'after_commit_everywhere'
 
 # Redis
 gem 'redis'
