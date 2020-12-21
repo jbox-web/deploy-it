@@ -149,10 +149,6 @@ gem 'redis-rails'
 # Profiler
 gem 'rack-mini-profiler'
 
-# External API
-gem 'grape'
-gem 'hashie-forbidden_attributes'
-
 # Be notified of exceptions in production
 gem 'exception_notification'
 

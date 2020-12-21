@@ -26,7 +26,6 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: '/sidekiq'
   end
 
-  mount DeployIt::API, at: '/'
   mount ActionCable.server, at: '/cable'
 
   ## Devise routes
