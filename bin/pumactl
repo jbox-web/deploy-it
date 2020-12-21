@@ -26,4 +26,9 @@ end
 require "rubygems"
 require "bundler/setup"
 
+# Be sure to load env vars from *.env* file
+# before calling command
+require "dotenv"
+Dotenv.load
+
 load Gem.bin_path("puma", "pumactl")

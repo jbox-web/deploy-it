@@ -26,7 +26,9 @@ end
 require "rubygems"
 require "bundler/setup"
 
-require 'dotenv'
+# Be sure to load env vars from *.env* file
+# before calling command
+require "dotenv"
 Dotenv.load
 
 load Gem.bin_path("squasher", "squasher")
