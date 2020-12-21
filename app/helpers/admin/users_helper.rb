@@ -27,7 +27,7 @@ module Admin
 
 
     def applications_list_options_for_select(applications, options = {})
-      s = ''
+      s = []
       applications.each do |application|
         tag_options = {:value => application.id}
         if application == options[:selected] || (options[:selected].respond_to?(:include?) && options[:selected].include?(application))
@@ -38,7 +38,7 @@ module Admin
         tag_options.merge!(yield(application)) if block_given?
         s << content_tag(:option, application.name, tag_options)
       end
-      s.html_safe
+      safe_join(s)
     end
 
   end
