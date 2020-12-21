@@ -1,7 +1,4 @@
 ---
-# Rails config
-application_name:   <%= ENV['APPLICATION_NAME'] %>
-
 # DB Config
 db_adapter: <%= ENV['DB_ADAPTER'] %>
 db_host:    <%= ENV['DB_HOST'] %>

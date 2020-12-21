@@ -17,7 +17,6 @@
 APPLICATION_CONFIG = {
   rails_config: %w(
     SECRET_KEY_BASE
-    APPLICATION_NAME
   ),
 
   db_config: %w(
