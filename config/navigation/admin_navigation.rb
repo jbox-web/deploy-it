@@ -30,9 +30,8 @@ SimpleNavigation::Configuration.run do |navigation|
       menu.item :applications,      *menu_entry_for_model('Application', namespace: :admin)
       menu.item :locks,             *menu_entry_for_model('Lock', namespace: :admin)
 
-      menu.item :settings,          { icon: icon_for_entry('fa-gear'),  text: label_for_entry(t('text.settings')) }, admin_settings_path
-      menu.item :logster,           { icon: icon_for_entry('fa-book'),  text: label_for_entry(t('text.logster')) }, logster_web_path, link_html: { target: '_blank' }
-      menu.item :sidekiq,           { icon: icon_for_entry('fa-gears'), text: label_for_entry(t('text.sidekiq')) }, sidekiq_web_path, link_html: { target: '_blank' }
+      menu.item :settings, { icon: icon_for_entry('fa-gear'),  text: label_for_entry(t('text.settings')) }, admin_settings_path
+      menu.item :sidekiq,  { icon: icon_for_entry('fa-gears'), text: label_for_entry(t('text.sidekiq')) }, sidekiq_web_path, link_html: { target: '_blank' }
     end
   end
 end

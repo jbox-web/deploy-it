@@ -24,7 +24,6 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: '/sidekiq'
-    mount Logster::Web, at: '/logs'
   end
 
   mount DeployIt::API, at: '/'

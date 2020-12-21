@@ -65,13 +65,6 @@ module DeployIt
                                          namespace:  'cache',
                                          driver:     :hiredis,
                                          expires_in: 90.minutes }
-
-    # Logster
-    Logster.store = Logster::RedisStore.new Redis.new(host:      ENV['REDIS_HOST'],
-                                                      port:      ENV['REDIS_PORT'],
-                                                      db:        ENV['REDIS_DB'],
-                                                      namespace: 'logster',
-                                                      driver:    :hiredis)
   end
 end
 

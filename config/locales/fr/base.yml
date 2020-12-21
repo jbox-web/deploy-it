@@ -35,7 +35,6 @@ fr:
     settings: Paramètres
     infos: Informations
     sidekiq: Sidekiq
-    logster: Logster
     monitoring: Monitoring
     save_in_progress: Sauvegarde en cours...
     new_application: Nouvelle application

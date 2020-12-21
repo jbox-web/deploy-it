@@ -146,9 +146,6 @@ gem 'bootstrap-growl-rails'
 # Cache
 gem 'redis-rails'
 
-# Rails Application Logs
-gem 'logster'
-
 # Profiler
 gem 'rack-mini-profiler'
 
