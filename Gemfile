@@ -34,7 +34,6 @@ platforms :mri do
   gem 'yajl-ruby', require: 'yajl/json_gem'
 
   # Database
-  gem 'mysql2'
   gem 'pg'
 
   # Javascript

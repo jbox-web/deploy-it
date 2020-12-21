@@ -21,7 +21,6 @@ APPLICATION_CONFIG = {
   ),
 
   db_config: %w(
-    DB_ADAPTER
     DB_HOST
     DB_PORT
     DB_NAME
