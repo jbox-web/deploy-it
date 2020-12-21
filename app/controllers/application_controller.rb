@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
   include BaseController::Errors
   include BaseController::UserSettings
   include BaseController::Ajax
-  include BaseController::Tools
   include BaseController::Helpers
   include BaseController::Menus
 

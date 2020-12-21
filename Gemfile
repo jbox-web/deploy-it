@@ -146,9 +146,6 @@ gem 'bootstrap-growl-rails'
 # Cache
 gem 'redis-rails'
 
-# Profiler
-gem 'rack-mini-profiler'
-
 # Be notified of exceptions in production
 gem 'exception_notification'
 
