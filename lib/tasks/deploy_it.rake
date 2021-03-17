@@ -29,7 +29,7 @@ namespace :deploy_it do
       configs = {}
 
       Application.find_each do |application|
-        configs[application.identifier] = { 'git_url' => application.distant_repo.git_url, 'deploy_it_url' => application.local_repo.git_url }
+        configs[application.identifier] = application.to_hash
       end
 
       puts YAML.dump(configs)

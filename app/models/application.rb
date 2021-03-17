@@ -212,6 +212,18 @@ class Application < ApplicationRecord
   end
 
 
+  def to_hash
+    {
+      git_url:          distant_repo.git_url,
+      env_vars:         active_env_vars.transform_keys(&:to_s).transform_keys(&:upcase),
+      mount_points:     active_mount_points[:deploy],
+      domain_name:      domain_name,
+      domain_aliases:   domain_aliases.map(&:domain_name).join(','),
+      domain_redirects: domain_redirects.map(&:domain_name).join(','),
+    }
+  end
+
+
   private
 
 
